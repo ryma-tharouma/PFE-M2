@@ -1,0 +1,42 @@
+[
+  {
+    "id": "faq_001",
+    "app_name": "CRM",
+    "manual_name": "User Guide",
+    "question": "How do I log in to the CRM?",
+    "answer": "Enter your username and password on the login page and click 'Sign In'.",
+    "checksum": "faq123"
+  },
+  {
+    "id": "faq_002",
+    "app_name": "CRM",
+    "manual_name": "User Guide",
+    "question": "How do I create a new contact?",
+    "answer": "Go to Contacts > New, fill in the required fields, and save.",
+    "checksum": "faq456"
+  },
+  {
+    "id": "faq_003",
+    "app_name": "ERP",
+    "manual_name": "Inventory Manual",
+    "question": "How do I add a product to inventory?",
+    "answer": "Navigate to Inventory > Add Product, fill in the product details, and save.",
+    "checksum": "faq789"
+  },
+  {
+    "id": "faq_004",
+    "app_name": "ERP",
+    "manual_name": "Inventory Manual",
+    "question": "How do I remove a product?",
+    "answer": "Select the product from Inventory and click Remove.",
+    "checksum": "faq012"
+  },
+  {
+    "id": "faq_005",
+    "app_name": "Support",
+    "manual_name": "FAQ",
+    "question": "How can I reset my password?",
+    "answer": "Click 'Forgot Password' on the login page and follow the instructions.",
+    "checksum": "faq345"
+  }
+]

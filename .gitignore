@@ -1,0 +1,5 @@
+pfe-venv311/
+__pycache__/
+*.pyc
+.vscode/
+models/
