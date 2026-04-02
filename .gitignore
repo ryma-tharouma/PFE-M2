@@ -3,3 +3,7 @@ __pycache__/
 *.pyc
 .vscode/
 models/
+experiments/generator/tasks/faq/data/
+experiments/generator/tasks/rag/data/
+experiments/generator/tasks/rewrite/data/
+experiments/retriever/data/

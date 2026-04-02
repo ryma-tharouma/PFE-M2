@@ -1,4 +1,0 @@
-2026-04-01 13:21:25,394 | INFO | Using Ollama: bge-m3
-2026-04-01 13:21:25,793 | INFO | Initialized | requested=llamacpp | active=ollama | model=bge-m3 | dim=1024
-2026-04-01 13:21:26,180 | INFO | Embedded 1 texts in 0.39s | backend=ollama
-2026-04-01 13:21:26,843 | INFO | Embedded 4 texts in 0.66s | backend=ollama
