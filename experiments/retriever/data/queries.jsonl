@@ -1,3 +1,0 @@
-{"id": "q001", "app_id": "manual_bdm", "query": "Comment activer mon compte et quel est le délai ?", "relevant_doc_ids": ["sec_auth_02"]}
-{"id": "q002", "app_id": "manual_bdm", "query": "À quoi sert ce logiciel et comment je me connecte ?", "relevant_doc_ids": ["sec_intro_01", "sec_auth_02"]}
-{"id": "q003", "app_id": "manual_bdm", "query": "Comment changer ma carte bancaire et télécharger mes factures ?", "relevant_doc_ids": ["sec_fact_03"]}
