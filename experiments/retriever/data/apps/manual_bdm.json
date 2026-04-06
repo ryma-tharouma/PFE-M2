@@ -1,38 +1,38 @@
 [
   {
-    "section_id": "sec_intro_01",
-    "title": "Présentation du logiciel",
-    "global_title": "Guide d'utilisation V2",
-    "parent": "",
-    "breadcrumb": "Accueil > Présentation",
+    "section_id": "sec_auth_01",
+    "title": "Création de compte",
+    "breadcrumb": "Accueil > Compte > Création",
     "level": 1,
     "page": 2,
-    "content": "Bienvenue dans notre suite logicielle professionnelle. Ce module permet de centraliser la gestion de projets, le suivi des équipes et la facturation automatisée. L'interface est accessible via navigateur web et application mobile.",
-    "captions": [],
+    "content": "Pour créer un compte, rendez-vous sur le portail entreprise. Saisissez votre email professionnel. L'activation prend jusqu'à 24h ouvrées.",
     "source_pdf": "manuel_bdm.pdf"
   },
   {
     "section_id": "sec_auth_02",
-    "title": "Création et activation de compte",
-    "global_title": "Guide d'utilisation V2",
-    "parent": "sec_intro_01",
-    "breadcrumb": "Accueil > Présentation > Authentification",
+    "title": "Mot de passe oublié",
+    "breadcrumb": "Accueil > Compte > Sécurité",
     "level": 2,
     "page": 4,
-    "content": "Pour accéder à votre espace, rendez-vous sur le portail entreprise. Saisissez votre email professionnel fourni par l'administrateur. L'activation prend jusqu'à 24h ouvrées. En cas de perte, utilisez le lien 'Mot de passe oublié' ou contactez le support.",
-    "captions": ["Figure 1 : Écran de connexion"],
+    "content": "En cas de perte, utilisez le lien 'Mot de passe oublié' sur la page de connexion. Un email de réinitialisation sera envoyé sous 5 minutes.",
     "source_pdf": "manuel_bdm.pdf"
   },
   {
-    "section_id": "sec_fact_03",
-    "title": "Facturation et Paiements",
-    "global_title": "Guide d'utilisation V2",
-    "parent": "",
+    "section_id": "sec_fact_01",
+    "title": "Moyens de paiement",
     "breadcrumb": "Administration > Facturation",
     "level": 1,
     "page": 8,
-    "content": "Les abonnements sont renouvelés automatiquement chaque mois. Vous pouvez modifier votre moyen de paiement (CB, virement SEPA, PayPal) dans Paramètres > Paiements. Les factures au format PDF sont téléchargeables depuis l'onglet Historique.",
-    "captions": ["Tableau 3 : Moyens de paiement acceptés"],
+    "content": "Nous acceptons CB, Visa, Mastercard et virement SEPA. Modifiez votre moyen de paiement dans Paramètres > Facturation.",
+    "source_pdf": "manuel_bdm.pdf"
+  },
+  {
+    "section_id": "sec_fact_02",
+    "title": "Délais de remboursement",
+    "breadcrumb": "Administration > Facturation > Remboursement",
+    "level": 2,
+    "page": 9,
+    "content": "Les remboursements sont traités sous 5 à 7 jours ouvrés après validation du dossier. Le montant est crédité sur la carte d'origine.",
     "source_pdf": "manuel_bdm.pdf"
   }
 ]

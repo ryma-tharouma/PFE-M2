@@ -1,73 +1,154 @@
 # src/builder.py
-import os, time, json, gc, torch
+import os
+import glob
+import time
+import json
+import gc
+import torch
 from pathlib import Path
-from .data_loader import load_app_sections
-from .embedder import BGEEmbedder
-from .vector_db import get_vector_db
+from typing import List, Dict
+
+from src.factories import get_embedder, get_vector_database, get_chunker
 
 def run_build(cfg: dict):
+    """
+    Iterates through all database/index/mode combinations defined in config,
+    chunks the raw section data, embeds it, and upserts into the vector DB.
+    """
     apps_dir = cfg["paths"]["apps_dir"]
-    results_dir = cfg["paths"]["results_dir"]
-    db_types = cfg["phases"]["build"]["db_types"]
-    index_types = cfg["phases"]["build"]["index_types"]
-    modes = cfg["phases"]["build"]["modes"]
-    batch_size = cfg["phases"]["build"]["batch_size"]
-    drop_existing = cfg["phases"]["build"]["drop_existing"]
+    results_dir = cfg["paths"]["resolved_results"]
+    db_types = cfg["indexing"].get("db_types", [cfg["database"]["type"]])
+    modes = cfg["indexing"]["modes"]
+    index_types = cfg["indexing"]["index_types"]
+    batch_size = cfg["indexing"].get("batch_size", 32)
+    drop_existing = cfg["indexing"].get("drop_existing", True)
     
     os.makedirs(results_dir, exist_ok=True)
-    app_sections = load_app_sections(apps_dir)
-    build_metrics = []
+    metrics_out = os.path.join(results_dir, "build_metrics.jsonl")
+    
+    # 1. Load all App files
+    app_files = glob.glob(os.path.join(apps_dir, "*.json"))
+    if not app_files:
+        print(f"⚠️  No JSON files found in {apps_dir}")
+        return
 
+    print(f"📚 Found {len(app_files)} application definitions.")
+
+    # Initialize Chunker (shared across all runs)
+    chunker = get_chunker(cfg)
+
+    # 2. Iterate Database Types
     for db_type in db_types:
+        # Temporarily override config for the factory
+        original_db_type = cfg["database"]["type"]
         cfg["database"]["type"] = db_type
-        db = get_vector_db(cfg)
         
-        for index_type in index_types:
+        try:
+            db = get_vector_database(cfg)
+            print(f"\n🗄️  Initialized Database: {db_type}")
+            
+            # 3. Iterate Embedding Modes
             for mode in modes:
-                print(f"\n🔧 Building: db={db_type} | idx={index_type} | mode={mode}")
-                embedder = BGEEmbedder(mode=mode, cfg=cfg["model"])
+                embedder = get_embedder(mode=mode, cfg=cfg)
+                print(f"  🧠 Mode: {mode}")
                 
-                for app_id, sections in app_sections.items():
-                    coll_name = f"{app_id}_{mode}_{db_type}_{index_type}"
-                    if db.collection_exists(coll_name):
-                        if drop_existing: db.drop_collection(coll_name)
-                        else: print(f"⏩ Skipping: {coll_name}"); continue
+                # 4. Iterate Index Types
+                for idx_type in index_types:
+                    print(f"    📂 Index Type: {idx_type}")
                     
-                    db.create_collection(coll_name, embedder.dim, mode, index_type)
-                    section_ids = [s["section_id"] for s in sections]
-                    texts = [s["embed_text"] for s in sections]
-                    metadatas = [s["metadata"] for s in sections]
-                    
-                    start_time = time.time()
-                    total = len(texts)
-                    for i in range(0, total, batch_size):
-                        batch_ids = section_ids[i:i+batch_size]
-                        batch_texts = texts[i:i+batch_size]
-                        batch_meta = metadatas[i:i+batch_size]
+                    # 5. Process Apps
+                    for app_path in app_files:
+                        with open(app_path, "r", encoding="utf-8") as f:
+                            sections = json.load(f)
+                            
+                        # Derive app_id from filename
+                        app_id = Path(app_path).stem
                         
-                        dense_vecs = embedder.encode_dense(batch_texts) if mode in ["dense","hybrid","finetuned"] else None
-                        sparse_vecs = embedder.encode_sparse(batch_texts) if mode in ["sparse","hybrid","finetuned"] else None
+                        # Collection Naming Convention
+                        coll_name = f"{app_id}_{mode}_{db_type}_{idx_type}"
                         
-                        records = []
-                        for j, sid in enumerate(batch_ids):
-                            rec = {"id": sid, "payload": {"text": batch_texts[j], **batch_meta[j]}}
-                            if dense_vecs is not None: rec["dense"] = dense_vecs[j].tolist()
-                            if sparse_vecs is not None: rec["sparse"] = sparse_vecs[j]
-                            records.append(rec)
-                        if records: db.upsert(coll_name, records)
+                        # Create Collection
+                        if db.collection_exists(coll_name):
+                            if drop_existing:
+                                db.drop_collection(coll_name)
+                                print(f"      🗑️  Dropped: {coll_name}")
+                            else:
+                                print(f"      ⏩  Skipping: {coll_name}")
+                                continue
                         
-                    db.flush()
-                    build_time = time.time() - start_time
-                    build_metrics.append({
-                        "mode": mode, "db_type": db_type, "index_type": index_type, "app_id": app_id, 
-                        "collection": coll_name, "build_time_sec": round(build_time, 3),
-                        "docs_indexed": total, "docs_per_sec": round(total/build_time, 1) if build_time>0 else 0
-                    })
-                    print(f"✅ {coll_name}: {total} sections | {build_time:.2f}s")
-                    
-                embedder.cleanup(); torch.cuda.empty_cache(); gc.collect()
+                        # Get embedding dimension (assuming 1024 for BGE-M3, dynamic otherwise)
+                        # For finetuned models, we might need to probe dimension, 
+                        # but for BGE-M3 it's standard.
+                        dim = 1024 
+                        
+                        db.create_collection(coll_name, dim=dim, mode=mode, index_type=idx_type)
+                        
+                        # Chunking & Embedding
+                        processed_chunks = chunker.process_sections(sections)
+                        total_chunks = len(processed_chunks)
+                        print(f"      📝 {app_id}: {len(sections)} sections -> {total_chunks} chunks")
+                        
+                        start_time = time.time()
+                        
+                        # Batch Embedding & Upsert
+                        for i in range(0, total_chunks, batch_size):
+                            batch_chunks = processed_chunks[i : i+batch_size]
+                            texts = [c["embed_text"] for c in batch_chunks]
+                            
+                            # Encode
+                            vectors = embedder.encode_batch(texts)
+                            
+                            # Prepare records for DB
+                            records = []
+                            for j, chunk in enumerate(batch_chunks):
+                                rec = {
+                                    "id": f"{chunk['parent_section_id']}_c{chunk.get('chunk_index', 0)}",
+                                    "payload": {
+                                        "parent_section_id": chunk["parent_section_id"],
+                                        "title": chunk.get("title", ""),
+                                        "breadcrumb": chunk.get("breadcrumb", ""),
+                                        "source_pdf": chunk.get("source_pdf", "")
+                                    }
+                                }
+                                
+                                # Attach vectors based on what the embedder returned
+                                if "dense" in vectors:
+                                    rec["dense"] = vectors["dense"][j].tolist()
+                                if "sparse" in vectors:
+                                    # BGE-M3 returns List[Dict[int, float]] for sparse
+                                    rec["sparse"] = vectors["sparse"][j]
+                                    
+                                records.append(rec)
+                                
+                            if records:
+                                db.upsert(coll_name, records)
+                        
+                        # Flush to disk/ensure consistency
+                        db.flush()
+                        
+                        build_time = time.time() - start_time
+                        speed = round(total_chunks / build_time, 1) if build_time > 0 else 0
+                        
+                        # Log Metric
+                        metric = {
+                            "app_id": app_id,
+                            "mode": mode,
+                            "db_type": db_type,
+                            "index_type": idx_type,
+                            "chunks_indexed": total_chunks,
+                            "build_time_sec": round(build_time, 2),
+                            "speed": speed
+                        }
+                        with open(metrics_out, "a") as f:
+                            f.write(json.dumps(metric) + "\n")
+                            
+                        print(f"      ✅ Indexed {total_chunks} chunks in {build_time:.1f}s ({speed} chunks/s)")
 
-    out_path = os.path.join(results_dir, "build_metrics.jsonl")
-    with open(out_path, "w", encoding="utf-8") as f:
-        for m in build_metrics: f.write(json.dumps(m, ensure_ascii=False) + "\n")
-    print(f"\n📊 Build metrics saved to {out_path}")
+                embedder.cleanup()
+                torch.cuda.empty_cache()
+                gc.collect()
+                
+        finally:
+            cfg["database"]["type"] = original_db_type
+            
+    print(f"\n📊 Build metrics saved to {metrics_out}")

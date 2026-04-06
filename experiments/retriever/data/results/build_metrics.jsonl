@@ -1,6 +1,0 @@
-{"mode": "dense", "db_type": "qdrant", "index_type": "hnsw", "app_id": "manual_bdm", "collection": "manual_bdm_dense_qdrant_hnsw", "build_time_sec": 103.757, "docs_indexed": 3, "docs_per_sec": 0.0}
-{"mode": "sparse", "db_type": "qdrant", "index_type": "hnsw", "app_id": "manual_bdm", "collection": "manual_bdm_sparse_qdrant_hnsw", "build_time_sec": 103.192, "docs_indexed": 3, "docs_per_sec": 0.0}
-{"mode": "hybrid", "db_type": "qdrant", "index_type": "hnsw", "app_id": "manual_bdm", "collection": "manual_bdm_hybrid_qdrant_hnsw", "build_time_sec": 229.767, "docs_indexed": 3, "docs_per_sec": 0.0}
-{"mode": "dense", "db_type": "qdrant", "index_type": "flat", "app_id": "manual_bdm", "collection": "manual_bdm_dense_qdrant_flat", "build_time_sec": 103.149, "docs_indexed": 3, "docs_per_sec": 0.0}
-{"mode": "sparse", "db_type": "qdrant", "index_type": "flat", "app_id": "manual_bdm", "collection": "manual_bdm_sparse_qdrant_flat", "build_time_sec": 104.457, "docs_indexed": 3, "docs_per_sec": 0.0}
-{"mode": "hybrid", "db_type": "qdrant", "index_type": "flat", "app_id": "manual_bdm", "collection": "manual_bdm_hybrid_qdrant_flat", "build_time_sec": 210.503, "docs_indexed": 3, "docs_per_sec": 0.0}

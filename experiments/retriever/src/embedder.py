@@ -2,84 +2,87 @@
 import os
 import torch
 import numpy as np
-from typing import List, Dict, Optional
+from typing import List, Dict, Any
 from FlagEmbedding import BGEM3FlagModel
 from sentence_transformers import SentenceTransformer
 
 class BGEEmbedder:
     """
-    Unified embedder for BGE-M3 in 4 modes:
-      - "dense": semantic vector only (1024-dim)
-      - "sparse": lexical weights only (learned sparse)
-      - "hybrid": both dense + sparse
-      - "finetuned": custom dense encoder (French-domain adapted)
-    
-    P40 Optimizations:
-      - use_fp16=True reduces VRAM by 50%
-      - explicit cleanup() method for VRAM management between modes
+    Unified wrapper for BGE-M3 embedding modes.
+    Supports: dense, sparse, hybrid, finetuned_dense, finetuned_hybrid
+    Optimized for CPU evaluation (configurable for GPU).
     """
     
     def __init__(self, mode: str, cfg: dict):
         self.mode = mode
-        self.device = cfg.get("device", "cuda")
-        self.use_fp16 = cfg.get("use_fp16", True)
+        self.device = cfg.get("device", "cpu")
+        # Disable FP16 on CPU to avoid warnings/overhead
+        self.use_fp16 = cfg.get("use_fp16", False) and self.device == "cuda"
         
-        if mode == "finetuned":
-            ft_path = cfg.get("finetuned_path")
-            if not ft_path or not os.path.exists(ft_path):
-                raise ValueError(f"Finetuned model path not found: {ft_path}")
-            self.dense_model = SentenceTransformer(ft_path, device=self.device)
-            self.is_finetuned = True
-            self._dim = self.dense_model.get_sentence_embedding_dimension() or 768
-            self.base_model = None  # No sparse head for finetuned
-        else:
+        self.is_finetuned = mode.startswith("finetuned_")
+        ft_type = mode.split("_")[1] if self.is_finetuned else None
+        
+        # Initialize base BGE-M3 for sparse (and dense if not finetuned)
+        if not self.is_finetuned:
             self.base_model = BGEM3FlagModel(
-                cfg["base_name"], 
-                use_fp16=self.use_fp16, 
+                cfg["model"]["base_name"],
+                use_fp16=self.use_fp16,
                 device=self.device
             )
-            self.is_finetuned = False
-            self._dim = 1024  # BGE-M3 dense output dimension
-
-    @property
-    def dim(self) -> int:
-        return self._dim
+            self.ft_model = None
+        else:
+            # Load fine-tuned model for dense embeddings
+            ft_paths = cfg["model"].get("finetuned_paths", {})
+            ft_path = ft_paths.get(ft_type)
+            if not ft_path or not os.path.exists(ft_path):
+                raise FileNotFoundError(f"Finetuned model for '{ft_type}' not found at: {ft_path}")
+                
+            self.ft_model = SentenceTransformer(ft_path, device=self.device)
+            
+            # For finetuned_hybrid, keep base model for sparse lexical weights
+            if ft_type == "hybrid":
+                self.base_model = BGEM3FlagModel(cfg["model"]["base_name"], use_fp16=self.use_fp16, device=self.device)
+            else:
+                self.base_model = None
 
     def encode_dense(self, texts: List[str]) -> np.ndarray:
-        """Returns L2-normalized dense vectors for IP metric compatibility."""
+        """Returns L2-normalized dense vectors (1024-dim for BGE-M3)."""
         if self.is_finetuned:
-            # SentenceTransformers can normalize directly
-            return self.dense_model.encode(
-                texts, 
-                convert_to_numpy=True, 
-                normalize_embeddings=True,
-                batch_size=16,  # P40-friendly
-                show_progress_bar=False
-            )
-        
-        # BGE-M3: get raw vectors, then normalize
-        raw = self.base_model.encode(texts, return_dense=True)["dense_vecs"]
+            raw = self.ft_model.encode(texts, convert_to_numpy=True, normalize_embeddings=False, batch_size=32)
+        else:
+            raw = self.base_model.encode(texts, return_dense=True)["dense_vecs"]
+            
+        # Explicit L2 normalization for Cosine/IP compatibility
         norms = np.linalg.norm(raw, axis=1, keepdims=True)
-        # Avoid division by zero
-        normalized = raw / np.where(norms == 0, 1, norms)
-        return normalized
+        return raw / np.where(norms == 0, 1, norms)
 
     def encode_sparse(self, texts: List[str]) -> List[Dict[int, float]]:
-        """
-        Returns sparse vectors in Milvus format: {token_index: weight}.
-        For finetuned mode, returns uniform fallback (replace with BM25 if needed).
-        """
-        if self.is_finetuned:
-            # Fallback: uniform weights (or integrate bm25s here if needed)
-            return [{i: 1.0 for i in range(min(100, len(t)//4))} for t in texts]
-        
+        """Returns BGE-M3 learned lexical weights: {token_id: weight} with INTEGER keys."""
+        if self.base_model is None:
+            return [{} for _ in texts]
+            
         result = self.base_model.encode(texts, return_sparse=True)
-        return result["lexical_weights"]
+        # Convert string keys to integers for Qdrant compatibility
+        return [{int(k): float(v) for k, v in sparse.items()} for sparse in result["lexical_weights"]]
+
+    def encode_batch(self, texts: List[str]) -> Dict[str, Any]:
+        """
+        Returns dict with requested vector types based on mode.
+        Keys: "dense" (np.ndarray), "sparse" (List[Dict])
+        """
+        out = {}
+        
+        needs_dense = self.mode in ["dense", "hybrid", "finetuned_dense", "finetuned_hybrid"]
+        needs_sparse = self.mode in ["sparse", "hybrid", "finetuned_hybrid"]
+        
+        if needs_dense:
+            out["dense"] = self.encode_dense(texts)
+        if needs_sparse:
+            out["sparse"] = self.encode_sparse(texts)
+            
+        return out
 
     def cleanup(self):
-        """Explicitly free VRAM on P40 between modes."""
-        if self.base_model:
-            del self.base_model
-        if hasattr(self, "dense_model"):
-            del self.dense_model
-        torch.cuda.empty_cache()
+        """Frees VRAM if running on GPU. Safe to call on CPU (no-op)."""
+        if self.device == "cuda":
+            torch.cuda.empty_cache()
