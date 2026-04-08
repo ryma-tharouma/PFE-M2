@@ -9,6 +9,9 @@ class ChunkAggregator:
     """
     def __init__(self, cfg: dict):
         self.method = cfg.get("retrieval", {}).get("aggregation_method", "max")
+        VALID_METHODS = {"max", "mean", "rrf"}
+        if self.method not in VALID_METHODS:
+            raise ValueError(f"Unknown aggregation method: {self.method}. Valid: {VALID_METHODS}")
         self.top_k_sections = cfg.get("retrieval", {}).get("max_retrieve_sections", 10)
 
     def aggregate(self, results: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
@@ -60,5 +63,5 @@ class ChunkAggregator:
             })
 
         # 3. Sort descending & truncate to top_k_sections
-        sections.sort(key=lambda x: x["score"], reverse=True)
+        sections.sort(key=lambda x: (x["score"], x["chunk_count"]), reverse=True)
         return sections[:self.top_k_sections]

@@ -31,7 +31,7 @@ class QdrantDB(BaseVectorDB):
         vectors_cfg, sparse_cfg = {}, {}
         if mode in ["dense", "hybrid", "finetuned_dense", "finetuned_hybrid"]:
             hnsw_cfg = HnswConfigDiff(m=16, ef_construct=100, on_disk=False) if index_type == "hnsw" else None
-            vectors_cfg["dense"] = VectorParams(size=dim, distance=Distance.COSINE, hnsw_config=hnsw_cfg)
+            vectors_cfg["dense"] = VectorParams(size=dim, distance=Distance.DOT, hnsw_config=hnsw_cfg)
         if mode in ["sparse", "hybrid", "finetuned_hybrid"]:
             sparse_cfg["sparse"] = SparseVectorParams(index=SparseIndexParams(on_disk=False))
         self.client.create_collection(name, vectors_config=vectors_cfg or None, sparse_vectors_config=sparse_cfg or None)
@@ -51,7 +51,6 @@ class QdrantDB(BaseVectorDB):
             points.append(PointStruct(id=pid, vector=vec, payload=payload))
         self.client.upsert(name, points, wait=True)
 
-    # 🔥 EXACT SEARCH LOGIC THAT WORKED BEFORE
     def search(self, name: str, q_dense: Optional[np.ndarray], q_sparse: Optional[dict], top_k: int, alpha: float, index_type: str):
         from qdrant_client.models import Prefetch, FusionQuery, Fusion, SparseVector
         prefetches = []
