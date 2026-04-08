@@ -39,8 +39,8 @@ class ContextManager:
         recent = history[-self.window_size:] if self.window_size > 0 and history else []
         
         if not self.truncation_enabled:
-            parts = [f"User: {h.get('user_query', '')}\nAssistant: {h.get('assistant_response', '')}" for h in recent]
-            parts.append(f"Current Query: {current_query}")
+            parts = [f"Utilisateur: {h.get('user_query', '')}\nAssistant: {h.get('assistant_response', '')}" for h in recent]
+            parts.append(f"requete recente: {current_query}")
             return "\n---\n".join(parts)
             
         # Token budget enforcement
@@ -78,6 +78,6 @@ class ContextManager:
                     history_parts.append({"u": truncated_u, "a": "[...]"})
                 break  # Budget exhausted
                 
-        parts = [f"User: {p['u']}\nAssistant: {p['a']}" for p in history_parts]
-        parts.append(f"Current Query: {current_query}")
+        parts = [f"Utilisateur: {p['u']}\nAssistant: {p['a']}" for p in history_parts]
+        parts.append(f"requete recente: {current_query}")
         return "\n---\n".join(parts)

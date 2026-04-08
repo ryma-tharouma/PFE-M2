@@ -1,6 +1,6 @@
 experiment:
-  name: "phase_A1_base_smoke"
-  description: "Smoke test: 1 conv, 3 turns, CPU, flat index, all strategies"
+  name: "phase_A1_base"
+  description: "Multi-mode, multi-strategy retrieval eval with routing thresholds"
   results_dir: "data/results/{experiment_name}/"
 
 database:
@@ -10,21 +10,19 @@ database:
 indexing:
   db_types: ["qdrant"]
   modes: ["dense", "sparse", "hybrid"]
-  index_types: ["flat"]
+  index_types: ["flat", "hnsw"]
   batch_size: 16
   drop_existing: true
 
 chunking:
   strategy: "adaptive"
-  max_tokens: 8192
-  overlap_tokens: 0
+  max_tokens: 8000
+  overlap_tokens: 10
 
 retrieval:
-  max_retrieve_chunks: 20
-  max_retrieve_sections: 5
-  eval_k_chunks: [5, 10, 20]
-  eval_k_sections: [1, 2, 3, 5]
-  aggregation_method: "max"
+  max_retrieve_sections: 10
+  eval_k_sections: [1, 2, 3, 4, 5, 10]
+  aggregation_method: ["max", "mean", "rrf"]
   alpha: 0.7
 
 multi_turn:
@@ -38,18 +36,14 @@ multi_turn:
     truncate_strategy: "assistant_first"
 
 routing:
-  auto_optimize: true
-  thresholds: {}
+  auto_optimize: true # Set to false for test/validation runs
+  thresholds: {} # Populated automatically when auto_optimize: true
 
 evaluation:
   query_sources:
-    - name: "original"
-      path: "data/conversations/original_turns.jsonl"
-  auto_compare: false
-  batch_size: 16
-  parallel_configs: 1
-  cache_embeddings: true
-  checkpoint_every: 5
+    - name: "eval_set"
+      path: "data/conversations/original_turns.jsonl" #  Swap for dev/test
+  checkpoint_every: 50
 
 paths:
   apps_dir: "data/apps/"
@@ -59,3 +53,4 @@ model:
   base_name: "BAAI/bge-m3"
   use_fp16: false
   device: "cpu"
+  embedding_dim: 1024 #  Future-proof for fine-tuned models
