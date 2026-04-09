@@ -64,8 +64,7 @@ def optimize_thresholds(
             if p1 > best_p1:
                 best_p1, best_t_faq = p1, t
                 
-        # Enforce strict ordering: FAQ must be harder to trigger than RAG
-        T_faq_final = max(best_t_faq, best_t_rag + 0.01)
+        T_faq_final = best_t_faq
         T_rag_final = best_t_rag
         
         thresholds[mode] = {

@@ -10,6 +10,7 @@ database:
 indexing:
   db_types: ["qdrant"]
   modes: ["dense", "sparse", "hybrid"]
+  # modes: ["dense", "sparse", "hybrid", "finetuned_dense", "finetuned_sparse", "finetuned_hybrid"]
   index_types: ["flat", "hnsw"]
   batch_size: 16
   drop_existing: true
@@ -51,6 +52,7 @@ paths:
 
 model:
   base_name: "BAAI/bge-m3"
+  finetuned_path: "models/bge-m3-ft/"
   use_fp16: false
   device: "cpu"
   embedding_dim: 1024 #  Future-proof for fine-tuned models
