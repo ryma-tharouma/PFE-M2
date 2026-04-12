@@ -1,0 +1,130 @@
+[
+  {
+    "article_id": 1,
+    "title": "Un connecteur ne se déplace pas lorsque vous déplacez une forme dans Microsoft Word"
+  },
+  {
+    "article_id": 2,
+    "title": "Un modèle global endommagé provoque des erreurs lors de l’automatisation de Word"
+  },
+  {
+    "article_id": 3,
+    "title": "Description des comportements des macros Auto-Exec et Auto-Open dans Word"
+  },
+  {
+    "article_id": 4,
+    "title": "« Le fichier contient des éléments XML personnalisés qui ne sont plus pris en charge par Word » lorsque vous essayez d’ouvrir un document dans Word"
+  },
+  {
+    "article_id": 5,
+    "title": "« Word ne peut pas ouvrir ce fichier, car il est supérieur à 512 Mégaoctets » lors de l’ouverture d’un document dans Word"
+  },
+  {
+    "article_id": 6,
+    "title": "Vous ne pouvez pas utiliser la souris pour dessiner un rectangle de sélection autour de plusieurs objets de forme automatique dans Microsoft Word"
+  },
+  {
+    "article_id": 7,
+    "title": "Comment configurer le moteur de recherche par défaut dans Word 2013"
+  },
+  {
+    "article_id": 8,
+    "title": "Comment créer des entrées de table des matières sans numéro de page dans Word"
+  },
+  {
+    "article_id": 9,
+    "title": "Les liens de référence croisée ne sont pas mis à jour vers le numéro de titre correct après l’insertion d’un nouveau titre"
+  },
+  {
+    "article_id": 10,
+    "title": "Comment personnaliser la couleur des soulignements de vérificateur d’orthographe et de grammaire dans Microsoft Word"
+  },
+  {
+    "article_id": 11,
+    "title": "Comment résoudre les problèmes liés aux documents endommagés dans Word"
+  },
+  {
+    "article_id": 12,
+    "title": "Les blocs de construction de document peuvent être manquants dans un modèle qui fait partie d’un modèle de groupe de travail dans Word 2010"
+  },
+  {
+    "article_id": 13,
+    "title": "L'erreur de balise de fin se produit lorsque vous ouvrez un fichier DOCX dans Word 2013, 2010 ou 2007."
+  },
+  {
+    "article_id": 14,
+    "title": "Les données Excel ne conservent pas sa mise en forme dans les opérations de fusion et publipostage dans Word"
+  },
+  {
+    "article_id": 15,
+    "title": "Le paramètre « Incorporer des données linguistiques » dans la boîte de dialogue « Options Word » n’est pas enregistré dans Word"
+  },
+  {
+    "article_id": 16,
+    "title": "Les en-têtes et pieds de page restent après la suppression de l’étiquette de confidentialité dans Word pour Microsoft 365"
+  },
+  {
+    "article_id": 19,
+    "title": "La résolution de l'image change après conversion au format PDF depuis Word 2013 ou Word 2010."
+  },
+  {
+    "article_id": 20,
+    "title": "La modification sur place d’un document Word incorporé qui contient le contrôle ActiveX provoque un scintillement"
+  },
+  {
+    "article_id": 21,
+    "title": "Résoudre les problèmes qui se produisent lorsque vous démarrez ou utilisez Word"
+  },
+  {
+    "article_id": 22,
+    "title": "Erreur de publipostage quand une source de données est accessible par plusieurs utilisateurs dans Word"
+  },
+  {
+    "article_id": 23,
+    "title": "Une image ou un objet peut ne pas apparaître dans un document Word 2010 ou Word 2007"
+  },
+  {
+    "article_id": 24,
+    "title": "Limitations et spécifications des paramètres d’exploitation dans Word"
+  },
+  {
+    "article_id": 25,
+    "title": "Problèmes de performances liés à l’emplacement de récupération automatique sur le partage réseau"
+  },
+  {
+    "article_id": 26,
+    "title": "Erreur « La partie image avec la relation rID8 n’a pas été trouvée » dans Microsoft Word"
+  },
+  {
+    "article_id": 27,
+    "title": "Comment réinitialiser les options utilisateur et les paramètres de Registre dans Word"
+  },
+  {
+    "article_id": 28,
+    "title": "La boîte de dialogue Enregistrer sous s’affiche deux fois lorsque vous essayez d’enregistrer un fichier dans Word"
+  },
+  {
+    "article_id": 29,
+    "title": "Le vérificateur orthographique ne vérifie pas le texte dans les champs du formulaire dans Word"
+  },
+  {
+    "article_id": 30,
+    "title": "La vérification orthographique ne fonctionne pas dans Word 2010"
+  },
+  {
+    "article_id": 31,
+    "title": "Fonctionnalité de suivi des modifications de Word désactivée lorsque Rights Management Services (RMS) est appliqué"
+  },
+  {
+    "article_id": 32,
+    "title": "Informations sur l’utilisation de polices d’imprimante dans Microsoft Word"
+  },
+  {
+    "article_id": 33,
+    "title": "Word ralentit ou cesse de répondre s’il existe des modifications ou commentaires suivis excessifs"
+  },
+  {
+    "article_id": 34,
+    "title": "Vous êtes invité à enregistrer les modifications apportées au modèle global chaque fois que vous quittez Word 2007 ou Word 2010"
+  }
+]
