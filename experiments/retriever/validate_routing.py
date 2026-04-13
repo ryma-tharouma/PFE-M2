@@ -3,7 +3,7 @@ import json
 from src.routing_validator import run_routing_validation
 
 # 1. Load thresholds learned from Dev set
-with open("data/results/dev_thresholds.json", "r", encoding="utf-8") as f:
+with open("data/results/phase_A1_base/summary_results.json", "r", encoding="utf-8") as f:
     thresholds = json.load(f)["optimized_thresholds"]
 
 # 2. Run validation on a specific config's test results

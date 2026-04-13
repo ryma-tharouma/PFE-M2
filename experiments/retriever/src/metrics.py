@@ -5,7 +5,7 @@ from typing import List, Dict, Set
 def recall_at_k(retrieved: List[str], relevant: Set[str], k: int) -> float:
     """Computes Recall@K: fraction of relevant items retrieved in top K."""
     if not relevant:
-        return 0.0  # No relevant items defined 
+        return 0.0
     return len(set(retrieved[:k]) & relevant) / len(relevant)
 
 def precision_at_k(retrieved: List[str], relevant: Set[str], k: int) -> float:
@@ -26,11 +26,11 @@ def ndcg_at_k(retrieved: List[str], relevant: Set[str], k: int) -> float:
     rels = [1.0 if doc in relevant else 0.0 for doc in retrieved[:k]]
     if not any(rels):
         return 0.0
-        
+
     dcg = sum((2**r - 1) / math.log2(i + 2) for i, r in enumerate(rels))
     ideal_rels = sorted(rels, reverse=True)
     idcg = sum((2**r - 1) / math.log2(i + 2) for i, r in enumerate(ideal_rels))
-    
+
     return dcg / idcg if idcg > 0 else 0.0
 
 def compute_query_metrics(
