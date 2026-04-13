@@ -1,0 +1,56 @@
+experiment:
+  name: "phase_A1_base"
+  description: "Multi-mode, multi-strategy retrieval eval with routing thresholds"
+  results_dir: "data/results/{experiment_name}/"
+
+database:
+  type: "qdrant"
+  path: "data/vector_db/"
+
+indexing:
+  db_types: ["qdrant"]
+  modes: ["dense", "sparse", "hybrid"]
+  index_types: ["flat", "hnsw"]
+  batch_size: 16
+  drop_existing: true
+
+chunking:
+  strategy: "adaptive"
+  max_tokens: 8000
+  overlap_tokens: 10
+
+retrieval:
+  max_retrieve_sections: 10
+  eval_k_sections: [1, 2, 3, 4, 5, 10]
+  aggregation_method: ["max", "mean", "rrf"]
+  alpha: 0.7
+
+multi_turn:
+  enabled: true
+  strategies: ["none", "weighted_concat"]
+  window_size: 2
+  weights: [0.3, 0.6, 1.0]
+  context_truncation:
+    enabled: true
+    max_total_tokens: 8000
+    truncate_strategy: "assistant_first"
+
+routing:
+  auto_optimize: true # Set to false for test/validation runs
+  thresholds: {} # Populated automatically when auto_optimize: true
+
+evaluation:
+  query_sources:
+    - name: "eval_set"
+      path: "data/conversations/original_turns.jsonl" #  Swap for dev/test
+  checkpoint_every: 50
+
+paths:
+  apps_dir: "data/apps/"
+  conversations_dir: "data/conversations/"
+
+model:
+  base_name: "BAAI/bge-m3"
+  use_fp16: false
+  device: "cpu"
+  embedding_dim: 1024 #  Future-proof for fine-tuned models
