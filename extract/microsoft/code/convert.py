@@ -49,7 +49,6 @@ def build_answer(preamble: str, sections: list, symptom_section: dict) -> str:
     
     # Add all sections except symptom and title
     for section in sections:
-        section_id = section.get("section_id")
         header = section.get("header", "").lower()
         
         # Skip symptom sections
@@ -60,6 +59,18 @@ def build_answer(preamble: str, sections: list, symptom_section: dict) -> str:
         answer_parts.append(format_section(section.get("header"), section.get("content", "")))
     
     return "\n\n".join(answer_parts).strip()
+
+
+def build_full_text(title: str, applies_to_list: list, problem: str, answer: str) -> str:
+    """Build full_text field by combining title, applies_to, problem, and answer"""
+    applies_to_str = ", ".join(applies_to_list) if applies_to_list else "None"
+    
+    full_text = f"Title: {title}\n"
+    full_text += f"Applies to: {applies_to_str}\n\n"
+    full_text += f"Problem:\n{problem}\n\n"
+    full_text += f"Answer:\n{answer}"
+    
+    return full_text.strip()
 
 
 def convert_article(article: dict) -> dict:
@@ -82,12 +93,18 @@ def convert_article(article: dict) -> dict:
     problem = build_problem(title, symptom_section)
     answer = build_answer(preamble, sections, symptom_section)
     
+    # Build full_text field
+    full_text = build_full_text(title, applies_to_list, problem, answer)
+    
     converted = {
         "section_id": article_id,
+        "title": title,
         "applies_to": applies_to_list,
         "problem": problem,
         "answer": answer,
-        "source": fetched_url
+        "full_text": full_text,             
+        "source": fetched_url,
+        "source_type": "faq"
     }
     
     return converted
@@ -116,7 +133,7 @@ def main():
     
     for json_file in sorted(json_files):
         app_name = json_file.stem
-        print(f"  📝 Processing {app_name}...")
+        print(f"   Processing {app_name}...")
         
         try:
             # Read source JSON
