@@ -1,0 +1,188 @@
+[
+  {
+    "app": "excel",
+    "articles": 70,
+    "bge": {
+      "problem_tokens": {
+        "min": 12,
+        "q1": 22,
+        "q2": 77,
+        "q3": 181,
+        "max": 491,
+        "mean": 111,
+        "count": 70
+      },
+      "answer_tokens": {
+        "min": 79,
+        "q1": 487,
+        "q2": 792,
+        "q3": 1625,
+        "max": 8161,
+        "mean": 1340,
+        "count": 70
+      },
+      "total_tokens": {
+        "min": 213,
+        "q1": 634,
+        "q2": 870,
+        "q3": 1781,
+        "max": 8184,
+        "mean": 1452,
+        "count": 70
+      }
+    },
+    "qwen": {
+      "problem_tokens": {
+        "min": 9,
+        "q1": 21,
+        "q2": 81,
+        "q3": 189,
+        "max": 482,
+        "mean": 115,
+        "count": 70
+      },
+      "answer_tokens": {
+        "min": 75,
+        "q1": 536,
+        "q2": 803,
+        "q3": 1787,
+        "max": 8385,
+        "mean": 1409,
+        "count": 70
+      },
+      "total_tokens": {
+        "min": 212,
+        "q1": 641,
+        "q2": 918,
+        "q3": 1857,
+        "max": 8409,
+        "mean": 1525,
+        "count": 70
+      }
+    }
+  },
+  {
+    "app": "mot",
+    "articles": 32,
+    "bge": {
+      "problem_tokens": {
+        "min": 15,
+        "q1": 26,
+        "q2": 86,
+        "q3": 137,
+        "max": 391,
+        "mean": 101,
+        "count": 32
+      },
+      "answer_tokens": {
+        "min": 114,
+        "q1": 370,
+        "q2": 653,
+        "q3": 1223,
+        "max": 5346,
+        "mean": 1092,
+        "count": 32
+      },
+      "total_tokens": {
+        "min": 176,
+        "q1": 497,
+        "q2": 747,
+        "q3": 1344,
+        "max": 5369,
+        "mean": 1193,
+        "count": 32
+      }
+    },
+    "qwen": {
+      "problem_tokens": {
+        "min": 15,
+        "q1": 28,
+        "q2": 98,
+        "q3": 153,
+        "max": 416,
+        "mean": 110,
+        "count": 32
+      },
+      "answer_tokens": {
+        "min": 117,
+        "q1": 383,
+        "q2": 705,
+        "q3": 1306,
+        "max": 5548,
+        "mean": 1144,
+        "count": 32
+      },
+      "total_tokens": {
+        "min": 182,
+        "q1": 501,
+        "q2": 809,
+        "q3": 1459,
+        "max": 5570,
+        "mean": 1255,
+        "count": 32
+      }
+    }
+  },
+  {
+    "app": "outlook",
+    "articles": 240,
+    "bge": {
+      "problem_tokens": {
+        "min": 11,
+        "q1": 88,
+        "q2": 136,
+        "q3": 205,
+        "max": 1636,
+        "mean": 177,
+        "count": 240
+      },
+      "answer_tokens": {
+        "min": 33,
+        "q1": 328,
+        "q2": 648,
+        "q3": 1103,
+        "max": 30955,
+        "mean": 1008,
+        "count": 240
+      },
+      "total_tokens": {
+        "min": 137,
+        "q1": 476,
+        "q2": 786,
+        "q3": 1294,
+        "max": 32461,
+        "mean": 1186,
+        "count": 240
+      }
+    },
+    "qwen": {
+      "problem_tokens": {
+        "min": 11,
+        "q1": 93,
+        "q2": 143,
+        "q3": 220,
+        "max": 1488,
+        "mean": 188,
+        "count": 240
+      },
+      "answer_tokens": {
+        "min": 34,
+        "q1": 342,
+        "q2": 672,
+        "q3": 1157,
+        "max": 27642,
+        "mean": 1027,
+        "count": 240
+      },
+      "total_tokens": {
+        "min": 163,
+        "q1": 505,
+        "q2": 842,
+        "q3": 1360,
+        "max": 28945,
+        "mean": 1216,
+        "count": 240
+      }
+    }
+  }
+]

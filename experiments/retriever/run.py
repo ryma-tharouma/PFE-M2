@@ -45,7 +45,7 @@ def main():
     parser.add_argument("--phase", type=str, choices=["build", "evaluate", "all"], required=True,
                         help="Phase to run: build, evaluate, or both")
     
-    # 🆕 Routing Workflow Flags
+    #  Routing Workflow Flags
     parser.add_argument("--eval-path", type=str, default=None,
                         help="Override query source path (e.g., data/conversations/test_turns.jsonl)")
     parser.add_argument("--no-auto-optimize", action="store_true",
@@ -56,9 +56,9 @@ def main():
     cfg = load_config(args.config)
     ensure_dirs(cfg)
 
-    # 🔧 Apply CLI Overrides
+    # Apply CLI Overrides
     if args.eval_path:
-        print(f"🔧 Overriding query source with: {args.eval_path}")
+        print(f" Overriding query source with: {args.eval_path}")
         if "evaluation" not in cfg: cfg["evaluation"] = {}
         if "query_sources" not in cfg["evaluation"] or not cfg["evaluation"]["query_sources"]:
             cfg["evaluation"]["query_sources"] = [{"name": "cli_override", "path": args.eval_path}]
@@ -66,13 +66,13 @@ def main():
             cfg["evaluation"]["query_sources"][0]["path"] = args.eval_path
 
     if args.no_auto_optimize:
-        print("🔧 Disabling threshold auto-optimization (--no-auto-optimize)")
+        print(" Disabling threshold auto-optimization (--no-auto-optimize)")
         cfg["routing"]["auto_optimize"] = False
 
     phases = ["build", "evaluate"] if args.phase == "all" else [args.phase]
 
     for phase in phases:
-        print(f"\n{'='*60}\n🚀 PHASE: {phase.upper()}\n{'='*60}")
+        print(f"\n{'='*60}\n PHASE: {phase.upper()}\n{'='*60}")
         
         if phase == "build":
             from src.builder import run_build
@@ -81,7 +81,7 @@ def main():
             from src.evaluator import run_evaluate
             run_evaluate(cfg)
             
-        print(f"\n✅ Phase '{phase}' complete.\n")
+        print(f"\n Phase '{phase}' complete.\n")
 
 if __name__ == "__main__":
     main()

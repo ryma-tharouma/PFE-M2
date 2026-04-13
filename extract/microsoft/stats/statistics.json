@@ -1,0 +1,176 @@
+[
+  {
+    "app": "excel",
+    "articles": 70,
+    "sections_per_article": {
+      "min": 1,
+      "q1": 2,
+      "q2": 3,
+      "q3": 4,
+      "max": 11,
+      "mean": 3,
+      "count": 70
+    },
+    "tokens_per_section": {
+      "min": 7,
+      "q1": 75,
+      "q2": 145,
+      "q3": 364,
+      "max": 7882,
+      "mean": 409,
+      "count": 234
+    },
+    "tokens_in_titles": {
+      "min": 3,
+      "q1": 4,
+      "q2": 6,
+      "q3": 6,
+      "max": 24,
+      "mean": 6,
+      "count": 234
+    },
+    "tokens_in_symptoms": {
+      "min": 24,
+      "q1": 58,
+      "q2": 132,
+      "q3": 206,
+      "max": 464,
+      "mean": 145,
+      "count": 41
+    },
+    "tokens_titles_symptoms": {
+      "min": 4,
+      "q1": 11,
+      "q2": 74,
+      "q3": 170,
+      "max": 480,
+      "mean": 106,
+      "count": 70
+    },
+    "tokens_non_title_symptom": {
+      "min": 7,
+      "q1": 78,
+      "q2": 151,
+      "q3": 453,
+      "max": 7882,
+      "mean": 464,
+      "count": 193
+    }
+  },
+  {
+    "app": "mot",
+    "articles": 32,
+    "sections_per_article": {
+      "min": 2,
+      "q1": 3,
+      "q2": 4,
+      "q3": 4,
+      "max": 12,
+      "mean": 3,
+      "count": 32
+    },
+    "tokens_per_section": {
+      "min": 17,
+      "q1": 67,
+      "q2": 139,
+      "q3": 336,
+      "max": 3347,
+      "mean": 348,
+      "count": 117
+    },
+    "tokens_in_titles": {
+      "min": 3,
+      "q1": 4,
+      "q2": 6,
+      "q3": 6,
+      "max": 24,
+      "mean": 7,
+      "count": 117
+    },
+    "tokens_in_symptoms": {
+      "min": 28,
+      "q1": 57,
+      "q2": 95,
+      "q3": 147,
+      "max": 3347,
+      "mean": 294,
+      "count": 24
+    },
+    "tokens_titles_symptoms": {
+      "min": 8,
+      "q1": 46,
+      "q2": 80,
+      "q3": 137,
+      "max": 5120,
+      "mean": 246,
+      "count": 32
+    },
+    "tokens_non_title_symptom": {
+      "min": 17,
+      "q1": 74,
+      "q2": 148,
+      "q3": 360,
+      "max": 3069,
+      "mean": 361,
+      "count": 93
+    }
+  },
+  {
+    "app": "outlook",
+    "articles": 240,
+    "sections_per_article": {
+      "min": 1,
+      "q1": 3,
+      "q2": 4,
+      "q3": 4,
+      "max": 32,
+      "mean": 3,
+      "count": 240
+    },
+    "tokens_per_section": {
+      "min": 7,
+      "q1": 74,
+      "q2": 154,
+      "q3": 326,
+      "max": 7505,
+      "mean": 304,
+      "count": 893
+    },
+    "tokens_in_titles": {
+      "min": 3,
+      "q1": 4,
+      "q2": 6,
+      "q3": 6,
+      "max": 52,
+      "mean": 7,
+      "count": 893
+    },
+    "tokens_in_symptoms": {
+      "min": 24,
+      "q1": 70,
+      "q2": 117,
+      "q3": 196,
+      "max": 1610,
+      "mean": 179,
+      "count": 224
+    },
+    "tokens_titles_symptoms": {
+      "min": 7,
+      "q1": 81,
+      "q2": 129,
+      "q3": 201,
+      "max": 3321,
+      "mean": 193,
+      "count": 240
+    },
+    "tokens_non_title_symptom": {
+      "min": 7,
+      "q1": 75,
+      "q2": 169,
+      "q3": 399,
+      "max": 7505,
+      "mean": 346,
+      "count": 669
+    }
+  }
+]

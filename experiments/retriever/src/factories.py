@@ -1,5 +1,4 @@
 # src/factories.py
-from turtle import mode
 from typing import Dict, Any
 from .embedder import BGEEmbedder
 from .vector_db import BaseVectorDB, get_vector_db
