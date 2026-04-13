@@ -1,0 +1,12 @@
+configs:
+  - id: "qwen_0.5b_no_history"
+    model_name: "Qwen/Qwen2.5-0.5B-Instruct"
+    prompt_file: "default.txt"
+    model_kwargs:
+      device_map: "auto"
+      torch_dtype: "float16"
+    generation_kwargs:
+      max_new_tokens: 256
+      temperature: 0.1
+      do_sample: true
+      top_p: 0.9
