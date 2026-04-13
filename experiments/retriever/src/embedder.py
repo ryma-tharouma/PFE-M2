@@ -1,76 +1,148 @@
 # src/embedder.py
 import os
-import torch
+import re
+import json
 import numpy as np
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
+
+def _simple_tokenize(text: str) -> List[str]:
+    """Lowercase and split on whitespace / newlines."""
+    return re.split(r"[\s\n]+", text.lower().strip())
+
+
+class BM25TermFrequency:
+    """
+    Converts text to {token_id: term_frequency} for Qdrant sparse vectors.
+    Qdrant will apply IDF and BM25 scoring server-side when modifier=IDF is set.
+    Vocabulary can be saved and loaded to disk.
+    """
+    def __init__(self):
+        self.vocab: Dict[str, int] = {}
+
+    def fit(self, corpus: List[str]) -> "BM25TermFrequency":
+        """Build token -> id mapping from corpus."""
+        for doc in corpus:
+            for tok in _simple_tokenize(doc):
+                if tok not in self.vocab:
+                    self.vocab[tok] = len(self.vocab)
+        return self
+
+    def get_sparse_vector(self, text: str) -> Dict[int, float]:
+        """Return {token_id: term_frequency}."""
+        tokens = _simple_tokenize(text)
+        freq: Dict[str, int] = {}
+        for tok in tokens:
+            freq[tok] = freq.get(tok, 0) + 1
+        return {self.vocab[tok]: float(count) for tok, count in freq.items() if tok in self.vocab}
+
+    def save_vocab(self, path: str):
+        """Save vocabulary to JSON file."""
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(self.vocab, f, ensure_ascii=False, indent=2)
+
+    def load_vocab(self, path: str):
+        """Load vocabulary from JSON file."""
+        with open(path, "r", encoding="utf-8") as f:
+            self.vocab = json.load(f)
+
 
 class BGEEmbedder:
     """
-    Unified wrapper for BGE-M3 (base or finetuned).
-    Supports: dense, sparse, hybrid, finetuned_dense, finetuned_sparse, finetuned_hybrid
-    All finetuned modes share the same checkpoint but compute different output branches.
+    Unified wrapper for BGE dense (via sentence-transformers) + BM25 sparse (raw term frequencies).
+
+    Supported modes
+    ---------------
+    dense            — base BGE, dense only
+    sparse           — BM25 sparse only (raw term frequencies)
+    hybrid           — base BGE dense + BM25 sparse
+    finetuned_dense  — finetuned BGE dense only
+    finetuned_hybrid — finetuned BGE dense + BM25 sparse
+
+    For sparse: either call fit_bm25(corpus) or load_bm25_vocab(path) before encoding.
     """
+
     def __init__(self, mode: str, cfg: dict):
         self.mode = mode
         model_cfg = cfg.get("model", {})
+        indexing_cfg = cfg.get("indexing", {})
         self.device = model_cfg.get("device", "cpu")
-        self.use_fp16 = model_cfg.get("use_fp16", False) and self.device == "cuda"
-        self.batch_size = model_cfg.get("batch_size", 32)
-        
-        is_finetuned = mode.startswith("finetuned_")
-        
-        if is_finetuned:
-            ft_paths = model_cfg.get("finetuned_paths", {})
-            ft_type = mode.replace("finetuned_", "")
-            # Try mode-specific path first, fallback to generic finetuned_path
-            model_path = ft_paths.get(ft_type) or model_cfg.get("finetuned_path")
-            if not model_path or not os.path.exists(model_path):
-                raise FileNotFoundError(f"Finetuned model not found for '{mode}' at: {model_path}")
-        else:
-            model_path = model_cfg.get("base_name", "BAAI/bge-m3")
-            
-        from FlagEmbedding import BGEM3FlagModel
-        self.model = BGEM3FlagModel(model_path, use_fp16=self.use_fp16, device=self.device)
-        
-        # Route outputs based on mode
-        self.needs_dense = mode in ["dense", "hybrid", "finetuned_dense", "finetuned_hybrid"]
-        self.needs_sparse = mode in ["sparse", "hybrid", "finetuned_sparse", "finetuned_hybrid"]
+        self.batch_size = indexing_cfg.get("batch_size", 16)
 
-    def _process_sparse(self, sparse_dicts):
-        """Convert string keys to integers for Qdrant compatibility."""
-        return [{int(k): float(v) for k, v in d.items()} for d in sparse_dicts]
+        self.needs_dense = mode in {
+            "dense", "hybrid", "finetuned_dense", "finetuned_hybrid"
+        }
+        self.needs_sparse = mode in {"sparse", "hybrid", "finetuned_hybrid"}
+
+        # Dense encoder
+        if self.needs_dense:
+            from sentence_transformers import SentenceTransformer
+            is_finetuned = mode.startswith("finetuned_")
+            if is_finetuned:
+                model_path = model_cfg.get("finetuned_path")
+                if not model_path or not os.path.exists(model_path):
+                    raise FileNotFoundError(f"Finetuned model not found for '{mode}' at: {model_path}")
+            else:
+                model_path = model_cfg.get("base_name", "BAAI/bge-m3")
+            self.st_model = SentenceTransformer(model_path, device=self.device)
+        else:
+            self.st_model = None
+
+        # Sparse encoder
+        self.bm25: Optional[BM25TermFrequency] = BM25TermFrequency() if self.needs_sparse else None
+
+    # BM25 corpus fitting and loading
+    def fit_bm25(self, corpus: List[str]) -> "BGEEmbedder":
+        if self.bm25 is None:
+            raise RuntimeError(f"Mode '{self.mode}' does not use BM25.")
+        self.bm25.fit(corpus)
+        return self
+
+    def save_bm25_vocab(self, path: str):
+        if self.bm25 is None:
+            raise RuntimeError(f"Mode '{self.mode}' does not use BM25.")
+        self.bm25.save_vocab(path)
+
+    def load_bm25_vocab(self, path: str):
+        if self.bm25 is None:
+            raise RuntimeError(f"Mode '{self.mode}' does not use BM25.")
+        self.bm25.load_vocab(path)
+
+    # Dense helpers
+    def _l2_normalize(self, vecs: np.ndarray) -> np.ndarray:
+        norms = np.linalg.norm(vecs, axis=1, keepdims=True)
+        return vecs / np.where(norms == 0, 1, norms)
 
     def encode_dense(self, texts: List[str]) -> np.ndarray:
-        if not self.needs_dense:
+        if not self.needs_dense or self.st_model is None:
             return np.empty((len(texts), 0))
-        raw = self.model.encode(texts, return_dense=True)["dense_vecs"]
-        norms = np.linalg.norm(raw, axis=1, keepdims=True)
-        return raw / np.where(norms == 0, 1, norms)
+        vecs = self.st_model.encode(
+            texts,
+            batch_size=self.batch_size,
+            normalize_embeddings=False,
+            show_progress_bar=False,
+        )
+        return self._l2_normalize(np.array(vecs))
 
     def encode_sparse(self, texts: List[str]) -> List[Dict[int, float]]:
-        if not self.needs_sparse:
+        if not self.needs_sparse or self.bm25 is None:
             return [{} for _ in texts]
-        res = self.model.encode(texts, return_sparse=True)
-        return self._process_sparse(res["lexical_weights"])
+        return [self.bm25.get_sparse_vector(t) for t in texts]
 
     def encode_batch(self, texts: List[str]) -> Dict[str, Any]:
-        out = {}
-        # Optimized: single forward pass when both branches are needed
-        if self.needs_dense and self.needs_sparse:
-            res = self.model.encode(texts, return_dense=True, return_sparse=True, batch_size=self.batch_size)
-            out["dense"] = res["dense_vecs"]
-            out["sparse"] = self._process_sparse(res["lexical_weights"])
-        else:
-            if self.needs_dense: out["dense"] = self.encode_dense(texts)
-            if self.needs_sparse: out["sparse"] = self.encode_sparse(texts)
-            
-        # Ensure L2 normalization for dense
-        if "dense" in out:
-            norms = np.linalg.norm(out["dense"], axis=1, keepdims=True)
-            out["dense"] = out["dense"] / np.where(norms == 0, 1, norms)
-            
+        out: Dict[str, Any] = {}
+        if self.needs_dense:
+            out["dense"] = self.encode_dense(texts)
+        if self.needs_sparse:
+            out["sparse"] = self.encode_sparse(texts)
         return out
 
     def cleanup(self):
         if self.device == "cuda":
-            torch.cuda.empty_cache()
+            try:
+                import torch
+                torch.cuda.empty_cache()
+            except ImportError:
+                pass
+        if self.st_model is not None:
+            del self.st_model

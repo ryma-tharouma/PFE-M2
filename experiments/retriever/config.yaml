@@ -10,8 +10,8 @@ database:
 indexing:
   db_types: ["qdrant"]
   modes: ["dense", "sparse", "hybrid"]
-  # modes: ["dense", "sparse", "hybrid", "finetuned_dense", "finetuned_sparse", "finetuned_hybrid"]
-  index_types: ["flat", "hnsw"]
+  # modes: ["dense", "sparse", "hybrid", "finetuned_dense","finetuned_hybrid"]
+  index_types: ["flat"]
   batch_size: 16
   drop_existing: true
 
@@ -22,8 +22,8 @@ chunking:
 
 retrieval:
   max_retrieve_sections: 10
-  eval_k_sections: [1, 2, 3, 4, 5, 10]
-  aggregation_method: ["max", "mean", "rrf"]
+  eval_k_sections: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  aggregation_method: ["max"]
   alpha: 0.7
 
 multi_turn:
@@ -44,7 +44,7 @@ evaluation:
   query_sources:
     - name: "eval_set"
       path: "data/conversations/original_turns.jsonl" #  Swap for dev/test
-  checkpoint_every: 50
+  checkpoint_every: 10
 
 paths:
   apps_dir: "data/apps/"
@@ -55,4 +55,4 @@ model:
   finetuned_path: "models/bge-m3-ft/"
   use_fp16: false
   device: "cpu"
-  embedding_dim: 1024 #  Future-proof for fine-tuned models
+  embedding_dim: 1024
