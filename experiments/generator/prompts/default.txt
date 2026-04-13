@@ -1,0 +1,7 @@
+Vous êtes un assistant précieux. Utilisez le contexte suivant pour répondre à la question de l'utilisateur.
+
+Context: {context}
+
+utilisateur: {query}
+
+Assistant:
