@@ -1,0 +1,115 @@
+
+================================================================================
+  RAG TRANSFORMATION REPORT
+================================================================================
+
+
+EXCEL
+--------------------------------------------------------------------------------
+  Total articles: 70
+  ✓ Good structure (kept): 40 (57.1%)
+  ✗ Bad structure (filtered): 30 (42.9%)
+  Output: data\rag_final\excel.json
+
+  Structure breakdown (top 15):
+    [ 15x] ✗ FILTERED - résumé → plus d’informations
+    [ 10x] ✓ KEPT - symptômes → la cause → contournement
+    [  7x] ✓ KEPT - symptômes → la cause → résolution → plus d’informations
+    [  5x] ✓ KEPT - symptômes → la cause → contournement → plus d’informations
+    [  5x] ✗ FILTERED - résumé → plus d’informations → références
+    [  4x] ✓ KEPT - symptômes → la cause → résolution
+    [  3x] ✗ FILTERED - résumé
+    [  3x] ✓ KEPT - symptômes → la cause → contournement → statut
+    [  2x] ✓ KEPT - symptômes → contournement
+    [  2x] ✗ FILTERED - raisons possibles pour lesquelles les documents ne sont pas enregistrés → résolution rapide → ressources supplémentaires → vue détaillée des options → option 1 : enregistrer le classeur à l’aide d’un nouveau nom de fichier → option 2 : déplacer les feuilles de calcul d’origine vers un nouveau classeur → option 3 : enregistrer le fichier sous la forme d’un autre type de fichier excel → option 4 : essayer d’enregistrer le classeur dans un autre emplacement → option 5 : essayer d’enregistrer un nouveau classeur à l’emplacement d’origine → option 6 : essayer d’enregistrer le classeur en mode sans échec → plus d’informations
+    [  1x] ✓ KEPT - symptômes → la cause → contournement → statut → plus d’informations → référence
+    [  1x] ✓ KEPT - symptômes → la cause → résolution → plus d’informations → références
+    [  1x] ✗ FILTERED - symptômes → la cause → plus d’informations
+    [  1x] ✓ KEPT - la cause → résolution → références
+    [  1x] ✓ KEPT - symptômes → résolution → plus d’informations
+
+MOT
+--------------------------------------------------------------------------------
+  Total articles: 32
+  ✓ Good structure (kept): 21 (65.6%)
+  ✗ Bad structure (filtered): 11 (34.4%)
+  Output: data\rag_final\mot.json
+
+  Structure breakdown (top 15):
+    [  7x] ✓ KEPT - symptômes → la cause → résolution → plus d’informations
+    [  2x] ✓ KEPT - symptômes → la cause → résolution
+    [  2x] ✗ FILTERED - présentation → plus d’informations
+    [  2x] ✓ KEPT - symptômes → la cause → contournement
+    [  1x] ✗ FILTERED - auto-exec → ouvrir automatiquement → créer une macro auto-exec et une macro ouverte automatiquement → comportements macroscopiques dans diverses situations → références
+    [  1x] ✗ FILTERED - symptômes → plus d’informations → références
+    [  1x] ✓ KEPT - symptômes → résolution
+    [  1x] ✗ FILTERED - résumé → comment créer une entrée toc sans numéro de page → références → plus d’informations
+    [  1x] ✓ KEPT - symptômes → la cause → contournement → statut
+    [  1x] ✗ FILTERED - résumé → mettre à jour microsoft office et windows → un document endommagé ou un problème logiciel ? → étapes de résolution des problèmes à essayer si le document endommagé n’est pas ouvert → étapes de résolution des problèmes à essayer si vous pouvez ouvrir le document endommagé
+    [  1x] ✓ KEPT - symptômes → la cause → contournement → plus d’informations
+    [  1x] ✓ KEPT - la cause → résolution → références
+    [  1x] ✗ FILTERED - symptômes → plus d’informations
+    [  1x] ✓ KEPT - symptômes → résolution → plus d’informations
+    [  1x] ✓ KEPT - symptômes → comment word détermine le dpi lors de l'impression de documents pdf → contournement → plus d’informations
+
+OUTLOOK
+--------------------------------------------------------------------------------
+  Total articles: 240
+  ✓ Good structure (kept): 184 (76.7%)
+  ✗ Bad structure (filtered): 56 (23.3%)
+  Output: data\rag_final\outlook.json
+
+  Structure breakdown (top 15):
+    [ 65x] ✓ KEPT - symptômes → la cause → résolution → plus d’informations
+    [ 44x] ✓ KEPT - symptômes → la cause → résolution
+    [ 24x] ✓ KEPT - symptômes → la cause → contournement
+    [  8x] ✓ KEPT - symptômes → la cause → contournement → plus d’informations
+    [  7x] ✗ FILTERED - résumé → plus d’informations
+    [  7x] ✗ FILTERED - symptômes → la cause → plus d’informations
+    [  4x] ✓ KEPT - symptômes → la cause → résolution → contournement → plus d’informations
+    [  4x] ✓ KEPT - symptômes → contournement
+    [  4x] ✓ KEPT - symptômes → résolution
+    [  3x] ✓ KEPT - symptômes → la cause → contournement → references
+    [  2x] ✓ KEPT - symptômes → la cause → contournement → statut
+    [  2x] ✓ KEPT - symptômes → la cause → résolution → references
+    [  2x] ✓ KEPT - symptôme → la cause → contournement
+    [  2x] ✓ KEPT - symptômes → la cause → résolution → contournement
+    [  1x] ✓ KEPT - symptômes → la cause → contournement → considérations relatives aux paramètres de stratégie de groupe → references
+
+================================================================================
+  SUMMARY
+================================================================================
+
+Category        Total      Kept       Filtered   %         
+-------------------------------------------------------
+excel           70         40         30           57.1%
+mot             32         21         11           65.6%
+outlook         240        184        56           76.7%
+-------------------------------------------------------
+TOTAL           342        245        97           71.6%
+
+✓ RAG-ready articles saved to: data/rag_final/
+
+Good structure criteria:
+  • Must contain BOTH:
+    - Problem marker: 'symptômes' or 'la cause'
+    - Solution marker: 'résolution' or 'contournement'
+  • Common patterns kept:
+    • symptômes → la cause → résolution
+    • la cause → résolution → symptômes
+    • la cause → plus d'informations → résolution → symptômes
+    • contournement → la cause → résolution → symptômes
+
+Each article contains:
+  - section_id: unique identifier
+  - title: article title
+  - applies_to: list of affected versions
+  - problem: title + symptoms (markdown)
+  - answer: cause + resolution/workaround (markdown)
+  - full_text: complete formatted text
+  - source: original URL
+  - source_type: 'faq'
+  - category: article category (Excel, Word, Outlook)
+
+================================================================================
+

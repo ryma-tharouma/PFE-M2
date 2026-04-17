@@ -1,15 +1,15 @@
 experiment:
-  name: "phase_A1_base"
+  name: "phase_test_bge_manuels_k20_no_ood"
   description: "Multi-mode, multi-strategy retrieval eval with routing thresholds"
   results_dir: "data/results/{experiment_name}/"
 
 database:
   type: "qdrant"
-  path: "data/vector_db/"
+  path: "data/vector_db_level2/"
 
 indexing:
   db_types: ["qdrant"]
-  modes: ["dense", "sparse", "hybrid"]
+  modes: ["dense"]
   # modes: ["dense", "sparse", "hybrid", "finetuned_dense","finetuned_hybrid"]
   index_types: ["flat"]
   batch_size: 16
@@ -21,14 +21,14 @@ chunking:
   overlap_tokens: 10
 
 retrieval:
-  max_retrieve_sections: 10
-  eval_k_sections: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  max_retrieve_sections: 20
+  eval_k_sections: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20]
   aggregation_method: ["max"]
   alpha: 0.7
 
 multi_turn:
   enabled: true
-  strategies: ["none", "weighted_concat"]
+  strategies: ["none"] # "weighted_concat"
   window_size: 2
   weights: [0.3, 0.6, 1.0]
   context_truncation:
@@ -56,3 +56,11 @@ model:
   use_fp16: false
   device: "cpu"
   embedding_dim: 1024
+
+reranker:
+  enabled: true # set to false to disable
+  model_name: "BAAI/bge-reranker-v2-m3"
+  device: "cpu" # or "cuda"
+  batch_size: 8
+  top_k_rerank: 20 # number of retrieved chunks to rerank
+  use_fp16: true # only works with CUDA

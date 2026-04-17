@@ -1,0 +1,159 @@
+
+================================================================================
+  ARTICLE ANALYSIS REPORT
+================================================================================
+
+EXCEL
+--------------------------------------------------------------------------------
+  📊 Total articles: 70
+  ✓ Articles with Resolution/Contournement/Résolution rapide: 44 (62.9%)
+
+  Section Header Combinations (count):
+    [ 15x] plus d’informations → résumé
+    [ 10x] contournement → la cause → symptômes
+    [  7x] la cause → plus d’informations → résolution → symptômes
+    [  5x] contournement → la cause → plus d’informations → symptômes
+    [  5x] plus d’informations → références → résumé
+    [  4x] la cause → résolution → symptômes
+    [  3x] résumé
+    [  3x] contournement → la cause → statut → symptômes
+    [  2x] contournement → symptômes
+    [  2x] option 1 : enregistrer le classeur à l’aide d’un nouveau nom de fichier → option 2 : déplacer les feuilles de calcul d’origine vers un nouveau classeur → option 3 : enregistrer le fichier sous la forme d’un autre type de fichier excel → option 4 : essayer d’enregistrer le classeur dans un autre emplacement → option 5 : essayer d’enregistrer un nouveau classeur à l’emplacement d’origine → option 6 : essayer d’enregistrer le classeur en mode sans échec → plus d’informations → raisons possibles pour lesquelles les documents ne sont pas enregistrés → ressources supplémentaires → résolution rapide → vue détaillée des options
+    [  1x] contournement → la cause → plus d’informations → référence → statut → symptômes
+    [  1x] la cause → plus d’informations → références → résolution → symptômes
+    [  1x] la cause → plus d’informations → symptômes
+    [  1x] la cause → références → résolution
+    [  1x] plus d’informations → résolution → symptômes
+    [  1x] références → résolution → symptômes
+    [  1x] plus d’informations → références → symptômes
+    [  1x] option 1 : rechercher les feuilles masquées → option 2 : réduire et optimiser la fenêtre → option 3 : désactiver l’accélération matérielle → option 4 : ignorer dde → option 5 : réinitialiser les associations de fichiers → option 6 : réparer la virtualisation de l’expérience utilisateur (ue-v) → option 7 : réparer office → option 8 : désactiver les compléments → résolution → symptômes
+    [  1x] plus d’informations → résolution → résumé
+    [  1x] la cause → plus d’informations → résolution → statut → symptômes
+    [  1x] la cause → plus d’informations → références → résolution → statut → symptômes
+    [  1x] résolution
+    [  1x] mise à jour automatique et aucun message → mise à jour manuelle et aucun message → résumé
+    [  1x] articles connexes → la cause → résolution → symptômes
+
+MOT
+--------------------------------------------------------------------------------
+  📊 Total articles: 32
+  ✓ Articles with Resolution/Contournement/Résolution rapide: 23 (71.9%)
+
+  Section Header Combinations (count):
+    [  7x] la cause → plus d’informations → résolution → symptômes
+    [  2x] la cause → résolution → symptômes
+    [  2x] plus d’informations → présentation
+    [  2x] contournement → la cause → symptômes
+    [  1x] auto-exec → comportements macroscopiques dans diverses situations → créer une macro auto-exec et une macro ouverte automatiquement → ouvrir automatiquement → références
+    [  1x] plus d’informations → références → symptômes
+    [  1x] résolution → symptômes
+    [  1x] comment créer une entrée toc sans numéro de page → plus d’informations → références → résumé
+    [  1x] contournement → la cause → statut → symptômes
+    [  1x] mettre à jour microsoft office et windows → résumé → un document endommagé ou un problème logiciel ? → étapes de résolution des problèmes à essayer si le document endommagé n’est pas ouvert → étapes de résolution des problèmes à essayer si vous pouvez ouvrir le document endommagé
+    [  1x] contournement → la cause → plus d’informations → symptômes
+    [  1x] la cause → références → résolution
+    [  1x] plus d’informations → symptômes
+    [  1x] plus d’informations → résolution → symptômes
+    [  1x] comment word détermine le dpi lors de l'impression de documents pdf → contournement → plus d’informations → symptômes
+    [  1x] contournement → plus d’informations → symptômes
+    [  1x] option 1 : insérer votre document dans un autre fichier → option 2 : démarrer word à l’aide du commutateur /a → option 3 : supprimer la sous-clé de registre de données word → option 4 : supprimer la clé de registre word options → option 5 : remplacer le fichier de modèle global normal.dot ou normal.dotm → option 6 : désactiver les compléments de dossier de démarrage → option 7 : supprimer les clés de registre des compléments com → option 8 : modifier l’imprimante par défaut → ressources supplémentaires → résolution rapide → vue détaillée des options → vérifier ou installer les dernières mises à jour
+    [  1x] limites de visual basic pour applications → limites de word 2007 et versions ultérieures → limites du mode de compatibilité dans word 2007 et versions ultérieures → rubriques connexes
+    [  1x] plus d’informations → résumé
+    [  1x] la cause → résolution
+    [  1x] la cause → plus d’informations → résolution → symptôme
+    [  1x] résumé → utiliser des polices d’imprimante dans word
+    [  1x] contournement → la cause → plus d’informations → résumé → symptômes
+
+OUTLOOK
+--------------------------------------------------------------------------------
+  📊 Total articles: 240
+  ✓ Articles with Resolution/Contournement/Résolution rapide: 207 (86.2%)
+
+  Section Header Combinations (count):
+    [ 65x] la cause → plus d’informations → résolution → symptômes
+    [ 44x] la cause → résolution → symptômes
+    [ 24x] contournement → la cause → symptômes
+    [  9x] contournement → la cause → plus d’informations → symptômes
+    [  7x] plus d’informations → résumé
+    [  7x] la cause → plus d’informations → symptômes
+    [  4x] contournement → la cause → plus d’informations → résolution → symptômes
+    [  4x] contournement → symptômes
+    [  4x] résolution → symptômes
+    [  3x] contournement → la cause → résolution → symptômes
+    [  3x] contournement → la cause → references → symptômes
+    [  2x] contournement → la cause → statut → symptômes
+    [  2x] la cause → references → résolution → symptômes
+    [  2x] contournement → la cause → symptôme
+    [  2x] contournement → la cause → plus d’informations → statut → symptômes
+    [  2x] contournement → résolution → symptômes
+    [  1x] considérations relatives aux paramètres de stratégie de groupe → contournement → la cause → references → symptômes
+    [  1x] scénario 3 → scénario 1 → scénario 2
+    [  1x] plus d’informations → statut
+    [  1x] détails → la cause → résolution → symptômes
+    [  1x] commutateurs d’aide et de ligne de commande actuels → effectuer la vérification du calendrier → plus d’informations → vérifications effectuées
+    [  1x] plus d’informations → résolution → résumé
+    [  1x] plus d’informations → résolution → symptôme
+    [  1x] statut → symptômes
+    [  1x] impossible de se connecter au serveur distant → la demande a expiré → la demande a été abandonnée : impossible de créer un canal sécurisé ssl/tls → la demande inter-organisation n’est pas autorisée, car le demandeur provient d’une autre organisation → le composant nom d’hôte de la valeur de revendication d’audience n’est pas valide → le jeu de résultats contient trop d’entrées de calendrier → le mot de passe doit être modifié ou le mot de passe du compte a expiré → le nom de membre spécifié n’est pas valide ou vide → les informations de configuration pour la forêt/domaine sont introuvables dans active directory → les mots de passe entrés et stockés ne correspondent pas → l’appelant n’a pas accès aux données de statut de disponibilité → l’application ne dispose pas d’un compte lié pour les rôles rbac, ou le compte lié n’a aucune attribution de rôle rbac, ou le compte d’utilisateur appelant est désactivé. → l’approvisionnement est nécessaire avant que le compte fédéré puisse être connecté → l’heure de début des heures de travail doit être inférieure ou égale à l’heure de fin → l’utilisateur spécifié par le contexte utilisateur dans le jeton n’existe pas → une connexion existante a été fermée de force par l’hôte distant → une erreur s’est produite lors de la vérification de la sécurité du message → une erreur s’est produite lors du traitement des jetons de sécurité dans le message → échec de la découverte automatique pour l’adresse e-mail : invaliduser → échec de la découverte automatique pour l’adresse e-mail : le nom distant n’a pas pu être résolu → échec de la découverte automatique pour l’adresse e-mail : état http 404 → échec de la requête avec l’état http 401 : non autorisé (certificat de signature manquant) → échec de la requête avec l’état http 401 : non autorisé (la clé est introuvable) → échec de la requête avec l’état http 401 : non autorisé (le jeton a une signature non valide) → échec de la requête web du proxy d’exception → échec de la requête web proxy : impossible de se connecter au serveur distant → échec de la requête web proxy : la réponse n’est pas bien formée xml → échec de la requête web proxy : objet déplacé → échec de la requête web proxy : état http 401 → échec de la requête web proxy avec l’état http 503 : service indisponible → échec de la requête web proxy avec l’état http 504 : délai d’expiration de la passerelle → échec de l’obtention d’asurl. erreur 8004010f
+    [  1x] la cause → méthode 1 : activer le paramètre calendrier d’équipe du gestionnaire d’affichage dans outlook → méthode 2 - modifier le registre pour activer le calendrier d’équipe du responsable → méthode 3 - définir l’attribut manager → méthode 4 - réduire le nombre de rapports directs à moins de 100 → symptômes
+    [  1x] la cause → plus d’informations → résolution 1 : examiner le certificat pour le message d’erreur 1 ou 2 → résolution 2 : installer le certificat racine approuvé pour le message d’erreur 3 → résolution 3 : désactiver le complément tiers ou le complément de navigateur tiers pour le message d’erreur 4 → symptômes
+    [  1x] la cause → résolution - méthode 1 → résolution - méthode 2 → symptômes
+    [  1x] la cause → solution de contournement 1 → solution de contournement 2 → solution de contournement 3 → solution de contournement 4 → solutions de contournement → symptômes
+    [  1x] méthode de résolution 1 - créer un profil outlook → méthode de résolution 2 - supprimer la valeur de registre 001e660e → plus d’informations → symptômes
+    [  1x] itunes, complément notification de modification outlook interférant avec la saisie semi-automatique → résolution → si vous avez un compte microsoft exchange server → si vous disposez d’un compte de messagerie domestique
+    [  1x] references → résolution → symptômes
+    [  1x] comment afficher la carte de visite dans les programmes office autres qu’outlook → comment laisser une ligne vide dans la carte de visite → comment réorganiser les champs emplacement et calendrier → contournement → exemple de solution de contournement → la cause → plus d’informations → symptômes
+    [  1x] plus d’informations → résolution → symptômes
+    [  1x] supprimer une règle endommagée
+    [  1x] la cause → méthode de contournement 1 : créer un profil outlook, puis modifier l’emplacement du fichier .ost → méthode de contournement 2 : définir l’entrée de registre forceostpath pour modifier l’emplacement du fichier .ost → symptômes
+    [  1x] comment l’outil de réparation de la boîte de réception vérifie et corrige les erreurs → impossible de trouver ou de démarrer l’outil de réparation de boîte de réception → qu’est-ce que l’outil de réparation de boîte de réception ? → récupérer les éléments réparés à partir du fichier de sauvegarde (facultatif) → étape 1 : quitter outlook et démarrer l’outil de réparation de boîte de réception → étape 2 : réparer le fichier .pst → étape 3 : récupérer les éléments réparés dans un nouveau fichier .pst
+    [  1x] comportements des fichiers .pst sur les liens wan et lan → fichiers de dossiers personnels → résumé → solutions de recommandations
+    [  1x] le bouton bascule ne s’affiche pas dans outlook classique → le commutateur dans outlook classique ne fonctionne pas
+    [  1x] la cause → résolution pour outlook 2007 et versions antérieures → résolution pour outlook 2010 et versions ultérieures → symptômes
+    [  1x] plus d’informations → symptômes
+    [  1x] autres options de déploiement → restrictions de stratégie → vérifier le mode de téléchargement → vérifier les exécutables → vérifier les pare-feu
+    [  1x] les détails de tnef
+    [  1x] la cause → méthode de résolution 1 : effacer la valeur de l’entrée de registre userwhlinknavigation → méthode de résolution 2 - actualiser la valeur de l'entrée de registre userwhlinknavigation → plus d’informations → symptômes
+    [  1x] la cause → plus d’informations → solution de contournement 1 : mettre à jour le complément salesforce pour outlook → solution de contournement 2 : réinstaller le complément salesforce pour outlook → solution de contournement 3 : désactiver ou désinstaller le complément salesforce pour outlook → statut → symptômes
+    [  1x] désactivation d’un complément qui a été réactivé → plus d’informations → résumé
+    [  1x] la cause → solution de contournement 1 : désactiver le volet d’aperçu de l’explorateur windows et ouvrir le fichier .msg pour l’afficher dans outlook → solution de contournement 2 - utiliser outlook 32 bits → symptômes
+    [  1x] la cause → plus d’informations → résolution → symptôme
+    [  1x] la cause → solution de contournement 1 : installer une mise à jour récente d’outlook si déjà installé le module linguistique → solution de contournement 2 : empêcher ce problème si le pack de langue n'est pas encore installé. → symptômes
+    [  1x] configurer et récupérer des journaux outlook → résumé → vérifier l’état de découverte automatique → vérifier l’état de la connexion outlook
+    [  1x] plus d’informations → references → résumé
+    [  1x] méthode de contournement 1 : configurer manuellement outlook 2016 pour qu’il s’exécute toujours maximisé → méthode de contournement 4 - créer un fichier .reg pour réinitialiser la valeur du cadre outlook dans le registre → méthode de contournement 5 : utiliser la stratégie de groupe pour supprimer la valeur outlook frame du registre → résolution → solution de contournement 2 - utiliser stratégie de groupe pour configurer outlook 2016 afin qu’il s’exécute toujours maximisé. → solution de contournement 3 : supprimer manuellement la valeur de cadre outlook du registre → solution de contournement 6 : utiliser un script de connexion pour supprimer la valeur frame outlook du registre → symptômes
+    [  1x] la cause → references → résolution → symptômes → étape suivante
+    [  1x] analyser une configuration outlook pour détecter les problèmes connus → aperçu → configuration système requise → installer l’assistant microsoft support et récupération → passer en revue votre analyse outlook
+    [  1x] dans outlook 2007 → dans outlook 2010 → la cause → problème → solution
+    [  1x] contournement → plus d’informations → résolution → symptômes
+    [  1x] la cause → résolution → résumé → symptômes
+    [  1x] scénario 1 : les boîtes aux lettres du gestionnaire et des délégués sont ajoutées au même profil → scénario 2 : la boîte aux lettres que vous ajoutez manuellement est également ajoutée par le mappage automatique exchange
+    [  1x] la cause → méthode de résolution 1 - activer ou mettre à jour votre application antivirus → méthode de résolution 2 : modifier le paramètre de sécurité d’accès par programmation dans le registre → symptômes
+    [  1x] article connexe → la cause → plus d’informations → résolution → symptômes
+    [  1x] la cause → solution → symptômes
+    [  1x] plus d’informations → résolution → résumé → symptômes
+    [  1x] contournement → plus d’informations → symptômes
+    [  1x] la cause → méthode de résolution 1 - options outlook → méthode de résolution 2 - stratégie de groupe → plus d’informations → symptômes
+    [  1x] plus d’informations → solution de contournement 1 : n’utilisez pas de fichier .pst comme emplacement de remise par défaut → solution de contournement 2 : utiliser une version ultérieure d’outlook → solution de contournement 3 : n’utilisez pas de fichiers oft (.oft) → statut → symptômes
+    [  1x] méthode 1 : restaurer les noms de dossiers par défaut à l’aide du commutateur /resetfolders → méthode 2 : réinitialiser les noms de dossiers par défaut à l’aide d’outlook sur le web → méthode 3 : réinitialiser les noms de dossiers par défaut à l’aide de l’applet de commande set-mailboxregionalconfiguration → méthode 4 : créer un dossier archive → méthode 5 : restaurer l’emplacement du dossier courrier indésirable à l’aide de mfcmapi
+    [  1x] la cause → méthode de résolution 1 - désactiver outlook aujourd’hui → méthode de résolution 2 - utiliser la recherche avancée pour localiser les éléments et les déplacer vers un autre dossier → symptômes
+    [  1x] plus d’informations → statut → symptômes
+    [  1x] contournement → la cause → plus d’informations → résolution → statut → symptômes
+    [  1x] solution de contournement 1 → solution de contournement 2
+    [  1x] clé de registre pour activer ou désactiver le complément de réunion skype → comment déterminer si vous utilisez une installation démarrer en un clic ou msi → le complément skype meeting pour microsoft office 2016 est manquant dans les compléments com. → résolution → résumé
+    [  1x] la cause → plus d’informations → solution de contournement 1 : problème lié à la mise à l’échelle des ppp élevé. → solution de contournement 2 : problème lié à l’application hôte qui ne retourne pas le focus → symptômes
+
+================================================================================
+  SUMMARY
+================================================================================
+
+Category             Articles        With Resolution      Percentage     
+----------------------------------------------------------------------
+excel                70              44                     62.9%
+mot                  32              23                     71.9%
+outlook              240             207                    86.2%
+----------------------------------------------------------------------
+TOTAL                342             274                    80.1%
+
+================================================================================
+

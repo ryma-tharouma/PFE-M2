@@ -4,25 +4,44 @@ import csv
 import json
 import time
 import gc
-import numpy as np
-from collections import defaultdict
-from typing import List, Dict, Any
+from typing import Set, List, Dict, Any, Tuple
 
-from src.factories import get_vector_database, get_embedder, get_aggregator, get_context_manager
-from src.metrics import compute_query_metrics
-from src.threshold_analysis import optimize_thresholds
+from src.factories import get_vector_database, get_embedder, get_aggregator, get_context_manager, get_reranker
+
+
+def get_processed_query_ids(csv_path: str) -> Set[str]:
+    """
+    Read existing CSV file and return the set of query_ids already processed.
+    Assumes CSV has header and first column is 'query_id'.
+    """
+    if not os.path.exists(csv_path):
+        return set()
+    processed = set()
+    with open(csv_path, "r", encoding="utf-8") as f:
+        reader = csv.reader(f)
+        try:
+            header = next(reader)  # skip header
+        except StopIteration:
+            return set()
+        # Find index of 'query_id' column (should be first, but be safe)
+        try:
+            qid_idx = header.index("query_id")
+        except ValueError:
+            qid_idx = 0
+        for row in reader:
+            if row and len(row) > qid_idx:
+                processed.add(row[qid_idx])
+    return processed
+
 
 def run_evaluate(cfg: dict):
     resolved_results = cfg["paths"]["resolved_results"]
     query_sources = cfg.get("evaluation", {}).get("query_sources", [])
     mt_strategies = cfg.get("multi_turn", {}).get("strategies", ["none"])
-    eval_ks = cfg.get("retrieval", {}).get("eval_k_sections", [1, 2, 3, 5, 10])
     max_retrieve = cfg.get("retrieval", {}).get("max_retrieve_sections", 10)
     modes = cfg["indexing"]["modes"]
     db_types = cfg["indexing"].get("db_types", [cfg["database"]["type"]])
     index_types = cfg["indexing"]["index_types"]
-    auto_opt = cfg.get("routing", {}).get("auto_optimize", False)
-    checkpoint_interval = cfg.get("evaluation", {}).get("checkpoint_every", 50)
 
     raw_agg = cfg["retrieval"].get("aggregation_method", "max")
     agg_methods = [raw_agg] if isinstance(raw_agg, str) else list(raw_agg)
@@ -39,13 +58,16 @@ def run_evaluate(cfg: dict):
                 conv_id, app_id = conv["conversation_id"], conv.get("app_id", "manual_bdm")
                 history = []
                 for turn in conv["turns"]:
+                    rewritten = turn.get("rewritten_query")
+                    is_rewritten = bool(rewritten and rewritten.strip())
                     all_turns.append({
                         "query_id": f"{conv_id}_t{turn['turn_id']}",
                         "query": turn["user_query"],
                         "history": list(history),
                         "relevant_ids": set(turn.get("relevant_sections", [])),
-                        "metadata": turn,
-                        "app_id": app_id
+                        "app_id": app_id,
+                        "query_quality": turn.get("query_quality", "unknown"),
+                        "is_rewritten": is_rewritten,
                     })
                     history.append(turn)
                     if len(history) > cfg["multi_turn"].get("window_size", 2) + 2:
@@ -56,10 +78,9 @@ def run_evaluate(cfg: dict):
         return
 
     print(f"Loaded {len(all_turns)} evaluation turns.")
-    all_results = []
+    unique_app_ids = set(t["app_id"] for t in all_turns)
 
-    # Cache for embedders that have loaded vocab
-    loaded_embedders = {}  # key: (app_id, mode)
+    os.makedirs(resolved_results, exist_ok=True)
 
     for strategy in mt_strategies:
         print(f"\nStrategy: {strategy}")
@@ -68,7 +89,6 @@ def run_evaluate(cfg: dict):
 
         for db_type in db_types:
             cfg["database"]["type"] = db_type
-            db = None
             try:
                 db = get_vector_database(cfg)
             except Exception as e:
@@ -77,76 +97,75 @@ def run_evaluate(cfg: dict):
             print(f"  Connected to {db_type}")
 
             for mode in modes:
-                # Create base embedder (dense) - but for sparse/hybrid we will load vocab later
-                base_embedder = get_embedder(mode=mode, cfg=cfg)
+                embedder = get_embedder(mode=mode, cfg=cfg)
+                reranker = get_reranker(cfg)  # None if disabled
+
+                # Pre‑load BM25 vocabularies if needed
+                if mode in ["sparse", "hybrid", "finetuned_hybrid"]:
+                    for app_id in unique_app_ids:
+                        vocab_path = os.path.join(resolved_results, "vocab", f"{app_id}_{mode}.json")
+                        if os.path.exists(vocab_path):
+                            embedder.load_bm25_vocab(app_id, vocab_path)
+                            print(f"    Loaded BM25 vocab for app '{app_id}'")
+                        else:
+                            print(f"    Warning: BM25 vocab not found for app '{app_id}' mode '{mode}'")
 
                 for idx_type in index_types:
                     for agg_method in agg_methods:
                         cfg["retrieval"]["aggregation_method"] = agg_method
                         agg = get_aggregator(cfg)
 
-                        ckpt_path = os.path.join(resolved_results, f"eval_progress_{strategy}_{mode}_{idx_type}_{agg_method}.jsonl")
-                        config_key = f"{db_type}_{mode}_{idx_type}_{agg_method}_{strategy}"
-                        detailed_path = os.path.join(resolved_results, f"{config_key}_detailed.csv")
+                        # Output CSV file for this configuration
+                        csv_filename = f"{db_type}_{mode}_{idx_type}_{agg_method}_{strategy}_detailed.csv"
+                        csv_path = os.path.join(resolved_results, csv_filename)
+                        csv_fields = ["query_id", "mode", "db_type", "idx_type", "strategy", "aggregation",
+                                      "rank", "doc_id", "score", "is_relevant", "query_quality", "is_rewritten",
+                                      "latency_ms"]
 
-                        csv_fields = ["query_id", "mode", "db_type", "idx_type", "strategy", "aggregation", "rank", "doc_id", "score", "is_relevant"]
-                        if not os.path.exists(detailed_path):
-                            with open(detailed_path, "w", newline="", encoding="utf-8") as f:
+                        # Load already processed query IDs from existing CSV
+                        processed_qids = get_processed_query_ids(csv_path)
+                        if processed_qids:
+                            print(f"    Resume: {len(processed_qids)} query IDs already processed in {csv_filename}")
+
+                        # Write header if file is new (empty or doesn't exist)
+                        if not os.path.exists(csv_path) or os.path.getsize(csv_path) == 0:
+                            with open(csv_path, "w", newline="", encoding="utf-8") as f:
                                 csv.writer(f).writerow(csv_fields)
 
-                        print(f"  {config_key}")
+                        print(f"  Processing {csv_filename}")
 
-                        processed_ids = set()
-                        if os.path.exists(ckpt_path):
-                            with open(ckpt_path, "r") as f:
-                                for line in f:
-                                    processed_ids.add(json.loads(line)["query_id"])
-                            if processed_ids:
-                                print(f"    Resuming from checkpoint. Skipping {len(processed_ids)} turns.")
-
+                        # Process each turn, skip if already done
                         for turn in all_turns:
-                            if turn["query_id"] in processed_ids:
+                            if turn["query_id"] in processed_qids:
                                 continue
 
-                            app_id = turn.get("app_id", "manual_bdm")
-                            cache_key = (app_id, mode)
+                            app_id = turn["app_id"]
 
-                            # Get the appropriate embedder for this app/mode
+                            # Skip if BM25 required but vocab missing
                             if mode in ["sparse", "hybrid", "finetuned_hybrid"]:
-                                if cache_key not in loaded_embedders:
-                                    # Create a fresh embedder and load vocab
-                                    embedder = get_embedder(mode=mode, cfg=cfg)
-                                    vocab_path = os.path.join(resolved_results, "vocab", f"{app_id}_{mode}.json")
-                                    if not os.path.exists(vocab_path):
-                                        print(f"    Vocab file {vocab_path} not found for {app_id} mode {mode}. Skipping turn.")
-                                        continue
-                                    embedder.load_bm25_vocab(vocab_path)
-                                    loaded_embedders[cache_key] = embedder
-                                    print(f"    Loaded BM25 vocab from {vocab_path}")
-                                current_embedder = loaded_embedders[cache_key]
-                            else:
-                                current_embedder = base_embedder
+                                if app_id not in embedder._bm25_registry:
+                                    print(f"    No BM25 vocab for app '{app_id}', skipping turn {turn['query_id']}")
+                                    continue
 
                             context_str = ctx_mgr.build_context(turn["history"], turn["query"])
 
                             q_dense = None
                             q_sparse = None
                             if mode != "sparse":
-                                q_dense = current_embedder.encode_dense([context_str])[0]
+                                q_dense = embedder.encode_dense([context_str])[0]
                             if mode != "dense":
-                                q_sparse = current_embedder.encode_sparse([context_str])[0]
+                                q_sparse = embedder.encode_sparse([context_str], app_id)[0]
 
                             coll_name = f"{app_id}_{mode}_{db_type}_{idx_type}"
                             if not db.collection_exists(coll_name):
-                                print(f"    Collection {coll_name} does not exist. Skipping turn {turn['query_id']}.")
-                                processed_ids.add(turn["query_id"])
-                                with open(ckpt_path, "a") as cf:
-                                    cf.write(json.dumps({"query_id": turn["query_id"]}) + "\n")
+                                print(f"    Collection {coll_name} does not exist, skipping turn {turn['query_id']}")
                                 continue
 
-                            start = time.time()
+                            # Measure retrieval + reranking time
+                            start_time = time.time()
                             try:
-                                ids, scores = db.search(
+                                # Expects search to return (ids, scores, payloads)
+                                chunk_ids, chunk_scores, chunk_payloads = db.search(
                                     name=coll_name,
                                     q_dense=q_dense,
                                     q_sparse=q_sparse,
@@ -156,95 +175,82 @@ def run_evaluate(cfg: dict):
                                 )
                             except Exception as e:
                                 print(f"    Search failed for {coll_name}: {e}")
-                                ids, scores = [], []
+                                continue
+                            latency_ms = (time.time() - start_time) * 1000
 
-                            latency = (time.time() - start) * 1000
+                            # ------------------------------------------------------------
+                            # Rerank chunks (if enabled)
+                            # ------------------------------------------------------------
+                            if reranker and chunk_ids:
+                                k_rerank = min(reranker.top_k_rerank, len(chunk_ids))
+                                top_chunk_ids = chunk_ids[:k_rerank]
+                                top_chunk_scores = chunk_scores[:k_rerank]
+                                top_chunk_payloads = chunk_payloads[:k_rerank]
 
+                                # Extract chunk text from payload
+                                chunk_texts = [p.get("chunk_text", "") for p in top_chunk_payloads]
+
+                                # Rerank
+                                reranked_ids, reranked_scores = reranker.rerank_and_reorder(
+                                    query=context_str,
+                                    doc_ids=top_chunk_ids,
+                                    doc_texts=chunk_texts,
+                                    original_scores=top_chunk_scores
+                                )
+
+                                # Build final chunk list: reranked top + remaining (unchanged order)
+                                final_chunk_ids = list(reranked_ids)
+                                final_chunk_scores = list(reranked_scores)
+                                final_chunk_payloads = []
+                                payload_map = {cid: p for cid, p in zip(top_chunk_ids, top_chunk_payloads)}
+                                for cid in reranked_ids:
+                                    final_chunk_payloads.append(payload_map[cid])
+                                if len(chunk_ids) > k_rerank:
+                                    final_chunk_ids.extend(chunk_ids[k_rerank:])
+                                    final_chunk_scores.extend(chunk_scores[k_rerank:])
+                                    final_chunk_payloads.extend(chunk_payloads[k_rerank:])
+                            else:
+                                final_chunk_ids = chunk_ids
+                                final_chunk_scores = chunk_scores
+                                final_chunk_payloads = chunk_payloads
+
+                            # ------------------------------------------------------------
+                            # Aggregate chunks to sections (same as before)
+                            # ------------------------------------------------------------
                             chunk_results = []
-                            for sid, sc in zip(ids, scores):
-                                if "_c" in sid:
-                                    parent_id = sid.rsplit("_c", 1)[0]
-                                else:
-                                    parent_id = sid
+                            for cid, sc, payload in zip(final_chunk_ids, final_chunk_scores, final_chunk_payloads):
                                 chunk_results.append({
-                                    "id": sid,
+                                    "id": cid,
                                     "score": sc,
-                                    "payload": {"parent_section_id": parent_id}
+                                    "payload": payload
                                 })
 
                             sections = agg.aggregate(chunk_results)
                             section_ids = [s["section_id"] for s in sections]
                             section_scores = {s["section_id"]: s["score"] for s in sections}
 
-                            metrics = compute_query_metrics(section_ids, turn["relevant_ids"], eval_ks)
-                            all_results.append({
-                                "query_id": turn["query_id"],
-                                "mode": mode,
-                                "db_type": db_type,
-                                "idx_type": idx_type,
-                                "strategy": strategy,
-                                "agg_method": agg_method,
-                                "metrics": metrics,
-                                "latency_ms": round(latency, 2),
-                                "retrieved_section_ids": section_ids,
-                                "relevant_ids": list(turn["relevant_ids"]),
-                                "search_scores": scores
-                            })
-
-                            max_k = max(eval_ks) if eval_ks else 10
-                            top_sections = section_ids[:max_k]
-                            with open(detailed_path, "a", newline="", encoding="utf-8") as f:
+                            # Write CSV (section level)
+                            with open(csv_path, "a", newline="", encoding="utf-8") as f:
                                 writer = csv.writer(f)
-                                if not top_sections:
-                                    writer.writerow([turn["query_id"], mode, db_type, idx_type, strategy, agg_method, 0, "NO_RESULTS", 0.0, 0])
-                                else:
-                                    for rank, sid in enumerate(top_sections, 1):
-                                        is_rel = 1 if sid in turn["relevant_ids"] else 0
-                                        writer.writerow([turn["query_id"], mode, db_type, idx_type, strategy, agg_method, rank, sid, section_scores.get(sid, 0.0), is_rel])
+                                for rank, sec_id in enumerate(section_ids, 1):
+                                    is_relevant = 1 if sec_id in turn["relevant_ids"] else 0
+                                    writer.writerow([
+                                        turn["query_id"], mode, db_type, idx_type, strategy, agg_method,
+                                        rank, sec_id, section_scores.get(sec_id, 0.0), is_relevant,
+                                        turn["query_quality"], turn["is_rewritten"],
+                                        round(latency_ms, 2)
+                                    ])
 
-                            processed_ids.add(turn["query_id"])
-                            if len(processed_ids) % checkpoint_interval == 0:
-                                with open(ckpt_path, "a") as cf:
-                                    cf.write(json.dumps({"query_id": turn["query_id"]}) + "\n")
+                            processed_qids.add(turn["query_id"])
 
-                base_embedder.cleanup()
-                del base_embedder
+                embedder.cleanup()
+                if reranker:
+                    reranker.cleanup()
+                del embedder
                 gc.collect()
-
-            # Clean up loaded embedders (sparse/hybrid)
-            for emb in loaded_embedders.values():
-                emb.cleanup()
-            loaded_embedders.clear()
-            gc.collect()
 
             if db:
                 del db
                 gc.collect()
-            print(f"  DB lock released for {db_type}")
 
-    final_thresholds = optimize_thresholds(all_results, modes) if auto_opt else {}
-    if auto_opt:
-        print(f"\nOptimized Routing Thresholds: {json.dumps(final_thresholds, indent=2)}")
-
-    grouped = defaultdict(list)
-    for r in all_results:
-        key = f"{r['db_type']}_{r['mode']}_{r['idx_type']}_{r.get('agg_method', 'unknown')}_{r['strategy']}"
-        grouped[key].append(r)
-
-    summary = {}
-    for key, res_list in grouped.items():
-        valid = [r for r in res_list if r["retrieved_section_ids"]]
-        if not valid:
-            continue
-        summary[key] = {
-            "recall": {k: round(np.mean([r["metrics"]["recall"][k] for r in valid]), 4) for k in eval_ks},
-            "precision": {k: round(np.mean([r["metrics"]["precision"][k] for r in valid]), 4) for k in eval_ks},
-            "mrr": round(np.mean([r["metrics"]["mrr"] for r in valid]), 4),
-            "ndcg_5": round(np.mean([r["metrics"]["ndcg_5"] for r in valid]), 4),
-            "mean_latency_ms": round(np.mean([r["latency_ms"] for r in valid]), 2)
-        }
-
-    with open(os.path.join(resolved_results, "summary_results.json"), "w", encoding="utf-8") as f:
-        json.dump({"metrics": summary, "optimized_thresholds": final_thresholds}, f, indent=2, ensure_ascii=False)
-
-    print(f"\nEvaluation complete. Results saved to {resolved_results}/")
+    print(f"\nDetailed CSV files saved to {resolved_results}")

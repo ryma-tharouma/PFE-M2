@@ -7,3 +7,6 @@ experiments/generator/tasks/faq/data/
 experiments/generator/tasks/rag/data/
 experiments/generator/tasks/rewrite/data/
 experiments/retriever/data/
+experiments/generator/data/
+experiments/generator/outputs/generated/
+experiments/build_data/data/

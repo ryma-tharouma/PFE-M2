@@ -1,0 +1,20 @@
+{
+  "bleu": 0.15408063327082658,
+  "rougeL": 0.2803762017970817,
+  "bertscore_f1": 0.722521148622036,
+  "total_rag_turns": 24,
+  "successful_generations": 24,
+  "failed_generations": 0,
+  "generation_time_mean_sec": 591.8653,
+  "generation_time_min_sec": 389.2045,
+  "generation_time_max_sec": 1179.9554,
+  "generation_time_q1_sec": 487.1421,
+  "generation_time_q2_sec": 526.8544,
+  "generation_time_q3_sec": 600.6516,
+  "ttft_mean_sec": 200.8318,
+  "ttft_min_sec": 78.6846,
+  "ttft_max_sec": 758.3394,
+  "ttft_q1_sec": 103.4454,
+  "ttft_q2_sec": 115.5028,
+  "ttft_q3_sec": 183.97
+}

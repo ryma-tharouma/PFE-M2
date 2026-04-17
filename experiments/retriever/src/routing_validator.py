@@ -93,7 +93,6 @@ def run_routing_validation(
 
     report = compute_routing_metrics(true_list, pred_list)
     os.makedirs(output_dir, exist_ok=True)
-
     report_path = os.path.join(output_dir, f"routing_report_{mode}.json")
     with open(report_path, "w", encoding="utf-8") as f:
         json.dump(report, f, indent=2, ensure_ascii=False)
