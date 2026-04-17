@@ -71,13 +71,15 @@ def run_build(cfg: dict):
                         total_chunks = len(processed_chunks)
                         print(f"      {app_id}: {len(sections)} sections -> {total_chunks} chunks")
 
-                        # Fit and save BM25 vocabulary if needed
+                        # Fit and save BM25 vocabulary for this app (if needed)
                         vocab_dir = os.path.join(cfg["paths"]["resolved_results"], "vocab")
+                        os.makedirs(vocab_dir, exist_ok=True)
                         vocab_path = os.path.join(vocab_dir, f"{app_id}_{mode}.json")
+
                         if mode in ["sparse", "hybrid", "finetuned_hybrid"]:
                             all_texts = [c["embed_text"] for c in processed_chunks]
-                            embedder.fit_bm25(all_texts)
-                            embedder.save_bm25_vocab(vocab_path)
+                            embedder.fit_bm25(app=app_id, corpus=all_texts)
+                            embedder.save_bm25_vocab(app=app_id, path=vocab_path)
                             print(f"      Saved BM25 vocab to {vocab_path}")
 
                         start_time = time.time()
@@ -85,11 +87,13 @@ def run_build(cfg: dict):
                         for i in range(0, total_chunks, batch_size):
                             batch_chunks = processed_chunks[i : i+batch_size]
                             texts = [c["embed_text"] for c in batch_chunks]
-                            vectors = embedder.encode_batch(texts)
+                            vectors = embedder.encode_batch(texts, app=app_id)
 
                             records = []
                             for j, chunk in enumerate(batch_chunks):
                                 payload = {k: v for k, v in chunk.items() if k not in ["embed_text", "id"]}
+                                # Store chunk text for later reranking
+                                payload["chunk_text"] = chunk["embed_text"]
                                 rec = {
                                     "id": chunk.get("id", f"{chunk['parent_section_id']}_c{chunk.get('chunk_index', 0)}"),
                                     "payload": payload

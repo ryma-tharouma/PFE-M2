@@ -1,0 +1,1793 @@
+{
+    "id": "802",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Comment résoudre l'erreur « Le fichier contient des éléments XML personnalisés qui ne sont plus pris en charge par Word » lors de l'ouverture d'un document ?",
+    "rewritten_query": "Comment résoudre l'erreur « Le fichier contient des éléments XML personnalisés qui ne sont plus pris en charge par Word » lors de l'ouverture d'un document ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "803",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Que faire quand Word affiche l'erreur « Le fichier est supérieur à 512 mégaoctets » et refuse d'ouvrir le document ?",
+    "rewritten_query": "Que faire quand Word affiche l'erreur « Le fichier est supérieur à 512 mégaoctets » et refuse d'ouvrir le document ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "804",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Comment créer une table des matières dans Word sans inclure les numéros de page ?",
+    "rewritten_query": "Comment créer une table des matières dans Word sans inclure les numéros de page ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "805",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Pourquoi les références croisées ne se mettent-elles pas à jour vers le bon numéro de titre après l'insertion d'un nouveau titre ?",
+    "rewritten_query": "Pourquoi les références croisées ne se mettent-elles pas à jour vers le bon numéro de titre après l'insertion d'un nouveau titre ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "806",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Comment personnaliser la couleur des soulignements du vérificateur d'orthographe et de grammaire dans Microsoft Word ?",
+    "rewritten_query": "Comment personnaliser la couleur des soulignements du vérificateur d'orthographe et de grammaire dans Microsoft Word ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "807",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Comment réparer un document Word endommagé qui ne s'ouvre pas correctement ?",
+    "rewritten_query": "Comment réparer un document Word endommagé qui ne s'ouvre pas correctement ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "808",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Pourquoi les données Excel perdent-elles leur mise en forme lors d'un publipostage vers Word ?",
+    "rewritten_query": "Pourquoi les données Excel perdent-elles leur mise en forme lors d'un publipostage vers Word ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "809",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Que faire si le vérificateur orthographique ne vérifie pas le texte dans les champs de formulaire Word ?",
+    "rewritten_query": "Que faire si le vérificateur orthographique ne vérifie pas le texte dans les champs de formulaire Word ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "810",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Comment réinitialiser les options utilisateur et les paramètres de registre de Word en cas de problème ?",
+    "rewritten_query": "Comment réinitialiser les options utilisateur et les paramètres de registre de Word en cas de problème ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "811",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Pourquoi Word ralentit ou cesse de répondre lorsqu'il contient trop de modifications ou commentaires suivis ?",
+    "rewritten_query": "Pourquoi Word ralentit ou cesse de répondre lorsqu'il contient trop de modifications ou commentaires suivis ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "812",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "word i dit fichier trop lourd, plus de 512 mo, comen faire ?",
+    "rewritten_query": "Word dit que le fichier dépasse 512 Mo, comment faire ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "813",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "jpe pas créer de table des matières sans numéro de page, c possible ?",
+    "rewritten_query": "Comment créer une table des matières sans numéros de page dans Word ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "814",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "mes références croisées se mettent pas a jour, ca m'enerve",
+    "rewritten_query": "Les références croisées ne se mettent pas à jour dans Word",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "815",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "comment changer la couleur du soulignement des fautes dans word ?",
+    "rewritten_query": "Comment changer la couleur des soulignements des fautes dans Word ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "816",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "mon document word est cassé, il s'ouvre pas, jfais koi ?",
+    "rewritten_query": "Comment réparer un document Word endommagé qui ne s'ouvre pas ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "817",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "publipostage excel vers word, la mise en forme disparait, pourquoi ?",
+    "rewritten_query": "Pourquoi la mise en forme Excel disparaît lors du publipostage vers Word ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "818",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "word corrige pas les fautes dans les champs de formulaire, comment regler ?",
+    "rewritten_query": "Word ne corrige pas l'orthographe dans les champs de formulaire",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "819",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "jveux remettre word a zero, tout les paramètres, comment on fait ?",
+    "rewritten_query": "Comment réinitialiser tous les paramètres de Word ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "820",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "word rame trop, ya trop de modifs et commentaires, comment accelerer ?",
+    "rewritten_query": "Word ralentit à cause de trop de modifications suivies, comment accélérer ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "821",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "jpe pas dessiner un rectangle autour de plusieurs formes dans word, la souris marche pas",
+    "rewritten_query": "Impossible de sélectionner plusieurs formes avec la souris dans Word",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "822",
+    "last_turn_query": "Pourquoi Word refuse d'ouvrir un document de plus de 512 Mo ?",
+    "last_turn_answer": "Word impose une limite de taille de 512 mégaoctets pour l'ouverture d'un document. Au-delà, il affiche une erreur et ne peut pas ouvrir le fichier.",
+    "current_query": "comment je fé pour l'ouvrir quand meme ?",
+    "rewritten_query": "Comment ouvrir un document Word de plus de 512 Mo ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "823",
+    "last_turn_query": "Comment créer une table des matières sans numéros de page dans Word ?",
+    "last_turn_answer": "Pour créer une table des matières sans numéros de page, allez dans 'Références' > 'Table des matières' > 'Table des matières personnalisée', puis décochez l'option 'Afficher les numéros de page'.",
+    "current_query": "et les points de suite entre le titre et le numéro, jpe les enlever aussi ?",
+    "rewritten_query": "Peut-on supprimer les points de suite dans une table des matières sans numéros de page ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "824",
+    "last_turn_query": "Pourquoi les références croisées ne se mettent pas à jour après insertion d'un nouveau titre ?",
+    "last_turn_answer": "Les références croisées ne se mettent pas automatiquement à jour. Il faut sélectionner le document entier (Ctrl+A) puis appuyer sur F9 pour mettre à jour tous les champs.",
+    "current_query": "jai tout sélectionné et F9, ca marche pas, ya une autre astuce ?",
+    "rewritten_query": "Que faire si F9 ne met pas à jour les références croisées dans Word ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "825",
+    "last_turn_query": "Comment personnaliser la couleur des soulignements de fautes dans Word ?",
+    "last_turn_answer": "Word ne permet pas de changer la couleur des soulignements (rouge pour orthographe, bleu pour grammaire) via l'interface standard. Il faudrait modifier le registre ou utiliser une macro.",
+    "current_query": "trop compliqué le registre, ya un truc plus simple ?",
+    "rewritten_query": "Existe-t-il une méthode simple pour changer la couleur des soulignements Word ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "826",
+    "last_turn_query": "Comment réparer un document Word endommagé ?",
+    "last_turn_answer": "Ouvrez Word, allez dans 'Fichier' > 'Ouvrir', sélectionnez le document endommagé, cliquez sur la flèche à côté de 'Ouvrir', puis choisissez 'Ouvrir et réparer'.",
+    "current_query": "jai essayé ouvrir et réparer, ca marche pas, le doc est toujours cassé",
+    "rewritten_query": "Que faire si 'Ouvrir et réparer' ne répare pas le document Word ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "827",
+    "last_turn_query": "Pourquoi les données Excel perdent leur mise en forme dans un publipostage Word ?",
+    "last_turn_answer": "Lors d'un publipostage, Word importe les données Excel sous forme de texte brut. La mise en forme (couleurs, polices, nombres) n'est pas conservée. Il faut reformater dans Word.",
+    "current_query": "jveux garder les chiffres avec 2 décimales, comment on fait ?",
+    "rewritten_query": "Comment conserver le format des nombres (2 décimales) lors d'un publipostage Excel vers Word ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "828",
+    "last_turn_query": "Pourquoi le vérificateur orthographique ne vérifie pas les champs de formulaire Word ?",
+    "last_turn_answer": "Par défaut, Word ne vérifie pas l'orthographe dans les champs de formulaire protégés. Il faut activer l'option 'Vérifier l'orthographe dans les champs de formulaire' dans les paramètres de vérification orthographique.",
+    "current_query": "jai trouvé l'option mais elle est grisée, jpe pas l'activer, pourquoi ?",
+    "rewritten_query": "L'option de vérification orthographique dans les champs de formulaire est grisée dans Word, pourquoi ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "829",
+    "last_turn_query": "Comment réinitialiser tous les paramètres de Word ?",
+    "last_turn_answer": "Pour réinitialiser Word, fermez Word, renommez le fichier normal.dotm (modèle global) ou supprimez les clés de registre sous HKEY_CURRENT_USER\Software\Microsoft\Office\16.0\Word\Options.",
+    "current_query": "jai peur de toucher au registre, ya une autre façon ?",
+    "rewritten_query": "Existe-t-il une autre méthode pour réinitialiser Word sans modifier le registre ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "830",
+    "last_turn_query": "Pourquoi Word ralentit à cause de trop de modifications suivies ?",
+    "last_turn_answer": "Word stocke toutes les modifications et commentaires dans le document. Un nombre excessif (plusieurs milliers) peut provoquer des ralentissements. Il faut accepter ou rejeter les modifications pour réduire la taille de l'historique.",
+    "current_query": "jveux garder l'historique mais que word aille plus vite, c possible ?",
+    "rewritten_query": "Peut-on accélérer Word tout en conservant l'historique des modifications suivies ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "831",
+    "last_turn_query": "Comment sélectionner plusieurs formes à la fois dans Word ?",
+    "last_turn_answer": "Normalement, vous pouvez cliquer sur une forme, maintenir Ctrl, puis cliquer sur d'autres formes. Ou utiliser le bouton 'Sélectionner' > 'Volet de sélection' pour sélectionner plusieurs formes dans la liste.",
+    "current_query": "la souris veut pas dessiner le rectangle autour des formes, ca vient d'où ?",
+    "rewritten_query": "Pourquoi la sélection par rectangle ne fonctionne pas avec la souris dans Word ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "832",
+    "last_turn_query": "Comment réinitialiser mon mot de passe sur le portail RH ?",
+    "last_turn_answer": "Cliquez sur 'Mot de passe oublié', saisissez votre email, puis suivez le lien reçu.",
+    "current_query": "word i refuse doc avec XML perso, koi faire ?",
+    "rewritten_query": "Word refuse d'ouvrir un document avec des XML personnalisés, que faire ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "833",
+    "last_turn_query": "Comment ajouter une signature dans Outlook ?",
+    "last_turn_answer": "Allez dans Fichier > Options > Courrier > Signatures, puis créez votre signature.",
+    "current_query": "jpe pas dessiner rectangle autour de plusieurs formes dans word",
+    "rewritten_query": "Impossible de dessiner un rectangle de sélection autour de plusieurs formes dans Word",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "834",
+    "last_turn_query": "Comment imprimer un document en recto-verso ?",
+    "last_turn_answer": "Dans les préférences d'impression, cochez l'option 'Recto-verso'.",
+    "current_query": "comment creer table matieres sans numero de page ?",
+    "rewritten_query": "Comment créer une table des matières sans numéros de page dans Word ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "835",
+    "last_turn_query": "Comment vider le cache de mon navigateur Chrome ?",
+    "last_turn_answer": "Cliquez sur les trois points, puis 'Plus d'outils' > 'Effacer les données de navigation'.",
+    "current_query": "les liens de reference croisee se mettent pas a jour, pourquoi ?",
+    "rewritten_query": "Pourquoi les références croisées ne se mettent pas à jour dans Word ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "836",
+    "last_turn_query": "Comment créer une réunion Zoom depuis l'application ?",
+    "last_turn_answer": "Ouvrez Zoom, cliquez sur 'Nouvelle réunion', puis 'Démarrer'.",
+    "current_query": "jveux changer couleur soulignement fautes word, comment ?",
+    "rewritten_query": "Comment changer la couleur des soulignements de fautes dans Word ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "837",
+    "last_turn_query": "Comment partager un fichier sur OneDrive ?",
+    "last_turn_answer": "Clic droit sur le fichier, 'Partager', entrez l'email du destinataire.",
+    "current_query": "word rame trop a cause des modifs suivies, comment accelerer ?",
+    "rewritten_query": "Word ralentit à cause des modifications suivies, comment accélérer ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "838",
+    "last_turn_query": "Comment activer le mode sombre sur mon téléphone ?",
+    "last_turn_answer": "Allez dans Paramètres > Affichage > Mode sombre, puis activez.",
+    "current_query": "le verificateur orthographique marche pas dans les champs formulaire word",
+    "rewritten_query": "Le vérificateur orthographique ne fonctionne pas dans les champs de formulaire Word",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "839",
+    "last_turn_query": "Comment connecter un casque Bluetooth à un PC ?",
+    "last_turn_answer": "Activez Bluetooth, puis Paramètres > Périphériques > Ajouter un périphérique.",
+    "current_query": "comment reparer document word endommagé qui s'ouvre pas ?",
+    "rewritten_query": "Comment réparer un document Word endommagé qui ne s'ouvre pas ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "840",
+    "last_turn_query": "Comment désactiver les notifications push ?",
+    "last_turn_answer": "Paramètres > Notifications, puis désactivez l'application concernée.",
+    "current_query": "excel perd sa mise en forme dans publipostage word, pourquoi ?",
+    "rewritten_query": "Pourquoi Excel perd sa mise en forme lors du publipostage vers Word ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "841",
+    "last_turn_query": "Comment réparer un écran noir au démarrage ?",
+    "last_turn_answer": "Débranchez tous les périphériques, maintenez power 30 secondes, puis redémarrez.",
+    "current_query": "comment reinitialiser tous les parametres de word ?",
+    "rewritten_query": "Comment réinitialiser tous les paramètres de Word ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "842",
+    "last_turn_query": "Pourquoi le connecteur ne se déplace pas avec une forme dans Word ?",
+    "last_turn_answer": "Le connecteur n’est pas réellement connecté à la forme. Pour résoudre le problème, insérez les formes et le connecteur dans un nouveau canevas de dessin (Insertion > Formes > Nouveau canevas de dessin).",
+    "current_query": "Comment sélectionner plusieurs formes à la fois si le rectangle de sélection ne fonctionne pas ?",
+    "rewritten_query": "Comment sélectionner plusieurs formes dans Word quand le rectangle de sélection à la souris ne fonctionne pas ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "843",
+    "last_turn_query": "L’erreur « Le nom dans la balise de fin doit correspondre au type d’élément dans la balise de début » apparaît à l’ouverture d’un DOCX. Que faire ?",
+    "last_turn_answer": "Ce problème vient de balises oMath incorrectes. Installez Office 2010 SP1 ou Office 2013, ou regroupez les objets via le volet Sélection, ou enregistrez au format RTF.",
+    "current_query": "Est‑ce que cette erreur réapparaît si je modifie à nouveau le document après l’avoir réparé ?",
+    "rewritten_query": "L’erreur de balise de fin revient‑elle après avoir modifié un document réparé ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "844",
+    "last_turn_query": "Pourquoi la boîte de dialogue Enregistrer sous s’affiche deux fois dans Word ?",
+    "last_turn_answer": "Le modèle Normal.dotm est endommagé. Renommez Normal.dotm en Normal.old.dotm dans %appdata%\\Microsoft\\Templates, puis redémarrez Word.",
+    "current_query": "Après avoir renommé Normal.dotm, où se trouve le nouveau modèle généré automatiquement ?",
+    "rewritten_query": "Où se trouve le nouveau fichier Normal.dotm après sa régénération automatique ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "845",
+    "last_turn_query": "La résolution des images change quand j’exporte un document Word en PDF. Pourquoi ?",
+    "last_turn_answer": "Word utilise un seul DPI pour tout le document lors de l’impression PDF (600, 300 ou 150 selon la qualité). Vous pouvez modifier la qualité par défaut via une clé de registre.",
+    "current_query": "Comment sélectionner plusieurs formes sans utiliser la souris dans Word ?",
+    "rewritten_query": "Comment sélectionner plusieurs formes dans Word sans passer par la souris ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "846",
+    "last_turn_query": "Word ne peut pas ouvrir un fichier car il dépasse 512 Mo. Comment faire ?",
+    "last_turn_answer": "Renommez le fichier .docx en .zip, ouvrez le ZIP, supprimez ou déplacez des images du dossier media, puis renommez en .docx. Réinsérez les images en lien vers le fichier.",
+    "current_query": "Cette astuce fonctionne‑t‑elle aussi pour les fichiers .doc (ancien format) ?",
+    "rewritten_query": "La méthode de renommage en ZIP fonctionne‑t‑elle pour les fichiers Word au format .doc (non DOCX) ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "847",
+    "last_turn_query": "Comment dessiner un rectangle de sélection autour de plusieurs formes dans Word ?",
+    "last_turn_answer": "Activez l’option « Créer automatiquement un canevas de dessin » dans Options > Avancé, ou utilisez le bouton « Sélectionner des objets » sous l’onglet Accueil, ou utilisez le volet Sélection.",
+    "current_query": "Pourquoi le connecteur ne suit pas une forme déplacée dans un canevas de dessin ?",
+    "rewritten_query": "Pourquoi le connecteur ne reste‑t‑il pas attaché à une forme déplacée même dans un canevas de dessin ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "848",
+    "last_turn_query": "L’erreur de balise de fin apparaît dans Word 2013. Existe‑t‑il un correctif sans passer par le registre ?",
+    "last_turn_answer": "Oui, vous pouvez regrouper les objets via le volet Sélection (sous l’onglet Format) ou enregistrer le document au format RTF, puis le rouvrir.",
+    "current_query": "Si j’enregistre en RTF, est‑ce que les équations restent modifiables normalement ?",
+    "rewritten_query": "Les équations restent‑elles modifiables après avoir enregistré un document Word au format RTF pour corriger l’erreur de balise ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "849",
+    "last_turn_query": "La boîte de dialogue Enregistrer sous s’affiche deux fois. Que faire si renommer Normal.dotm ne résout rien ?",
+    "last_turn_answer": "Essayez de supprimer complètement Normal.dotm (après sauvegarde) ou réparez l’installation d’Office. Vérifiez aussi les compléments Word.",
+    "current_query": "Pourquoi la résolution des images baisse quand j’imprime un PDF depuis Word 2013 ?",
+    "rewritten_query": "Pourquoi la résolution des images diminue lors de l’impression PDF dans Word 2013 ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "850",
+    "last_turn_query": "La qualité d’impression PDF par défaut dans Word 2013 est « Moyenne ». Comment la passer en « Haute » ?",
+    "last_turn_answer": "Ajoutez la clé de registre PrintHighQualityDefault (DWORD=1) sous HKEY_CURRENT_USER\\Software\\Microsoft\\Office\\15.0\\Word\\Options.",
+    "current_query": "Cette modification du registre affecte‑t‑elle aussi l’impression papier ou seulement l’export PDF ?",
+    "rewritten_query": "La clé PrintHighQualityDefault modifie‑t‑elle aussi la qualité d’impression papier ou uniquement le PDF ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "851",
+    "last_turn_query": "Je ne peux pas dessiner un rectangle de sélection autour de plusieurs formes dans Word. Comment faire sans canevas de dessin ?",
+    "last_turn_answer": "Utilisez la touche Ctrl + clic pour sélectionner plusieurs formes, ou utilisez le volet Sélection (Format > Volet Sélection).",
+    "current_query": "L’erreur « fichier supérieur à 512 Mo » s’affiche alors que mon document n’est pas si gros. Pourquoi ?",
+    "rewritten_query": "Pourquoi Word affiche une erreur de taille maximale (512 Mo) même si le fichier semble plus petit ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "852",
+    "last_turn_query": "Pourquoi le connecteur ne bouge pas avec la forme dans Word ?",
+    "last_turn_answer": "**Cause** : le connecteur n’est pas réellement attaché à la forme. **Solution** :\n\n1. Sous l’onglet **Insertion**, cliquez sur **Formes** puis **Nouveau canevas de dessin**.\n2. Placez les formes et le connecteur à l’intérieur de ce canevas.\n3. Le connecteur restera alors connecté quand vous déplacerez une forme.\n\n> **Astuce** : Pour les versions récentes, vérifiez que les points de connexion sont bien visibles.",
+    "current_query": "ok mé le rectangle de sélection i marche pas non plu, comment je fé pour prendre pluzieurs formes a la fois ?",
+    "rewritten_query": "Comment sélectionner plusieurs formes dans Word quand le rectangle de sélection ne fonctionne pas ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "853",
+    "last_turn_query": "Comment sélectionner plusieurs formes sans la souris dans Word ?",
+    "last_turn_answer": "**Plusieurs méthodes** :\n\n- **Ctrl + clic** : maintenez `Ctrl` enfoncé et cliquez sur chaque forme une par une.\n- **Volet Sélection** : allez dans **Format** (onglet Outils de dessin) > **Organiser** > **Volet Sélection**. Dans le volet, maintenez `Ctrl` pour sélectionner plusieurs objets.\n- **Sélectionner des objets** : sous l’onglet **Accueil**, cliquez sur **Sélectionner** > **Sélectionner des objets**. Vous pouvez alors dessiner un rectangle de sélection (si la fonction est active).\n\n**Astuce** : Pour que le rectangle de sélection redevienne disponible, allez dans **Fichier > Options > Avancé**, et cochez *Créer automatiquement un canevas de dessin lors de l’insertion AutoShapes*.",
+    "current_query": "et si je veux déplacer un connecteur avec la forme, ca marche pareil dans le canevas ?",
+    "rewritten_query": "Dans un canevas de dessin, le connecteur se déplace‑t‑il automatiquement avec la forme ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "854",
+    "last_turn_query": "L’erreur « balise de fin » apparait à l’ouverture d’un docx. C’est quoi le problème ?",
+    "last_turn_answer": "**Cause** : des balises `oMath` mal fermées, souvent à cause d’équations ou d’objets graphiques ancrés dans le même paragraphe.\n\n**Solutions** :\n\n1. **Installer Office 2010 SP1** ou passer à Office 2013.\n2. **Regrouper les objets** : ouvrez le document réparé, activez le volet Sélection, `Ctrl`+clic sur chaque zone de texte, puis cliquez sur **Groupe** (onglet Format).\n3. **Enregistrer au format RTF** : Fichier > Enregistrer sous > Type = Format texte enrichi (*.rtf). Rouvrez ensuite le fichier.\n4. **Modifier le XML** : pour les experts, renommez le `.docx` en `.zip`, ouvrez le fichier `document.xml`, corrigez les balises `</m:oMath>` et `</mc:AlternateContent>` comme dans l’exemple Microsoft.\n\n> **Attention** : le problème peut revenir si vous remodifiez le document sans appliquer les correctifs.",
+    "current_query": "j’ai essayé de regrouper les objets mé ca a pas marché, jfais koi apres ?",
+    "rewritten_query": "Que faire si regrouper les objets ne résout pas l’erreur de balise de fin dans Word ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "855",
+    "last_turn_query": "Pourquoi la boîte Enregistrer sous s’ouvre deux fois dans Word ?",
+    "last_turn_answer": "**Cause** : le modèle global `Normal.dotm` est corrompu.\n\n**Solution** :\n\n1. Fermez Word.\n2. Ouvrez l’Explorateur et collez `%appdata%\\Microsoft\\Templates` dans la barre d’adresse.\n3. Faites un clic droit sur **Normal.dotm** > **Renommer** → tapez `Normal.old.dotm`.\n4. Redémarrez Word. Un nouveau `Normal.dotm` propre sera créé automatiquement.\n5. Testez en enregistrant un fichier : la boîte ne devrait plus apparaître deux fois.\n\n**Si le problème persiste** : vérifiez les compléments Word (Fichier > Options > Compléments) et désactivez‑les un par un.",
+    "current_query": "j’ai pa de fichier Normal.dotm dans le dossier Templates, c normal ?",
+    "rewritten_query": "Le fichier Normal.dotm est absent du dossier Templates, est‑ce normal ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "856",
+    "last_turn_query": "Word refuse d’ouvrir un fichier de plus de 512 Mo. Comment faire ?",
+    "last_turn_answer": "**Solution de contournement** :\n\n1. **Renommez** l’extension de `.docx` en `.zip` (activez l’affichage des extensions dans l’Explorateur).\n2. **Ouvrez le fichier ZIP**.\n3. Naviguez dans le dossier `word` puis `media`.\n4. **Supprimez ou déplacez** certaines images (les plus lourdes) dans un autre dossier.\n5. **Renommez** à nouveau en `.docx`.\n6. Ouvrez le document avec Word. Des espaces réservés apparaîtront à la place des images supprimées.\n7. Faites un clic droit sur chaque espace réservé > **Modifier l’image**, choisissez l’image déplacée, puis cliquez sur la flèche à côté de **Insérer** et sélectionnez **Lien vers le fichier**.\n8. Enregistrez.\n\n> **Note** : La taille maximale pour le texte seul est de 32 Mo, mais les graphiques peuvent faire gonfler le fichier.",
+    "current_query": "est-ce que ca marche aussi si le fichier est en .doc (ancienne version) ?",
+    "rewritten_query": "La méthode de renommage en ZIP fonctionne‑t‑elle pour les fichiers Word en format .doc ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "857",
+    "last_turn_query": "La résolution des images change quand j’exporte en PDF depuis Word 2013. Pourquoi ?",
+    "last_turn_answer": "**Cause** : Word utilise un seul DPI pour tout le PDF (défini par la qualité d’impression).\n\n- **Word 2013** : qualité par défaut = **Moyenne** → 300 DPI\n- **Word 2010** : qualité par défaut = **Élevée** → 600 DPI\n\n**Contournement** (modification du Registre) :\n\n- **Word 2013** :\n  `HKEY_CURRENT_USER\\Software\\Microsoft\\Office\\15.0\\Word\\Options`\n  Créez une valeur `PrintHighQualityDefault` (DWORD = 1).\n- **Word 2010** :\n  `HKEY_CURRENT_USER\\Software\\Microsoft\\Office\\14.0\\Word\\Options`\n  Créez `PrintMediumQualityDefault` (DWORD = 1).\n\nAprès redémarrage de Word, l’export PDF utilisera la qualité haute (600 DPI).\n\n**Attention** : Sauvegardez le Registre avant toute modification.",
+    "current_query": "je capte rien au registre, ya un autre moyen sans toucher au registre ?",
+    "rewritten_query": "Existe‑t‑il une autre méthode pour améliorer la résolution des images PDF dans Word sans modifier le registre ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "858",
+    "last_turn_query": "Comment sélectionner plusieurs formes dans Word sans utiliser la souris ?",
+    "last_turn_answer": "**Méthodes alternatives** :\n\n1. **Touche Ctrl** : cliquez sur une forme, maintenez `Ctrl` et cliquez sur les autres.\n2. **Volet Sélection** :\n   - Onglet **Format** (sous Outils de dessin) > **Organiser** > **Volet Sélection**.\n   - Dans le volet, maintenez `Ctrl` et sélectionnez les noms des formes.\n3. **Option « Sélectionner des objets »** :\n   - Onglet **Accueil** > **Sélectionner** (tout à droite) > **Sélectionner des objets**.\n   - Vous pouvez alors dessiner un rectangle de sélection (même si la souris ne fonctionnait pas avant).\n\n**Si rien ne marche** : activez le canevas de dessin (Insertion > Formes > Nouveau canevas de dessin) et placez toutes les formes à l’intérieur.",
+    "current_query": "j’ai essayé le volet sélection mais il n’apparait pas, pourquoi ?",
+    "rewritten_query": "Pourquoi le volet Sélection est‑il manquant ou inaccessible dans Word ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "859",
+    "last_turn_query": "L’erreur de balise de fin revient après avoir enregistré mon document réparé. Que faire ?",
+    "last_turn_answer": "**Solution permanente** :\n\n1. **Mettez à jour Office** : installez Office 2010 SP1 ou passez à une version plus récente.\n2. **Regroupez tous les objets** : après avoir ouvert le document récupéré, utilisez le volet Sélection pour sélectionner chaque zone de texte (appuyez sur `Ctrl`), puis **Groupe** (onglet Format). Faites‑le pour chaque page.\n3. **Enregistrez au format RTF**, puis rouvrez et réenregistrez en DOCX.\n4. **Modifiez le XML** : si vous êtes à l’aise, renommez le fichier en `.zip`, extrayez `document.xml`, recherchez les balises `</mc:AlternateContent>` qui apparaissent avant `</m:oMath>` et intervertissez‑les (voir l’exemple Microsoft).\n\n**Note** : Le problème ne se reproduira pas sur les nouveaux documents une fois Office mis à jour.",
+    "current_query": "c’est quoi la diff entre enregistrer en RTF et enregistrer en DOCX pour les équations ?",
+    "rewritten_query": "Quelle est la différence entre les formats RTF et DOCX pour la conservation des équations Word ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "860",
+    "last_turn_query": "La boîte Enregistrer sous s’affiche deux fois même après avoir renommé Normal.dotm. Aidez-moi !",
+    "last_turn_answer": "**Autres causes possibles** :\n\n1. **Compléments tiers** :\n   - Fichier > Options > Compléments.\n   - Dans « Gérer », sélectionnez « Compléments COM » > Exécuter.\n   - Décochez tous les compléments (ex : Adobe PDF, Dropbox, etc.) puis redémarrez Word.\n2. **Profil utilisateur corrompu** : créez un nouveau profil Windows ou testez avec un autre compte.\n3. **Réparation d’Office** :\n   - Panneau de configuration > Programmes > Modification d’Office > Réparation rapide (puis réparation en ligne).\n4. **Suppression du fichier Normal.dotm** (pas seulement renommer) : supprimez‑le définitivement (après sauvegarde) et laissez Word en recréer un.\n\n**Dernier recours** : désinstallez et réinstallez la suite Office.",
+    "current_query": "comment on répare Office sans perdre ses paramètres perso ?",
+    "rewritten_query": "Comment réparer l’installation d’Office sans perdre les paramètres personnalisés ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "861",
+    "last_turn_query": "Word ne peut pas ouvrir un fichier car il dépasse 512 Mo. J’ai essayé la méthode ZIP, mais les images liées ne se reconnectent pas bien. Idée ?",
+    "last_turn_answer": "**Problème de lien** : quand vous utilisez « Lien vers le fichier », Word conserve une référence relative. Pour que ça fonctionne :\n\n- Placez toutes les images déplacées dans un **dossier fixe** (par exemple `C:\\ImagesDoc`).\n- Lors de la réinsertion, choisissez **Lien vers le fichier** et assurez‑vous que le chemin ne change pas.\n- Si le document doit être partagé, préférez **Insérer** (sans lien) après avoir réduit la taille des images (compression avec un outil externe).\n\n**Alternative** :\n- Compressez les images avant de les réinsérer (utilisez un outil comme TinyPNG).\n- Ou convertissez le document en format `PDF`, puis réimportez le PDF (mais vous perdrez l’édition facile).\n\n**Astuce** : Pour éviter de refaire les liens, vous pouvez supprimer seulement **une partie** des images dans le ZIP, pas toutes.",
+    "current_query": "comment on compresse une image dans Word sans sortir du logiciel ?",
+    "rewritten_query": "Comment compresser une image directement dans Word sans utiliser d’autre logiciel ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "862",
+    "last_turn_query": "Comment résoudre les problèmes qui se produisent lorsque je démarre ou utilise Word ?",
+    "last_turn_answer": "## Résolution rapide\n\nEssayez les options suivantes pour déterminer la cause racine de votre problème dans Word.\n\n> **Important**\n> Suivez attentivement les étapes décrites dans cette section. Des problèmes graves peuvent se produire si vous modifiez le Registre de manière incorrecte. Avant de modifier celui-ci, sauvegardez le Registre pour restauration en cas de problèmes.\n\n## Vérifier ou installer les dernières mises à jour\n\nSi votre problème n’est pas résolu après avoir installé les dernières mises à jour Windows et Office, accédez à l’option 1.\n\n## Option 1 : Insérer votre document dans un autre fichier\n\nPour accéder à un document tout en laissant son signe de fin de paragraphe derrière, procédez comme suit :\n\n1. Dans le menu **Fichier**, sélectionnez **Nouveau**, puis **Document vide**.\n2. Sous l’onglet **Insertion**, sélectionnez **Objet** dans le groupe **Texte**, puis **Texte à partir du fichier**.\n3. Sélectionnez le fichier que vous souhaitez ouvrir et insérer, puis **Insérer**.\n\n## Option 2 : Démarrer Word à l’aide du commutateur /a\n\nLe commutateur /a empêche le chargement automatique des compléments et des modèles globaux. Pour démarrer Word à l’aide du commutateur /a :\n\n1. Tapez **Exécuter** dans la zone de recherche, puis appuyez sur Entrée.\n2. Dans la boîte de dialogue **Exécuter**, tapez `winword /a`, puis Entrée.\n\nSi le problème ne se produit pas lorsque vous démarrez Word avec /a, passez à l’option suivante.\n\n## Option 3 : Supprimer la sous-clé de Registre de données Word\n\nLa plupart des options fréquemment utilisées dans Word sont stockées dans la sous-clé de Registre `HKEY_CURRENT_USER\\Software\\Microsoft\\Office\\16.0\\Word\\Data` (Word 2016+). Pour la supprimer :\n\n1. Quittez tous les programmes Office.\n2. Tapez `regedit` dans la recherche, ouvrez l’Éditeur du Registre.\n3. Naviguez jusqu’à la clé appropriée (voir tableau selon version).\n4. Exportez la clé (Fichier > Exporter) pour la sauvegarder, puis supprimez-la.\n5. Redémarrez Word.\n\n## Option 4 : Supprimer la clé de Registre Word Options\n\nSimilaire à l’option 3, mais pour `HKEY_CURRENT_USER\\Software\\Microsoft\\Office\\16.0\\Word\\Options`.\n\n## Option 5 : Remplacer le fichier de modèle global Normal.dotm\n\nRenommez `Normal.dotm` pour forcer Word à en recréer un :\n\n- Tapez `cmd` dans la recherche, ouvrez l’invite de commandes.\n- Exécutez : `ren %userprofile%\\AppData\\Roaming\\Microsoft\\Templates\\Normal.dotm OldNormal.dotm`\n- Démarrez Word.\n\n## Option 6 : Désactiver les compléments de dossier de démarrage\n\nDéplacez les fichiers des dossiers `Startup` (Office et Word) vers le bureau.\n\n## Option 7 : Supprimer les clés de Registre des compléments COM\n\nSupprimez `HKEY_CURRENT_USER\\Software\\Microsoft\\Office\\Word\\Addins` et `HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Office\\Word\\Addins` après les avoir exportées.\n\n## Option 8 : Modifier l’imprimante par défaut\n\nDéfinissez `Microsoft XPS Document Writer` comme imprimante par défaut.",
+    "current_query": "Après avoir essayé de démarrer Word avec le commutateur /a, comment puis-je identifier quel complément pose problème ?",
+    "rewritten_query": "Comment identifier le complément responsable du problème après avoir démarré Word avec /a ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "863",
+    "last_turn_query": "Pourquoi suis-je invité à enregistrer le modèle global chaque fois que je quitte Word 2007 ou 2010 ?",
+    "last_turn_answer": "## Symptômes\n\nChaque fois que vous quittez Word 2007 ou Word 2010, vous recevez le message :\n> « Des modifications ont été apportées qui affectent le modèle global, Normal.dotm. Voulez-vous enregistrer ces modifications ? »\n\n## La cause\n\nCe problème peut se produire si l’une des conditions suivantes est remplie :\n- L’option **\"Invite avant d'enregistrer le modèle Normal\"** est activée.\n- Un complément ou une macro qui modifie le modèle global est installé (ex : Stamps.com).\n- L’ordinateur est infecté par un virus macro.\n\n## Solution de contournement 1 : Désactiver l’option\n\n1. Dans Word 2007 : bouton Microsoft Office > Options Word > Avancé.\n   Dans Word 2010 : Fichier > Options > Avancé.\n2. Sous **Enregistrer**, décochez **Demande avant d’enregistrer le modèle Normal**.\n3. Cliquez sur OK.\n\n## Solution de contournement 2 : Supprimer des compléments ou macros\n\n- **Méthode 1** : Supprimez les fichiers WLL et modèles des dossiers Startup (Office et Word).\n- **Méthode 2** : Désactivez les compléments COM via Fichier > Options > Compléments > Gérer > Compléments COM.\n- **Méthode 3** : Supprimez les macros automatiques (AutoExec, AutoNew, AutoOpen, AutoClose, AutoExit) via l’onglet Développeur > Macros.\n\n## Solution de contournement 3 : Empêcher un virus macro\n\n- Installez un antivirus à jour.\n- Configurez les paramètres de macro dans le Centre de gestion de la confidentialité (désactiver toutes les macros avec notification).\n- Verrouillez le modèle global avec un mot de passe (dans Visual Basic Editor, projet Normal.dotm).",
+    "current_query": "Que faire si la désactivation de l’option n’arrête pas l’invite et que je ne trouve aucun complément suspect ?",
+    "rewritten_query": "Que faire si l’invite à enregistrer le modèle global persiste après avoir désactivé l’option et vérifié les compléments ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "864",
+    "last_turn_query": "Pourquoi une image n’apparaît pas dans mon document Word 2010 ?",
+    "last_turn_answer": "## Symptômes\n\nLorsque vous ouvrez un document Word 2010 (ou 2007) contenant une image, un objet AutoShape, etc., l’image peut ne pas apparaître.\n\n## La cause\n\nVous utilisez une option de style d’habillage autre que **In line with text** (En ligne avec le texte) **et** l’une des conditions suivantes est vraie :\n- Vous affichez le document en mode Brouillon ou Plan.\n- L’option **Afficher les dessins et les zones de texte sur l’écran** est désactivée.\n- L’option **Imprimer les dessins créés dans Word** est désactivée.\n- L’option **Utiliser la qualité brouillon** est activée.\n- L’option **Afficher les codes de champ au lieu de leurs valeurs** est activée.\n\nSi vous utilisez l’option **En ligne avec le texte**, le problème peut venir de l’option **Espaces réservés image** activée.\n\n## Contournement (style d’habillage différent de « En ligne avec le texte »)\n\n- **Changer la vue** : utilisez Disposition d’impression, Lecture plein écran, Mise en page web, ou Aperçu avant impression.\n- **Activer** : Fichier > Options > Avancé > Afficher le contenu du document > cocher **Afficher les dessins et les zones de texte sur l’écran**.\n- **Activer** : Fichier > Options > Affichage > Options d’impression > cocher **Imprimer les dessins créés dans Word**.\n- **Désactiver** : Fichier > Options > Avancé > Imprimer > décocher **Utiliser la qualité brouillon**.\n- **Désactiver** : Fichier > Options > Avancé > Afficher le contenu du document > décocher **Afficher les codes de champ au lieu de leurs valeurs**.\n\nSi vous utilisez **En ligne avec le texte**, désactivez **Espaces réservés image** dans Fichier > Options > Avancé > Afficher le contenu du document.\n\n## Problème de pilote vidéo\n\nEssayez de modifier la qualité des couleurs (passer de 32 bits à 16 bits), la résolution d’écran, ou réduisez l’accélération matérielle.",
+    "current_query": "Comment savoir si le problème vient du pilote vidéo plutôt que d’un paramètre Word ?",
+    "rewritten_query": "Comment déterminer si l’absence d’image dans Word est causée par le pilote vidéo ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "865",
+    "last_turn_query": "Comment créer une table des matières sans numéro de page dans Word ?",
+    "last_turn_answer": "## Résumé\n\nCet article explique comment créer des entrées de table des matières (TOC) sans numéro de page.\n\n## Méthode (Word 2013 et ultérieur)\n\n1. Créez ou ouvrez une table des matières.\n2. Positionnez le curseur à l’endroit où placer la TOC.\n3. Onglet **Références** > **Table des matières** > **Table des matières personnalisée**.\n4. Dans **Options**, ajoutez un niveau pour le style souhaité (ex : Titre 4) en entrant un numéro dans « Niveau TOC ».\n5. Décochez **Afficher les numéros de page**.\n6. Cliquez OK.\n\nCela supprime tous les numéros de page de la TOC entière. Pour supprimer uniquement certains numéros, utilisez les champs TC :\n\n1. Activez l’affichage des marques de mise en forme (Fichier > Options > Affichage > Afficher toutes les marques de mise en forme).\n2. Repérez le champ `{ TC ... }` correspondant à l’entrée souhaitée.\n3. Sélectionnez le champ, puis sous l’onglet **Insertion** > **Composants rapides** > **Champ**.\n4. Modifiez le champ pour qu’il ne produise pas de numéro (cela nécessite une manipulation avancée).\n5. Mettez à jour la TOC (F9).",
+    "current_query": "Puis-je avoir une table des matières où seuls les niveaux 1 et 2 ont des numéros de page, mais pas le niveau 3 ?",
+    "rewritten_query": "Est-il possible de configurer une table des matières avec des numéros de page pour certains niveaux seulement (ex : niveaux 1 et 2 uniquement) ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "866",
+    "last_turn_query": "Comment réparer un document Word endommagé qui ne s’ouvre pas correctement ?",
+    "last_turn_answer": "## Un document endommagé ou un problème logiciel ?\n\nComportements possibles : renumérotation des pages, sauts de page répétés, mise en forme incorrecte, caractères illisibles, messages d’erreur, blocage.\n\nPour déterminer si le document est endommagé :\n1. Ouvrez d’autres documents Word. Si eux s’ouvrent bien, le problème est probablement dans votre document.\n2. Ouvrez d’autres programmes Office. Si le problème est similaire, cela peut venir de l’application ou du système.\n\n## Mettre à jour Microsoft Office et Windows\n\nAvant toute chose, installez les dernières mises à jour.\n\n## Méthodes de récupération\n\n### Méthode 1 : Ouvrir et réparer\n\n- Fichier > Ouvrir > Parcourir.\n- Sélectionnez le fichier, cliquez sur la flèche à côté de « Ouvrir », puis choisissez **Ouvrir et réparer**.\n\n### Méthode 2 : Récupérer le texte à partir d’un fichier\n\n- Fichier > Ouvrir > Parcourir.\n- Dans la liste déroulante des types de fichiers, choisissez **Récupérer du texte à partir de n’importe quel fichier**.\n- Ouvrez le document. (Attention : la mise en forme et les graphiques sont perdus.)\n\n### Méthode 3 : Utiliser un convertisseur de récupération de texte\n\n(Similaire à méthode 2, mais peut récupérer plus de contenu.)\n\n### Méthode 4 : Insérer le document comme un fichier dans un nouveau document\n\n- Créez un nouveau document vide.\n- Onglet Insertion > Objet > Texte à partir du fichier.\n- Sélectionnez le document endommagé.\n\n### Méthode 5 : Reconstruire le modèle global Normal.dotm\n\nRenommez Normal.dotm (comme dans l’article précédent).\n\n### Méthode 6 : Désactiver les compléments\n\nDémarrez Word avec `/a` et ouvrez le document.\n\n### Méthode 7 : Modifier le modèle de document\n\nAttachez un autre modèle (sans macros) au document endommagé.\n\n### Méthode 8 : Enregistrer dans un autre format\n\nOuvrez le document, enregistrez-le au format RTF, TXT, ou HTML, puis rouvrez-le et resauvegardez en DOCX.",
+    "current_query": "Si l’ouverture du document avec le commutateur /a fonctionne, cela signifie-t-il que le problème vient d’un complément ou du modèle Normal.dotm ?",
+    "rewritten_query": "Quand l’ouverture avec /a réussit, est-ce que cela indique un problème de complément ou de modèle Normal.dotm ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "867",
+    "last_turn_query": "Pourquoi Word me demande-t-il toujours d’enregistrer Normal.dotm même après avoir désactivé l’option ?",
+    "last_turn_answer": "(Réponse déjà donnée dans l’enregistrement 863, mais pour varier, on peut reprendre le même contenu ou un extrait différent. Je vais reprendre la partie sur les compléments COM et macros.)",
+    "last_turn_answer": "## Compléments COM\n\nLes compléments COM peuvent être installés par des programmes tiers (ex : Stamps.com). Pour les désactiver :\n\n1. Fichier > Options > Compléments.\n2. Sous **Gérer**, sélectionnez **Compléments COM** > **Go**.\n3. Décochez tous les compléments COM répertoriés.\n4. Redémarrez Word.\n\nSi le message disparaît, activez les compléments un par un pour trouver le coupable.\n\n## Macros automatiques\n\nLes macros AutoExec, AutoNew, AutoOpen, AutoClose, AutoExit peuvent modifier le modèle global. Pour les supprimer :\n\n1. Onglet Développeur > Macros.\n2. Supprimez toute macro dont le nom commence par « Auto ».\n\n## Virus macro\n\nAssurez-vous qu’un antivirus est actif. Dans Word, allez dans Fichier > Options > Centre de gestion de la confidentialité > Paramètres du centre de gestion de la confidentialité > Paramètres de macro, et choisissez **Désactiver toutes les macros avec notification**.\n\n## Verrouiller le modèle global\n\nDans l’éditeur Visual Basic (Développeur > Visual Basic), dans le projet Normal, cliquez sur Ce document, puis Outils > Propriétés du projet > Protection. Cochez **Verrouiller le projet pour affichage**, mettez un mot de passe, puis quittez en enregistrant.",
+    "current_query": "Après avoir désactivé tous les compléments COM, l’invite a disparu. Comment savoir lequel était responsable sans tout réactiver ?",
+    "rewritten_query": "Comment identifier le complément COM précis responsable de l’invite à enregistrer Normal.dotm ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "868",
+    "last_turn_query": "Une image n’apparaît pas dans Word, même en mode Disposition d’impression. Que faire ?",
+    "last_turn_answer": "(Résumé de la section 23) Si l’image ne s’affiche pas même en mode Disposition d’impression, vérifiez les options suivantes :\n\n- **Afficher les dessins et les zones de texte sur l’écran** doit être activé (Options > Avancé > Afficher le contenu du document).\n- **Imprimer les dessins créés dans Word** doit être activé (Options > Affichage > Options d’impression).\n- **Utiliser la qualité brouillon** doit être désactivé (Options > Avancé > Imprimer).\n- **Afficher les codes de champ au lieu de leurs valeurs** doit être désactivé (Options > Avancé > Afficher le contenu du document).\n\nSi l’image utilise l’habillage **En ligne avec le texte**, vérifiez que **Espaces réservés image** est désactivé.\n\nEn dernier recours, supprimez l’image et réinsérez-la, ou testez en changeant le pilote vidéo (réduire l’accélération matérielle, baisser la résolution).",
+    "current_query": "J’ai coché toutes les options, mais une seule image sur trois ne s’affiche toujours pas. Pourquoi ?",
+    "rewritten_query": "Pourquoi une image spécifique reste invisible dans Word alors que toutes les options d’affichage sont correctement configurées ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "869",
+    "last_turn_query": "Comment faire une table des matières où seuls les titres principaux ont des numéros de page ?",
+    "last_turn_answer": "Pour avoir des numéros de page uniquement pour les titres principaux (niveau 1) et pas pour les sous-titres, vous pouvez utiliser la méthode des champs TC manuels :\n\n1. Créez une table des matières standard avec les niveaux 1, 2, 3, etc. avec numéros de page.\n2. Pour les niveaux que vous ne voulez pas numéroter, utilisez des champs TC (Texte de table des matières) au lieu d’appliquer un style de titre.\n   - Placez le curseur à l’endroit du sous-titre.\n   - Insérez un champ TC : onglet Insertion > Composants rapides > Champ, choisissez TC, et dans le code, écrivez `TC \"Votre texte\" \\l 2 \\f`.\n   - Ce champ n’affichera pas de numéro de page si vous configurez la TOC pour ignorer les numéros de page des champs TC.\n3. Dans la boîte de dialogue Table des matières personnalisée, décochez **Afficher les numéros de page**. Cela supprimera tous les numéros, y compris ceux des titres. Donc cette méthode ne fonctionne pas.\n\nAlternative : Créez deux TOC distinctes : une pour les titres principaux (avec numéros), une autre pour les sous-titres (sans numéros), puis combinez-les manuellement. Plus simple : utilisez des styles personnalisés et créez une TOC basée sur deux styles avec des paramètres différents (mais Word n’autorise qu’un seul réglage « Afficher les numéros de page » par TOC).",
+    "current_query": "Existe-t-il une astuce pour avoir une seule table des matières avec des numéros de page seulement pour certains niveaux sans faire deux TOC ?",
+    "rewritten_query": "Y a-t-il un moyen d’avoir une seule table des matières avec numéros de page pour certains niveaux seulement ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "870",
+    "last_turn_query": "Que faire si l’option « Ouvrir et réparer » ne répare pas mon document Word ?",
+    "last_turn_answer": "Si **Ouvrir et réparer** échoue, essayez les méthodes suivantes (issues de l’article sur les documents endommagés) :\n\n1. **Récupérer le texte à partir du fichier** : Fichier > Ouvrir > Parcourir > choisissez le fichier > dans la liste déroulante des types, sélectionnez « Récupérer du texte à partir de n’importe quel fichier ». (Vous perdrez la mise en forme.)\n2. **Insérer le document dans un nouveau fichier** : Créez un document vide, onglet Insertion > Objet > Texte à partir du fichier, puis sélectionnez le document endommagé.\n3. **Enregistrer dans un autre format** : Si vous parvenez à ouvrir le document (même partiellement), enregistrez-le au format RTF, TXT, ou HTML, fermez, rouvrez, puis resauvegardez en DOCX.\n4. **Utiliser un convertisseur de récupération de texte** (équivalent à la méthode 1).\n5. **Démarrer Word avec `/a`** puis ouvrir le document (exclut les compléments).\n6. **Renommer le modèle Normal.dotm** (comme dans l’article précédent).\n7. **Modifier le modèle du document** : dans le document, Fichier > Options > Compléments > Gérer les modèles, attachez un autre modèle (ex: Normal.dotm réinitialisé).",
+    "current_query": "Après avoir récupéré le texte avec la méthode « Texte à partir du fichier », comment réinsérer les images sans tout refaire manuellement ?",
+    "rewritten_query": "Comment réintégrer les images d’un document Word après avoir récupéré uniquement le texte ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "871",
+    "last_turn_query": "Word 2010 me demande toujours d’enregistrer Normal.dotm, même après avoir supprimé tous les compléments COM et macros. Que reste-t-il ?",
+    "last_turn_answer": "Si les compléments COM et les macros automatiques sont exclus, le problème peut venir :\n- D’un **modèle complémentaire WLL** ou d’un modèle stocké dans les dossiers Startup (Office et Word). Vérifiez ces dossiers :\n  - `C:\\Program Files\\Microsoft Office\\Office14\\Startup` (Word 2010)\n  - `%userprofile%\\AppData\\Roaming\\Microsoft\\Word\\Startup`\n  Déplacez tous les fichiers de ces dossiers vers le bureau et testez.\n- D’une **corruption du profil utilisateur** : créez un nouveau compte Windows et testez Word.\n- D’un **problème de droits sur le fichier Normal.dotm** : vérifiez que vous avez les droits d’écriture dans `%appdata%\\Microsoft\\Templates`.\n- D’un **virus macro résiduel** : effectuez une analyse antivirus complète.\n- D’une **réparation incomplète** d’Office : lancez une réparation en ligne (Panneau de configuration > Programmes > Microsoft Office > Modifier > Réparation rapide puis réparation en ligne).\n\nSi rien ne fonctionne, réinitialisez complètement les paramètres de Word en supprimant les clés de registre Data et Options (comme dans l’article général).",
+    "current_query": "Comment vérifier si le fichier Normal.dotm a des droits d’écriture corrects sous Windows 10 ?",
+    "rewritten_query": "Comment vérifier les droits d’écriture sur le fichier Normal.dotm dans Windows 10 ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "872",
+    "last_turn_query": "Comment supprimer la sous-clé de Registre de données Word pour résoudre les problèmes de démarrage ?",
+    "last_turn_answer": "## Option 3 : Supprimer la sous-clé de Registre de données Word\n\nLa plupart des options fréquemment utilisées dans Word sont stockées dans la sous-clé de Registre de données Word. Une étape de résolution des problèmes courante consiste à supprimer cette sous-clé. Lorsque vous redémarrez Word, le programme reconstruit la sous-clé avec les paramètres par défaut.\n\n> **Important**\n> Sauvegardez le Registre avant toute modification.\n\nPour supprimer la sous-clé de données Word :\n\n1. Quittez tous les programmes Office.\n2. Tapez `regedit` dans la recherche, ouvrez l’Éditeur du Registre.\n3. Naviguez jusqu’à la clé correspondant à votre version de Word :\n   - Word 2016 ou ultérieur : `HKEY_CURRENT_USER\\Software\\Microsoft\\Office\\16.0\\Word\\Data`\n   - Word 2013 : `15.0`\n   - Word 2010 : `14.0`\n   - Word 2007 : `12.0`\n4. Sélectionnez la clé **Data**, exportez-la (Fichier > Exporter) pour sauvegarde.\n5. Supprimez la clé (Modifier > Supprimer).\n6. Quittez l’Éditeur du Registre et redémarrez Word.",
+    "current_query": "Après l’avoir supprimée, comment être sûr qu’elle a bien été recréée par défaut ?",
+    "rewritten_query": "Comment vérifier que la sous-clé de Registre de données Word a bien été recréée avec les paramètres par défaut après sa suppression ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "873",
+    "last_turn_query": "Pourquoi Word me demande-t-il d’enregistrer le modèle global Normal.dotm à chaque fermeture ?",
+    "last_turn_answer": "## La cause\n\nCe problème peut se produire si l’une des conditions suivantes est remplie :\n- L’option **\"Invite avant d'enregistrer le modèle Normal\"** est activée.\n- Un complément ou une macro qui modifie le modèle global est installé.\n- L’ordinateur est infecté par un virus macro.\n\n## Solution de contournement 1 : Désactiver l’option\n\n1. Dans Word 2007 : bouton Microsoft Office > Options Word > Avancé.\n   Dans Word 2010 : Fichier > Options > Avancé.\n2. Sous **Enregistrer**, décochez **Demande avant d’enregistrer le modèle Normal**.\n3. Cliquez sur OK.\n\n## Solution de contournement 2 : Supprimer des compléments ou macros\n\n- Videz les dossiers Startup d’Office et de Word.\n- Désactivez les compléments COM via Fichier > Options > Compléments > Gérer > Compléments COM.\n- Supprimez les macros automatiques (AutoExec, AutoNew, etc.) depuis l’onglet Développeur > Macros.",
+    "current_query": "Et si je ne veux pas désactiver l’option, y a-t-il un moyen de savoir quel complément est responsable ?",
+    "rewritten_query": "Comment identifier quel complément est responsable de l’invite à enregistrer le modèle global Normal.dotm sans désactiver l’option d’invite ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "874",
+    "last_turn_query": "Comment activer l’option « Afficher les dessins et les zones de texte sur l’écran » dans Word 2010 ?",
+    "last_turn_answer": "## Activer l’option « Afficher les dessins et les zones de texte sur l’écran »\n\nLorsque vous activez cette option, vous pouvez afficher l’image ou l’objet en Mode Mise en page ou en Mode Web. Pour l’activer :\n\n**Word 2010 ou version ultérieure**\n\n1. Cliquez sur **Fichier**, puis sur **Options**.\n2. Cliquez sur **Avancé**.\n3. Sous **Afficher le contenu du document**, cliquez pour activer la case à cocher **Afficher les dessins et les zones de texte sur l’écran**.\n4. Cliquez sur **OK**.\n\nCette option est nécessaire pour que les images avec un habillage autre que « En ligne avec le texte » s’affichent dans certaines vues.",
+    "current_query": "Cette option est-elle également nécessaire pour l’impression, ou seulement pour l’affichage à l’écran ?",
+    "rewritten_query": "L’option « Afficher les dessins et les zones de texte sur l’écran » affecte-t-elle aussi l’impression ou uniquement l’affichage à l’écran dans Word ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "875",
+    "last_turn_query": "Comment créer une table des matières avec des entrées sans numéro de page dans Word 2016 ?",
+    "last_turn_answer": "## Comment créer une entrée TOC sans numéro de page\n\n**Word 2013 et versions ultérieures**\n\n1. Dans votre document, créez une table des matières ou utilisez une table existante.\n2. Positionnez le curseur à l’emplacement où vous souhaitez placer la TOC.\n3. Onglet **Références** > **Table des matières** > **Table des matières personnalisée**.\n4. Pour ajouter des annotations au TOC, sélectionnez **Options**. Entrez le niveau souhaité (ex: 4) pour un style de titre.\n5. Décochez la case **Afficher les numéros de page**.\n6. Sélectionnez **OK**.\n\n**Remarque** : Décocher cette option supprime tous les numéros de page de la TOC entière. Pour supprimer uniquement certains numéros, utilisez des champs TC manuels (voir article complet).",
+    "current_query": "Comment faire pour que seul le niveau 3 n’ait pas de numéro de page, mais que les niveaux 1 et 2 en aient ?",
+    "rewritten_query": "Comment configurer une table des matières dans Word où seuls les niveaux 1 et 2 ont des numéros de page, mais pas le niveau 3 ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "876",
+    "last_turn_query": "Comment récupérer le texte d’un document Word endommagé avec la méthode « Récupérer du texte à partir de n’importe quel fichier » ?",
+    "last_turn_answer": "## Méthode 2 : Récupérer le texte à partir d’un fichier\n\nLe convertisseur « Récupérer du texte à partir de n’importe quel fichier » présente des limitations. Par exemple, la mise en forme du document est perdue. En outre, les graphiques, les champs, les objets de dessin et les autres éléments qui ne sont pas du texte sont perdus. Toutefois, le texte de champ, les en-têtes, les pieds de page, les notes de bas de page et les notes de fin sont conservés sous forme de texte simple.\n\n**Procédure :**\n\n1. Dans Word, allez dans **Fichier** > **Ouvrir** > **Parcourir**.\n2. Dans la liste déroulante des types de fichiers, choisissez **Récupérer du texte à partir de n’importe quel fichier**.\n3. Sélectionnez le document endommagé.\n4. Cliquez sur **Ouvrir**.\n\nWord tente d’extraire tout le texte lisible.",
+    "current_query": "Est-ce que cette méthode conserve aussi les commentaires et les révisions ?",
+    "rewritten_query": "La méthode « Récupérer du texte à partir de n’importe quel fichier » préserve-t-elle les commentaires et les révisions d’un document Word endommagé ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "877",
+    "last_turn_query": "Comment désactiver les compléments COM dans Word 2010 ?",
+    "last_turn_answer": "## Supprimer des compléments COM\n\nLes compléments COM peuvent être installés à n’importe quel emplacement par des programmes qui interagissent avec Word. Pour afficher la liste des compléments COM installés :\n\n1. Dans Word 2010, cliquez sur le bouton **Fichier**, puis sur **Options**.\n2. Cliquez sur **Compléments**.\n3. Sous **Gérer**, cliquez sur **Compléments COM**, puis sur **Go**.\n4. La boîte de dialogue **Compléments COM** s’affiche.\n\nPour désactiver temporairement chaque complément, décochez la case à cocher pour chaque complément COM répertorié, puis cliquez sur **OK**. Lorsque vous redémarrez Word, les compléments COM désactivés ne sont pas chargés.\n\nSi le problème est résolu, l’un de ces compléments est responsable. Pour identifier lequel, réactivez-les un à un.",
+    "current_query": "Comment puis-je savoir quel programme a installé un complément COM spécifique ?",
+    "rewritten_query": "Comment identifier le programme tiers qui a installé un complément COM répertorié dans Word 2010 ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "878",
+    "last_turn_query": "Comment transférer un tableau de données vers une plage Excel à l’aide d’Automation (VB) ?",
+    "last_turn_answer": "## Utiliser l’automatisation pour transférer un tableau de données vers une plage d’une feuille de calcul\n\nUn tableau de données peut être transféré vers une plage de plusieurs cellules à la fois :\n\n```vb\nDim oExcel As Object    \nDim oBook As Object    \nDim oSheet As Object     \n\n'Start a new workbook in Excel    \nSet oExcel = CreateObject(\"Excel.Application\")    \nSet oBook = oExcel.Workbooks.Add     \n\n'Create an array with 3 columns and 100 rows    \nDim DataArray(1 To 100, 1 To 3) As Variant    \nDim r As Integer    \nFor r = 1 To 100       \n   DataArray(r, 1) = \"ORD\" & Format(r, \"0000\")       \n   DataArray(r, 2) = Rnd() * 1000       \n   DataArray(r, 3) = DataArray(r, 2) * 0.7    \nNext     \n\n'Add headers to the worksheet on row 1    \nSet oSheet = oBook.Worksheets(1)    \noSheet.Range(\"A1:C1\").Value = Array(\"Order ID\", \"Amount\", \"Tax\")     \n\n'Transfer the array to the worksheet starting at cell A2    \noSheet.Range(\"A2\").Resize(100, 3).Value = DataArray        \n\n'Save the Workbook and Quit Excel    \noBook.SaveAs \"C:\\Book1.xls\"    \noExcel.Quit\n```\n\nSi vous transférez vos données à l’aide d’un tableau plutôt que d’une cellule, vous pouvez réaliser un gain de performances énorme avec une grande quantité de données.",
+    "current_query": "Cette méthode fonctionne-t-elle aussi si le tableau contient des chaînes et des nombres mélangés ?",
+    "rewritten_query": "Le transfert d’un tableau de données vers une plage Excel fonctionne-t-il avec des types de données mixtes (chaînes et nombres) ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "879",
+    "last_turn_query": "Pourquoi le premier nom de feuille dans un nouveau classeur Excel créé via l’Explorateur s’affiche dans une langue différente de la langue d’affichage Office ?",
+    "last_turn_answer": "## La cause\n\nLorsque vous créez un classeur en cliquant avec le bouton droit dans un dossier, puis en sélectionnant **Nouvelle** > **feuille de calcul Microsoft Excel**, l’Explorateur Windows crée une copie d’un classeur nommé Excel12.xlsx à partir du dossier système appelé *SHELLNEW* dans le dossier actif. Le Excel12.xlsx d’origine est créé dans le dossier *SHELLNEW* à l’installation d’Office, avec le nom de sa feuille par défaut dans une langue qui peut différer de la **langue d’affichage**.\n\n## Contournement\n\nPour corriger ce comportement, remplacez la Excel12.xlsx d’origine dans le dossier *SHELLNEW* par un classeur que vous créez dans la langue de votre choix et par le même nom (Excel12.xlsx).\n\nLe dossier *SHELLNEW* se trouve dans :\n- Pour Microsoft 365 32 bits sur Windows 64 bits : `C:\\Program Files (x86)\\Microsoft Office\\root\\vfs\\Windows\\SHELLNEW`\n- Pour Microsoft 365 64 bits : `C:\\Program Files\\Microsoft Office\\root\\vfs\\Windows\\SHELLNEW`\n- Pour Office MSI : `C:\\Windows\\SHELLNEW`\n\n**Remarque** : Si vous ajoutez une feuille en cliquant sur « + » dans Excel, le nom de la feuille apparaît dans la langue d’affichage.",
+    "current_query": "Comment créer le nouveau classeur Excel12.xlsx dans la langue que je souhaite avant de le placer dans SHELLNEW ?",
+    "rewritten_query": "Comment préparer un classeur Excel12.xlsx dans la langue désirée pour remplacer l’original dans le dossier SHELLNEW ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "880",
+    "last_turn_query": "Comment insérer des lignes sur plusieurs feuilles de calcul Excel à l’aide d’une macro ?",
+    "last_turn_answer": "## Exemple de macro utilisant une boucle pour insérer des lignes dans plusieurs feuilles\n\n```vb\nSub Insert_Rows_Loop()\n     Dim CurrentSheet As Object\n\n     ' Loop through all selected sheets.\n     For Each CurrentSheet In ActiveWindow.SelectedSheets\n        ' Insert 5 rows at top of each sheet.\n        CurrentSheet.Range(\"a1:a5\").EntireRow.Insert\n     Next CurrentSheet\nEnd Sub\n```\n\n> **Remarque**\n> Les exemples de macros fonctionnent uniquement sur une plage contiguë de colonnes ou de lignes.\n\n## Exemple de macro pour sélectionner une colonne et insérer une nouvelle colonne\n\n```vb\nSub Select_Insert_Column()\n    Dim MyRange as Object\n    ' Store the selected range in a variable.\n    Set MyRange = Selection\n    ' Select the entire column.\n    Selection.EntireColumn.Select\n    ' Insert Columns in all selected sheets.\n    Selection.Insert\n    ' Reselect the previously selected cells.\n    MyRange.Select\nEnd Sub\n```",
+    "current_query": "Cette macro insère-t-elle les lignes au même emplacement (par exemple les 5 premières lignes) sur chaque feuille sélectionnée ?",
+    "rewritten_query": "La macro qui insère des lignes sur plusieurs feuilles place-t-elle les nouvelles lignes à la même position relative (ex : en haut) sur chaque feuille ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "881",
+    "last_turn_query": "Pourquoi Excel affiche-t-il une erreur de formule quand j’utilise des virgules comme séparateurs d’arguments ?",
+    "last_turn_answer": "## La cause\n\nSi l’erreur se produit lorsque vous utilisez un caractère pour séparer les arguments, cela est généralement dû à l’un des scénarios suivants :\n- Le **séparateur de liste** dans les paramètres régionaux Windows ne correspond pas à ce qui est tapé dans la formule.\n- L’option **« Utiliser les séparateurs système »** dans les options avancées d’Excel ne correspond pas.\n\n## Résolution\n\n1. Vérifiez l’option : **Fichier** > **Options** > **Avancé** > groupe **Options d’édition**. Assurez-vous que **« Utiliser les séparateurs système »** est activé pour qu’Excel utilise les paramètres régionaux Windows, ou spécifiez manuellement le séparateur de milliers et décimal.\n2. Recherchez le séparateur de liste dans le Panneau de configuration > **Région** > **Paramètres supplémentaires**.\n3. Utilisez le même caractère que le séparateur de liste désigné dans Windows lors de la création des formules.\n\n**Remarque** : La modification du séparateur de liste affecte le délimiteur utilisé pour les fichiers CSV (virgule ou point-virgule).",
+    "current_query": "Comment modifier le séparateur de liste dans Windows pour qu’Excel accepte le point-virgule comme séparateur d’arguments ?",
+    "rewritten_query": "Comment changer le séparateur de liste dans les paramètres régionaux Windows pour que les formules Excel fonctionnent avec des points-virgules ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "882",
+    "last_turn_query": "Que retourne la fonction RSQ dans Excel et comment est-elle calculée ?",
+    "last_turn_answer": "## Résumé\n\nLa fonction `RSQ(array1, array2)` retourne le carré du coefficient de corrélation de Pearson (Product-Moment) entre deux tableaux de données.\n\n## Syntaxe\n```excel\nRSQ(array1, array2)\n```\nLes arguments doivent être des nombres, des noms, des constantes de tableau ou des références contenant des nombres.\n\n## Améliorations dans Excel 2003 et versions ultérieures\n\nDans les versions antérieures à Excel 2003, `RSQ` pouvait souffrir d’erreurs d’arrondi, car il était basé sur `PEARSON` (une seule passe). À partir d’Excel 2003, `RSQ` utilise une approche à deux passes (calcul des moyennes, puis des écarts carrés), ce qui améliore la stabilité numérique.\n\n**Alternative** : Utilisez `=CORREL(A1:A100,B1:B100)^2` pour obtenir un résultat plus stable dans les versions antérieures.\n\n## Exemple\nSi `D2` est élevé (ex : 8), `RSQ` peut retourner `#DIV/0!` dans les anciennes versions, tandis que `CORREL^2` reste correct.\n\n**Formule pour tester une année bissextile (hors sujet)** : non applicable.",
+    "current_query": "Est-ce que la fonction RSQ dans Excel 365 est toujours sensible aux grandes constantes ajoutées aux données comme dans l’exemple avec D2 = 8 ?",
+    "rewritten_query": "La fonction RSQ dans les versions récentes d’Excel (365) souffre-t-elle encore d’erreurs d’arrondi avec des constantes élevées ajoutées aux données ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "883",
+    "last_turn_query": "Comment parcourir une liste dynamique de données (nombre de lignes inconnu) dans une macro Excel VBA ?",
+    "last_turn_answer": "## Pour rechercher une liste dynamique ou une liste avec un nombre inconnu de lignes\n\nCe code parcourt la colonne A jusqu’à la dernière cellule non vide (en supposant qu’il n’y a pas de cellules vides au milieu) :\n\n```vb\nSub Test2()\n      ' Select cell A2, *first line of data*.\n      Range(\"A2\").Select\n      ' Set Do loop to stop when an empty cell is reached.\n      Do Until IsEmpty(ActiveCell)\n         ' Insert your code here.\n         ' Step down 1 row from present location.\n         ActiveCell.Offset(1, 0).Select\n      Loop\nEnd Sub\n```\n\n**Note** : S’il existe des cellules vides dans la colonne A, modifiez le code pour tester deux cellules consécutives vides.\n\n## Pour rechercher un enregistrement spécifique\n\n```vb\nSub Test3()\n      Dim x As String\n      Dim found As Boolean\n      Range(\"A2\").Select\n      x = \"test\"\n      found = False\n      Do Until IsEmpty(ActiveCell)\n         If ActiveCell.Value = x Then\n            found = True\n            Exit Do\n         End If\n         ActiveCell.Offset(1, 0).Select\n      Loop\n      If found = True Then\n         MsgBox \"Value found in cell \" & ActiveCell.Address\n      Else\n         MsgBox \"Value not found\"\n      End If\nEnd Sub\n```",
+    "current_query": "Que faire si ma liste contient des cellules vides à des endroits aléatoires (pas deux à la suite) ?",
+    "rewritten_query": "Comment parcourir une liste dynamique dans Excel VBA lorsque des cellules vides isolées sont présentes dans la colonne de données ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "884",
+    "last_turn_query": "Comment déterminer si une année est bissextile dans Excel à l’aide d’une formule ?",
+    "last_turn_answer": "## Règles des années bissextiles (calendrier grégorien)\n\n- Une année divisible par 4 est bissextile, sauf si elle est divisible par 100 (non bissextile), à moins qu’elle ne soit aussi divisible par 400 (bissextile).\n- Exemples : 1900 non bissextile, 2000 bissextile, 2024 bissextile.\n\n## Formule Excel\n\nSi l’année est dans la cellule A1, utilisez :\n```excel\n=IF(OR(MOD(A1,400)=0,AND(MOD(A1,4)=0,MOD(A1,100)<>0)),\"Bissextile\",\"Non bissextile\")\n```\n\n## Remarque historique\n\nExcel traite l’année 1900 comme une année bissextile pour assurer la compatibilité avec Lotus 1-2-3, bien que 1900 ne le soit pas réellement. Pour les dates antérieures à 1900, Excel ne les gère pas nativement.",
+    "current_query": "Cette formule fonctionne-t-elle correctement pour l’année 2100 ?",
+    "rewritten_query": "La formule Excel qui détermine si une année est bissextile gère-t-elle correctement l’année 2100 (non divisible par 400) ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "885",
+    "last_turn_query": "Comment transférer un jeu d’enregistrements ADO vers une plage Excel avec la méthode CopyFromRecordset ?",
+    "last_turn_answer": "## Utiliser l’automatisation pour transférer un jeu d’enregistrements ADO vers une plage de feuilles de calcul\n\nExcel 2000 a introduit la méthode `CopyFromRecordset`. Exemple avec la base Northwind :\n\n```vb\n'Create a Recordset from all the records in the Orders table    \nDim sNWind As String    \nDim conn As New ADODB.Connection    \nDim rs As ADODB.Recordset    \nsNWind = \"C:\\Program Files\\Microsoft Office\\Office\\Samples\\Northwind.mdb\"    \nconn.Open \"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=\" & sNWind & \";\"    \nconn.CursorLocation = adUseClient    \nSet rs = conn.Execute(\"Orders\", , adCmdTable)        \n\n'Create a new workbook in Excel    \nDim oExcel As Object    \nDim oBook As Object    \nDim oSheet As Object    \nSet oExcel = CreateObject(\"Excel.Application\")    \nSet oBook = oExcel.Workbooks.Add    \nSet oSheet = oBook.Worksheets(1)        \n\n'Transfer the data to Excel    \noSheet.Range(\"A1\").CopyFromRecordset rs        \n\n'Save the Workbook and Quit Excel    \noBook.SaveAs \"C:\\Book1.xls\"    \noExcel.Quit        \nrs.Close    \nconn.Close\n```\n\n**Note** : Pour Office 2007 et versions ultérieures, utilisez le fournisseur `Microsoft.ACE.OLEDB.12.0` et le fichier `.accdb` ou `.xlsx`.",
+    "current_query": "CopyFromRecordset conserve-t-il les en-têtes de colonne du jeu d’enregistrements (noms des champs) ?",
+    "rewritten_query": "La méthode CopyFromRecordset pour transférer un jeu d’enregistrements ADO vers Excel inclut-elle automatiquement les noms des champs comme en-têtes ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "886",
+    "last_turn_query": "Comment supprimer des colonnes sur plusieurs feuilles Excel à l’aide d’une macro (exemple) ?",
+    "last_turn_answer": "## Exemple de macro pour supprimer des colonnes sur plusieurs feuilles\n\nEn utilisant le même principe que pour l’insertion, on peut supprimer :\n\n```vb\nSub Delete_Columns_MultiSheet()\n    Dim CurrentSheet As Object\n    For Each CurrentSheet In ActiveWindow.SelectedSheets\n        ' Supprime la colonne B (colonne 2) sur chaque feuille sélectionnée\n        CurrentSheet.Columns(2).Delete\n    Next CurrentSheet\nEnd Sub\n```\n\n> **Remarque** : Les macros fonctionnent uniquement sur une plage contiguë de colonnes ou de lignes. Pour supprimer une plage (ex : colonnes B à D), utilisez `Range(\"B:D\").Delete`.\n\n## Variante pour supprimer des lignes\n\n```vb\nSub Delete_Rows_MultiSheet()\n    Dim CurrentSheet As Object\n    For Each CurrentSheet In ActiveWindow.SelectedSheets\n        ' Supprime les lignes 3 à 5\n        CurrentSheet.Rows(\"3:5\").Delete\n    Next CurrentSheet\nEnd Sub\n```",
+    "current_query": "Puis-je annuler la suppression si j’ai exécuté la macro par erreur ?",
+    "rewritten_query": "Est-il possible d’annuler (Undo) une suppression de colonnes effectuée par une macro sur plusieurs feuilles Excel ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "887",
+    "last_turn_query": "Quels sont les avantages d’utiliser un QueryTable plutôt que CopyFromRecordset pour importer des données dans Excel ?",
+    "last_turn_answer": "## Avantages de QueryTable\n\nUn objet `QueryTable` représente une table générée à partir de données retournées d’une source externe. Lors de l’automatisation d’Excel, vous pouvez créer un QueryTable en fournissant une chaîne de connexion OLEDB/ODBC et une requête SQL. Excel gère lui-même la création du jeu d’enregistrements et son insertion.\n\n**Avantages par rapport à CopyFromRecordset :**\n- Excel gère la création du jeu d’enregistrements et son positionnement.\n- La requête peut être **enregistrée** avec le QueryTable, ce qui permet de l’actualiser ultérieurement pour obtenir des données mises à jour.\n- Lors de l’ajout d’un nouveau QueryTable, vous pouvez spécifier que les données existantes doivent être décalées pour prendre en charge les nouvelles données (propriété `RefreshStyle`).\n\n## Exemple de code\n\n```vb\nSet oQryTable = oSheet.QueryTables.Add( _\n   \"OLEDB;Provider=Microsoft.Jet.OLEDB.4.0;Data Source=\" & sNWind & \";\", _\n   oSheet.Range(\"A1\"), \"Select * from Orders\")\noQryTable.RefreshStyle = xlInsertEntireRows\noQryTable.Refresh False\n```",
+    "current_query": "Un QueryTable peut-il être actualisé automatiquement à intervalles réguliers sans intervention manuelle ?",
+    "rewritten_query": "Est-il possible de configurer un QueryTable Excel pour qu’il se rafraîchisse automatiquement à intervalles réguliers ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "888",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Pourquoi l’équation de la courbe de tendance sur un graphique à nuages de points XY dans Excel est-elle incorrecte ?",
+    "rewritten_query": "Pourquoi l’équation de la courbe de tendance sur un graphique à nuages de points XY dans Excel est-elle incorrecte ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "889",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Comment puis-je afficher plus de décimales dans l’équation d’une courbe de tendance Excel pour améliorer sa précision ?",
+    "rewritten_query": "Comment puis-je afficher plus de décimales dans l’équation d’une courbe de tendance Excel pour améliorer sa précision ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "890",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "j’ai pas l’option Coller spécial dans Excel, comment la réactiver ?",
+    "rewritten_query": "Comment réactiver l’option Coller spécial dans Excel ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "891",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Pourquoi mon classeur Excel signé numériquement affiche « Ce document contient des signatures non valides » quand je l’ouvre dans une version antérieure ?",
+    "rewritten_query": "Pourquoi mon classeur Excel signé numériquement affiche « Ce document contient des signatures non valides » quand je l’ouvre dans une version antérieure ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "892",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "comment éviter que les signatures deviennent invalides lors du recalcul dans une autre version d’Excel ?",
+    "rewritten_query": "Comment éviter que les signatures numériques deviennent invalides lors du recalcul dans une autre version d’Excel ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "893",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Qu’est-ce qu’une référence tridimensionnelle dans Excel et pourquoi les liens externes avec ce type de référence posent-ils problème ?",
+    "rewritten_query": "Qu’est-ce qu’une référence tridimensionnelle dans Excel et pourquoi les liens externes avec ce type de référence posent-ils problème ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "894",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "j’ai une erreur « Microsoft Excel cannot find name » quand je mets à jour un lien externe, comment corriger ?",
+    "rewritten_query": "Comment corriger l’erreur « Microsoft Excel cannot find name » lors de la mise à jour d’un lien externe ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "895",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Quel format de fichier utiliser pour éviter les problèmes de liens externes avec des références 3D dans Excel ?",
+    "rewritten_query": "Quel format de fichier utiliser pour éviter les problèmes de liens externes avec des références 3D dans Excel ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "896",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "comment lier une zone spécifique d’une feuille Excel à un dessin Visio ?",
+    "rewritten_query": "Comment lier une zone spécifique d’une feuille Excel à un dessin Visio ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "897",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Quelle est la différence entre lier et incorporer un objet Excel dans un dessin Visio ?",
+    "rewritten_query": "Quelle est la différence entre lier et incorporer un objet Excel dans un dessin Visio ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "898",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "ma fonction perso dans excel elle calcule pas la bonne valeur, c'est koi le prob ?",
+    "rewritten_query": "Pourquoi ma fonction personnalisée Excel ne calcule pas la bonne valeur ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "899",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "jai un add-in excel qui capt l'event WorkbookOpen, mais kan jactive la modif en sortie de vue protégé, ca plante avec erreur 1004, comen faire ?",
+    "rewritten_query": "Comment éviter l'erreur 1004 dans un complément Excel lors de l'activation des modifications en sortie de vue protégée ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "900",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "kan jveux exporter depuis sharepoint vers excel, ca me dit une erreur inattendue, les modif peuvent pas etre sauvegardées, pk ?",
+    "rewritten_query": "Pourquoi l'export vers Excel depuis SharePoint échoue avec une erreur inattendue ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "901",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "c'est quoi la difference entre STDEVPA et STDEVP dans excel ?",
+    "rewritten_query": "Quelle est la différence entre STDEVPA et STDEVP dans Excel ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "902",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "mon classeur excel utilise trop de memoire, comment le nettoyer pour qu'il rame moins ?",
+    "rewritten_query": "Comment nettoyer un classeur Excel pour qu'il utilise moins de mémoire ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "903",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "des fichiers s'ouvrent tout seul kan jdemarre excel, comment les empecher ?",
+    "rewritten_query": "Comment empêcher l'ouverture automatique de fichiers au démarrage d'Excel ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "904",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "sous excel mac 2016, jai l'erreur « Impossible d’utiliser la liaison d’objets et l’incorporation », comen corriger ?",
+    "rewritten_query": "Comment corriger l'erreur « Impossible d'utiliser la liaison d'objets et l'incorporation » dans Excel 2016 pour Mac ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "905",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "la fonction CROISSANCE dans excel, elle marche bien ou des fois elle donne des résultats faux ?",
+    "rewritten_query": "La fonction CROISSANCE dans Excel est-elle fiable ou peut-elle donner des résultats erronés ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "906",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "jveux enlever les petites infobulles qui apparaissent kan jtape une formule dans excel, comment on fait ?",
+    "rewritten_query": "Comment désactiver les info-bulles des arguments de fonction dans Excel ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "907",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "mon code VBA qui ecrit des formules dans plein de cellules, il est super lent, sur excel 2016, ya un rapport avec des controles ActiveX invisibles ?",
+    "rewritten_query": "Pourquoi le code VBA qui écrit des formules est-il lent dans Excel 2016 quand il y a beaucoup de contrôles ActiveX invisibles ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "908",
+    "last_turn_query": "Pourquoi Excel considère-t-il l'année 1900 comme une année bissextile alors qu'elle ne l'est pas ?",
+    "last_turn_answer": "## Plus d’informations\n\nLorsque Lotus 1-2-3 a été publié pour la première fois, le programme supposait que l’année 1900 était une année bissextile, même si elle n’était pas une année bissextile. Cela a permis au programme de gérer plus facilement les années bissextiles et n’a causé aucun préjudice à presque tous les calculs de date dans Lotus 1-2-3.\n\nLorsque Microsoft Multiplan et Microsoft Excel ont été publiés, ils ont également supposé que 1900 était une année bissextile. Cette hypothèse a permis à Microsoft Multiplan et à Microsoft Excel d’utiliser le même système de date de série utilisé par Lotus 1-2-3 et de fournir une meilleure compatibilité avec Lotus 1-2-3.\n\nSi ce comportement devait être corrigé, de nombreux problèmes surviennent, notamment :\n- Presque toutes les dates des feuilles de calcul Excel actuelles seraient réduites d’un jour.\n- Certaines fonctions, comme WEEKDAY, retourneraient des valeurs différentes.\n- La compatibilité avec d’autres programmes utilisant des dates série serait interrompue.\n\nExcel gère correctement toutes les autres années bissextiles (y compris 2100). Seule l’année 1900 est mal gérée.",
+    "current_query": "Est-ce que cette anomalie affecte les calculs de dates après le 1er mars 1900 ?",
+    "rewritten_query": "L’erreur sur l’année 1900 bissextile affecte-t-elle les dates postérieures au 1er mars 1900 ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "909",
+    "last_turn_query": "Pourquoi Excel 32 bits limite-t-il la mémoire à 2 Go et comment cela affecte-t-il les gros classeurs ?",
+    "last_turn_answer": "## La cause\n\nLa limite de l’espace d’adressage virtuel pour les éditions 32 bits d’applications Windows est de 2 gigaoctets (Go). Pour Excel, cet espace est partagé par l’application elle-même, les compléments, et la feuille de calcul chargée en mémoire. Certaines feuilles de calcul dont la taille de fichier est inférieure à 2 Go peuvent nécessiter plus de 2 Go de mémoire adressable, provoquant des erreurs de mémoire.\n\n## Résolution\n\n- Utiliser l’édition 64 bits d’Office (pas de limite stricte).\n- Ouvrir plusieurs instances d’Excel pour répartir la mémoire.\n- Désactiver les compléments COM.\n- Désactiver l’accélération graphique matérielle.\n- Nettoyer le classeur (mise en forme excessive, styles inutilisés, formes, etc.).\n\nExcel 2016 32 bits peut bénéficier de la fonctionnalité Large Address Aware (LAA) à partir du build 16.0.6868.2060, augmentant la mémoire virtuelle à 4 Go sous Windows 64 bits.",
+    "current_query": "Qu’est-ce que la fonctionnalité Large Address Aware et comment l’activer dans Excel 2016 32 bits ?",
+    "rewritten_query": "Comment activer Large Address Aware dans Excel 2016 32 bits pour augmenter la mémoire disponible ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "910",
+    "last_turn_query": "Comment importer plusieurs tables SQL Server dans Excel sans erreur d'index hors limites ?",
+    "last_turn_answer": "## La cause\n\nCe problème se produit lorsque l’un des noms de tables sélectionnés se termine par une chaîne qui correspond à un nom de schéma dans la base de données. L’Assistant Connexion de données utilise uniquement les noms de tables au lieu des noms complets lorsque vous importez plusieurs tables.\n\n## Contournement\n\n- Utilisez l’Assistant pour importer une table à la fois.\n- Assurez-vous qu’aucun nom de table ne se termine par une chaîne correspondant à un nom de schéma.\n- Après l’erreur, cliquez sur **Propriétés** > onglet **Définition**, puis remplacez les noms de tables par des noms complets au format `Database.Schema.TableName`.",
+    "current_query": "pk l’erreur se produit seulement kan on sélectionne plusieurs tables ?",
+    "rewritten_query": "Pourquoi l’erreur d’index hors limites n’apparaît-elle que lors de l’import de plusieurs tables SQL Server ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "911",
+    "last_turn_query": "Quels sont les nouveaux paramètres de sécurité DDE dans le Centre de gestion de la confidentialité Excel ?",
+    "last_turn_answer": "## Résumé\n\nDeux nouvelles options de sécurité sont incluses dans **Fichier > Options > Centre de gestion de la confidentialité > Paramètres du Centre de gestion de la confidentialité > Contenu externe** :\n\n- **Activer la recherche du serveur d'échange de données dynamiques** : par défaut activée. Les serveurs DDE en cours d’exécution seront visibles et utilisables.\n- **Activer le lancement de Dynamic Data Exchange Server (non recommandé)** : par défaut désactivée. Si activée, Excel démarre les serveurs DDE qui ne sont pas déjà en cours d’exécution et active l’envoi de données depuis Excel. Pour la sécurité, il est recommandé de laisser cette case décochée.\n\nCes options protègent contre les attaquants qui utilisent DDE pour propager des programmes malveillants.",
+    "current_query": "Est-ce que désactiver le lancement du serveur DDE peut casser des fonctionnalités légitimes ?",
+    "rewritten_query": "Désactiver l’option « Activer le lancement de serveur DDE » peut-il interrompre des fonctionnalités Excel légitimes ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "912",
+    "last_turn_query": "Comment résoudre les erreurs de ressources insuffisantes dans Excel ?",
+    "last_turn_answer": "## Résolution\n\nPlusieurs méthodes sont proposées :\n\n1. **Contenu de la feuille de calcul** : optimisez les calculs, réduisez les formes, supprimez les mises en forme conditionnelles inutiles, nettoyez les vues personnalisées.\n2. **Mises à jour** : installez les dernières mises à jour Windows et Office.\n3. **Compléments** : désactivez les compléments tiers.\n4. **Volet Aperçu/Détails** : sous Windows 7, désactivez ces volets dans l’Explorateur, Excel et Outlook.\n5. **Imprimante par défaut** : passez temporairement sur « Microsoft XPS Document Writer ».\n6. **Antivirus** : désactivez-le temporairement pour tester.\n7. **Version 64 bits** : passez à Excel 64 bits pour dépasser la limite de 2 Go.\n8. **Autres applications** : effectuez un démarrage propre pour libérer de la mémoire.",
+    "current_query": "La suppression des affichages personnalisés dans un classeur partagé peut-elle aider ?",
+    "rewritten_query": "La suppression des affichages personnalisés résout-elle les erreurs de ressources disponibles dans un classeur partagé ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "913",
+    "last_turn_query": "Pourquoi Excel affiche-t-il 'Cette commande ne peut pas être utilisée sur plusieurs sélections' ?",
+    "last_turn_answer": "## La cause\n\nCe message apparaît lorsque vous copiez des sélections de cellules ou plages nonadjacentes situées dans différentes colonnes ou lignes de manière que Excel ne puisse pas « glisser » les plages en un rectangle unique.\n\n## Sélections autorisées\n\nVous pouvez copier sans erreur :\n- Plusieurs lignes dans la même colonne (ex: A1, A3, A5).\n- Plusieurs colonnes dans la même ligne (ex: A2, C2, E2).\n- Plusieurs lignes et colonnes formant un motif régulier (ex: A1, C1, A3, C3, A5, C5).\n\nSi une cellule est ajoutée hors de ce motif, Excel ne peut pas déterminer la disposition du rectangle et retourne l’erreur.",
+    "current_query": "Quels types de sélections nonadjacentes sont autorisés pour la copie sans erreur ?",
+    "rewritten_query": "Quels types de sélections nonadjacentes peut-on copier sans erreur dans Excel ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "914",
+    "last_turn_query": "Comment forcer Excel à ouvrir chaque classeur dans une nouvelle instance ?",
+    "last_turn_answer": "## Résolution\n\nAjoutez une clé de Registre :\n\n1. Fermez toutes les instances d’Excel.\n2. Ouvrez l’Éditeur du Registre (`regedit`).\n3. Accédez à `HKEY_CURRENT_USER\\Software\\Microsoft\\Office\\16.0\\Excel\\Options` (pour Excel 2016/365).\n4. Créez une nouvelle valeur DWORD nommée **DisableMergeInstance**.\n5. Définissez ses données sur **1**.\n\n> **Remarque** : Cette méthode fonctionne uniquement lorsque vous lancez Excel via son icône sans sélectionner de fichier. Double-cliquer sur un classeur ou utiliser « Fichier > Ouvrir » continuera à ouvrir les classeurs dans la même instance.",
+    "current_query": "Cette méthode fonctionne-t-elle quand on double-clique sur un fichier Excel ?",
+    "rewritten_query": "La clé DisableMergeInstance fonctionne-t-elle lors du double‑clic sur un classeur Excel ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "915",
+    "last_turn_query": "Comment utiliser une condition AND dans une formule SUM+IF avec des tests multiples ?",
+    "last_turn_answer": "## Pour les conditions AND\n\nUtilisez la multiplication des tests logiques :\n```excel\n=SUM(IF((Test1)*(Test2)*...*(Testn), plage_somme, 0))\n```\n\nExemple : compter les valeurs entre 1 et 10 dans A1:A10 :\n```excel\n=SUM(IF((A1:A10>=1)*(A1:A10<=10),1,0))\n```\n\nPour additionner des valeurs correspondantes (par ex. B1:B10) :\n```excel\n=SUM(IF((A1:A10>=1)*(A1:A10<=10),B1:B10,0))\n```\n\n**Important** : Ces formules doivent être validées comme formules matricielles avec `Ctrl+Maj+Entrée` (ou `Cmd+Retour` sur Mac).",
+    "current_query": "Faut-il valider la formule avec Ctrl+Maj+Entrée ?",
+    "rewritten_query": "La formule SUM+IF avec multiplication nécessite-t-elle une validation matricielle (Ctrl+Maj+Entrée) ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "916",
+    "last_turn_query": "Pourquoi après la mise à niveau vers Excel 2013, je ne peux plus ouvrir autant de classeurs qu'avant ?",
+    "last_turn_answer": "## La cause\n\nOffice 2013/2016 utilise plus de ressources système qu’Office 2010. La limite de l’espace d’adressage virtuel pour l’édition 32 bits est de 2 Go. Excel, les compléments et les données de la feuille de calcul partagent cet espace. Les améliorations d’Excel 2013 augmentent l’utilisation mémoire, ce qui peut réduire le nombre de classeurs que vous pouvez ouvrir simultanément.\n\n## Solutions\n\n- Passez à la version 64 bits d’Excel (pas de limite de 2 Go).\n- Ouvrez plusieurs instances d’Excel (chaque instance a ses propres 2 Go).\n- Désactivez les compléments inutiles.\n- Nettoyez les classeurs (supprimez mise en forme excessive, styles inutilisés, formes, etc.).\n- Pour Excel 2016 32 bits, installez la mise à jour qui active Large Address Aware (augmente la mémoire virtuelle à 4 Go sous Windows 64 bits).",
+    "current_query": "Comment vérifier la taille de la mémoire virtuelle utilisée par Excel ?",
+    "rewritten_query": "Comment vérifier la mémoire virtuelle utilisée par Excel ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "917",
+    "last_turn_query": "Que faire si Excel affiche 'Mémoire insuffisante' même après avoir fermé d'autres applications ?",
+    "last_turn_answer": "## Résolution\n\n- **Mettez à jour Office et Windows** : installez les dernières mises à jour.\n- **Désactivez les compléments** : certains compléments tiers peuvent consommer de la mémoire.\n- **Testez une autre imprimante par défaut** : utilisez « Microsoft XPS Document Writer ».\n- **Désactivez l’antivirus** temporairement pour voir si le problème persiste.\n- **Passez à Excel 64 bits** : les versions 64 bits peuvent utiliser toute la mémoire physique.\n- **Optimisez le classeur** : supprimez la mise en forme excessive, réduisez les formes, limitez les formules de tableau.\n- **Désactivez l’accélération graphique matérielle** (Fichier > Options > Avancé > Affichage).",
+    "current_query": "Quelle est la différence entre les versions 32 bits et 64 bits d'Excel en termes de mémoire ?",
+    "rewritten_query": "Quelle est la différence de mémoire entre Excel 32 bits et Excel 64 bits ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "918",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "outlook i rame de ouf, kan jouvre un mail ca prend des plombes, comment accélérer ?",
+    "rewritten_query": "Comment améliorer les performances lentes d'Outlook lors de l'ouverture des emails ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "919",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "mes contacts sont vide mais jai un autre dossier contact avec le meme nom, comment retrouver mes contacts ?",
+    "rewritten_query": "Comment récupérer mes contacts quand le dossier Contacts est vide et qu’un autre dossier du même nom existe ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "920",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "jutilise un fichier oft pour envoyer des mails, mais le destinataire les recoit pas, pourtant ils sont dans mes envoyés, c'est quoi le probleme ?",
+    "rewritten_query": "Pourquoi les emails envoyés avec un modèle .oft ne sont pas reçus par le destinataire ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "921",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "jveux récupérer un element supprimé dans un dossier public calendrier, mais jvois pas l'option récupérer, comment faire ?",
+    "rewritten_query": "Comment récupérer des éléments supprimés dans un dossier public de calendrier Outlook ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "922",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "kan je modifie le htmlbody d'un mail via vba, la mise en forme disparait, j'utilise des styles css, ca marche pas, pourquoi ?",
+    "rewritten_query": "Pourquoi la mise en forme CSS disparaît-elle quand on modifie HtmlBody d’un mail Outlook avec VBA ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "923",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "outlook 2016 trop lent avec office 365, j'ai des messages qui reste dans la boite d'envoi longtemps, comment resoudre ?",
+    "rewritten_query": "Comment résoudre les lenteurs d’Outlook 2016 avec Microsoft 365 et les messages bloqués dans la boîte d’envoi ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "924",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "jai deux dossiers contact, l'un est vide, l'autre contient mes contacts mais outlook utilise le mauvais, comment changer ?",
+    "rewritten_query": "Comment faire pour qu’Outlook utilise le bon dossier Contacts quand il y en a deux ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "925",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "jutilise outlook 2010 avec un fichier pst, mes mails envoyés via un modele oft partent pas, le destinataire ne recoit rien, solution ?",
+    "rewritten_query": "Solution pour les emails envoyés avec un modèle .oft qui ne sont pas reçus dans Outlook 2010 avec fichier PST ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "926",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "dans un dossier public contact, jai supprimé un contact par erreur, mais je trouve pas comment le restaurer, l'option récupérer est grisée, comment faire ?",
+    "rewritten_query": "Comment récupérer un contact supprimé dans un dossier public Outlook quand l’option Récupérer les éléments supprimés est indisponible ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "927",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "quand j'utilise le modele objet outlook pour creer un mail et que je met du html avec css, apres l'envoi la mise en forme est perdue, comment bien faire ?",
+    "rewritten_query": "Comment conserver la mise en forme CSS lors de la création d’un email Outlook avec le modèle objet ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "928",
+    "last_turn_query": "Pourquoi Outlook est-il si lent dans l'environnement Microsoft 365 ?",
+    "last_turn_answer": "## Les performances d’Outlook sont lentes dans l’environnement Microsoft 365\n\n### Symptômes\n- Outlook répond lentement lorsque vous essayez d’ouvrir des messages électroniques.\n- Lorsque vous envoyez un e-mail, le message reste longtemps dans le dossier **Boîte de réception**.\n- Outlook répond lentement lorsque vous essayez d’insérer une pièce jointe, avec le message : *Outlook récupère des informations à partir du serveur*.\n\n### La cause\nCe problème peut avoir plusieurs origines :\n- Un problème de serveur Exchange Online (vérifiez l’**intégrité du service** dans le portail Microsoft 365).\n- Des problèmes de réseau local (proxy, pare-feu, fournisseur d’accès).\n\n### Résolution\n1. **Installez les dernières mises à jour** d’Outlook.\n2. **Exécutez l’utilitaire de résolution des problèmes** (Outlook classique - Diagnostic avancé).\n3. **Désactivez l’intégration de Skype Entreprise Online** :\n   - Ouvrez Lync > Outils > Options > Personnel.\n   - Décochez les cases dans **Gestionnaire d’informations personnelles**.\n   - Redémarrez Outlook et Lync.\n4. Pour Outlook 2010, consultez les articles dédiés aux problèmes de performances.\n\nSi le problème persiste, contactez le support.",
+    "current_query": "jveux tester le diag avancé, mais jtrouve pas l'utilitaire, ou est-ce qu'on le trouve ?",
+    "rewritten_query": "Où trouver l’utilitaire de diagnostic avancé pour Outlook classique afin de résoudre les problèmes de performance ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "929",
+    "last_turn_query": "Comment récupérer des éléments supprimés dans un dossier public de calendrier Outlook ?",
+    "last_turn_answer": "## Vous ne pouvez pas récupérer les éléments supprimés d’un dossier public non‑courrier dans Outlook 2016\n\n### Symptômes\nLorsque vous essayez de récupérer des éléments supprimés à partir d’un dossier public non‑courrier (calendrier, contacts) dans Outlook 2016, l’option **Récupérer les éléments supprimés** n’apparaît ni dans le menu contextuel ni dans l’onglet **Dossier** du ruban.\n\n### La cause\nCe comportement est voulu. Depuis Outlook 2010, l’option a été supprimée du ruban pour les dossiers publics non‑courrier. Dans Outlook 2016, elle a aussi été retirée du menu contextuel.\n\n### Contournement\nAjoutez manuellement la commande **Récupérer les éléments supprimés** :\n\n- **Barre d’outils Accès rapide** :\n  1. Fichier > Options > Barre d’outils Accès rapide.\n  2. Choisir des commandes : **Toutes les commandes**.\n  3. Sélectionnez **Récupérer les éléments supprimés** (pas celle du serveur) > Ajouter.\n- **Ruban** :\n  1. Fichier > Options > Personnaliser le ruban.\n  2. Onglet **Dossier** > Nouveau groupe (personnalisé).\n  3. Renommez le groupe (ex: Récupérer).\n  4. Ajoutez **Récupérer les éléments supprimés** (pas celle du serveur).\n\n> **Important** : N’ajoutez pas la commande *Récupérer les éléments supprimés du serveur*, elle reste grisée pour les dossiers publics non‑courrier.",
+    "current_query": "jai ajouté la commande a la barre rapide, mais elle est grisée, pourquoi ?",
+    "rewritten_query": "Pourquoi la commande « Récupérer les éléments supprimés » est-elle grisée après l’avoir ajoutée à la barre d’outils Accès rapide pour un dossier public ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "930",
+    "last_turn_query": "Pourquoi mes contacts Outlook sont-ils dans un dossier autre que le dossier Contacts par défaut ?",
+    "last_turn_answer": "## Le dossier contacts est vide et les contacts se trouvent dans un autre dossier dans Outlook pour Microsoft 365\n\n### Symptômes\nVous remarquez que votre dossier **Contacts** est vide, mais que tous vos contacts sont dans un autre dossier portant le même nom (ou une version localisée). Vous ne pouvez pas accéder à vos contacts via Outlook.\n\n### La cause\nPendant une migration ou une localisation, Exchange Server peut invalider le dossier Contacts d’origine et en créer un nouveau. L’ancien dossier (avec les contacts) n’est plus reconnu comme le dossier par défaut.\n\n### Contournement\nFaites glisser vos contacts du dossier qui les contient (icône de dossier simple) vers le nouveau dossier **Contacts** (icône de carte de visite).\n\n**Étapes détaillées :**\n1. Dans le volet de navigation, localisez le dossier qui contient réellement vos contacts (il a une icône de dossier standard).\n2. Sélectionnez tous les contacts (Ctrl+A).\n3. Faites-les glisser vers le dossier **Contacts** qui a l’icône de carte de visite.\n4. Vérifiez que les contacts apparaissent bien dans le bon dossier.\n\n> **Note** : Si le dossier vide est le seul visible, vous devrez peut-être réparer votre profil Outlook.",
+    "current_query": "jai deux dossiers contact, l'un vide et l'autre plein, comment je sais quel est le bon dossier par défaut ?",
+    "rewritten_query": "Comment identifier le dossier Contacts par défaut quand il existe deux dossiers du même nom dans Outlook ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "931",
+    "last_turn_query": "Pourquoi les emails envoyés avec un modèle .oft ne partent pas dans Outlook 2010 ?",
+    "last_turn_answer": "## Les messages électroniques ne sont pas envoyés lorsque vous utilisez un fichier de modèle dans Outlook 2010\n\n### Symptômes\n- Vous utilisez Outlook 2010 avec Exchange Server 2013 ou ultérieur, ou Exchange Online.\n- Outlook 2010 est en mode en ligne et utilise un fichier .pst comme emplacement de remise par défaut.\n- Vous envoyez des emails via un fichier .oft.\n- L’email apparaît dans **Éléments envoyés**, mais le destinataire ne le reçoit pas.\n\n### La cause\nConfiguration incompatible : le fichier .pst comme remise par défaut + mode en ligne + utilisation de modèles .oft.\n\n### Solutions de contournement\n\n**Solution 1 :** Passer au mode Exchange mis en cache (utilise un fichier .ost) :\n1. Fichier > Paramètres du compte > Paramètres du compte.\n2. Onglet **Fichiers de données** : sélectionnez le compte Exchange (mode Online) > Définir comme valeur par défaut.\n3. Onglet **Courrier électronique** : sélectionnez le compte > Modifier le dossier.\n4. Cliquez sur **Oui** dans la fenêtre *Emplacement de remise de courrier*.\n5. Cochez **Utiliser le mode Exchange mis en cache** > Suivant > OK.\n6. Redémarrez Outlook.\n\n**Solution 2 :** Utiliser une version plus récente d’Outlook (2013/2016) qui ne définit pas par défaut le fichier .pst.\n\n**Solution 3 :** Éviter les fichiers .oft : copiez le texte dans un nouveau message.",
+    "current_query": "jai pas de pst, jutilise un compte exchange en ligne, mais le modele oft marche pas non plus, pourquoi ?",
+    "rewritten_query": "Pourquoi les modèles .oft ne fonctionnent-ils pas même avec un compte Exchange Online sans fichier PST ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "932",
+    "last_turn_query": "Comment conserver la mise en forme CSS quand on modifie le corps HTML d’un mail Outlook par code ?",
+    "last_turn_answer": "## Mise en forme perdue lors de la modification de la propriété HtmlBody d’un élément Outlook à l’aide du modèle objet Outlook\n\n### Symptôme\nVous créez un `MailItem`, définissez sa propriété `HtmlBody` avec du HTML contenant des styles CSS. Après `Display()` ou `Send()`, la mise en forme disparaît ou les styles sont remplacés par `MSONormal`.\n\n### La cause\nOutlook utilise Microsoft Word comme éditeur. Le moteur HTML de Word valide et transforme le HTML, ce qui peut supprimer ou altérer les styles CSS.\n\n### Contournement recommandé\nUtilisez l’objet `WordEditor` sous-jacent plutôt que `HtmlBody` :\n\n```csharp\nusing Outlook = Microsoft.Office.Interop.Outlook;\nusing Word = Microsoft.Office.Interop.Word;\n\nOutlook.MailItem mailItem = (new Outlook.Application()).CreateItem(Outlook.OlItemType.olMailItem);\nWord.Document wordDocument = mailItem.GetInspector.WordEditor as Word.Document;\nWord.Range wordRange = wordDocument.Range(0, 0);\nwordRange.Text = \"Votre texte\";\n// Appliquez la mise en forme via Word.Range.Font, ParagraphFormat, etc.\nmailItem.Display();\n```\n\n> **Note** : Cette méthode préserve la mise en forme car vous travaillez directement avec l’éditeur Word, sans passer par le parsing HTML d’Outlook.",
+    "current_query": "jcomprends pas le code c#, jutilise vba, comment faire pareil en vba ?",
+    "rewritten_query": "Comment utiliser l’objet WordEditor en VBA pour conserver la mise en forme d’un mail Outlook ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "933",
+    "last_turn_query": "Pourquoi Outlook 2016 est-il lent avec Office 365 ?",
+    "last_turn_answer": "## Les performances d’Outlook sont lentes – Dépannage avancé\n\n### Vérifications initiales\n- **Intégrité du service** : connectez-vous au portail Microsoft 365 > **Intégrité du service** pour voir si un incident connu affecte Exchange Online.\n- **Réseau** : testez avec un autre réseau (4G, hotspot) pour isoler un problème local.\n\n### Actions correctives\n1. **Mettez à jour Outlook** : installez toutes les mises à jour disponibles via Windows Update.\n2. **Désactivez les compléments** : Fichier > Options > Compléments > Gérer les compléments COM, décochez tout, redémarrez.\n3. **Réparer le profil Outlook** : Panneau de configuration > Courrier > Afficher les profils > Supprimer et recréer le profil.\n4. **Désactiver l’accélération matérielle** : Fichier > Options > Avancé > Afficher > cocher « Désactiver l’accélération graphique matérielle ».\n5. **Utiliser le mode sans échec** : `outlook.exe /safe` pour voir si le problème persiste.\n\n### Désactiver l’intégration Skype Entreprise\nDans Lync/Skype : Outils > Options > Personnel > décocher les cases sous *Gestionnaire d’informations personnelles*.",
+    "current_query": "jai désactivé les compléments, ca va mieux, comment savoir quel complément est le coupable ?",
+    "rewritten_query": "Comment identifier le complément responsable des lenteurs d’Outlook après les avoir tous désactivés ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "934",
+    "last_turn_query": "Que faire si Outlook 2010 ne reçoit pas les emails après migration vers Exchange Online ?",
+    "last_turn_answer": "## Outlook 2010 ne reçoit pas les emails après migration vers Exchange Online\n\n### Cause possible\n- Mode en ligne + fichier .pst comme emplacement de remise.\n- Problème de profil Outlook corrompu.\n\n### Résolution\n1. **Changez l’emplacement de remise** :\n   - Fichier > Paramètres du compte > Paramètres du compte.\n   - Onglet **Courrier électronique** : sélectionnez votre compte Exchange.\n   - Cliquez sur **Modifier le dossier**.\n   - Choisissez votre adresse Exchange comme emplacement de remise.\n2. **Activez le mode Exchange mis en cache** :\n   - Dans les paramètres du compte Exchange, cochez **Utiliser le mode Exchange mis en cache**.\n3. **Créez un nouveau profil Outlook** :\n   - Panneau de configuration > Courrier > Afficher les profils > Ajouter.\n   - Configurez le compte Exchange et définissez le nouveau profil par défaut.\n4. **Vérifiez les mises à jour** : Outlook 2010 doit être au minimum SP2 avec les mises à jour récentes.",
+    "current_query": "jai pas le bouton modifier le dossier dans outlook 2010, il est ou ?",
+    "rewritten_query": "Où se trouve l’option « Modifier le dossier » dans Outlook 2010 pour changer l’emplacement de remise ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "935",
+    "last_turn_query": "Comment récupérer un contact supprimé d’un dossier public Outlook 2016 ?",
+    "last_turn_answer": "## Récupérer un contact supprimé d’un dossier public dans Outlook 2016\n\n### Rappel : l’option par défaut est masquée\nPour les dossiers publics de contacts (non‑courrier), la commande **Récupérer les éléments supprimés** n’est pas présente par défaut.\n\n### Solution : ajouter la commande\n**Via la barre d’outils Accès rapide :**\n1. Fichier > Options > Barre d’outils Accès rapide.\n2. Choisir les commandes : **Toutes les commandes**.\n3. Sélectionnez **Récupérer les éléments supprimés** (pas celle du serveur).\n4. Cliquez sur **Ajouter** > OK.\n\n**Via le ruban :**\n1. Fichier > Options > Personnaliser le ruban.\n2. Onglet **Dossier** > Nouveau groupe.\n3. Renommez le groupe (ex: « Récupération »).\n4. Ajoutez **Récupérer les éléments supprimés** (pas celle du serveur).\n\n### Utilisation\nUne fois la commande ajoutée, sélectionnez le dossier public de contacts, puis cliquez sur **Récupérer les éléments supprimés**. Une fenêtre affiche les contacts supprimés récemment, vous pouvez les sélectionner et les restaurer.\n\n> **Note** : Si la commande reste grisée, vérifiez que vous avez les droits d’accès nécessaires sur le dossier public.",
+    "current_query": "jai suivi les etapes mais la commande est toujours grisée, jai les droits admin, c'est normal ?",
+    "rewritten_query": "Pourquoi la commande « Récupérer les éléments supprimés » reste grisée même avec les droits administrateur sur un dossier public Outlook ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "936",
+    "last_turn_query": "Pourquoi les styles CSS sont perdus quand j’envoie un mail Outlook créé par code ?",
+    "last_turn_answer": "## Perte des styles CSS dans les emails Outlook créés par programmation\n\n### Cause\nOutlook utilise le moteur de rendu HTML de Word. Word ne supporte pas toutes les propriétés CSS modernes (flexbox, grid, certaines positions). De plus, Word peut réécrire le HTML en supprimant les styles qu’il ne comprend pas.\n\n### Contournement avec WordEditor (VBA)\n```vba\nDim olApp As Outlook.Application\nDim mail As Outlook.MailItem\nDim wordDoc As Word.Document\nDim wordRange As Word.Range\n\nSet olApp = CreateObject(\"Outlook.Application\")\nSet mail = olApp.CreateItem(olMailItem)\nSet wordDoc = mail.GetInspector.WordEditor\nSet wordRange = wordDoc.Range(0, 0)\n\n' Insérer du texte et appliquer une mise en forme simple\nwordRange.Text = \"Mon texte en gras\"\nwordRange.Font.Bold = True\n' Pour du HTML, il faut passer par les méthodes Word\n\nmail.Display\n```\n\n### Alternative : utiliser le format RTF (Rich Text)\n- Créez un email en RTF, qui est mieux supporté par Word.\n- Évitez les CSS complexes : préférez les balises `<font>` et les attributs HTML de base (`<b>`, `<i>`, `<span style=\"...\">` limités).\n\n### Bonnes pratiques\n- Testez votre email dans Outlook avant envoi massif.\n- Utilisez des styles inline plutôt qu’une feuille de style `<style>`.\n- Évitez les sélecteurs CSS avancés (classes, ID).",
+    "current_query": "jai essayé wordeditor mais jarrive pas a mettre du html, seulement du texte, comment faire ?",
+    "rewritten_query": "Comment insérer du HTML avec WordEditor dans un mail Outlook en VBA ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "937",
+    "last_turn_query": "Comment migrer mes contacts du mauvais dossier vers le bon dans Outlook 365 ?",
+    "last_turn_answer": "## Migrer des contacts d’un dossier non standard vers le dossier Contacts par défaut\n\n### Identification des dossiers\n- Le **bon** dossier Contacts a une icône de **carte de visite** (deux cartes superposées).\n- Le mauvais dossier (contenant vos contacts) a une icône de **dossier standard** (dossier jaune).\n\n### Procédure de migration\n1. Dans le volet de navigation, développez les dossiers pour trouver le dossier qui contient vos contacts (icône dossier standard).\n2. Cliquez sur ce dossier pour afficher la liste des contacts.\n3. Sélectionnez tous les contacts (Ctrl+A).\n4. Faites-les glisser vers le dossier **Contacts** avec l’icône carte de visite.\n   - *Astuce* : maintenez la souris sur le dossier cible jusqu’à ce qu’il soit surligné avant de relâcher.\n5. Vérifiez que les contacts sont bien apparus dans le bon dossier.\n6. Si l’ancien dossier vide persiste, vous pouvez le supprimer (clic droit > Supprimer).\n\n### Après migration\n- Redémarrez Outlook pour que les changements soient pris en compte.\n- Vérifiez que votre carnet d’adresses utilise le bon dossier (Fichier > Paramètres du compte > Carnets d’adresses).\n\n### Si le glisser-déposer ne fonctionne pas\n- Exportez les contacts du mauvais dossier vers un fichier CSV (Fichier > Ouvrir et exporter > Importer/Exporter > Exporter vers un fichier).\n- Importez ce CSV dans le bon dossier Contacts.",
+    "current_query": "jai trop de contacts, glisser prend des heures, ya un moyen plus rapide ?",
+    "rewritten_query": "Existe-t-il une méthode plus rapide que le glisser-déposer pour déplacer un grand nombre de contacts vers le bon dossier Contacts dans Outlook ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "938",
+    "last_turn_query": "Comment résoudre l'erreur « La limite de temps pour la journalisation a été atteinte » au démarrage d'Outlook 2016 ?",
+    "last_turn_answer": "## Erreur lors du démarrage d’Outlook 2016 : La limite de temps pour la journalisation a été atteinte lors de l’attente des ressources système\n\n### Symptômes\nLorsque vous démarrez Outlook 2016, vous recevez :\n> La limite de temps pour la connexion a été atteinte en attendant les ressources système. Réessayez. MAPI 1.0 [000004C2]\n\nOutlook se bloque ensuite. Ce problème a été observé avec le complément Salesforce pour Outlook.\n\n### Cause\nCe problème se produit dans certaines versions d’Office 2016 (Click-to-Run 16.0.6925.1018+ ou MSI 16.0.4351.1000).\n\n### Solutions de contournement\n\n**1. Mettre à jour le complément Salesforce** (version 3.1.1 ou ultérieure).\n\n**2. Réinstaller le complément** :\n- Désinstallez le complément Salesforce.\n- Mettez à jour Outlook (Fichier > Compte Office > Options de mise à jour > Mettre à jour maintenant).\n- Réinstallez la dernière version du complément.\n\n**3. Désactiver ou désinstaller le complément** :\n- Démarrez Outlook en mode sans échec : `Outlook /safe`\n- Fichier > Options > Compléments > Gérer les compléments COM > Go.\n- Décochez Salesforce pour Outlook > OK.\n- Si le problème persiste, désinstallez-le.\n\n### Déterminer le type d’installation\n- Click-to-Run : affiche « Options de mise à jour » dans Fichier > Compte Office.\n- MSI : n’affiche pas cette option.",
+    "current_query": "Comment puis-je déterminer si mon installation d’Outlook 2016 est de type Click-to-Run ou MSI ?",
+    "rewritten_query": "Comment déterminer si mon installation d’Outlook 2016 est de type Click-to-Run ou MSI ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "939",
+    "last_turn_query": "Pourquoi la zone Notes d’un calendrier imprimé dans Outlook est-elle vide ?",
+    "last_turn_answer": "## La zone notes d’un calendrier imprimé ne contient pas de notes Outlook\n\n### Symptômes\nLorsque vous imprimez un calendrier et que vous choisissez d’inclure la section Notes, la zone imprimée n’affiche aucune note de votre dossier Notes ni les champs Notes des rendez-vous ou réunions.\n\n### La cause\nLa section Notes du calendrier imprimé concerne les **notes écrites manuellement** (papier), pas les notes électroniques d’Outlook.\n\n### Comment imprimer la zone Notes (vide) sur un calendrier\n1. Sélectionnez le dossier **Calendrier** dans la liste des dossiers (Affichage > Liste des dossiers).\n2. Fichier > Imprimer.\n3. Sous **Style d’impression**, choisissez **Daily**, **Weekly**, **Monthly** ou **Tri-Fold Style** (les styles Mémo ou Détails ne proposent pas l’option).\n4. Cliquez sur **Mise en page**.\n5. Onglet **Format** > sous **Options**, cochez **Zone Notes (vide)** ou **Zone Notes (alignée)**.\n6. Cliquez sur **Imprimer**.\n\nLa zone imprimée sera une zone vide prévue pour que vous puissiez prendre des notes manuscrites.",
+    "current_query": "Puis-je imprimer les notes réelles de mes rendez-vous dans cette zone ?",
+    "rewritten_query": "Puis-je imprimer les notes réelles de mes rendez-vous dans la zone Notes d’un calendrier imprimé ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "940",
+    "last_turn_query": "Pourquoi mes macros Outlook signées numériquement sont-elles désactivées alors que j’ai défini la sécurité sur « Notifications pour les macros signées » ?",
+    "last_turn_answer": "## Erreur lors de l’exécution de macros affectées à un certificat signature numérique dans Outlook : les macros de ce projet sont désactivées\n\n### Symptômes\n- Sécurité des macros : *Notifications pour les macros signées numériquement, toutes les autres macros désactivées*.\n- Vous affectez un certificat à une macro (Outils > Signature numérique dans VBA).\n- Vous fermez Visual Basic et Outlook, et enregistrez le projet (Oui).\n- Au redémarrage d’Outlook et de VBA, message d’erreur : *Une erreur s’est produite lors de la tentative de vérification de la signature du projet VBA. Les macros sont désactivées.*\n- En exécutant la macro : *les macros de ce projet sont désactivées*.\n\n### La cause\nLa sortie de Visual Basic annule les modifications apportées au projet, de sorte que le certificat n’est plus affecté à la macro.\n\n### Résolution\nEnregistrez manuellement les modifications du projet **avant de fermer la fenêtre Visual Basic** :\n- Soit **Fichier > Enregistrer VbaProject.OTM**.\n- Soit cliquez sur l’icône **Enregistrer** dans la barre d’outils de VBA.\n\nNe comptez pas sur l’invite à la fermeture d’Outlook pour enregistrer correctement la signature.",
+    "current_query": "Après avoir enregistré manuellement VbaProject.OTM, dois-je redémarrer Outlook pour que la signature soit prise en compte ?",
+    "rewritten_query": "Après avoir enregistré manuellement VbaProject.OTM, dois-je redémarrer Outlook pour que la signature soit prise en compte ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "941",
+    "last_turn_query": "Pourquoi Outlook met-il beaucoup de temps à se fermer (arrêt lent) ?",
+    "last_turn_answer": "## Outlook peut s’arrêter plus lentement si un complément est configuré pour utiliser RequireShutdownNotification\n\n### Symptômes\nLorsque vous quittez Outlook, le processus d’arrêt peut prendre beaucoup plus de temps que prévu.\n\n### La cause\nUn ou plusieurs compléments utilisent la valeur de Registre `RequireShutdownNotification` (définie à 1). Cela force Outlook à utiliser un processus d’arrêt plus ancien et plus lent.\n\n### Résolution (modification du Registre)\n> **Important** : Sauvegardez le Registre avant modification.\n\n1. Quittez Outlook.\n2. Ouvrez l’Éditeur du Registre (`regedit`).\n3. Accédez aux clés suivantes et examinez chaque sous-clé sous `\\Addins` :\n   - `HKEY_CURRENT_USER\\Software\\Microsoft\\Office\\Outlook\\Addins`\n   - `HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Office\\Outlook\\Addins`\n   - `HKEY_LOCAL_MACHINE\\Software\\WOW6432Node\\Microsoft\\Office\\Outlook\\Addins` (pour 32 bits sur 64 bits)\n4. Si vous trouvez `RequireShutdownNotification` avec la valeur `1`, modifiez-la à `0`.\n5. Redémarrez Outlook.\n\n**Remarques** :\n- Ignorez les sous-clés `Microsoft.OutlookBackup.1`, `VbaAddinForOutlook.1`, `OutlookChangeNotifierAddin` (elles nécessitent la valeur 1 pour fonctionner correctement).\n- Contacter le développeur du complément pour une version mise à jour est préférable.",
+    "current_query": "Quels sont les risques de désactiver RequireShutdownNotification pour un complément spécifique ?",
+    "rewritten_query": "Quels sont les risques de désactiver RequireShutdownNotification pour un complément spécifique ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "942",
+    "last_turn_query": "Comment imprimer un calendrier Outlook avec une zone de notes manuscrites ?",
+    "last_turn_answer": "## La zone notes d’un calendrier imprimé – Procédure d’impression\n\nPour obtenir une zone de notes manuscrites sur votre calendrier imprimé :\n\n1. Ouvrez le dossier **Calendrier**.\n2. **Fichier > Imprimer**.\n3. Dans la section **Style d’impression**, sélectionnez l’un des styles suivants : **Daily**, **Weekly**, **Monthly** ou **Tri-Fold Style**.\n   - *Remarque* : les styles *Mémo* ou *Détails du calendrier* ne proposent pas l’option.\n4. Cliquez sur **Mise en page**.\n5. Allez dans l’onglet **Format**.\n6. Sous **Options**, cochez **Zone Notes (vide)** ou **Zone Notes (alignée)**.\n7. Cliquez sur **OK**, puis sur **Imprimer**.\n\nLa zone imprimée sera une zone blanche, sans contenu Outlook, destinée à être remplie à la main.",
+    "current_query": "Ce paramètre est-il disponible dans toutes les versions d’Outlook ?",
+    "rewritten_query": "Ce paramètre est-il disponible dans toutes les versions d’Outlook ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "943",
+    "last_turn_query": "Quelle version du complément Salesforce pour Outlook résout l’erreur de démarrage ?",
+    "last_turn_answer": "## Mise à jour du complément Salesforce pour Outlook\n\nAu moment de la rédaction initiale de l’article, la dernière version du complément Salesforce pour Outlook qui corrige l’erreur de démarrage était la **version 3.1.1**.\n\n**Recommandations :**\n- Si vous rencontrez l’erreur, installez la version 3.1.1 ou toute version ultérieure.\n- Pour obtenir la version la plus récente, consultez le site de [Salesforce](https://www.salesforce.com/) ou le gestionnaire de mise à jour du complément.\n\n**Si la mise à jour ne résout pas le problème :**\n- Désinstallez complètement le complément.\n- Mettez à jour Outlook (via Options de mise à jour pour Click-to-Run, ou via Windows Update pour MSI).\n- Réinstallez la dernière version du complément.\n\n**Dépannage immédiat :**\n- Démarrez Outlook en mode sans échec (`Outlook /safe`).\n- Désactivez le complément via Fichier > Options > Compléments > Gérer les compléments COM.\n- Si le problème disparaît, le complément en est la cause.",
+    "current_query": "Où puis-je vérifier la version du complément Salesforce actuellement installée dans Outlook ?",
+    "rewritten_query": "Où puis-je vérifier la version du complément Salesforce actuellement installée dans Outlook ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "944",
+    "last_turn_query": "Pourquoi mes macros Outlook ne sont-elles pas exécutées alors qu’elles sont correctement signées ?",
+    "last_turn_answer": "## Macros désactivées malgré une signature valide\n\n### Causes possibles\n- Le projet VBA n’a pas été enregistré manuellement après l’ajout du certificat.\n- La sécurité des macros est trop stricte.\n- Le certificat a expiré ou n’est pas approuvé.\n\n### Vérifications et résolutions\n\n**1. Enregistrement manuel**\nAprès avoir signé la macro (Outils > Signature numérique), dans l’éditeur VBA :\n- Fichier > Enregistrer VbaProject.OTM\n- ou cliquez sur l’icône **Enregistrer**.\nNe fermez pas l’éditeur avant d’avoir enregistré.\n\n**2. Paramètres de sécurité des macros**\n- Onglet Développeur > Sécurité des macros.\n- Choisissez *Notifications pour les macros signées numériquement, désactiver toutes les autres*.\n- Ne choisissez pas *Désactiver toutes les macros sans notification*.\n\n**3. Certificat**\n- Vérifiez que le certificat est toujours valide (date d’expiration).\n- Dans Outlook, Fichier > Options > Centre de gestion de la confidentialité > Paramètres du centre > Chargements de modules > cocher « Demander la signature de code pour les macros ».\n\n**4. Nettoyer le projet**\n- Exportez tous les modules, créez un nouveau projet VBA, importez-les, resignez et enregistrez.",
+    "current_query": "Comment savoir si mon certificat de signature est toujours valide dans Outlook ?",
+    "rewritten_query": "Comment savoir si mon certificat de signature est toujours valide dans Outlook ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "945",
+    "last_turn_query": "Quels sont les styles d’impression de calendrier Outlook qui permettent d’ajouter une zone de notes ?",
+    "last_turn_answer": "## Styles d’impression compatibles avec la zone Notes\n\nDans Outlook, l’option **Zone Notes (vide)** n’est disponible que pour certains styles d’impression de calendrier.\n\n**Styles compatibles :**\n- **Daily** (Quotidien)\n- **Weekly** (Hebdomadaire)\n- **Monthly** (Mensuel)\n- **Tri-Fold Style** (Style trois volets)\n\n**Styles non compatibles :**\n- **Memo Style** (Style mémo)\n- **Calendar Details Style** (Style détails du calendrier)\n\n### Procédure\n1. Fichier > Imprimer.\n2. Dans la section **Style d’impression**, sélectionnez un style compatible.\n3. Cliquez sur **Mise en page**.\n4. Onglet **Format** > sous **Options**, cochez **Zone Notes (vide)** ou **Zone Notes (alignée)**.\n5. Imprimez.\n\n> **Note** : La zone imprimée est vide par conception – elle n’extrait pas de données des notes Outlook.",
+    "current_query": "Peut-on ajouter la zone Notes au style Mémo en modifiant la mise en page ?",
+    "rewritten_query": "Peut-on ajouter la zone Notes au style Mémo en modifiant la mise en page ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "946",
+    "last_turn_query": "Comment désactiver la clé RequireShutdownNotification pour un complément Outlook spécifique ?",
+    "last_turn_answer": "## Désactiver RequireShutdownNotification dans le Registre\n\n### Attention\nModifier le Registre peut être dangereux. Sauvegardez-le d’abord.\n\n### Étapes\n1. Quittez Outlook.\n2. Ouvrez `regedit`.\n3. Accédez aux clés suivantes (selon l’emplacement du complément) :\n   - `HKEY_CURRENT_USER\\Software\\Microsoft\\Office\\Outlook\\Addins`\n   - `HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Office\\Outlook\\Addins`\n   - `HKEY_LOCAL_MACHINE\\Software\\WOW6432Node\\Microsoft\\Office\\Outlook\\Addins`\n4. Sous chaque clé `\\Addins`, parcourez les sous-clés (un complément par sous-clé).\n5. Si vous trouvez `RequireShutdownNotification` avec la valeur `1` :\n   - Cliquez droit > Modifier.\n   - Remplacez la valeur par `0`.\n6. Ignorez les sous-clés suivantes (elles nécessitent la valeur 1) :\n   - `Microsoft.OutlookBackup.1`\n   - `VbaAddinForOutlook.1`\n   - `OutlookChangeNotifierAddin`\n\n### Effets\n- Désactiver cette clé accélère l’arrêt d’Outlook.\n- Certains compléments pourraient ne plus exécuter leurs routines de nettoyage ou de sauvegarde.\n- Contactez le développeur pour une version mise à jour.",
+    "current_query": "Comment puis-je savoir si un complément utilise RequireShutdownNotification sans parcourir toutes les sous-clés une par une ?",
+    "rewritten_query": "Comment puis-je savoir si un complément utilise RequireShutdownNotification sans parcourir toutes les sous-clés une par une ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "947",
+    "last_turn_query": "Comment résoudre l’erreur MAPI 1.0 [000004C2] au démarrage d’Outlook ?",
+    "last_turn_answer": "## Résolution de l’erreur MAPI 1.0 [000004C2] au démarrage d’Outlook\n\nCette erreur est souvent liée au complément Salesforce pour Outlook.\n\n### Solution rapide\n1. Démarrez Outlook en mode sans échec : `Outlook /safe`.\n2. Si l’erreur disparaît, le problème vient d’un complément.\n3. Désactivez le complément Salesforce :\n   - Fichier > Options > Compléments.\n   - Gérer les compléments COM > Go.\n   - Décochez Salesforce.\n4. Redémarrez Outlook normalement.\n\n### Solution durable\n- **Mettez à jour le complément** : installez la version 3.1.1 ou ultérieure de Salesforce pour Outlook.\n- **Mettez à jour Outlook** :\n  - Click-to-Run : Fichier > Compte Office > Options de mise à jour > Mettre à jour maintenant.\n  - MSI : Windows Update.\n- **Réinstallez** le complément après la mise à jour.\n\n### Autres causes possibles\n- D’autres compléments peuvent provoquer la même erreur. Répétez la procédure de désactivation avec chacun.\n- Corrompu du profil Outlook : créez un nouveau profil (Panneau de configuration > Courrier).",
+    "current_query": "L’erreur MAPI 1.0 [000004C2] peut-elle être causée par un autre complément que Salesforce ?",
+    "rewritten_query": "L’erreur MAPI 1.0 [000004C2] peut-elle être causée par un autre complément que Salesforce ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "948",
+    "last_turn_query": "Pourquoi le carnet d’adresses hors connexion (OAB) ne se télécharge-t-il pas via HTTP dans Outlook ?",
+    "last_turn_answer": "## La version HTTP du carnet d’adresses hors connexion Outlook (OAB) ne télécharge pas\n\n### Symptômes\nLorsque vous démarrez un téléchargement manuel de l’OAB depuis un emplacement HTTP(S), la barre de progression se fige et le téléchargement ne se termine jamais.\n\n### La cause\nPlusieurs causes possibles :\n- Pilotes sans fil obsolètes (clavier, souris).\n- Stratégies BITS (Background Intelligent Transfer Service) mal configurées.\n- Service BITS non démarré.\n\n### Résolution\n1. **Mettez à jour les pilotes** : installez la mise à jour « Filtre de données d’entrée non utilisateur Microsoft HID » via Windows Update ou les logiciels IntelliPoint/IntelliType.\n2. **Vérifiez les stratégies BITS** : dans `HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Windows\\BITS`, si `EnableBitsMaxBandwidth` = 1, contactez votre administrateur.\n3. **Démarrez le service BITS** : Services.msc > Background Intelligent Transfer Service > type de démarrage = Automatique (démarrage différé) > Démarrer.\n\nPour Outlook 2010/2007, vous pouvez vérifier l’URL OAB via Test E-mail AutoConfiguration (Ctrl+clic droit sur l’icône Outlook).",
+    "current_query": "Comment savoir si mon Outlook utilise un emplacement HTTP pour télécharger l’OAB ?",
+    "rewritten_query": "Comment savoir si mon Outlook utilise un emplacement HTTP pour télécharger l’OAB ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "949",
+    "last_turn_query": "Pourquoi les liens hypertexte ne fonctionnent pas dans Outlook après avoir cliqué dessus ?",
+    "last_turn_answer": "## Les liens hypertexte ne fonctionnent pas dans Outlook\n\n### Symptômes\nAprès installation des mises à jour de sécurité de juillet 2023, les liens vers des noms de domaine complets (FQDN) ou adresses IP ne s’ouvrent pas, avec l’erreur : *Un problème inattendu s’est produit avec cette URL*.\n\nAvec Internet Explorer comme navigateur par défaut, vous pouvez recevoir : *Cette opération a été annulée en raison de restrictions en vigueur sur cet ordinateur*.\n\n### Résolution\n**Méthode 1 : Réinitialiser les paramètres d’Internet Explorer**\n- Outils > Options Internet > Avancé > Réinitialiser (cocher « Supprimer les paramètres personnels »).\n- Redémarrer IE, puis définir Outlook et IE comme programmes par défaut.\n\n**Méthode 2 : Exporter/importer la clé de registre**\n- Depuis un PC sain, exportez `HKEY_LOCAL_MACHINE\\Software\\Classes\\htmlfile\\shell\\open\\command`.\n- Copiez et double-cliquez sur le fichier .reg sur le PC problématique.\n- Vérifiez que `HKEY_CLASSES_ROOT\\.html` a (par défaut) = `htmlfile`.",
+    "current_query": "Existe-t-il une solution sans manipuler le registre pour ce problème de liens ?",
+    "rewritten_query": "Existe-t-il une solution sans manipuler le registre pour les liens hypertexte qui ne fonctionnent pas dans Outlook ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "950",
+    "last_turn_query": "Pourquoi Outlook n’envoie ni ne reçoit pas automatiquement de messages au démarrage ?",
+    "last_turn_answer": "## Les messages électroniques ne sont pas envoyés ou reçus automatiquement au démarrage dans Outlook\n\n### La cause\nUn groupe d’envoi/réception endommagé dans Outlook.\n\n### Résolution\n**Pour Outlook 2010 et ultérieur :**\n1. Fichier > Options > Avancé > Envoyer/Recevoir.\n2. Sous « Nom du groupe », sélectionnez le groupe, puis Copier.\n3. Donnez un nouveau nom, OK.\n4. Sélectionnez l’ancien groupe, décochez « Inclure ce groupe dans Envoyer/Recevoir (F9) » pour les modes en ligne et hors connexion.\n5. Fermer, quitter Outlook, redémarrer.\n\n**Pour Outlook 2007 et antérieur :**\nOutils > Paramètres d’envoi/réception > Définir des groupes…, même procédure.",
+    "current_query": "Après avoir créé un nouveau groupe, dois-je supprimer l’ancien ?",
+    "rewritten_query": "Après avoir créé un nouveau groupe d’envoi/réception, dois-je supprimer l’ancien groupe endommagé ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "951",
+    "last_turn_query": "Que faire si j’obtiens une erreur OLE en accédant au dossier InfoPath Forms dans Outlook ?",
+    "last_turn_answer": "## Une erreur d’enregistrement OLE s’est produite lorsque vous accédez à un dossier InfoPath Forms dans Outlook\n\n### Symptômes\nMessage : *Impossible d’afficher le dossier. Une erreur d’inscription OLE s’est produite. Le programme n’est pas correctement installé.*\n\n### La cause\nOffice 2016, 2019 et Microsoft 365 n’incluent pas le client de bureau InfoPath. InfoPath 2013 est la dernière version.\n\n### Contournement\nSi vous n’utilisez pas activement les formulaires InfoPath, supprimez le dossier « Formulaires InfoPath » de la liste des dossiers Outlook. Avant de supprimer, utilisez une version antérieure d’Outlook (2013) pour afficher et sauvegarder le contenu.",
+    "current_query": "Puis-je toujours lire les formulaires InfoPath existants sans réinstaller InfoPath ?",
+    "rewritten_query": "Puis-je toujours lire les formulaires InfoPath existants sans réinstaller le client InfoPath ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "952",
+    "last_turn_query": "Pourquoi Skype Entreprise n’enregistre-t-il pas l’historique des conversations dans Outlook ?",
+    "last_turn_answer": "## Skype Entreprise ne peut pas enregistrer l’historique des conversations ni afficher la messagerie vocale\n\n### Symptômes\n- L’historique des conversations Skype n’est pas enregistré dans Outlook.\n- L’option pour les messages vocaux est manquante.\n- Message : *Le serveur Exchange ne nous permet pas de nous connecter.*\n\n### La cause\nLa taille de l’élément lu dans le dossier **Éléments supprimés** dépasse 1 048 576 octets (0x100000).\n\n### Résolution\nAccédez au dossier **Éléments supprimés** dans Outlook. Vérifiez s’il existe des sous-dossiers (sous Éléments supprimés). Supprimez-les et réessayez.",
+    "current_query": "Comment puis-je vérifier la taille du dossier Éléments supprimés dans Outlook ?",
+    "rewritten_query": "Comment vérifier la taille du dossier Éléments supprimés dans Outlook ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "953",
+    "last_turn_query": "Pourquoi les modifications apportées via EWS ne sont-elles pas synchronisées dans Outlook en mode mis en cache ?",
+    "last_turn_answer": "## La synchronisation échoue une fois que les éléments de boîte aux lettres sont modifiés par le biais d’appels EWS en mode mis en cache\n\n### Symptômes\nAprès avoir fermé et rouvert Outlook, les modifications apportées aux éléments (via EWS) pendant la fermeture ne sont pas synchronisées.\n\n### Cause\nOutlook dépend des propriétés `PR_CHANGE_KEY` et `PR_PREDECESSOR_CHANGE_LIST`. Les appels EWS peuvent décrémenter ces propriétés au lieu de les incrémenter, provoquant un échec de synchronisation.\n\n### Contournement\n- Pour les clients mis en cache, effacez les éléments hors connexion du dossier concerné : clic droit > Propriétés > Général > désactiver « Éléments hors connexion ».\n- Utilisez Outlook en mode en ligne.",
+    "current_query": "La désactivation des éléments hors connexion supprime-t-elle les données locales ?",
+    "rewritten_query": "La désactivation des éléments hors connexion dans un dossier Outlook supprime-t-elle les données locales synchronisées ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "954",
+    "last_turn_query": "Pourquoi les emails générés automatiquement depuis une page HTML n’ont ni objet ni contenu dans Outlook ?",
+    "last_turn_answer": "## Les messages électroniques générés automatiquement dans Outlook ne contiennent pas d’objet ou de contenu\n\n### Symptômes\nUne page HTML avec `action=\"mailto:...\"` crée un email vide (pas d’objet, pas de corps).\n\n### La cause\nLa clé de Registre `HKEY_CURRENT_USER\\Software\\Clients\\Mail` est manquante.\n\n### Résolution\n1. Quittez Outlook et Internet Explorer.\n2. Ouvrez `regedit`.\n3. Accédez à `HKEY_CURRENT_USER\\Software\\Clients`.\n4. Créez une nouvelle clé nommée **Mail**.\n5. Redémarrez Outlook et IE.",
+    "current_query": "Cette clé de registre est-elle nécessaire pour toutes les versions d’Outlook ?",
+    "rewritten_query": "La clé `HKEY_CURRENT_USER\\Software\\Clients\\Mail` est-elle nécessaire pour toutes les versions d’Outlook ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "955",
+    "last_turn_query": "Pourquoi la réunion de l’organisateur reste obsolète après qu’un délégué a envoyé une mise à jour ?",
+    "last_turn_answer": "## La réunion de l’organisateur reste obsolète après qu’un délégué envoie une mise à jour pour son compte\n\n### Scénarios\n- Salle de conférence n’accepte pas les réunions périodiques ; le délégué ajoute la salle à une occurrence ; la réponse de la salle n’est pas suivie.\n- Délégué modifie l’heure d’une occurrence dans le calendrier partagé ; l’organisateur voit l’heure d’origine.\n\n### La cause\nOutlook traite la réponse « acceptée » avant la fin de la synchronisation du calendrier.\n\n### Contournement\nLaissez suffisamment de temps pour qu’Outlook synchronise la réunion périodique avant de créer une exception et d’envoyer la mise à jour.\n\n**Note** : Le nouveau modèle de partage de calendrier (API REST) n’est pas affecté.",
+    "current_query": "Comment savoir si mon calendrier partagé utilise l’ancien ou le nouveau modèle de partage ?",
+    "rewritten_query": "Comment savoir si mon calendrier partagé Outlook utilise l’ancien ou le nouveau modèle de partage (API REST) ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "956",
+    "last_turn_query": "Pourquoi les compléments Office reçoivent-ils une erreur ErrorItemNotFound sur un ID d’élément Outlook ?",
+    "last_turn_answer": "## Erreur ErrorItemNotFound lorsque les compléments Office effectuent des appels REST sur un ID d’élément Outlook\n\n### Symptômes\nUn complément effectue des appels EWS/REST avec l’ID d’un élément Outlook, et l’appel échoue avec `ErrorItemNotFound`.\n\n### La cause\nEn mode mis en cache, l’ID fourni par `Office.context.mailbox.item.itemId` est obsolète ou n’est pas encore mis à jour sur le serveur (par exemple après un déplacement de message).\n\n### Scénarios fréquents\n- Un message est ouvert, puis déplacé vers un autre dossier via OWA ou mobile ; le complément tente d’y accéder.\n- Un email est archivé ou supprimé ; l’ID mis à jour n’est pas encore synchronisé.\n\n### Contournement\n- Utilisez Outlook en mode en ligne.\n- Dans le code du complément, gérez l’erreur et récupérez le nouvel ID après synchronisation.",
+    "current_query": "Le mode en ligne résout-il complètement ce problème ?",
+    "rewritten_query": "Le mode en ligne résout-il complètement l’erreur ErrorItemNotFound pour les compléments Outlook ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "957",
+    "last_turn_query": "Pourquoi la stratégie DisableCrossAccountCopy ne fonctionne-t-elle pas dans Outlook ?",
+    "last_turn_answer": "## Le modèle de stratégie Outlook déploie DisableCrossAccountCopy en tant que REG_EXPAND_SZ au lieu de REG_MULTI_SZ\n\n### Symptômes\nLa stratégie « Empêcher la copie ou le déplacement d’éléments entre les comptes » est déployée, mais les utilisateurs peuvent toujours copier des emails vers un .pst.\n\n### La cause\nLes modèles ADM/ADMX définissent `DisableCrossAccountCopy` avec le type `REG_EXPAND_SZ` (chaîne extensible) au lieu de `REG_MULTI_SZ` (plusieurs chaînes).\n\n### Résolution (pour administrateurs)\nDéployez la valeur de Registre correcte via la stratégie de groupe :\n- **Hive** : `HKEY_CURRENT_USER` (HKU\\.DEFAULT)\n- **Chemin** : `Software\\Policies\\Microsoft\\Office\\14.0\\Outlook`\n- **Nom** : `DisableCrossAccountCopy`\n- **Type** : `REG_MULTI_SZ`\n- **Données** : `*` (pour tous les comptes) ou un domaine (ex: `contoso.com`) ou `SharePoint`.\n\nLes administrateurs peuvent aussi modifier les fichiers ADMX/ADML pour corriger le type.",
+    "current_query": "Un utilisateur final peut-il modifier cette clé localement pour contourner la stratégie ?",
+    "rewritten_query": "Un utilisateur final peut-il modifier la clé DisableCrossAccountCopy localement pour contourner la stratégie de groupe ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "958",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Comment désactiver les mises à jour automatiques de Windows 10 ?",
+    "rewritten_query": "Comment désactiver les mises à jour automatiques de Windows 10 ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "959",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "jai un ecran bleu tous les jours, koi faire ?",
+    "rewritten_query": "Comment résoudre les écrans bleus récurrents dans Windows ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "960",
+    "last_turn_query": "Comment vider le cache DNS sous Windows ?",
+    "last_turn_answer": "Ouvrez l'invite de commandes en administrateur, tapez `ipconfig /flushdns`, puis validez.",
+    "current_query": "et pour voir le cache avant de le vider ?",
+    "rewritten_query": "Comment afficher le contenu du cache DNS avant de le vider sous Windows ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "961",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "comment retrouver ma clé produit Windows 10 ?",
+    "rewritten_query": "Comment retrouver ma clé produit Windows 10 ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "962",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Pourquoi Windows 11 met-il autant de temps à démarrer ?",
+    "rewritten_query": "Pourquoi Windows 11 met-il autant de temps à démarrer ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "963",
+    "last_turn_query": "Comment désactiver le démarrage rapide sous Windows 10 ?",
+    "last_turn_answer": "Allez dans Panneau de configuration > Options d’alimentation > Choisir l’action du bouton d’alimentation > Modifier des paramètres actuellement non disponibles > Décochez « Activer le démarrage rapide ».",
+    "current_query": "Le démarrage rapide peut-il causer des problèmes de double amorçage ?",
+    "rewritten_query": "Le démarrage rapide peut-il provoquer des problèmes de double amorçage (dual boot) ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "964",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "jpe pas ouvrir le gestionnaire des taches, il est grisé, aide",
+    "rewritten_query": "Impossible d’ouvrir le Gestionnaire des tâches (grisé) sous Windows, que faire ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "965",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Comment créer un point de restauration système dans Windows 11 ?",
+    "rewritten_query": "Comment créer un point de restauration système dans Windows 11 ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "966",
+    "last_turn_query": "Comment libérer de l’espace disque sous Windows 10 ?",
+    "last_turn_answer": "Utilisez Nettoyage de disque (cleanmgr) ou accédez à Paramètres > Système > Stockage > Activer le capteur de stockage.",
+    "current_query": "Le capteur de stockage supprime-t-il automatiquement mes fichiers personnels ?",
+    "rewritten_query": "Le capteur de stockage de Windows supprime-t-il automatiquement les fichiers personnels ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "967",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "jai un peripherique usb non reconnu, comment faire ?",
+    "rewritten_query": "Comment résoudre un problème de périphérique USB non reconnu sous Windows ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "968",
+    "last_turn_query": "Comment forcer l’arrêt d’un programme qui ne répond pas sans redémarrer ?",
+    "last_turn_answer": "Ouvrez le Gestionnaire des tâches (Ctrl+Maj+Échap), sélectionnez le programme, puis cliquez sur « Fin de tâche ».",
+    "current_query": "et si le gestionnaire des taches lui-meme ne repond pas ?",
+    "rewritten_query": "Que faire si le Gestionnaire des tâches ne répond pas et qu’un programme est bloqué ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "969",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Comment activer le mode développeur dans Windows 11 ?",
+    "rewritten_query": "Comment activer le mode développeur dans Windows 11 ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "970",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "mon son ne marche plus apres une maj windows, comment regler ?",
+    "rewritten_query": "Comment résoudre un problème de son après une mise à jour Windows ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "971",
+    "last_turn_query": "Comment désinstaller une mise à jour Windows problématique ?",
+    "last_turn_answer": "Paramètres > Windows Update > Historique des mises à jour > Désinstaller les mises à jour > sélectionnez celle à supprimer.",
+    "current_query": "Peut-on bloquer définitivement une mise à jour spécifique ?",
+    "rewritten_query": "Peut-on bloquer définitivement une mise à jour Windows spécifique après l’avoir désinstallée ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "972",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "comment changer le mot de passe de mon compte local windows 10 ?",
+    "rewritten_query": "Comment changer le mot de passe d’un compte local sous Windows 10 ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "973",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Quelle est la différence entre un démarrage minimal (clean boot) et le mode sans échec dans Windows ?",
+    "rewritten_query": "Quelle est la différence entre un démarrage minimal (clean boot) et le mode sans échec dans Windows ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "974",
+    "last_turn_query": "Comment réparer le fichier hosts sous Windows ?",
+    "last_turn_answer": "Le fichier hosts se trouve dans `C:\\Windows\\System32\\drivers\\etc`. Ouvrez-le avec le Bloc-notes en tant qu’administrateur, corrigez les lignes, puis enregistrez.",
+    "current_query": "Pourquoi mes modifications du fichier hosts ne sont-elles pas prises en compte ?",
+    "rewritten_query": "Pourquoi les modifications du fichier hosts sous Windows ne sont-elles pas prises en compte ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "975",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "jveux voir les evenements systeme, ou est le journal ?",
+    "rewritten_query": "Où se trouve le journal des événements système dans Windows ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "976",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Comment activer le « God Mode » (mode Dieu) dans Windows 10 ?",
+    "rewritten_query": "Comment activer le « God Mode » (mode Dieu) dans Windows 10 ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "977",
+    "last_turn_query": "Comment accéder au BIOS sous Windows 11 ?",
+    "last_turn_answer": "Paramètres > Système > Récupération > Démarrage avancé > Redémarrer maintenant > Dépannage > Options avancées > Paramètres du firmware UEFI > Redémarrer.",
+    "current_query": "Ya un raccourci clavier pour entrer dans le BIOS plus rapidement ?",
+    "rewritten_query": "Existe-t-il un raccourci clavier pour entrer dans le BIOS sous Windows 11 ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "978",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "comment changer le nom de mon pc sous windows 11 ?",
+    "rewritten_query": "Comment changer le nom de mon PC sous Windows 11 ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "979",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Pourquoi mon Windows 10 se bloque-t-il aléatoirement ?",
+    "rewritten_query": "Pourquoi mon Windows 10 se bloque-t-il aléatoirement ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "980",
+    "last_turn_query": "Comment diagnostiquer une fuite mémoire sous Windows ?",
+    "last_turn_answer": "Utilisez le Gestionnaire des tâches (onglet Performances) et l’Observateur d’événements. Vous pouvez aussi utiliser l’outil « Windows Memory Diagnostic ».",
+    "current_query": "Le diagnostic mémoire est-il fiable pour détecter les fuites ?",
+    "rewritten_query": "Le Windows Memory Diagnostic est-il fiable pour détecter des fuites mémoire ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "981",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "jai perdu ma barre des taches windows, comment la recuperer ?",
+    "rewritten_query": "Comment récupérer la barre des tâches disparue sous Windows ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "982",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Comment vérifier si mon Windows est en 32 bits ou 64 bits ?",
+    "rewritten_query": "Comment vérifier si mon Windows est en 32 bits ou 64 bits ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "983",
+    "last_turn_query": "Comment réinitialiser complètement Windows 10 sans perdre mes fichiers ?",
+    "last_turn_answer": "Paramètres > Mise à jour et sécurité > Récupération > Réinitialiser ce PC > Conserver mes fichiers.",
+    "current_query": "Est-ce que la réinitialisation supprime les applications installées ?",
+    "rewritten_query": "La réinitialisation de Windows 10 avec conservation des fichiers supprime-t-elle les applications installées ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "984",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "comment activer le mode sans echec au demarrage windows 11 ?",
+    "rewritten_query": "Comment activer le mode sans échec au démarrage de Windows 11 ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "985",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Quel est l’objectif du fichier Pagefile.sys dans Windows ?",
+    "rewritten_query": "Quel est l’objectif du fichier Pagefile.sys dans Windows ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "986",
+    "last_turn_query": "Comment créer un utilisateur invité sous Windows 10 ?",
+    "last_turn_answer": "Paramètres > Comptes > Famille et autres utilisateurs > Ajouter un autre utilisateur > Je n’ai pas les informations de connexion de cette personne > Ajouter un utilisateur sans compte Microsoft > choisir un nom et un mot de passe.",
+    "current_query": "Un compte invité peut-il installer des logiciels ?",
+    "rewritten_query": "Un compte invité sous Windows 10 peut-il installer des logiciels ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "987",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "mon pc s'eteint tout seul apres quelques minutes, c'est la carte mere ?",
+    "rewritten_query": "Mon PC s’éteint tout seul après quelques minutes, est-ce un problème de carte mère ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "988",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Comment arrêter un service Windows qui ne répond pas ?",
+    "rewritten_query": "Comment arrêter un service Windows qui ne répond pas ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "989",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "jpe pas supprimer un dossier, il dit accès refusé, comen faire ?",
+    "rewritten_query": "Comment supprimer un dossier avec accès refusé sous Windows ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "990",
+    "last_turn_query": "Comment créer une tâche planifiée sous Windows avec l'interface graphique ?",
+    "last_turn_answer": "**Pour créer une tâche planifiée via l'interface :**\n\n1. Tapez `taskschd.msc` dans Démarrer.\n2. Cliquez sur **Créer une tâche...**\n3. Remplissez l'onglet **Général** (nom, description).\n4. Onglet **Déclencheurs** > Nouveau... > choisissez la fréquence.\n5. Onglet **Actions** > Nouvelle... > sélectionnez `Démarrer un programme`.\n6. Indiquez le chemin de l'exécutable.\n7. Validez.\n\n> **Astuce** : Pour une tâche simple, utilisez l'Assistant (Créer une tâche de base).",
+    "current_query": "Peut-on exporter une tâche planifiée pour l'importer sur un autre PC ?",
+    "rewritten_query": "Peut-on exporter une tâche planifiée sous Windows pour l’importer sur un autre PC ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "991",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "comment voir les processus qui tournent en arriere plan dans windows ?",
+    "rewritten_query": "Comment voir les processus en arrière-plan sous Windows ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "992",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Comment activer le compte administrateur intégré dans Windows 11 ?",
+    "rewritten_query": "Comment activer le compte administrateur intégré dans Windows 11 ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "993",
+    "last_turn_query": "Comment analyser l'espace disque avec PowerShell ?",
+    "last_turn_answer": "```powershell\n# Taille des dossiers du répertoire courant\nGet-ChildItem -Directory | ForEach-Object {\n    $size = (Get-ChildItem $_.FullName -Recurse -File | Measure-Object -Property Length -Sum).Sum\n    [PSCustomObject]@{\n        Dossier = $_.Name\n        Taille = \"{0:N2} MB\" -f ($size / 1MB)\n    }\n} | Sort-Object Taille -Descending\n```\n\nOu utilisez `Get-PSDrive` pour voir les volumes.\n\n**Via l'interface** : Paramètres > Système > Stockage.",
+    "current_query": "PowerShell peut-il lister les fichiers les plus volumineux d'un dossier ?",
+    "rewritten_query": "PowerShell peut-il lister les fichiers les plus volumineux d’un dossier sous Windows ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "994",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "jai une icone de verrou sur un dossier, comment l'enlever ?",
+    "rewritten_query": "Comment enlever l’icône de verrou (cadenas) sur un dossier sous Windows ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "995",
+    "last_turn_query": "Comment forcer l’affichage des fichiers cachés dans l’Explorateur Windows ?",
+    "last_turn_answer": "**Méthode 1 :**\n- Ouvrez l’Explorateur.\n- Cliquez sur **Affichage** > **Afficher** > **Éléments masqués**.\n\n**Méthode 2 (Panneau de configuration) :**\n- Options de l’Explorateur de fichiers > onglet **Affichage**.\n- Cochez **Afficher les fichiers, dossiers et lecteurs cachés**.\n- Décochez **Masquer les fichiers protégés du système d’exploitation** (si nécessaire).\n\n**Via PowerShell :**\n```powershell\nSet-ItemProperty -Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\" -Name Hidden -Value 1\n```",
+    "current_query": "Comment voir aussi les fichiers système protégés ?",
+    "rewritten_query": "Comment afficher les fichiers système protégés sous Windows en plus des fichiers cachés ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "996",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "ma souris clic droit ne marche plus, comment faire sans ?",
+    "rewritten_query": "Comment ouvrir le menu contextuel (clic droit) quand la souris ne fonctionne pas sous Windows ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "997",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Quelle est la différence entre Windows 10 Home et Pro ?",
+    "rewritten_query": "Quelle est la différence entre Windows 10 Home et Pro ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "998",
+    "last_turn_query": "Comment changer l’heure et le fuseau horaire via PowerShell ?",
+    "last_turn_answer": "```powershell\n# Afficher le fuseau actuel\nGet-TimeZone\n\n# Lister tous les fuseaux\nGet-TimeZone -ListAvailable\n\n# Changer de fuseau (ex: Paris)\nSet-TimeZone -Name \"Romance Standard Time\"\n\n# Changer l'heure (nécessite admin)\nSet-Date -Date \"2025-04-16 14:30:00\"\n```\n\n**Via l’interface** : Paramètres > Heure et langue > Date et heure.",
+    "current_query": "Le changement d'heure via PowerShell est-il permanent après redémarrage ?",
+    "rewritten_query": "Le changement d’heure via PowerShell sous Windows est-il permanent après un redémarrage ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "999",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "jveux passer de win10 a win11 mais le pc dit pas compatible, pourquoi ?",
+    "rewritten_query": "Pourquoi Windows 11 indique-t-il que mon PC n’est pas compatible alors que j’ai Windows 10 ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "1000",
+    "last_turn_query": "Comment créer un lien symbolique (symlink) sous Windows ?",
+    "last_turn_answer": "**Commande `mklink` dans l’invite de commandes (admin) :**\n```cmd\nmklink /D \"C:\\Lien\" \"C:\\DossierCible\"   ' lien de dossier\nmklink \"C:\\Fichier.lnk\" \"C:\\Fichier.txt\" ' lien de fichier\n```\n\n**Pour un lien dur (hard link) :**\n```cmd\nmklink /H \"C:\\LienDur.txt\" \"C:\\Original.txt\"\n```\n\n**Avec PowerShell (admin) :**\n```powershell\nNew-Item -ItemType SymbolicLink -Path \"C:\\Lien\" -Target \"C:\\DossierCible\"\n```\n\n> **Remarque** : Les liens symboliques nécessitent des droits élevés.",
+    "current_query": "Peut-on créer un lien symbolique vers un dossier réseau ?",
+    "rewritten_query": "Peut-on créer un lien symbolique sous Windows vers un dossier réseau (UNC) ?",
+    "quality": "good",
+    "is_followup": "yes"
+  }
+]

@@ -1,7 +1,32 @@
 configs:
-  - id: "qwen_0.5b_no_history"
-    model_name: "Qwen/Qwen2.5-0.5B-Instruct"
-    prompt_file: "default.txt"
+  # - id: "qwen_2b_history"
+  #   model_name: "Qwen/Qwen3.5-2B"
+  #   prompt_file: "default.txt"
+  #   model_kwargs:
+  #     device_map: "auto"
+  #     torch_dtype: "float16"
+  #   generation_kwargs:
+  #     max_new_tokens: 256
+  #     temperature: 0.1
+  #     do_sample: true
+  #     top_p: 0.9
+  #     top_k: 20
+  # - id: "qwen_2b_prompt_1"
+  #   model_name: "Qwen/Qwen3.5-2B"
+  #   prompt_file: "prompt_1.txt"
+  #   model_kwargs:
+  #     device_map: "auto"
+  #     torch_dtype: "float16"
+  #   generation_kwargs:
+  #     max_new_tokens: 256
+  #     temperature: 0.1
+  #     do_sample: true
+  #     top_p: 0.9
+  #     top_k: 20
+
+  - id: "qwen_2b_prompt_1_eng"
+    model_name: "Qwen/Qwen3.5-2B"
+    prompt_file: "prompt_1_eng.txt"
     model_kwargs:
       device_map: "auto"
       torch_dtype: "float16"
@@ -10,3 +35,4 @@ configs:
       temperature: 0.1
       do_sample: true
       top_p: 0.9
+      top_k: 20

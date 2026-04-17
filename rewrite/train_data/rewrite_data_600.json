@@ -1,0 +1,1800 @@
+{
+    "id": "402",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "comen on ajoute un nouveau client dans la liste ?",
+    "rewritten_query": "Comment ajouter un nouveau client dans la liste ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "403",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "jveux voir l'historique des discutions avec un client",
+    "rewritten_query": "Comment voir l'historique des discussions avec un client ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "404",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "comment on fait pour modifier le numéro de téléphone d'un contact ?",
+    "rewritten_query": "Comment modifier le numéro de téléphone d'un contact ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "405",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "jveux créer une opportunité mais jtrouve pas le bouton",
+    "rewritten_query": "Où se trouve le bouton pour créer une opportunité ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "406",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "comment on supprime une fiche client en double ?",
+    "rewritten_query": "Comment supprimer une fiche client en double ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "407",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "jveux exporter ma liste de prospects en excel",
+    "rewritten_query": "Comment exporter la liste des prospects en Excel ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "408",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "comment on associe une entreprise a un contact ?",
+    "rewritten_query": "Comment associer une entreprise à un contact ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "409",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "jveux planifier un rappel pour relancer un client",
+    "rewritten_query": "Comment planifier un rappel pour relancer un client ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "410",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "comment on voit le chiffre d'affaire par client ?",
+    "rewritten_query": "Comment consulter le chiffre d'affaires par client ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "411",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "jveux changer le statut d'une affaire de 'en cours' a 'gagnée'",
+    "rewritten_query": "Comment changer le statut d'une affaire de 'en cours' à 'gagnée' ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "412",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "jarrive pas a envoyer de mail sur outlook, ca reste dans la boite d'envoi",
+    "rewritten_query": "Comment résoudre un problème d'envoi de mail sur Outlook qui reste dans la boîte d'envoi ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "413",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "comment on fait pour mettre un rdv dans le calendrier ?",
+    "rewritten_query": "Comment créer un rendez-vous dans le calendrier ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "414",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "jveux supprimer une regle de redirection mais jtrouve pas ou",
+    "rewritten_query": "Où supprimer une règle de redirection ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "415",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "pk mes emails outlook partent dans les spam ?",
+    "rewritten_query": "Pourquoi mes emails Outlook partent dans les spams ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "416",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "comen on ajoute une signature auto dans outlook ?",
+    "rewritten_query": "Comment ajouter une signature automatique dans Outlook ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "417",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "jveux archiver mes vieux mails pour pas qu'ils prennent de la place",
+    "rewritten_query": "Comment archiver les anciens emails pour libérer de l'espace ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "418",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "comment on rappelle un mail qu'on a envoyé par erreur ?",
+    "rewritten_query": "Comment rappeler un email envoyé par erreur ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "419",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "jveux partager mon calendrier outlook avec mon assistant",
+    "rewritten_query": "Comment partager mon calendrier Outlook avec mon assistant ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "420",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "comen on cree un dossier pour ranger les mails par projet ?",
+    "rewritten_query": "Comment créer un dossier pour ranger les emails par projet ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "421",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "jai plus de place dans ma boite outlook, comment on vide le cache ?",
+    "rewritten_query": "Comment vider le cache d'Outlook pour libérer de l'espace ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "422",
+    "last_turn_query": "Comment créer une nouvelle fiche client dans le module commercial ?",
+    "last_turn_answer": "Pour créer une nouvelle fiche client, allez dans le menu principal et cliquez sur 'Clients' ou 'Comptes'. Ensuite, appuyez sur le bouton '+ Nouveau client' en haut à droite. Un formulaire s'ouvre avec plusieurs onglets : 'Informations générales', 'Adresse', 'Contact', 'Paramètres de facturation'. Dans l'onglet 'Informations générales', vous devez renseigner la raison sociale, le numéro SIRET, le code TVA intracommunautaire (si applicable), et le secteur d'activité (liste déroulante). L'onglet 'Adresse' contient les champs : adresse ligne 1, ligne 2, code postal, ville, pays. L'onglet 'Contact' permet d'ajouter un contact principal : civilité, nom, prénom, fonction, email direct, téléphone portable et fixe. Enfin, l'onglet 'Paramètres de facturation' propose des options comme le mode de règlement par défaut (virement, chèque, prélèvement), le délai de paiement (30, 45, 60 jours fin de mois), et l'échéance de facturation. Une fois tous les champs obligatoires remplis (marqués d'un astérisque rouge), cliquez sur 'Enregistrer'. La fiche client est alors créée et vous pouvez immédiatement créer une opportunité ou un devis associé.",
+    "current_query": "Comment ajouter un deuxième contact pour ce même client sans repartir de zéro ?",
+    "rewritten_query": "Comment ajouter un deuxième contact pour un client existant depuis sa fiche, sans avoir à recréer toutes les informations générales ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "423",
+    "last_turn_query": "Comment modifier les conditions de paiement sur une facture déjà créée mais non encore envoyée ?",
+    "last_turn_answer": "Pour modifier les conditions de paiement sur une facture non envoyée, ouvrez la facture concernée. Elle se trouve dans le module 'Facturation' > 'Factures en attente' ou 'Brouillons'. Cliquez sur le numéro de facture pour l'ouvrir en mode édition. Dans la partie haute du document, cherchez le champ 'Conditions de paiement' ou 'Échéance'. Il s'agit souvent d'une liste déroulante avec des valeurs prédéfinies (ex: '30 jours fin de mois', '45 jours', '60 jours', 'À réception'). Sélectionnez la nouvelle condition souhaitée. Si vous avez besoin d'une condition personnalisée, cliquez sur le crayon à côté pour ouvrir une fenêtre de paramétrage : vous pouvez alors définir un nombre de jours, une date butoir fixe, ou un échelonnement (ex: 30% à la commande, 70% à la livraison). Une fois modifié, les lignes de la facture peuvent recalculer automatiquement la date d'échéance si elle est liée. Vérifiez en bas du document la nouvelle date d'échéance. N'oubliez pas de cliquer sur 'Enregistrer' ou 'Mettre à jour'. Si la facture était en mode 'Brouillon', vous pouvez ensuite la valider ou l'envoyer par email.",
+    "current_query": "Est-ce que cette modification affecte aussi les avoirs ou notes de crédit liés à cette facture ?",
+    "rewritten_query": "La modification des conditions de paiement sur une facture non envoyée impacte-t-elle également les avoirs ou notes de crédit associés à cette même facture ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "424",
+    "last_turn_query": "Comment filtrer la liste des devis pour n'afficher que ceux qui expirent dans les 7 prochains jours ?",
+    "last_turn_answer": "Pour filtrer les devis expirant sous 7 jours, allez dans le module 'Devis' > 'Liste des devis'. En haut de la liste, vous verrez une barre de filtres avec des icônes (entonnoir, calendrier). Cliquez sur l'icône de filtre. Une fenêtre latérale s'ouvre avec plusieurs critères. Dans la section 'Date d'expiration', sélectionnez 'Dans les' puis entrez '7' et choisissez 'jours'. Vous pouvez également utiliser le filtre rapide 'Expiration imminente' s'il existe. Validez. La liste se met à jour. Pour aller plus loin, vous pouvez sauvegarder ce filtre sous un nom (ex: 'Devis à relancer') pour le réutiliser plus tard. Si vous voulez exporter cette liste, utilisez le bouton 'Exporter' en haut à droite et choisissez le format CSV ou Excel. Notez que les devis expirés ou déjà acceptés ne seront pas inclus sauf si vous ajustez les critères supplémentaires (statut = 'Envoyé' ou 'En attente').",
+    "current_query": "Puis-je recevoir une notification automatique par email quand un devis approche de sa date d'expiration ?",
+    "rewritten_query": "Est-il possible de configurer une notification automatique par email lorsque la date d'expiration d'un devis approche (par exemple à J-7) ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "425",
+    "last_turn_query": "Comment importer une liste de prospects depuis un fichier Excel dans le module marketing ?",
+    "last_turn_answer": "Pour importer des prospects depuis Excel, allez dans le module 'Marketing' > 'Prospects'. Cliquez sur le bouton 'Importer' (souvent une flèche vers le bas ou un upload). Une fenêtre s'ouvre en trois étapes. Étape 1 : téléchargez le fichier Excel (formats .xlsx ou .xls). Assurez-vous que la première ligne contient les en-têtes de colonnes (ex: 'Nom', 'Email', 'Téléphone', 'Société', 'Secteur'). Étape 2 : mappez les colonnes. L'outil détecte automatiquement les champs correspondants (ex: colonne 'Email' vers champ 'Adresse email'). Vous pouvez ajuster manuellement si besoin. Certains champs obligatoires (comme 'Nom' ou 'Email') doivent être mappés. Étape 3 : définissez des valeurs par défaut pour les champs non présents dans le fichier (ex: 'Source = Import Excel', 'Statut = À contacter'). Vous pouvez également choisir de créer automatiquement des tags ou d'ajouter les prospects à une liste de diffusion existante. Cliquez sur 'Lancer l'importation'. Un rapport récapitule le nombre de lignes importées, les erreurs (doublons, emails invalides). Vous pouvez télécharger le rapport d'erreur pour corriger et réimporter. Les prospects importés apparaissent alors dans la liste principale.",
+    "current_query": "Comment éviter d'importer des doublons si le même prospect est déjà présent dans la base ?",
+    "rewritten_query": "Lors de l'import d'une liste de prospects depuis Excel, comment configurer l'outil pour qu'il n'ajoute pas les doublons déjà existants dans la base ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "426",
+    "last_turn_query": "Comment créer un champ personnalisé de type 'case à cocher' dans le formulaire d'opportunité ?",
+    "last_turn_answer": "Pour ajouter un champ personnalisé de type case à cocher dans le formulaire d'opportunité, accédez aux paramètres d'administration. Allez dans 'Paramètres' > 'Personnalisation' > 'Champs personnalisés'. Choisissez l'objet 'Opportunité' dans la liste déroulante. Cliquez sur '+ Ajouter un champ'. Donnez un libellé (ex: 'A besoin d'approbation direction'). Sélectionnez le type 'Case à cocher' (ou 'Booléen'). Vous pouvez définir une valeur par défaut (cochée ou non). Optionnellement, ajoutez une aide contextuelle (texte qui apparaît au survol). Déterminez si le champ est obligatoire ou non. Vous pouvez aussi décider dans quelles étapes du pipeline ce champ doit être visible (par exemple, uniquement lorsque l'opportunité passe au stade 'Négociation'). Ensuite, choisissez l'emplacement dans le formulaire : soit dans une section existante, soit créez une nouvelle section. Validez. Le champ apparaît immédiatement dans toutes les opportunités (existantes et nouvelles). Pour les opportunités existantes, la case sera non cochée par défaut. Vous pouvez ensuite utiliser ce champ dans des rapports ou des règles de workflow (ex: déclencher une alerte si la case est cochée).",
+    "current_query": "Ce nouveau champ personnalisé est-il aussi disponible dans les exports de données (CSV) ?",
+    "rewritten_query": "Le champ personnalisé de type case à cocher que je viens d'ajouter au formulaire d'opportunité est-il inclus automatiquement dans les exports de données au format CSV ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "427",
+    "last_turn_query": "Comment visualiser le chiffre d'affaires réalisé par commercial sur le dernier trimestre dans le tableau de bord des ventes ?",
+    "last_turn_answer": "Pour visualiser le CA par commercial sur le dernier trimestre, allez dans le tableau de bord 'Ventes' (souvent une icône de graphique). En haut, vous avez des filtres temporels : sélectionnez 'Trimestre dernier' ou 'Période personnalisée' et entrez les dates du trimestre précédent. Ensuite, dans les widgets, cherchez celui intitulé 'Chiffre d'affaires par commercial'. S'il n'est pas affiché par défaut, cliquez sur 'Personnaliser le tableau de bord' et ajoutez ce widget. Vous pouvez choisir le type d'affichage : barres, camembert ou tableau. Le widget affichera le total des factures validées (ou devis signés) attribuées à chaque commercial. Si vous voulez le détail par mois, vous pouvez basculer en vue 'Mois' dans le même widget. Pour exporter ces données, cliquez sur les trois points en haut du widget puis 'Exporter en CSV'. Notez que le CA prend en compte les factures, hors taxes ou TTC selon la configuration de votre entreprise (paramètres généraux). Si des avoirs ou remises ont été émis, ils sont déduits automatiquement. Pour une analyse plus fine, vous pouvez aussi filtrer par famille de produits ou par région.",
+    "current_query": "Peut-on voir aussi le taux de transformation (nombre d'opportunités gagnées / nombre total) pour chaque commercial sur la même période ?",
+    "rewritten_query": "Dans le tableau de bord des ventes, est-il possible d'afficher le taux de transformation (ratio opportunités gagnées sur total) par commercial pour la même période (dernier trimestre) ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "428",
+    "last_turn_query": "Comment générer une commande fournisseur à partir d'une demande d'achat approuvée ?",
+    "last_turn_answer": "Pour générer une commande fournisseur depuis une demande d'achat approuvée, allez dans le module 'Achats' > 'Demandes d'achat'. Filtrez pour n'afficher que les demandes avec le statut 'Approuvé'. Cliquez sur la demande souhaitée pour l'ouvrir. En haut de la fiche, vous verrez un bouton 'Créer une commande' ou 'Générer commande fournisseur'. Cliquez dessus. Une nouvelle commande s'ouvre, pré-remplie avec les informations : fournisseur sélectionné dans la demande (si plusieurs, une fenêtre vous demande de choisir), articles, quantités, prix unitaires (issus du dernier prix d'achat ou du catalogue). Vous pouvez ajuster les quantités, supprimer des lignes, ou ajouter des frais de port. Vérifiez les conditions de livraison et de paiement (modifiables). Ensuite, vous pouvez soit enregistrer la commande en tant que 'Brouillon', soit la valider immédiatement. Une fois validée, le statut de la demande d'achat passe automatiquement à 'Commande créée'. La commande apparaît dans la liste des commandes fournisseur. Vous pouvez alors l'envoyer par email au fournisseur ou l'imprimer. Notez que si la demande contenait plusieurs fournisseurs potentiels, vous devrez peut-être créer plusieurs commandes.",
+    "current_query": "Si le fournisseur propose un prix différent de celui estimé dans la demande, comment mettre à jour le prix sur la commande ?",
+    "rewritten_query": "Lors de la création d'une commande fournisseur à partir d'une demande d'achat approuvée, comment modifier le prix unitaire d'un article si le fournisseur propose un tarif différent de celui initialement estimé ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "429",
+    "last_turn_query": "Comment configurer des droits d'accès pour qu'un stagiaire ne puisse voir que ses propres opportunités et pas celles des autres commerciaux ?",
+    "last_turn_answer": "Pour restreindre l'accès d'un stagiaire à ses seules opportunités, allez dans 'Paramètres' > 'Utilisateurs et rôles'. Créez un nouveau rôle appelé 'Stagiaire' en cliquant sur '+ Ajouter un rôle'. Dans les permissions, recherchez la section 'Opportunités'. Activez les droits suivants : 'Lire' (lecture), 'Créer', 'Modifier', 'Supprimer' (selon ce que vous autorisez). Ensuite, pour chaque action, vous devez configurer la règle de portée. Choisissez 'Utilisateur uniquement' ou 'Mes enregistrements' (le libellé exact varie selon l'ERP). Cela signifie que l'utilisateur ne verra que les opportunités dont il est le propriétaire ou le commercial assigné. Décochez 'Voir tous les enregistrements'. Ensuite, dans la même section, vérifiez les règles de partage : assurez-vous que le partage hiérarchique est désactivé (sinon le stagiaire verrait celles de son manager). Attribuez ce rôle au stagiaire dans sa fiche utilisateur. Pour tester, connectez-vous avec son compte : il ne verra que les opportunités qu'il a créées ou celles où il est explicitement assigné. Il ne pourra pas voir les tableaux de bord globaux ni les rapports regroupant tous les commerciaux. Vous pouvez aussi limiter l'accès aux autres modules (clients, devis, factures) de la même manière. Si des opportunités doivent être partagées exceptionnellement, utilisez le partage ponctuel via le bouton 'Partager' dans l'opportunité.",
+    "current_query": "Ce stagiaire peut-il quand même voir les clients associés aux opportunités des autres s'il accède directement à la fiche client ?",
+    "rewritten_query": "Avec la configuration des droits où le stagiaire ne voit que ses propres opportunités, peut-il accéder directement à la fiche d'un client qui est associé à une opportunité appartenant à un autre commercial ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "430",
+    "last_turn_query": "Comment ajouter une remise globale sur une facture (pourcentage sur le total HT) dans le module facturation ?",
+    "last_turn_answer": "Pour appliquer une remise globale sur une facture, ouvrez la facture en mode édition. En bas du document, juste avant les totaux, cherchez une ligne 'Remise globale' ou 'Rabais'. S'il n'y en a pas, vous devez activer l'option dans les paramètres de facturation : allez dans 'Paramètres' > 'Facturation' > 'Options avancées' et cochez 'Autoriser les remises globales'. Revenez à la facture. Cliquez sur 'Ajouter une remise' (un lien ou un bouton). Deux types possibles : 'Pourcentage' ou 'Montant fixe'. Choisissez 'Pourcentage' et saisissez la valeur (ex: 5 pour 5%). La remise s'applique sur le total HT (avant TVA). Les lignes de TVA se recalculent automatiquement. Vous pouvez également ajouter un commentaire (ex: 'Remise commerciale pour fidélité'). Si vous avez déjà saisi des remises ligne par ligne, la remise globale s'applique sur le sous-total après remises lignes. Vous pouvez combiner les deux, mais vérifiez les règles comptables. Une fois validée, la facture affichera la ligne 'Remise -5%' avec le montant déduit. Notez que si votre facture comporte des produits avec des TVA différentes, la remise est répartie proportionnellement. Vous pouvez aussi enregistrer cette remise comme un modèle pour les prochaines factures.",
+    "current_query": "Est-ce que cette remise globale apparaît sur l'aperçu avant impression et sur la version PDF envoyée au client ?",
+    "rewritten_query": "La remise globale ajoutée à une facture (en pourcentage sur le total HT) est-elle visible sur l'aperçu avant impression et sur le document PDF final transmis au client ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "431",
+    "last_turn_query": "Comment transformer un devis accepté en commande client sans avoir à ressaisir toutes les lignes ?",
+    "last_turn_answer": "Pour transformer un devis accepté en commande client, ouvrez le devis concerné (statut 'Accepté' ou 'Signé'). En haut de la fiche, cherchez le bouton 'Actions' ou 'Plus' (trois points). Dans le menu, sélectionnez 'Créer une commande' ou 'Transformer en commande client'. Une nouvelle fenêtre s'ouvre avec toutes les lignes du devis pré-remplies (articles, quantités, prix unitaires, remises, TVA). Vous pouvez modifier les quantités, ajouter ou supprimer des lignes. Vérifiez les conditions de livraison (adresse, date souhaitée) et de paiement (par défaut celles du devis, mais modifiables). Vous avez aussi la possibilité de créer une commande partielle : par exemple, ne commander que la moitié des quantités pour une livraison initiale. Cliquez sur 'Valider' ou 'Créer'. La commande est alors créée avec un nouveau numéro. Le devis reste dans l'historique avec un lien vers cette commande. Vous pouvez également configurer une règle automatique dans les paramètres pour que, dès qu'un devis est accepté, une commande soit générée automatiquement. Une fois la commande créée, vous pouvez la transformer en facture lorsque la livraison est effectuée. Notez que si le devis contenait des produits avec des stocks, le système peut vérifier la disponibilité avant de créer la commande.",
+    "current_query": "Si la commande est créée à partir d'un devis, peut-on encore modifier le devis après coup sans affecter la commande ?",
+    "rewritten_query": "Lorsqu'une commande client a été générée à partir d'un devis accepté, est-il possible de modifier ultérieurement le devis d'origine sans que cela n'affecte la commande déjà créée ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "432",
+    "last_turn_query": "Comment configurer les étapes d'un pipeline de vente personnalisé ?",
+    "last_turn_answer": "Pour configurer un pipeline de vente personnalisé, suivez ces étapes :\n\n**1. Accéder aux paramètres**\n- Allez dans `Paramètres` > `Personnalisation` > `Pipelines`\n- Cliquez sur `+ Nouveau pipeline`\n\n**2. Définir les étapes**\nVous pouvez ajouter, supprimer ou réordonner les étapes. Exemple de pipeline classique :\n- *Prospection* (taux de réussite estimé : 10%)\n- *Qualification* (20%)\n- *Proposition* (40%)\n- *Négociation* (60%)\n- *Gagnée* (100%)\n- *Perdue* (0%)\n\n**3. Paramétrer les probabilités**\nPour chaque étape, définissez un pourcentage de réussite. Cela alimentera le montant prévisionnel du pipeline.\n\n**4. Ajouter des champs obligatoires par étape**\nPar exemple, à l'étape `Proposition`, vous pouvez rendre obligatoire le champ `Date d'envoi du devis`.\n\n**5. Définir des actions automatiques**\n- Quand une opportunité passe à `Gagnée` → créer automatiquement une facture.\n- Quand elle passe à `Perdue` → demander une raison dans une fenêtre modale.\n\n**6. Appliquer le pipeline**\nChoisissez si ce pipeline est le défaut pour tous les utilisateurs ou uniquement pour certaines équipes.\n\n> **Astuce** : Vous pouvez avoir plusieurs pipelines (ex: un pour les ventes directes, un pour les partenariats).",
+    "current_query": "Est-ce que les probabilités associées à chaque étape sont utilisées pour calculer le montant prévisionnel global du pipeline ?",
+    "rewritten_query": "Les probabilités de réussite définies pour chaque étape d'un pipeline personnalisé sont-elles prises en compte dans le calcul du montant prévisionnel total du pipeline ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "433",
+    "last_turn_query": "Comment importer des produits avec leurs variantes (taille, couleur) via un fichier CSV ?",
+    "last_turn_answer": "Pour importer des produits avec variantes, préparez d'abord votre fichier CSV selon le format attendu. Voici un exemple de structure :\n\n```csv\nNom produit,SKU,Type,Variante_nom,Variante_valeur,Prix,Stock\nT-shirt,TS-01,Simple,,,15.99,50\nT-shirt,TS-01,Variante,Taille,S,15.99,10\nT-shirt,TS-01,Variante,Taille,M,15.99,20\nT-shirt,TS-01,Variante,Couleur,Rouge,15.99,15\n```\n\n**Étapes d'import :**\n1. Allez dans `Catalogue` > `Produits` > `Importer`\n2. Téléchargez votre fichier CSV\n3. Dans l'étape de mapping, associez les colonnes :\n   - `Nom produit` → `Nom`\n   - `SKU` → `Référence unique`\n   - `Type` → si `Simple`, crée un produit parent ; si `Variante`, attache la ligne au produit parent via le SKU\n   - `Variante_nom` et `Variante_valeur` → définissent les attributs (ex: Taille, Couleur)\n4. Cochez l'option `Créer automatiquement les variantes à partir des attributs`\n5. Lancez l'import.\n\n**Résultat :**\n- Un produit parent `T-shirt` (SKU TS-01) est créé.\n- Deux attributs : `Taille` (S, M) et `Couleur` (Rouge).\n- Le système génère automatiquement toutes les combinaisons (S-Rouge, M-Rouge) avec les prix et stocks hérités.\n\nSi vous avez des prix ou stocks différents par combinaison, précisez-les dans des colonnes supplémentaires et mappez-les correctement.",
+    "current_query": "Après l'import, comment faire pour modifier le prix d'une seule variante sans affecter les autres ?",
+    "rewritten_query": "Une fois les produits avec variantes importés via CSV, comment modifier individuellement le prix d'une combinaison spécifique (par exemple T-shirt taille M couleur rouge) sans changer les autres variantes ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "434",
+    "last_turn_query": "Comment paramétrer des rappels automatiques pour les tâches en retard dans le module projet ?",
+    "last_turn_answer": "Pour paramétrer des rappels sur les tâches en retard, procédez ainsi :\n\n**1. Créer une règle de workflow**\n- Allez dans `Paramètres` > `Automatisation` > `Règles`\n- Cliquez sur `+ Créer une règle`\n- Nom : `Rappel tâches en retard`\n- Déclencheur : `Planifiée` (quotidienne)\n\n**2. Définir la condition**\n```\nType d'objet = Tâche\nStatut ≠ Terminé\nDate d'échéance < date_actuelle\n```\n\n**3. Ajouter une action**\n- Type : `Envoyer une notification`\n- Destinataire : `Assigné à` (le responsable de la tâche)\n- Canal : `Email` et `Notification dans l'interface`\n- Contenu de l'email :\n  ```\n  Objet : [URGENT] Tâche en retard : {{tâche.nom}}\n  Corps :\n  Bonjour {{tâche.assigné.nom}},\n\n  La tâche **\"{{tâche.nom}}\"** devait être terminée le {{tâche.date_échéance}}.\n  Elle a actuellement **{{tâche.retard_jours}} jour(s)** de retard.\n\n  Projet : {{tâche.projet.nom}}\n  Priorité : {{tâche.priorité}}\n\n  Merci de la mettre à jour.\n  ```\n\n**4. Planification**\n- Exécution : `Tous les jours à 9h00`\n- Activer la règle\n\n**5. Option : escalade**\nAjoutez une deuxième action : si le retard dépasse 5 jours, notifier également le manager du projet.\n\n**6. Tester**\nCréez une tâche avec une date échéance hier et vérifiez que vous recevez le rappel le lendemain à 9h.",
+    "current_query": "Peut-on aussi envoyer un rappel une journée avant l'échéance, pas seulement quand c'est en retard ?",
+    "rewritten_query": "Est-il possible de configurer un rappel qui s'envoie un jour avant la date d'échéance d'une tâche, en plus des rappels pour les tâches déjà en retard ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "435",
+    "last_turn_query": "Comment créer un rapport personnalisé sur les opportunités perdues avec le motif de perte ?",
+    "last_turn_answer": "Pour créer un rapport sur les opportunités perdues :\n\n**1. Accéder au module Rapports**\n- `Analyse` > `Rapports personnalisés` > `+ Nouveau rapport`\n\n**2. Choisir la source de données**\n- Objet : `Opportunité`\n- Nom du rapport : `Opportunités perdues - Analyse des motifs`\n\n**3. Ajouter des filtres**\n```\nStatut = Perdue\nDate de clôture = (période à définir, ex: dernier trimestre)\n```\n\n**4. Sélectionner les colonnes à afficher**\n| Colonne | Agrégation |\n|---------|------------|\n| Nom opportunité | - |\n| Client | - |\n| Commercial | - |\n| Motif de perte | - |\n| Montant (HT) | Somme |\n| Date de clôture | - |\n\n**5. Ajouter un graphique**\n- Type : `Camembert`\n- Étiquette : `Motif de perte`\n- Valeur : `Nombre d'opportunités`\n\n**6. Options de regroupement**\n- Regrouper par `Motif de perte` puis par `Commercial` pour voir qui perd sur quel motif.\n\n**7. Enregistrer et planifier**\n- Sauvegardez le rapport.\n- Planifiez un envoi automatique chaque lundi matin au responsable commercial.\n\n**Exemple de motifs de perte à renseigner dans les opportunités :**\n- Prix trop élevé\n- Concurrent mieux positionné\n- Budget annulé\n- Délais non respectés\n- Absence de besoin réel\n\n> **Note :** Pour que le rapport soit pertinent, assurez-vous que le champ `Motif de perte` est obligatoire quand on passe une opportunité en `Perdue`.",
+    "current_query": "Peut-on ajouter une sous-colonne qui calcule le montant total perdu par commercial et par motif ?",
+    "rewritten_query": "Dans un rapport personnalisé sur les opportunités perdues, est-il possible d'ajouter une colonne ou sous-colonne qui calcule le montant total (somme) des opportunités perdues, regroupé à la fois par commercial et par motif de perte ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "436",
+    "last_turn_query": "Comment configurer le calcul automatique des frais de port en fonction du poids total de la commande et de la zone géographique ?",
+    "last_turn_answer": "Pour configurer les frais de port dynamiques :\n\n**1. Définir les tranches de poids**\n- Allez dans `Paramètres` > `Livraison` > `Règles de frais de port`\n- Activez `Calcul par poids`\n- Créez des tranches, par exemple :\n\n| Poids (kg) | France métro | DOM-TOM | Belgique |\n|------------|--------------|---------|----------|\n| 0 - 0.5 | 4,90 € | 12,00 € | 6,50 € |\n| 0.5 - 2 | 6,90 € | 18,00 € | 9,90 € |\n| 2 - 5 | 8,90 € | 25,00 € | 12,90 € |\n| 5 - 10 | 12,90 € | 35,00 € | 18,90 € |\n| 10+ | 19,90 € | 50,00 € | 29,90 € |\n\n**2. Associer les zones aux pays**\n- Créez une zone `France métro` : ajoutez tous les codes postaux commençant par 01 à 95.\n- Zone `DOM-TOM` : 971, 972, 973, 974, 975, 976, 988, 987.\n- Zone `Belgique` : pays BE.\n\n**3. Appliquer des majorations éventuelles**\n- Par exemple : +3€ pour une livraison express.\n- +5€ pour les commandes contenant des produits volumineux (vous pouvez taguer certains produits).\n\n**4. Définir la franchise de port**\n- `Frais de port offerts à partir de 60€ d'achat` (hors frais de port).\n- Option : uniquement pour la France métro, pas pour les DOM-TOM.\n\n**5. Tester**\nAjoutez au panier :\n- Produit A (0,8 kg) → zone Belgique → frais = 9,90€\n- Ajoutez un second produit → poids total 2,3 kg → frais = 12,90€\n- Si total panier > 60€ → frais = 0€ (France uniquement)\n\n**6. API / synchronisation**\nSi vous utilisez un transporteur partenaire, vous pouvez connecter son API pour obtenir les tarifs en temps réel (Colissimo, DHL, etc.).",
+    "current_query": "Est-ce que la franchise de port s'applique avant ou après déduction d'une éventuelle remise ?",
+    "rewritten_query": "Dans la configuration des frais de port avec franchise offerte à partir d'un montant d'achat, le seuil est-il calculé sur le total avant remise ou après application des remises ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "437",
+    "last_turn_query": "Comment configurer des relances automatiques pour les factures impayées à J+10, J+20 et J+30 ?",
+    "last_turn_answer": "Voici comment paramétrer un cycle de relances pour factures impayées :\n\n**1. Accéder aux règles de relance**\n- `Paramètres` > `Facturation` > `Relances clients`\n- Activez `Relances automatiques`\n\n**2. Définir les échéances**\nCréez trois niveaux :\n\n| Niveau | Délai après échéance | Action | Template email |\n|--------|----------------------|--------|----------------|\n| 1 | 10 jours | Envoyer email de rappel courtois | `relance_j10` |\n| 2 | 20 jours | Envoyer email + lettre recommandée (option) | `relance_j20` |\n| 3 | 30 jours | Envoyer mise en demeure + relance au service contentieux | `relance_j30` |\n\n**3. Créer les templates d'email**\nExemple pour J10 :\n```\nObjet : [RAPPEL] Facture {{facture.numéro}} échue depuis {{facture.retard_jours}} jours\n\nBonjour {{client.nom}},\n\nNous n'avons pas encore reçu votre règlement de **{{facture.montant_du}} €** pour la facture n°{{facture.numéro}} du {{facture.date_échéance}}.\n\nMontant dû : {{facture.montant_restant}} €\n\nMerci de procéder au règlement sous 48h pour éviter des frais supplémentaires.\n\n[Récapitulatif des moyens de paiement]\n\nCordialement,\nService comptabilité\n```\n\n**4. Options complémentaires**\n- **Frais de relance** : Ajoutez automatiquement des frais (ex: 5€ à J20, 15€ à J30).\n- **Suspension de compte** : À J30, bloquez la création de nouvelles commandes pour ce client.\n- **Exclusions** : Certains clients (grands comptes) peuvent être exclus des relances automatiques.\n\n**5. Planification**\n- Les relances sont exécutées quotidiennement à 8h00.\n- Une facture ne reçoit pas deux fois le même niveau de relance.\n- Si un paiement partiel est reçu, recalculez le retard.\n\n**6. Suivi**\nUn tableau de bord `Relances envoyées` vous permet de voir l'historique et les réponses clients.",
+    "current_query": "Peut-on exclure certains clients des relances automatiques (ex: clients publics ou gros comptes) sans les supprimer de la base ?",
+    "rewritten_query": "Est-il possible d'exclure des clients spécifiques (comme les grands comptes ou les entités publiques) des campagnes de relance automatique pour factures impayées, tout en conservant leurs fiches actives dans la base ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "438",
+    "last_turn_query": "Comment créer une vue personnalisée dans la liste des devis avec des colonnes calculées (ex: marge estimée) ?",
+    "last_turn_answer": "Pour créer une vue personnalisée avec des colonnes calculées :\n\n**1. Ouvrir la liste des devis**\n- `Ventes` > `Devis`\n- Cliquez sur l'icône `+ Vue` (en haut à droite)\n\n**2. Nommer la vue**\n- Nom : `Devis avec marge estimée`\n- Partager : `Privée` ou `Partagée avec mon équipe`\n\n**3. Ajouter les colonnes standards**\n| Colonne | Champ |\n|---------|-------|\n| N° devis | `numéro` |\n| Client | `client.nom` |\n| Date | `date_creation` |\n| Montant HT | `montant_ht` |\n| Montant TTC | `montant_ttc` |\n\n**4. Ajouter une colonne calculée**\n- Cliquez sur `+ Colonne calculée`\n- Nom : `Marge estimée (%)`\n- Formule : \n  ```\n  (montant_ht - (coût_achat_total)) / montant_ht * 100\n  ```\n  Où `coût_achat_total` est la somme des coûts d'achat des produits (si renseignés).\n\n- Si vous n'avez pas le coût d'achat, utilisez un champ personnalisé `Marge_forfaitaire` ou une estimation.\n\n**5. Ajouter des filtres**\n- `Statut = Envoyé` ou `En négociation`\n- `Date d'expiration > aujourd'hui`\n\n**6. Options de tri**\n- Trier par `Marge estimée` décroissant pour voir les devis les plus rentables.\n\n**7. Sauvegarder**\n- Cliquez sur `Enregistrer`.\n- La vue apparaît dans le sélecteur de vues.\n\n**8. Exporter**\nVous pouvez exporter cette vue au format Excel pour une analyse hors ligne.\n\n> **Remarque** : Si le coût d'achat n'est pas disponible, vous pouvez créer un champ personnalisé `Coût de revient` dans chaque ligne de devis et le remplir manuellement.",
+    "current_query": "Est-ce que les colonnes calculées dans une vue personnalisée se mettent à jour automatiquement quand les données sous-jacentes changent (ex: modification du coût d'achat d'un produit) ?",
+    "rewritten_query": "Dans une vue personnalisée contenant des colonnes calculées (comme la marge estimée), les valeurs se rafraîchissent-elles automatiquement lorsque les données source (exemple : coût d'achat d'un produit) sont modifiées ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "439",
+    "last_turn_query": "Comment gérer les stocks multi-dépôts et affecter une vente au dépôt le plus proche du client ?",
+    "last_turn_answer": "Pour gérer les stocks sur plusieurs dépôts avec affectation intelligente :\n\n**1. Configurer les dépôts**\n- `Stock` > `Dépôts` > `+ Nouveau dépôt`\n- Créez :\n  - *Entrepôt Nord* (Lille)\n  - *Entrepôt Sud* (Marseille)\n  - *Dépôt central* (Paris)\n- Pour chaque dépôt, renseignez l'adresse complète (nécessaire pour le calcul de distance).\n\n**2. Renseigner les quantités par dépôt**\n- Dans la fiche produit, activez `Suivi par dépôt`\n- Saisissez les stocks initiaux :\n  ```\n  Produit X :\n  - Nord : 50 unités\n  - Sud : 20 unités\n  - Central : 100 unités\n  ```\n\n**3. Configurer les règles d'affectation**\n- `Paramètres` > `Commandes` > `Règles d'affectation des stocks`\n- Choisissez la priorité :\n  - `Distance géographique` (par défaut)\n  - `Stock disponible le plus élevé`\n  - `Dépôt principal défini par produit`\n  - `Coût de livraison le plus bas`\n\n**4. Option : zones de chalandise**\nAssociez chaque code postal à un dépôt prioritaire :\n| Code postal début | Code postal fin | Dépôt par défaut |\n|-------------------|----------------|------------------|\n| 59000 | 59999 | Nord |\n| 13000 | 13999 | Sud |\n| 75000 | 75999 | Central |\n\n**5. Lors d'une commande**\nLe système calcule automatiquement :\n- Adresse du client → zone → dépôt prioritaire\n- Vérifie la disponibilité dans ce dépôt\n- Si stock insuffisant, cherche le dépôt le plus proche avec du stock\n- Propose éventuellement une livraison partielle (deux dépôts)\n\n**6. Notifications**\n- Si le dépôt prioritaire n'a pas assez de stock, un email est envoyé au logisticien pour réapprovisionnement.\n\n**7. Rapport**\n`Stock` > `Analyse des ruptures par dépôt` pour anticiper les transferts.",
+    "current_query": "Comment gérer le cas où le client commande plus que le stock total sur tous les dépôts réunis ?",
+    "rewritten_query": "Avec une gestion multi-dépôts et affectation automatique, que se passe-t-il si la quantité commandée par un client dépasse le stock total disponible sur l'ensemble des dépôts ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "440",
+    "last_turn_query": "Comment paramétrer des workflows d'approbation pour les devis dont le montant dépasse un certain seuil ?",
+    "last_turn_answer": "Pour mettre en place une validation hiérarchique des devis :\n\n**1. Créer les rôles et niveaux**\n- `Paramètres` > `Utilisateurs` > `Rôles`\n- Définissez :\n  - `Commercial` (peut créer des devis jusqu'à 5000€)\n  - `Responsable commercial` (approbation jusqu'à 20000€)\n  - `Direction` (approbation au-delà)\n\n**2. Configurer la règle d'approbation**\n- `Paramètres` > `Workflows` > `+ Nouveau workflow`\n- Nom : `Approbation devis selon montant`\n- Déclencheur : `Création d'un devis` ou `Changement de statut`\n\n**3. Définir les conditions**\n```\nObjet = Devis\nMontant HT > 5000\n```\n\n**4. Ajouter des étapes d'approbation**\n\n| Seuil | Approbateur | Délai max | Action si refus |\n|-------|-------------|-----------|-----------------|\n| 5000 - 20000 | Responsable commercial | 48h | Renvoi au commercial pour modification |\n| > 20000 | Direction | 72h | Réunion de validation préalable |\n\n**5. Comportement pendant l'approbation**\n- Le devis passe en statut `En attente d'approbation`\n- Le commercial ne peut pas le modifier ni l'envoyer au client\n- L'approbateur reçoit une notification par email et dans l'interface\n- L'approbateur peut : `Approuver`, `Refuser`, `Demander des modifications`\n\n**6. Notifications**\n- À chaque étape, notifier le demandeur et l'approbateur suivant.\n- Si délai dépassé, escalade au supérieur.\n\n**7. Traces**\nUn historique complet des approbations est conservé (qui a approuvé, date, commentaire éventuel).\n\n**8. Cas particuliers**\n- Si le commercial est aussi responsable, le workflow passe automatiquement au niveau supérieur (éviter l'auto-approbation).\n- Possibilité d'exonérer certains clients (ex: contrat cadre).\n\n**9. Test**\nCréez un devis à 6000€ → vérifiez qu'il bloque et qu'une notification est envoyée au responsable commercial.",
+    "current_query": "Est-ce que le workflow d'approbation peut être contourné temporairement par un administrateur en cas d'urgence ?",
+    "rewritten_query": "En cas d'urgence (client important nécessitant une réponse immédiate), un administrateur peut-il contourner temporairement le workflow d'approbation pour un devis dépassant le seuil ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "441",
+    "last_turn_query": "Comment configurer des alertes quand un client atteint un certain seuil d'achat (ex: 10000€) pour déclencher un cadeau ou une remise ?",
+    "last_turn_answer": "Pour mettre en place des alertes de seuil d'achat client :\n\n**1. Définir le champ de suivi**\n- Le système doit calculer le `Cumul d'achat client` (somme des factures payées sur une période glissante, ex: 12 mois).\n- Ce calcul peut être fait via un champ calculé ou un rapport.\n\n**2. Créer la règle d'alerte**\n- `Paramètres` > `Automatisation` > `Règles`\n- Déclencheur : `Lorsqu'une facture est validée`\n- Condition :\n  ```\n  Client.cumul_achat_12m (après facture) >= 10000\n  ET Client.cumul_achat_12m (avant facture) < 10000\n  ```\n  (déclenche une seule fois au franchissement du seuil)\n\n**3. Actions possibles**\n\n| Type | Détail |\n|------|--------|\n| Notification interne | Envoyer un email au commercial attaché : \"Félicitations, le client X a atteint 10000€ d'achat\" |\n| Envoi automatique | Générer un bon d'achat de 50€ ou un code promo |\n| Tâche | Créer une tâche \"Préparer cadeau de fidélité\" pour le service client |\n| Remise future | Ajouter automatiquement une remise de 5% sur la prochaine commande |\n\n**4. Exemple d'email au client**\n```\nObjet : Merci pour votre fidélité !\n\nCher {{client.nom}},\n\nVous venez d'atteindre **10 000€ d'achats** chez nous ! 🎉\n\nPour vous remercier, voici un code promo **MERCI100** valable 10% sur votre prochaine commande.\n\nOu contactez votre commercial pour choisir un cadeau personnalisé.\n\nMerci de votre confiance.\n```\n\n**5. Seuils multiples**\nCréez plusieurs règles pour différents paliers :\n- 1000€ → envoi d'un petit cadeau (stylo, carnet)\n- 5000€ → remise de 5% pendant 3 mois\n- 10000€ → invitation à un événement VIP\n- 25000€ → compte dédié + gestionnaire attitré\n\n**6. Tableau de bord**\nUn widget `Clients ayant franchi un seuil ce mois` permet de suivre l'activité.\n\n**7. Exclusion**\nCertains clients (distributeurs) peuvent être exclus de ces alertes.",
+    "current_query": "Peut-on aussi déclencher une action quand un client est sur le point d'atteindre le seuil (par exemple à 90% du seuil) pour une relance proactive ?",
+    "rewritten_query": "Est-il possible de configurer une alerte ou une action automatique lorsqu'un client approche d'un seuil d'achat (par exemple à 90% du montant cible) afin de faire une relance proactive avant le franchissement ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "442",
+    "last_turn_query": "Comment configurer les droits d'accès pour qu'un commercial ne voie que ses propres clients ?",
+    "last_turn_answer": "Pour restreindre un commercial à ses seuls clients :\n\n**1. Créer un rôle dédié**\n- `Paramètres` > `Utilisateurs` > `Rôles`\n- Ajoutez `Commercial terrain`\n\n**2. Définir les permissions**\n- Module `Clients` :\n  - Lecture : `Oui`\n  - Portée : `Utilisateur uniquement` (ou `Mes enregistrements`)\n  - Écriture : `Oui` sur ses propres clients\n  - Suppression : `Non`\n\n**3. Activer le partage hiérarchique**\n- Si le commercial a un manager, celui-ci peut voir les clients de son équipe.\n\n**4. Tester**\n- Connectez-vous avec le compte commercial : il ne voit que les clients qu'il a créés ou qui lui sont assignés.",
+    "current_query": "et si jveux ke le manager voit aussi ses clients, comen on fait ?",
+    "rewritten_query": "Comment configurer les droits pour qu'un manager voit aussi les clients de son équipe ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "443",
+    "last_turn_query": "Comment générer une facture d'acompte à partir d'un devis signé ?",
+    "last_turn_answer": "Pour générer une facture d'acompte :\n\n**1. Ouvrir le devis signé**\n- `Ventes` > `Devis` > sélectionnez le devis (statut `Signé`)\n\n**2. Cliquer sur `Créer une facture`**\n- Une fenêtre propose `Facture totale` ou `Facture d'acompte`\n\n**3. Choisir `Acompte`**\n- Saisir le pourcentage (ex: 30%) ou un montant fixe\n- Le système crée la facture avec les lignes correspondantes\n\n**4. Valider**\n- La facture d'acompte est créée, le devis reste en `Partiellement facturé`",
+    "current_query": "jai oublié de mettre le pourcentage, jveux 40% pas 30, comment on modifie apres ?",
+    "rewritten_query": "Comment modifier le pourcentage d'une facture d'acompte déjà créée à partir d'un devis ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "444",
+    "last_turn_query": "Comment importer des photos de produits en lot via un dossier ZIP ?",
+    "last_turn_answer": "Pour importer des photos en lot :\n\n**1. Préparer le dossier**\n- Nommez les fichiers selon le SKU ou la référence produit.\n  Exemple : `REF123_main.jpg`, `REF123_2.jpg`, `REF456_main.jpg`\n- Compressez en ZIP.\n\n**2. Accéder à l'import**\n- `Catalogue` > `Produits` > `Importer images`\n- Téléchargez le ZIP\n\n**3. Mapping**\n- L'outil associe automatiquement `REF123` au produit correspondant.\n- Définissez l'image principale (celle contenant `_main`)\n\n**4. Lancer l'import**\n- Les images sont attachées aux produits.\n- Un rapport liste les échecs (SKU introuvable).",
+    "current_query": "et si le nom du fichier correspond pas exactement au sku, ya un moyen de lier a la main ?",
+    "rewritten_query": "Comment associer manuellement des images à des produits si les noms de fichiers ne correspondent pas exactement aux SKU ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "445",
+    "last_turn_query": "Comment paramétrer des relances automatiques pour les devis non répondus après 7 jours ?",
+    "last_turn_answer": "Pour relancer les devis sans réponse :\n\n**1. Règle de workflow**\n- `Paramètres` > `Automatisation` > `Règles`\n- Déclencheur : `Planifiée` (quotidienne)\n\n**2. Condition**\n```\nObjet = Devis\nStatut = Envoyé\nDate d'envoi <= aujourd'hui - 7 jours\n```\n\n**3. Action**\n- Envoyer un email au commercial : \"Devis X non relancé depuis 7 jours\"\n- Option : créer une tâche de relance.\n\n**4. Template email**\n```\nObjet : Relance devis {{devis.numero}}\n\nBonjour {{commercial.nom}},\n\nLe devis du {{devis.date_envoi}} est toujours sans réponse.\nMerci de contacter le client.\n```",
+    "current_query": "pk ca m'envoie pas de notif alors que jai bien mis la regle ?",
+    "rewritten_query": "Pourquoi la règle de relance automatique pour les devis sans réponse n'envoie-t-elle pas de notification ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "446",
+    "last_turn_query": "Comment créer une vue personnalisée dans la liste des commandes pour n'afficher que celles à livrer aujourd'hui ?",
+    "last_turn_answer": "Pour voir les commandes à livrer aujourd'hui :\n\n**1. Ouvrir la liste des commandes**\n- `Ventes` > `Commandes`\n\n**2. Cliquer sur `+ Vue`**\n- Nom : `Livraison aujourd'hui`\n\n**3. Ajouter un filtre**\n- Champ : `Date de livraison prévue`\n- Opérateur : `Égal à`\n- Valeur : `aujourd'hui` (ou `date du jour`)\n\n**4. Colonnes recommandées**\n- N° commande, Client, Date livraison, Statut livraison\n\n**5. Sauvegarder**\n- La vue apparaît dans le sélecteur.",
+    "current_query": "jveux aussi les commandes en retard, comment on fait pour voir les deux en meme temps ?",
+    "rewritten_query": "Comment créer une vue qui affiche à la fois les commandes à livrer aujourd'hui et celles en retard ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "447",
+    "last_turn_query": "Comment ajouter un champ personnalisé de type 'date' dans le formulaire d'opportunité ?",
+    "last_turn_answer": "Pour ajouter une date personnalisée :\n\n**1. Aller dans `Paramètres` > `Personnalisation` > `Champs personnalisés`**\n\n**2. Sélectionner l'objet `Opportunité`**\n\n**3. Cliquer sur `+ Ajouter un champ`**\n- Libellé : `Date de rappel`\n- Type : `Date`\n- Optionnel : `Obligatoire` ou non\n\n**4. Définir la visibilité**\n- Visible dans la vue liste et le formulaire\n\n**5. Enregistrer**\n- Le champ apparaît dans chaque opportunité.",
+    "current_query": "jveux que ce champ soit obligatoire seulement si l'opportunité est en statut 'negociation', c possible ?",
+    "rewritten_query": "Comment rendre un champ personnalisé de type date obligatoire uniquement lorsque l'opportunité est dans un certain statut (ex: négociation) ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "448",
+    "last_turn_query": "Comment configurer un dashboard avec le montant total des factures impayées par commercial ?",
+    "last_turn_answer": "Pour créer ce dashboard :\n\n**1. Aller dans `Analyse` > `Tableaux de bord`**\n**2. `+ Nouveau widget`**\n**3. Type : `Graphique`**\n**4. Source : `Factures`**\n**5. Filtres :**\n- `Statut` = `Impayée`\n**6. Axe des X :** `Commercial assigné`\n**7. Valeur :** `Somme (montant TTC)`\n**8. Sauvegarder**",
+    "current_query": "ca me montre que les factures de ce mois, jveux l'année entiere, comen on change la periode ?",
+    "rewritten_query": "Comment modifier la période d'un widget de dashboard pour afficher les factures impayées sur l'année entière au lieu du mois en cours ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "449",
+    "last_turn_query": "Comment associer un devis à plusieurs contacts chez le même client ?",
+    "last_turn_answer": "Pour associer plusieurs contacts :\n\n**1. Ouvrir le devis**\n**2. Dans la section `Contacts`, cliquer sur `Ajouter`**\n**3. Sélectionner un contact existant ou en créer un**\n**4. Définir un rôle pour chaque contact :**\n- `Décideur`\n- `Utilisateur final`\n- `Facturation`\n**5. Enregistrer**\n- Tous les contacts reçoivent les notifications si activé.",
+    "current_query": "jveux que le contact 'facturation' recoive pas les memes notifs que les autres, comment on paramètre ?",
+    "rewritten_query": "Comment configurer des notifications différentes pour chaque contact associé à un devis (ex: contact facturation sans certaines alertes) ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "450",
+    "last_turn_query": "Comment exporter le catalogue produits avec les prix selon la grille tarifaire d'un client spécifique ?",
+    "last_turn_answer": "Pour exporter un catalogue personnalisé :\n\n**1. Aller dans `Catalogue` > `Produits`**\n**2. Sélectionner le client** (filtre `Client associé` ou utiliser la grille tarifaire)\n**3. Cliquer sur `Exporter`**\n**4. Choisir `Export avec prix spécifiques`**\n**5. Sélectionner les colonnes :**\n- Nom produit, SKU, Prix public, Prix client (calculé selon grille)\n**6. Lancer l'export CSV**",
+    "current_query": "jai plusieurs grilles, comment je choisis celle qui s'applique pour l'export ?",
+    "rewritten_query": "Comment sélectionner une grille tarifaire spécifique lors de l'export du catalogue produits pour un client donné ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "451",
+    "last_turn_query": "Comment créer un modèle de devis avec des conditions générales de vente personnalisées par secteur d'activité ?",
+    "last_turn_answer": "Pour créer des CGV par secteur :\n\n**1. `Paramètres` > `Modèles de documents` > `Devis`**\n**2. Dupliquer le modèle par défaut**\n**3. Nommer : `CGV - Secteur public`**\n**4. Dans le champ `Conditions générales`, insérer le texte spécifique**\n**5. Associer le modèle à un secteur :**\n- `Règles de sélection` > `Secteur du client = Public`\n**6. Sauvegarder**\n- Lorsqu'un devis est créé pour un client du secteur public, le bon modèle est utilisé automatiquement.",
+    "current_query": "et si un client a deux secteurs, comment le modele choisit ?",
+    "rewritten_query": "Comment un modèle de devis est-il sélectionné lorsqu'un client est associé à plusieurs secteurs d'activité ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "452",
+    "last_turn_query": "Comment demander un congé payé dans le portail RH ?",
+    "last_turn_answer": "Pour demander un congé payé, connectez-vous au portail RH. Dans le menu principal, cliquez sur 'Absences' ou 'Congés'. Ensuite, appuyez sur le bouton 'Nouvelle demande'. Une fenêtre s'ouvre :\n- **Type d'absence** : sélectionnez 'Congés payés'\n- **Dates** : choisissez la date de début et la date de fin (le système calcule automatiquement le nombre de jours ouvrés)\n- **Option** : 'Demander une demi-journée' (matin ou après-midi) si besoin\n- **Commentaire** : (optionnel) ajoutez une raison\n- **Relecture** : vérifiez le solde restant affiché (sous le formulaire)\n- Cliquez sur 'Envoyer la demande'\n\nVotre responsable recevra une notification. Vous pouvez suivre l'état de la demande dans l'onglet 'Mes demandes'.",
+    "current_query": "jai mis les mauvaises dates, comment on annule la demande avant que le chef voit ?",
+    "rewritten_query": "Comment annuler une demande de congé avant qu'elle soit approuvée par le responsable ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "453",
+    "last_turn_query": "Comment consulter le solde de mes RTT sur le portail RH ?",
+    "last_turn_answer": "Pour voir votre solde de RTT, connectez-vous au portail RH. Sur la page d'accueil, cherchez le widget 'Mon compteur' ou 'Mes absences'. Il affiche vos soldes :\n- Congés payés : X jours\n- RTT : Y jours\n- Autres : CET, etc.\n\nSi vous ne voyez pas le widget, allez dans le menu `Absences` > `Mon compteur`. Une page s'ouvre avec un tableau récapitulatif par type de congé, l'acquis, le pris et le restant. Vous pouvez aussi voir l'historique des acquisitions (mois par mois).",
+    "current_query": "ya une difference entre rtt et cp, jcomprends pas, c koi la diff ?",
+    "rewritten_query": "Quelle est la différence entre les RTT et les congés payés ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "454",
+    "last_turn_query": "Comment soumettre une note de frais (repas, transport) dans l'outil de notes de frais ?",
+    "last_turn_answer": "Pour soumettre une note de frais, ouvrez le module 'Notes de frais'. Cliquez sur `+ Nouvelle note`. Un formulaire apparaît. Remplissez :\n- **Date** : la date de la dépense\n- **Catégorie** : repas, transport, hébergement, etc.\n- **Montant HT** et **TVA** (si applicable)\n- **Justificatif** : importez une photo ou un PDF du reçu (max 5 Mo)\n- **Commentaire** : expliquez le contexte (ex: déjeuner avec client)\n\nVous pouvez ajouter plusieurs lignes pour la même note. Une fois toutes les lignes saisies, cliquez sur 'Soumettre'. La note est envoyée à votre validateur. Vous pouvez suivre son état dans la liste 'Mes notes'.",
+    "current_query": "jai oublié de mettre le reçu, comment on l'ajoute apres ?",
+    "rewritten_query": "Comment ajouter un justificatif à une note de frais déjà soumise ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "455",
+    "last_turn_query": "Comment consulter l'organigramme de mon service sur l'intranet ?",
+    "last_turn_answer": "Pour voir l'organigramme, allez sur l'intranet. Dans le menu principal, cliquez sur `Annuaire` puis `Organigramme`. Une arborescence s'affiche :\n- Direction générale\n  - Service commercial\n    - Votre nom\n    - Vos collègues\n  - Service RH\n  - Service IT\n\nVous pouvez cliquer sur chaque nom pour voir la fiche détaillée (email, téléphone, bureau). Utilisez la barre de recherche pour trouver rapidement une personne. L'organigramme se met à jour en temps réel (nouveaux arrivants, changements de poste).",
+    "current_query": "jveux voir le chef de mon chef, comment on remonte dans l'arbre ?",
+    "rewritten_query": "Comment naviguer vers le supérieur hiérarchique dans l'organigramme ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "456",
+    "last_turn_query": "Comment faire une demande de télétravail ponctuel dans le système de gestion des présences ?",
+    "last_turn_answer": "Pour demander du télétravail ponctuel, connectez-vous au système. Allez dans `Présences` > `Télétravail`. Cliquez sur `Nouvelle demande`. Remplissez :\n- **Date** : sélectionnez le ou les jours concernés\n- **Motif** : liste déroulante (garde d'enfant, réunion distante, etc.)\n- **Plage horaire** : journée complète ou demi-journée\n- **Commentaire** : (optionnel)\n\nValidez. La demande part au responsable. Une fois approuvée, la journée est marquée comme 'télétravail' dans votre agenda. Vous pouvez aussi annuler la demande tant qu'elle n'est pas validée.",
+    "current_query": "jpeux pas faire la demande, le bouton est grisé, pk ?",
+    "rewritten_query": "Pourquoi le bouton de demande de télétravail est-il grisé ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "457",
+    "last_turn_query": "Comment télécharger mon bulletin de paie du mois dernier sur le portail RH ?",
+    "last_turn_answer": "Pour télécharger votre bulletin, connectez-vous au portail RH. Dans le menu, cliquez sur `Paie` > `Mes bulletins`. Une liste des 12 derniers mois apparaît. Repérez le mois souhaité (ex: mars 2025). À droite, cliquez sur l'icône PDF ou sur 'Télécharger'. Le fichier s'ouvre dans votre navigateur (ou se sauvegarde). Vous pouvez aussi cliquer sur 'Tous les bulletins' pour télécharger un zip. Si vous avez besoin d'un bulletin plus ancien, utilisez le filtre 'Année' ou contactez les RH.",
+    "current_query": "jarrive pas a l'ouvrir le pdf, ca me dit fichier corrompu, comen on fait ?",
+    "rewritten_query": "Comment récupérer un bulletin de paie dont le PDF est corrompu ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "458",
+    "last_turn_query": "Comment mettre à jour mon adresse personnelle dans le formulaire RH ?",
+    "last_turn_answer": "Pour modifier votre adresse, allez dans `Mon profil` > `Informations personnelles`. Cliquez sur le crayon à côté du champ 'Adresse'. Un formulaire s'ouvre :\n- **Numéro et rue**\n- **Complément** (étage, résidence)\n- **Code postal**\n- **Ville**\n- **Pays** (par défaut France)\n\nAprès saisie, cliquez sur 'Enregistrer'. Un email de confirmation est envoyé à votre adresse. Les RH valident le changement (délai 48h). Pendant la validation, l'ancienne adresse reste affichée. Une fois validée, elle est mise à jour dans tous les systèmes (paie, notes de frais).",
+    "current_query": "jai demenagé mais jai plus acces a l'email, comment je confirme ?",
+    "rewritten_query": "Comment confirmer un changement d'adresse si je n'ai plus accès à mon ancien email ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "459",
+    "last_turn_query": "Comment ajouter une formation à mon plan de développement dans l'outil de formation ?",
+    "last_turn_answer": "Pour ajouter une formation, ouvrez l'outil 'Formation'. Allez dans `Mon plan` > `Demander une formation`. Recherchez dans le catalogue (mots-clés, catégories). Sélectionnez la formation souhaitée. Cliquez sur `Ajouter au plan`. Vous devez renseigner :\n- **Date souhaitée** (au moins 3 semaines à l'avance)\n- **Justification** (ex: besoin pour projet X)\n- **Budget estimé** (si applicable)\n\nValidez. La demande part au manager puis à la RH. Vous pouvez suivre l'état (en attente, approuvé, refusé). Une fois approuvée, une session sera programmée.",
+    "current_query": "jveux enlever une formation que jai demandé par erreur, comment on supprime ?",
+    "rewritten_query": "Comment annuler une demande de formation dans l'outil de formation ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "460",
+    "last_turn_query": "Comment évaluer mon collaborateur dans le module d'entretien annuel ?",
+    "last_turn_answer": "Pour évaluer un collaborateur, allez dans `Entretiens` > `À évaluer`. La liste des membres de votre équipe apparaît. Cliquez sur le nom. Le formulaire d'évaluation contient plusieurs sections :\n- **Atteinte des objectifs** : notez de 1 à 5\n- **Compétences comportementales** : plusieurs items (travail d'équipe, autonomie, etc.)\n- **Commentaires libres** : forces, axes d'amélioration\n- **Objectifs pour l'année prochaine** : à remplir avec le collaborateur\n\nVous pouvez sauvegarder en brouillon. Une fois finalisé, cliquez sur `Soumettre`. Le collaborateur reçoit une notification et peut prendre connaissance de l'évaluation avant l'entretien.",
+    "current_query": "jai mis une note trop basse par erreur, comment on la change avant que l'autre voit ?",
+    "rewritten_query": "Comment modifier une note d'évaluation avant qu'elle soit visible par le collaborateur ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "461",
+    "last_turn_query": "Comment signaler un arrêt maladie dans la plateforme d'absence ?",
+    "last_turn_answer": "Pour déclarer un arrêt maladie, connectez-vous à la plateforme. Allez dans `Absences` > `Arrêt maladie`. Cliquez sur `Nouvel arrêt`. Remplissez :\n- **Date de début** et **date de fin** (selon l'avis d'arrêt)\n- **Transmettez-vous le justificatif ?** : Oui (importer le scan de l'avis)\n- **Contact médecin** : (optionnel)\n\nValidez. L'arrêt est enregistré. Vous devez également envoyer l'original à la médecine du travail sous 48h. La plateforme génère une attestation à donner à votre employeur. Si l'arrêt est prolongé, vous pouvez le modifier en cliquant sur `Prolonger`.",
+    "current_query": "jai pas encore le justificatif papier, comment on fait quand on l'a pas ?",
+    "rewritten_query": "Comment déclarer un arrêt maladie sans avoir encore le justificatif papier ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "462",
+    "last_turn_query": "Comment déclarer un arrêt maladie dans la plateforme d'absence ?",
+    "last_turn_answer": "Pour déclarer un arrêt maladie, connectez-vous à la plateforme. Allez dans `Absences` > `Arrêt maladie`. Cliquez sur `Nouvel arrêt`. Remplissez :\n- **Date de début** et **date de fin** (selon l'avis d'arrêt)\n- **Transmettez-vous le justificatif ?** : Oui (importer le scan de l'avis)\n- **Contact médecin** : (optionnel)\n\nValidez. L'arrêt est enregistré. Vous devez également envoyer l'original à la médecine du travail sous 48h. La plateforme génère une attestation à donner à votre employeur. Si l'arrêt est prolongé, vous pouvez le modifier en cliquant sur `Prolonger`.",
+    "current_query": "g pa le doc, jvé le recevoir ds 2 jr, jfé koi ?",
+    "rewritten_query": "Que faire si je n'ai pas encore le justificatif d'arrêt maladie ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "463",
+    "last_turn_query": "Comment consulter mes entretiens annuels passés dans le module RH ?",
+    "last_turn_answer": "Pour consulter vos anciens entretiens, ouvrez le module RH. Allez dans `Mon profil` > `Évaluations`. Une liste s'affiche avec les années disponibles (ex: 2024, 2023). Cliquez sur l'année souhaitée. Vous verrez un résumé :\n- Objectifs atteints / non atteints\n- Commentaires du manager\n- Note globale (si applicable)\n- Projet de progression\n\nVous pouvez télécharger le compte-rendu au format PDF via le bouton `Exporter`. Si un entretien est manquant, contactez les RH.",
+    "current_query": "jve u l'entretien de 2022 mais ié plu la, comen le rtrv ?",
+    "rewritten_query": "Comment récupérer un entretien annuel d'une année antérieure qui n'apparaît plus dans la liste ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "464",
+    "last_turn_query": "Comment changer ma photo de profil sur l'annuaire de l'entreprise ?",
+    "last_turn_answer": "Pour changer votre photo, allez dans `Mon profil` > `Paramètres`. Cliquez sur l'icône de l'appareil photo à côté de votre photo actuelle. Deux options :\n- **Importer une image** : choisissez un fichier (JPG, PNG, max 2 Mo)\n- **Prendre une photo** (si vous êtes sur mobile)\n\nRecadrez si nécessaire, puis validez. La photo sera visible dans l'annuaire, dans les messageries internes et sur votre carte de visite électronique. La mise à jour peut prendre quelques minutes. Si vous n'avez pas l'autorisation, contactez votre référent RH.",
+    "current_query": "jve une foto tro lourd, el pa s'importer, comen fé ?",
+    "rewritten_query": "Comment importer une photo de profil trop lourde ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "465",
+    "last_turn_query": "Comment demander un entretien avec les RH via le formulaire en ligne ?",
+    "last_turn_answer": "Pour demander un entretien RH, allez dans `Support RH` > `Prendre rendez-vous`. Remplissez le formulaire :\n- **Motif** : liste déroulante (carrière, conflit, mobilité, etc.)\n- **Urgence** : normale ou élevée\n- **Date souhaitée** : choisissez parmi les créneaux disponibles (affichés en vert)\n- **Message** : décrivez brièvement le sujet (max 500 caractères)\n\nValidez. Vous recevrez un email de confirmation avec le jour et l'heure. Vous pouvez annuler ou reporter jusqu'à 24h à l'avance via `Mes rendez-vous`.",
+    "current_query": "jé pa de creneau vert, c koi le prob ?",
+    "rewritten_query": "Pourquoi n'y a-t-il aucun créneau disponible pour un entretien RH ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "466",
+    "last_turn_query": "Comment consulter mon historique de formation sur le portail apprentissage ?",
+    "last_turn_answer": "Pour voir votre historique, ouvrez le portail apprentissage. Allez dans `Mon compte` > `Mes formations`. Deux onglets :\n- `À venir` : formations programmées\n- `Terminées` : formations déjà suivies, avec certificat et évaluation\n\nCliquez sur `Terminées`. Vous voyez la liste triée par date (la plus récente en premier). Pour chaque formation, vous pouvez télécharger l'attestation (PDF) et voir le score obtenu. Vous pouvez aussi filtrer par année ou par thème.",
+    "current_query": "jé fai une formation l'an dernier, jé perdu l'attestation, comen la rtrouve ?",
+    "rewritten_query": "Comment récupérer une attestation de formation perdue ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "467",
+    "last_turn_query": "Comment signaler un problème technique sur l'outil de pointage horaire ?",
+    "last_turn_answer": "Pour signaler un bug, allez dans `Aide` > `Signaler un problème`. Choisissez le module `Pointage`. Décrivez le problème :\n- **Type** : impossibilité de pointer, mauvaise heure, décalage horaire\n- **Date et heure** du problème\n- **Capture d'écran** (optionnelle mais recommandée)\n- **Votre nom**\n\nValidez. Un ticket est créé. Vous recevrez un numéro de suivi. Le support technique répond sous 48h. Si votre problème bloque le paiement des heures supplémentaires, cochez la case `Urgent`.",
+    "current_query": "jé poiné a 8h mé ca a marqué 9h, comen corriger ?",
+    "rewritten_query": "Comment corriger une heure de pointage erronée ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "468",
+    "last_turn_query": "Comment mettre à jour mon niveau de langue (anglais, espagnol) dans mon profil compétences ?",
+    "last_turn_answer": "Pour modifier votre niveau de langue, ouvrez `Mon profil` > `Compétences`. Cliquez sur `+ Ajouter une compétence`. Sélectionnez `Langue` dans la catégorie. Renseignez :\n- **Langue** (Anglais, Espagnol, etc.)\n- **Niveau** : Débutant, Intermédiaire, Courant, Natif\n- **Certification** (ex: TOEIC, score) – facultatif\n\nValidez. Vous pouvez aussi modifier une langue existante en cliquant sur le crayon. Ces informations aident votre manager à proposer des formations ou des missions internationales. Vous pouvez les masquer des collègues via le paramètre `Visibilité` (Public / Privé).",
+    "current_query": "jé un toiec a 900 comen jlé ajout ?",
+    "rewritten_query": "Comment ajouter un score TOEIC à mon profil langues ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "469",
+    "last_turn_query": "Comment soumettre une idée d'amélioration dans la boîte à idées interne ?",
+    "last_turn_answer": "Pour soumettre une idée, allez dans `Innovation` > `Boîte à idées`. Cliquez sur `Proposer une idée`. Remplissez :\n- **Titre** (court, ex: \"Réduire les impressions papier\")\n- **Catégorie** : RSE, productivité, bien-être, etc.\n- **Description** : expliquez votre idée en détail\n- **Bénéfices attendus** : économies, gain de temps, écologie\n- **Pièce jointe** (optionnelle)\n\nValidez. Votre idée sera examinée par un comité. Vous pouvez suivre son statut (en attente, acceptée, refusée, en test). Si acceptée, vous gagnez des points de reconnaissance (cadeaux, jours de congé supplémentaires).",
+    "current_query": "jé une idée mé jé pa de bénéfice, jpé kan mm la soumettre ?",
+    "rewritten_query": "Puis-je soumettre une idée sans bénéfice attendu dans la boîte à idées ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "470",
+    "last_turn_query": "Comment consulter le nombre de jours de RTT restants sur l'année en cours ?",
+    "last_turn_answer": "Pour voir vos RTT restants, connectez-vous au portail RH. Sur la page d'accueil, un widget `Soldes` affiche :\n- CP : X jours\n- RTT : Y jours\n- CET : Z heures\n\nSi le widget est absent, allez dans `Absences` > `Mon compteur`. Sélectionnez l'année en cours. Un tableau détaille les acquisitions par mois et les prises. Vous pouvez aussi voir l'historique des deux dernières années. Le solde est mis à jour après chaque validation d'absence.",
+    "current_query": "jé 5 rtt mé jveu les poser la semaine proch, jfé koi ?",
+    "rewritten_query": "Comment poser des jours de RTT pour la semaine prochaine ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "471",
+    "last_turn_query": "Comment accéder à la messagerie interne depuis l'intranet ?",
+    "last_turn_answer": "Pour accéder à la messagerie interne, allez sur l'intranet. Dans le menu du haut, cliquez sur l'icône de bulle ou `Messages`. Une nouvelle page s'ouvre. Vous y trouvez :\n- **Conversations récentes**\n- **Nouveau message** : pour écrire à un collègue ou un service\n- **Notifications** : messages non lus (en gras)\n\nVous pouvez également recevoir les notifications par email (à configurer dans `Paramètres`). La messagerie permet d'envoyer des fichiers (max 10 Mo) et de créer des groupes. L'historique est conservé indéfiniment.",
+    "current_query": "jé un message non lu mé jlé vo pa dans la liste, koi faire ?",
+    "rewritten_query": "Que faire si un message non lu n'apparaît pas dans la liste de la messagerie interne ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "472",
+    "last_turn_query": "Comment demander un congé ?",
+    "last_turn_answer": "Allez dans 'Absences', cliquez 'Nouvelle demande', choisissez les dates, validez.",
+    "current_query": "jé mi les mauvais date, comen annul ?",
+    "rewritten_query": "Comment annuler une demande de congé ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "473",
+    "last_turn_query": "Comment voir mon solde de RTT ?",
+    "last_turn_answer": "Sur la page d'accueil, widget 'Soldes' ou menu 'Absences' > 'Mon compteur'.",
+    "current_query": "jvoi pa le widget, ou il é ?",
+    "rewritten_query": "Où trouver le widget des soldes de RTT ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "474",
+    "last_turn_query": "Comment ajouter un justificatif à une note de frais ?",
+    "last_turn_answer": "Ouvrez la note, cliquez 'Ajouter une pièce jointe', importez le fichier, sauvegardez.",
+    "current_query": "jé oublié d'ajouté le reçu, jpe le faire apré ?",
+    "rewritten_query": "Peut-on ajouter un justificatif après avoir soumis une note de frais ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "475",
+    "last_turn_query": "Comment voir l'organigramme de mon service ?",
+    "last_turn_answer": "Menu 'Annuaire' > 'Organigramme', cliquez sur votre service pour voir l'arborescence.",
+    "current_query": "jve mon chef, comen remonté dans l'arbre ?",
+    "rewritten_query": "Comment remonter à son supérieur dans l'organigramme ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "476",
+    "last_turn_query": "Comment demander du télétravail ?",
+    "last_turn_answer": "Allez dans 'Présences' > 'Télétravail', cliquez 'Nouvelle demande', choisissez la date, validez.",
+    "current_query": "le bouton é grisé, pk ?",
+    "rewritten_query": "Pourquoi le bouton de demande de télétravail est grisé ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "477",
+    "last_turn_query": "Comment télécharger mon bulletin de paie ?",
+    "last_turn_answer": "Menu 'Paie' > 'Mes bulletins', cliquez sur le PDF du mois souhaité.",
+    "current_query": "l pdf i s'ouvre pa, fichier corrompu, comen fé ?",
+    "rewritten_query": "Que faire si un bulletin de paie PDF est corrompu ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "478",
+    "last_turn_query": "Comment modifier mon adresse dans le profil RH ?",
+    "last_turn_answer": "Allez dans 'Mon profil' > 'Informations personnelles', cliquez sur le crayon à côté de l'adresse.",
+    "current_query": "jé plus l'ancien mail, comen confirm ?",
+    "rewritten_query": "Comment confirmer un changement d'adresse sans accès à l'ancien email ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "479",
+    "last_turn_query": "Comment ajouter une formation à mon plan ?",
+    "last_turn_answer": "Menu 'Formation' > 'Mon plan' > 'Demander une formation', recherchez et sélectionnez.",
+    "current_query": "jé demndé par erreur, comen enlevé ?",
+    "rewritten_query": "Comment annuler une demande de formation ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "480",
+    "last_turn_query": "Comment évaluer mon collaborateur ?",
+    "last_turn_answer": "Allez dans 'Entretiens' > 'À évaluer', cliquez sur le nom, remplissez le formulaire, soumettez.",
+    "current_query": "jé mi une note trop basse, comen la changé avant qu'il voie ?",
+    "rewritten_query": "Comment modifier une note d'évaluation avant qu'elle soit visible ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "481",
+    "last_turn_query": "Comment déclarer un arrêt maladie ?",
+    "last_turn_answer": "Menu 'Absences' > 'Arrêt maladie', cliquez 'Nouvel arrêt', remplissez dates et justificatif.",
+    "current_query": "g pa l'avis encor, jfé koi ?",
+    "rewritten_query": "Comment déclarer un arrêt maladie sans justificatif ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "482",
+    "last_turn_query": "Comment faire une demande de congé ?",
+    "last_turn_answer": "Allez dans l'onglet 'Absences', cliquez sur 'Nouvelle demande', sélectionnez les dates et validez.",
+    "current_query": "Puis-je annuler une demande de congé après l'avoir envoyée ?",
+    "rewritten_query": "Puis-je annuler une demande de congé après l'avoir envoyée ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "483",
+    "last_turn_query": "Comment consulter mon solde de RTT ?",
+    "last_turn_answer": "Le solde s'affiche sur la page d'accueil dans le widget 'Soldes' ou sous 'Absences' > 'Mon compteur'.",
+    "current_query": "Où se trouve le widget des soldes si je ne le vois pas sur la page d'accueil ?",
+    "rewritten_query": "Où se trouve le widget des soldes si je ne le vois pas sur la page d'accueil ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "484",
+    "last_turn_query": "Comment ajouter un justificatif à une note de frais ?",
+    "last_turn_answer": "Ouvrez la note concernée, cliquez sur 'Ajouter une pièce jointe', importez le fichier et sauvegardez.",
+    "current_query": "Est-il possible d'ajouter un reçu après avoir déjà soumis la note de frais ?",
+    "rewritten_query": "Est-il possible d'ajouter un reçu après avoir déjà soumis la note de frais ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "485",
+    "last_turn_query": "Comment visualiser l'organigramme de mon service ?",
+    "last_turn_answer": "Accédez à 'Annuaire', puis 'Organigramme', et cliquez sur votre service pour voir la hiérarchie.",
+    "current_query": "Comment remonter jusqu'au supérieur de mon chef dans l'organigramme ?",
+    "rewritten_query": "Comment remonter jusqu'au supérieur de mon chef dans l'organigramme ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "486",
+    "last_turn_query": "Comment faire une demande de télétravail ponctuel ?",
+    "last_turn_answer": "Allez dans 'Présences' > 'Télétravail', cliquez 'Nouvelle demande', choisissez la date et validez.",
+    "current_query": "Pourquoi le bouton de demande de télétravail est-il parfois grisé ?",
+    "rewritten_query": "Pourquoi le bouton de demande de télétravail est-il parfois grisé ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "487",
+    "last_turn_query": "Comment télécharger mon dernier bulletin de paie ?",
+    "last_turn_answer": "Dans le menu 'Paie', sélectionnez 'Mes bulletins', puis cliquez sur l'icône PDF du mois voulu.",
+    "current_query": "Que faire si le fichier PDF du bulletin de paie semble corrompu ?",
+    "rewritten_query": "Que faire si le fichier PDF du bulletin de paie semble corrompu ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "488",
+    "last_turn_query": "Comment mettre à jour mon adresse personnelle dans le profil RH ?",
+    "last_turn_answer": "Allez dans 'Mon profil' > 'Informations personnelles', puis cliquez sur le crayon à côté du champ adresse.",
+    "current_query": "Comment confirmer le changement d'adresse si je n'ai plus accès à mon ancienne boîte mail ?",
+    "rewritten_query": "Comment confirmer le changement d'adresse si je n'ai plus accès à mon ancienne boîte mail ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "489",
+    "last_turn_query": "Comment ajouter une formation à mon plan de développement ?",
+    "last_turn_answer": "Ouvrez le module 'Formation', allez dans 'Mon plan', cliquez 'Demander une formation' et sélectionnez la session.",
+    "current_query": "Est-ce qu'il est possible d'annuler une demande de formation déjà envoyée ?",
+    "rewritten_query": "Est-ce qu'il est possible d'annuler une demande de formation déjà envoyée ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "490",
+    "last_turn_query": "Comment évaluer un collaborateur dans le cadre de l'entretien annuel ?",
+    "last_turn_answer": "Rendez-vous dans 'Entretiens' > 'À évaluer', cliquez sur le nom, remplissez le formulaire et soumettez.",
+    "current_query": "Peut-on modifier une note d'évaluation avant que le collaborateur en prenne connaissance ?",
+    "rewritten_query": "Peut-on modifier une note d'évaluation avant que le collaborateur en prenne connaissance ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "491",
+    "last_turn_query": "Comment déclarer un arrêt maladie sur le portail RH ?",
+    "last_turn_answer": "Sous 'Absences', choisissez 'Arrêt maladie', puis 'Nouvel arrêt', renseignez les dates et joignez le justificatif.",
+    "current_query": "Comment déclarer l'arrêt maladie si je n'ai pas encore reçu l'avis du médecin ?",
+    "rewritten_query": "Comment déclarer l'arrêt maladie si je n'ai pas encore reçu l'avis du médecin ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "492",
+    "last_turn_query": "Comment rechercher un vol pour Paris avec des dates flexibles ?",
+    "last_turn_answer": "Pour rechercher un vol avec des dates flexibles, ouvrez la page d'accueil du service. Dans le moteur de recherche, sélectionnez 'Vol' comme type de voyage. Renseignez la ville de départ et la destination 'Paris'. Au lieu de choisir des dates fixes, cochez l'option 'Dates flexibles' ou '± 3 jours'. Vous pouvez alors sélectionner un mois entier. Le système affichera un tableau ou un graphique avec les prix par jour, vous permettant de repérer les jours les moins chers. Vous pouvez aussi affiner par nombre d'escales, compagnie, ou tranche horaire. Une fois votre choix fait, cliquez sur le prix pour voir les détails du vol et procéder à la réservation.",
+    "current_query": "Est-ce que le prix affiché pour chaque jour inclut déjà les taxes et les bagages en soute ?",
+    "rewritten_query": "Le prix affiché pour chaque jour dans la vue des dates flexibles inclut-il les taxes et les bagages en soute ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "493",
+    "last_turn_query": "Comment annuler une réservation d'hôtel sans frais ?",
+    "last_turn_answer": "Pour annuler une réservation d'hôtel sans frais, commencez par consulter les conditions d'annulation de votre réservation. Rendez-vous dans 'Mes réservations' et cliquez sur l'hôtel concerné. Cherchez la section 'Conditions d'annulation'. Si l'option 'Annulation gratuite jusqu'à une certaine date' est mentionnée, vous pouvez annuler sans pénalité avant cette date. Cliquez sur le bouton 'Annuler la réservation'. Confirmez votre choix. Le remboursement sera traité sous 5 à 10 jours ouvrés selon votre moyen de paiement. Si vous êtes passé par un tarif non remboursable, vous ne pourrez pas annuler sans frais. Dans ce cas, contactez directement l'hôtel pour négocier un report ou un avoir. Certains services proposent une assurance annulation à l'achat.",
+    "current_query": "Si j'annule après la date limite, puis-je au moins obtenir un avoir valable un an ?",
+    "rewritten_query": "En cas d'annulation après la date limite d'annulation gratuite, est-il possible d'obtenir un avoir d'une validité d'un an plutôt qu'un remboursement ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "494",
+    "last_turn_query": "Comment ajouter un bagage supplémentaire à un vol déjà réservé ?",
+    "last_turn_answer": "Pour ajouter un bagage après réservation, connectez-vous à votre compte et allez dans 'Mes voyages'. Sélectionnez le vol concerné. Cherchez une option 'Ajouter des services' ou 'Gérer les bagages'. Vous verrez les tarifs pour un bagage en soute supplémentaire (généralement entre 20 et 50 euros selon la destination et la compagnie). Choisissez le nombre de bagages (ex: +1 bagage de 23 kg). Procédez au paiement. Une confirmation vous sera envoyée par email. Vous pouvez aussi le faire lors de l'enregistrement en ligne, mais le tarif est souvent plus élevé. Attention : certains billets low cost ne permettent pas d'ajouter un bagage après achat ; dans ce cas, il faut contacter le service client.",
+    "current_query": "Puis-je ajouter un bagage pour un passager différent de celui qui a effectué la réservation ?",
+    "rewritten_query": "Est-il possible d'ajouter un bagage supplémentaire pour un autre passager (par exemple un enfant ou un collègue) sur une réservation de vol existante ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "495",
+    "last_turn_query": "Comment comparer les prix des locations de voiture entre plusieurs agences ?",
+    "last_turn_answer": "Pour comparer les prix, utilisez le module 'Location de voiture'. Saisissez le lieu de prise en charge et de restitution (aéroport, gare, ville). Indiquez les dates et heures. Cliquez sur 'Rechercher'. Le service affiche une liste d'offres de différentes agences (Avis, Hertz, Europcar, etc.). Vous pouvez trier par prix croissant, par type de véhicule, ou par kilométrage inclus. Chaque offre détaille : le prix total, les assurances de base, le carburant (plein/plein ou plein/vide), les frais de jeune conducteur éventuels. Cliquez sur 'Voir les détails' pour lire les conditions d'annulation. Vous pouvez également filtrer par agence préférée ou par note client. Une fois votre choix fait, sélectionnez l'offre et procédez à la réservation. Le service facture parfois des frais de dossier, vérifiez avant de confirmer.",
+    "current_query": "Les prix affichés incluent-ils l'assurance contre les dommages et le vol ?",
+    "rewritten_query": "Dans les résultats de comparaison des locations de voiture, les prix indiqués couvrent-ils l'assurance tous risques (dommages et vol) ou faut-il l'ajouter en option ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "496",
+    "last_turn_query": "Comment sélectionner un siège spécifique dans l'avion sans frais supplémentaires ?",
+    "last_turn_answer": "Pour choisir un siège gratuitement, ouvrez la page d'enregistrement en ligne (généralement ouverte 24h à 48h avant le départ). Après avoir entré votre nom et code de réservation, vous accédez au plan de la cabine. Les sièges gratuits sont souvent ceux non surlignés en couleur (les sièges payants sont marqués d'un symbole € ou d'une couleur différente). Sélectionnez un siège standard (au milieu de la rangée, côté couloir ou hublot selon disponibilité). Validez votre choix. Certaines compagnies permettent la sélection gratuite dès la réservation si vous avez un statut de fidélité ou un billet en classe supérieure. Sinon, il faut attendre l'enregistrement en ligne. Si vous voyagez avec un enfant, vous pouvez contacter le service client pour obtenir des sièges gratuits à proximité.",
+    "current_query": "Puis-je changer mon siège gratuitement après avoir fait l'enregistrement en ligne ?",
+    "rewritten_query": "Après avoir effectué l'enregistrement en ligne et sélectionné un siège gratuit, est-il possible de le modifier pour un autre siège sans frais supplémentaires ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "497",
+    "last_turn_query": "Comment filtrer les hôtels avec piscine et petit-déjeuner inclus ?",
+    "last_turn_answer": "Pour filtrer les hôtels, lancez une recherche avec vos dates et destination. Sur la page des résultats, cherchez la barre latérale ou le menu 'Filtres'. Sous la catégorie 'Équipements', cochez 'Piscine' (et éventuellement 'Piscine extérieure' ou 'Piscine intérieure'). Ensuite, sous 'Repas', cochez 'Petit-déjeuner inclus'. Vous pouvez également combiner avec d'autres filtres : note minimale (ex: 4 étoiles), prix maximum, distance du centre. Cliquez sur 'Appliquer'. La liste se met à jour. Certains services affichent un badge 'Petit-déjeuner inclus' sur les cartes des hôtels. Passez en revue les offres et cliquez sur l'une d'elles pour vérifier que le petit-déjeuner est bien inclus (parfois seulement pour certains tarifs).",
+    "current_query": "Est-ce que le filtre 'petit-déjeuner inclus' prend aussi en compte les offres où il est offert pour les enfants ?",
+    "rewritten_query": "Le filtre 'petit-déjeuner inclus' inclut-il les hôtels où le petit-déjeuner est gratuit uniquement pour les enfants (mais payant pour les adultes) ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "498",
+    "last_turn_query": "Comment modifier la date de retour d'une réservation de voiture sans annuler ?",
+    "last_turn_answer": "Pour modifier la date de retour, connectez-vous à votre compte et allez dans 'Mes réservations'. Sélectionnez la location de voiture. Cherchez le bouton 'Modifier la réservation' ou 'Modifier les dates'. Attention : cette option n'est disponible que si vous avez choisi un tarif modifiable (généralement plus cher). Si c'est le cas, vous pouvez ajuster la date de retour. Le système recalculera le prix total. Vous devrez payer la différence si le nouveau tarif est plus élevé, ou un remboursement partiel si moins cher (sous réserve des conditions). Si votre tarif est non modifiable, contactez l'agence de location directement pour voir s'ils acceptent un report. Des frais de modification peuvent s'appliquer. Dans tous les cas, faites cette modification au moins 24h avant l'heure de prise en charge initiale.",
+    "current_query": "Les frais de modification sont-ils les mêmes si j'avance ma date de retour plutôt que de la reculer ?",
+    "rewritten_query": "Les frais de modification d'une réservation de voiture sont-ils identiques lorsque l'on réduit la durée de location (retour plus tôt) par rapport à une prolongation (retour plus tard) ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "499",
+    "last_turn_query": "Comment ajouter un repas spécial (végétarien, sans gluten) à ma réservation de vol ?",
+    "last_turn_answer": "Pour ajouter un repas spécial, allez dans 'Mes réservations' et sélectionnez votre vol. Cherchez l'option 'Repas spéciaux' ou 'Demande de repas'. La plupart des compagnies proposent une liste : végétarien, végétalien, sans gluten, casher, halal, repas pour diabétique, etc. Choisissez votre type. Validez. La demande sera transmise à la compagnie. Vous pouvez aussi le faire lors de l'enregistrement en ligne ou en appelant le service client. Attention : certaines compagnies low cost ne proposent pas de repas spéciaux. Si votre vol est court (moins de 2h), il se peut qu'aucun repas ne soit servi. Vérifiez les conditions au moment de la réservation. Faites la demande au moins 48h avant le départ.",
+    "current_query": "Puis-je commander deux repas différents pour l'aller et le retour sur un même billet aller-retour ?",
+    "rewritten_query": "Sur un billet aller-retour, est-il possible de sélectionner un type de repas spécial pour le vol aller et un autre type pour le vol retour ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "500",
+    "last_turn_query": "Comment consulter les avis vérifiés d'un hôtel avant de réserver ?",
+    "last_turn_answer": "Pour consulter les avis, ouvrez la fiche de l'hôtel. Faites défiler jusqu'à la section 'Avis des voyageurs'. Vous pouvez trier par 'Plus récents' ou 'Plus utiles'. Les avis vérifiés sont généralement marqués 'Séjour vérifié' ou 'Client ayant réservé sur notre plateforme'. Méfiez-vous des avis sans cette mention. Vous pouvez filtrer par note (ex: uniquement les avis 4 et 5 étoiles) ou par type de voyageur (en famille, entre amis, en solo). Lisez les commentaires récents pour avoir une idée de la situation actuelle (propreté, bruit, personnel). Les mauvais avis récents sont souvent plus parlants que les bons anciens. Certains services affichent une note globale et le nombre d'avis. Cliquez sur 'Voir tous les avis' pour plus de détails.",
+    "current_query": "Les avis vérifiés sont-ils forcément postés par des clients ayant réservé via ce service, ou incluent-ils aussi d'autres plateformes ?",
+    "rewritten_query": "La mention 'avis vérifié' sur un hôtel garantit-elle que le client a réservé sur cette plateforme spécifique, ou cela peut-il inclure des avis importés d'autres sites de réservation ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "501",
+    "last_turn_query": "Comment utiliser des miles ou points de fidélité pour payer un vol ?",
+    "last_turn_answer": "Pour utiliser vos miles, connectez-vous à votre compte de fidélité. Lors de la recherche de vol, activez l'option 'Payer avec des miles' ou 'Utiliser des points'. Le moteur de recherche affichera les vols disponibles avec le nombre de miles requis. Vous pouvez souvent combiner miles + argent si vous n'avez pas assez de points. Après avoir sélectionné votre vol, passez à la page de paiement. Choisissez 'Paiement par miles'. Le système déduira le montant. Vérifiez les taxes (celles-ci restent souvent à payer en euros). Si vous avez un statut élite, vous pouvez aussi avoir droit à des réductions supplémentaires. Attention : les miles ont souvent une date d'expiration. Consultez votre solde avant de réserver.",
+    "current_query": "Est-ce que les miles peuvent être utilisés pour payer les taxes et les frais de dossier, ou seulement le prix du billet hors taxes ?",
+    "rewritten_query": "Lors d'un paiement par miles, les points de fidélité couvrent-ils également les taxes aéroportuaires et les frais de dossier, ou uniquement le tarif de base du billet ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "502",
+    "last_turn_query": "Comment modifier ma destination en cours de course ?",
+    "last_turn_answer": "**Pour modifier votre destination pendant la course :**\n\n1. Appuyez sur l'écran tactile du véhicule ou sur votre téléphone (si vous êtes passager).\n2. Cherchez l'icône **\"Modifier\"** ou les **trois points** en bas de l'écran.\n3. Sélectionnez **\"Changer de destination\"**.\n4. Saisissez la nouvelle adresse (ou utilisez la carte pour déplacer le point d'arrivée).\n5. Confirmez. Le conducteur reçoit la nouvelle route.\n\n> **Attention** : Le tarif peut être recalculé immédiatement. Si vous ajoutez des kilomètres, le prix augmente. Certaines plateformes facturent un **supplément de 1 à 2€** pour toute modification après le début de la course.\n\n- Si le conducteur refuse, vous pouvez mettre fin à la course à l'endroit actuel et en commander une nouvelle.\n- Sur certaines applis (comme Uber), vous ne pouvez modifier la destination qu'une seule fois par course.",
+    "current_query": "Est-ce que le conducteur est automatiquement informé du nouveau tarif après ma modification ?",
+    "rewritten_query": "Lorsque je modifie la destination en cours de course, le conducteur voit-il le nouveau tarif recalculé automatiquement ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "503",
+    "last_turn_query": "Comment signaler un conducteur qui a mal conduit (freinages brusques, excès de vitesse) ?",
+    "last_turn_answer": "**Pour signaler un problème de conduite :**\n\n* Après la fin de la course, ouvrez l'historique des trajets.\n* Cliquez sur la course concernée.\n* Appuyez sur **\"Signaler un problème\"** (ou le drapeau rouge).\n* Choisissez la catégorie **\"Conduite dangereuse\"** ou **\"Comportement du conducteur\"**.\n* Dans le champ texte, décrivez :\n  - *Freinages brusques répétés*\n  - *Vitesse excessive (précisez si vous avez vu le compteur)*\n  - *Usage du téléphone au volant*\n  * Vous pouvez aussi joindre une **capture d'écran** de l'application (si vous avez pris la vitesse).\n\n**Le service client :**\n- Examine le signalement (parfois via les données GPS du véhicule).\n- Vous recevez une réponse sous 24 à 72h.\n- Si avéré, le conducteur peut être averti, dégradé ou banni.\n\n> **Note** : Vous ne serez jamais facturé pour cette course si le signalement aboutit à une infraction grave.",
+    "current_query": "Puis-je signaler un conducteur plusieurs jours après la course ?",
+    "rewritten_query": "Est-il possible de signaler un conducteur pour mauvaise conduite plusieurs jours après la fin de la course ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "504",
+    "last_turn_query": "Comment activer le mode \"livraison sans contact\" pour une commande de repas ?",
+    "last_turn_answer": "**Pour activer le sans-contact :**\n\n1. Au moment de passer commande, dans l'écran de validation, cherchez **\"Options de livraison\"** (souvent un petit triangle ou un lien).\n2. Cochez la case **\"Livraison sans contact\"**.\n3. Vous pouvez aussi ajouter une **instruction** (ex : *\"Laisser devant la porte, sonner et reculer\"*).\n\n**Si la commande est déjà passée :**\n- Allez dans **\"Suivi de commande\"**.\n- Cliquez sur **\"Contacter le livreur\"**.\n- Envoyez un message : *\"Merci de laisser le colis devant la porte, sans sonner. Livraison sans contact.\"*\n\n**Le livreur doit :**\n- Déposer le sac ou le carton.\n- Prendre une photo comme preuve.\n- S'éloigner avant que vous ouvriez.\n\n> **⚠️ Attention** : Tous les restaurants n'acceptent pas cette option (notamment si un code de retrait est requis).",
+    "current_query": "Que faire si le livreur insiste pour me remettre le colis en main propre malgré ma demande de sans-contact ?",
+    "rewritten_query": "Comment réagir si le livreur ne respecte pas la consigne de livraison sans contact et souhaite me remettre le colis en main propre ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "505",
+    "last_turn_query": "Comment partager ma position en temps réel avec un proche pendant un trajet ?",
+    "last_turn_answer": "**Pour partager votre trajet en direct :**\n\n- **Avant ou pendant la course** :\n  * Appuyez sur le bouton **\"Partager l'état de la course\"** (souvent un icône de personne + flèche).\n  * Sélectionnez le contact dans votre répertoire (ou copiez le lien).\n  * La personne reçoit un SMS ou une notification avec un lien.\n  * En cliquant, elle voit : votre position en temps réel, le nom du conducteur, la plaque d'immatriculation, l'heure d'arrivée estimée.\n\n- **Fonctionnalités** :\n  * Le partage s'arrête automatiquement 15 minutes après la fin de la course.\n  * Vous pouvez arrêter manuellement à tout moment.\n  * Certaines applis permettent un partage automatique pour tous vos trajets (à configurer dans **Paramètres > Sécurité**).\n\n> **Conseil** : Utilisez cette option surtout la nuit ou dans des zones peu fréquentées.",
+    "current_query": "Le destinataire du lien peut-il voir mon historique de trajets antérieurs ou seulement celui en cours ?",
+    "rewritten_query": "La personne qui reçoit le lien de partage de position voit-elle uniquement le trajet en temps réel ou peut-elle aussi accéder à mes courses précédentes ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "506",
+    "last_turn_query": "Comment ajouter un arrêt intermédiaire (ex: aller chercher un ami) lors d'une réservation de VTC ?",
+    "last_turn_answer": "**Pour ajouter un arrêt :**\n\n1. **Avant la réservation** :\n   - Saisissez votre point de départ.\n   - Cliquez sur **\"+ Ajouter un arrêt\"** (souvent à côté de la destination).\n   - Entrez l'adresse de l'arrêt intermédiaire.\n   - Puis votre destination finale.\n   - Le tarif est recalculé (incluant l'attente éventuelle).\n\n2. **Pendant la course** :\n   - Appuyez sur **\"Modifier la course\"**.\n   - Sélectionnez **\"Ajouter un arrêt\"**.\n   - Le conducteur est notifié. Un supplément de 1 à 3€ peut s'appliquer.\n\n**Limites :**\n- Maximum 2 arrêts intermédiaires (selon la ville).\n- Chaque arrêt ne doit pas dépasser 5 minutes d'attente (sinon frais d'attente).\n- Certaines plateformes (ex: UberX) n'autorisent pas les arrêts pour les trajets courts (moins de 5 km).\n\n**Exemple :**\n```\nDépart : Gare du Nord\nArrêt 1 : 10 rue de Rivoli (récupérer un ami)\nArrêt 2 : Monoprix Bastille (retirer une commande)\nDestination : Aéroport Orly\n```",
+    "current_query": "Les frais d'attente à un arrêt intermédiaire sont-ils facturés au temps ou au forfait ?",
+    "rewritten_query": "Lors d'un arrêt intermédiaire en VTC, les frais d'attente sont-ils calculés à la minute ou s'agit-il d'un montant forfaitaire ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "507",
+    "last_turn_query": "Comment annuler une commande de livraison après que le livreur a déjà récupéré le colis ?",
+    "last_turn_answer": "**Si le livreur a déjà pris le colis :**\n\n- Ouvrez le **suivi de commande**.\n- Cliquez sur **\"Aide\"** ou **\"Contacter\"**.\n- Choisissez **\"Annuler la commande\"** (option parfois grisée).\n\n**Selon la plateforme :**\n- **Uber Eats / Deliveroo** : impossible d'annuler après la prise en charge. Vous pouvez refuser la livraison à l'arrivée, mais la commande sera facturée (sauf cas exceptionnel).\n- **Amazon Flex** : possible d'annuler jusqu'à 30 minutes après, mais des frais de 5€ s'appliquent.\n- **La Poste / Colissimo** : vous devez contacter le service client et faire une **demande de retour à l'envoyeur** (frais à votre charge).\n\n**Que faire concrètement ?**\n1. Contactez le livreur via le chat : demandez-lui de **ne pas livrer** et de retourner le colis à l'entrepôt.\n2. Contactez le support client : ils peuvent bloquer la livraison si elle n'est pas encore terminée.\n3. Si le colis est déjà livré, vous devrez passer par une procédure de retour (renvoi postal).\n\n> **Note** : Les frais d'annulation tardive sont souvent de 100% du montant de la commande.",
+    "current_query": "Puis-je refuser la livraison à la porte sans payer des frais supplémentaires ?",
+    "rewritten_query": "Si je refuse de prendre livraison d'un colis lorsque le livreur arrive à ma porte, des frais supplémentaires me seront-ils facturés ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "508",
+    "last_turn_query": "Comment activer le mode \"chauffeur\" sur mon compte pour commencer à recevoir des courses ?",
+    "last_turn_answer": "**Pour devenir conducteur (si vous êtes déjà inscrit) :**\n\n1. Ouvrez l'application **conducteur** (différente de l'application passager).\n2. Vérifiez que votre **statut** est **\"En ligne\"** (bouton en haut, souvent vert).\n3. Si vous êtes hors ligne, le bouton est rouge ou gris. Appuyez dessus pour passer **\"Disponible\"**.\n\n**Prérequis avant de passer en ligne :**\n- ✅ Documents à jour (carte verte, contrôle technique, assurance pro).\n- ✅ Vérification faciale (certaines applis demandent une selfie avant chaque session).\n- ✅ Niveau de carburant suffisant (pas de vérification automatique, mais conseillé).\n\n**Options de filtrage :**\n- *Rayon d'action* : choisissez une zone (ex: centre-ville uniquement).\n- *Type de courses* : acceptez les animaux, les gros bagages, etc.\n\n**Après activation :**\n- Un signal sonore indique une course entrante.\n- Vous avez 15 secondes pour accepter (sinon pénalité).\n- Le mode **\"pause\"** peut être activé entre les courses pour une pause café.",
+    "current_query": "Si j'active le mode chauffeur mais que je ne souhaite pas recevoir de courses pendant un certain temps, comment mettre ma disponibilité en pause ?",
+    "rewritten_query": "Lorsque je suis en mode chauffeur, comment puis-je suspendre temporairement la réception de nouvelles courses sans me déconnecter complètement ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "509",
+    "last_turn_query": "Comment contacter le support après une course où j'ai oublié un objet dans le véhicule ?",
+    "last_turn_answer": "**Procédure pour objet perdu :**\n\n1. Allez dans l'**historique des courses**.\n2. Sélectionnez le trajet concerné.\n3. Cliquez sur **\"Objet perdu\"** (ou **\"Signaler un problème\"** > **\"J'ai oublié quelque chose\"**).\n4. Décrivez l'objet (ex: *portefeuille marron, carte d'identité, clés de maison*).\n5. Choisissez un moyen de contact :\n   - **Appel via la plateforme** (numéro masqué, valable 48h).\n   - **Chat** (message au conducteur).\n   - **Email au support** (réponse plus lente).\n\n**Si le conducteur répond :**\n- Il peut vous proposer un **retour en main propre** (gratuit ou avec un petit dédommagement).\n- Ou déposer l'objet dans un **point de collecte** (agence partenaire).\n\n**Frais éventuels :**\n- *Frais de livraison* : 5 à 15€ selon la distance.\n- *Frais de recherche* : certaines plateformes facturent 10€ (remboursés si l'objet est retrouvé).\n\n> **Attention** : Le support n'est pas responsable si le conducteur nie avoir trouvé l'objet. Pensez à activer la **localisation en temps réel** pour faciliter la recherche.",
+    "current_query": "Combien de temps après la course puis-je encore signaler un objet perdu ?",
+    "rewritten_query": "Quel est le délai maximal après une course pour signaler un objet oublié dans le véhicule ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "510",
+    "last_turn_query": "Comment évaluer un livreur avec une note et un pourboire après une livraison ?",
+    "last_turn_answer": "**Pour noter et donner un pourboire :**\n\n- Après la livraison, une notification ou un email vous propose de **noter** (généralement de 1 à 5 étoiles).\n- Vous avez **jusqu'à 24h** pour le faire. Passé ce délai, la note par défaut est 3 étoiles.\n\n**Étapes détaillées :**\n\n1. Ouvrez l'application et allez dans l'**historique des commandes**.\n2. Cliquez sur la commande terminée.\n3. Appuyez sur **\"Évaluer le livreur\"**.\n4. Sélectionnez le nombre d'étoiles :\n   - ⭐⭐⭐⭐⭐ : *Très rapide, poli, soigneux*\n   - ⭐⭐ : *Retard important, comportement désagréable*\n5. Vous pouvez ajouter un commentaire (optionnel).\n\n**Pourboire :**\n- En dessous de la note, choisissez un montant prédéfini (2€, 3€, 5€) ou **\"Personnalisé\"**.\n- Le pourboire est prélevé sur votre carte de paiement (pas en espèces).\n- Le livreur reçoit 100% du montant (la plateforme ne prend pas de commission).\n\n> **Note** : Si vous ne notez pas, le livreur n'est pas pénalisé, mais vous perdez l'opportunité de le récompenser.",
+    "current_query": "Le livreur voit-il mon commentaire écrit ou uniquement la note en étoiles ?",
+    "rewritten_query": "Lorsque j'ajoute un commentaire écrit à l'évaluation d'un livreur, celui-ci peut-il lire ce commentaire ou voit-il seulement la note en étoiles ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "511",
+    "last_turn_query": "Comment vérifier si un conducteur a bien le badge \"Propre et sûr\" (véhicule désinfecté) ?",
+    "last_turn_answer": "**Pour vérifier les certifications du conducteur :**\n\n- **Avant de réserver** :\n  * Sur la fiche du conducteur (affichée après avoir choisi le type de course), cherchez un **badge** ou un **icône de bouclier**.\n  * Exemples : 🔵 *\"Propre et sûr\"* (véhicule désinfecté entre chaque course), 🟢 *\"Conducteur préféré\"*, 🟠 *\"Kit gel à bord\"*.\n\n- **Pendant la course** :\n  * Certaines applis affichent un message dans le bas de l'écran : *\"Ce conducteur suit le protocole de désinfection\"*.\n  * Vous pouvez aussi demander verbalement : *\"Avez-vous le kit désinfection ?\"* – le conducteur doit montrer le gel et les lingettes.\n\n**Que faire si le badge est absent ?**\n- Cela ne signifie pas forcément que le véhicule est sale. Certains conducteurs refusent de payer la certification (qui coûte environ 5€ par mois).\n- Vous pouvez annuler la course sans frais si vous n'êtes pas rassuré (dans les 2 premières minutes).\n\n**Signalement :**\nSi le conducteur affiche le badge mais que le véhicule est clairement malpropre, signalez-le via **\"Aide\"** > **\"Propreté du véhicule\"**.",
+    "current_query": "Le badge \"Propre et sûr\" garantit-il que le conducteur a effectivement désinfecté le véhicule avant mon trajet ?",
+    "rewritten_query": "La présence du badge \"Propre et sûr\" sur le profil d'un conducteur est-elle une garantie réelle que le véhicule a été désinfecté juste avant ma course ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "512",
+    "last_turn_query": "Comment réserver une salle de réunion pour demain après-midi ?",
+    "last_turn_answer": "Pour réserver une salle, ouvrez le module 'Salles'. Sélectionnez la date de demain. Dans la vue des créneaux, choisissez une plage horaire (ex: 14h00-15h30). Cliquez sur un créneau vert (disponible). Remplissez le formulaire : nom de la réunion, nombre de participants, équipements nécessaires (vidéoprojecteur, téléphone). Validez. Vous recevrez une confirmation par email. Vous pouvez aussi ajouter des participants qui seront notifiés automatiquement.",
+    "current_query": "Puis-je réserver une salle pour une durée de 2 heures sans créer de conflit avec une autre réunion ?",
+    "rewritten_query": "Comment réserver une salle pour deux heures sans conflit d'horaires ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "513",
+    "last_turn_query": "Comment annuler une réservation de salle de réunion que j'ai faite par erreur ?",
+    "last_turn_answer": "Pour annuler, allez dans 'Mes réservations'. Trouvez la salle et le créneau concerné. Cliquez sur le bouton 'Annuler la réservation'. Confirmez. La salle redevient disponible. Une notification d'annulation est envoyée aux participants. Si l'annulation est faite moins de 15 minutes avant le début, vous pouvez être facturé de frais (selon la politique interne).",
+    "current_query": "Est-ce que les participants reçoivent automatiquement un email d'annulation ?",
+    "rewritten_query": "Les participants sont-ils automatiquement notifiés par email lors de l'annulation ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "514",
+    "last_turn_query": "Comment prolonger ma réservation de salle si la réunion déborde ?",
+    "last_turn_answer": "Pour prolonger, ouvrez la réservation en cours. Cliquez sur 'Prolonger'. Choisissez la nouvelle heure de fin (ex: +30 minutes). Le système vérifie si la salle est libre après votre créneau. Si c'est le cas, validez. Si elle est déjà réservée, vous pouvez soit demander au prochain réservant de décaler (via le chat intégré), soit chercher une autre salle disponible. La prolongation peut être facturée si elle dépasse la durée initiale.",
+    "current_query": "Que faire si la salle est déjà réservée juste après mon créneau ?",
+    "rewritten_query": "Comment prolonger une réunion si la salle est déjà réservée par quelqu'un d'autre juste après ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "515",
+    "last_turn_query": "Comment vérifier quels équipements sont disponibles dans une salle (vidéoprojecteur, tableau blanc, etc.) ?",
+    "last_turn_answer": "Pour voir les équipements, ouvrez la fiche de la salle. Dans la liste des salles, cliquez sur le nom ou l'icône 'Détails'. Une fenêtre affiche : capacité maximale, équipements fixes (écran, tableau, connexion HDMI), équipements sur demande (visioconférence, adaptateurs). Vous pouvez aussi filtrer les salles par équipement lors de la recherche (cochez 'Vidéoprojecteur' par exemple). Certaines salles ont une photo pour visualiser l'agencement.",
+    "current_query": "Puis-je réserver une salle uniquement si elle a un tableau blanc interactif ?",
+    "rewritten_query": "Comment filtrer les salles pour n'afficher que celles équipées d'un tableau blanc interactif ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "516",
+    "last_turn_query": "Comment inviter des collègues à une réunion déjà programmée dans la salle ?",
+    "last_turn_answer": "Pour ajouter des participants après réservation, ouvrez la réservation. Cliquez sur 'Modifier' ou 'Ajouter des participants'. Saisissez leurs adresses email ou leurs noms (l'annuaire se complète automatiquement). Vous pouvez leur envoyer une invitation avec le lien de la réunion (si virtuel) ou simplement un rappel. Les nouveaux participants recevront le détail de la salle et l'heure. Ils pourront accepter ou refuser. Le propriétaire de la réservation reçoit une notification de chaque réponse.",
+    "current_query": "Les nouveaux invités verront-ils l'historique des modifications de la réservation ?",
+    "rewritten_query": "Les personnes ajoutées après la création voient-elles les modifications antérieures (annulations, changements d'horaire) ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "517",
+    "last_turn_query": "Comment signaler un problème technique dans une salle (écran qui ne fonctionne pas) ?",
+    "last_turn_answer": "Pour signaler un incident, ouvrez la réservation en cours ou à venir. Cliquez sur 'Signaler un problème'. Choisissez le type (écran, chauffage, éclairage, propreté). Décrivez brièvement. Vous pouvez joindre une photo. Le signalement est envoyé aux services techniques. Vous pouvez aussi contacter l'accueil via le chat intégré. Un ticket est créé et vous pouvez suivre son avancement dans 'Mes signalements'.",
+    "current_query": "Combien de temps faut-il en moyenne pour qu'un technicien intervienne ?",
+    "rewritten_query": "Délai moyen d'intervention d'un technicien après signalement d'un problème en salle ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "518",
+    "last_turn_query": "Comment réserver une salle pour une série de réunions hebdomadaires (tous les lundis) ?",
+    "last_turn_answer": "Pour une réservation récurrente, lors de la création de la réservation, activez l'option 'Récurrence'. Choisissez la fréquence (chaque semaine, chaque mois). Sélectionnez les jours de la semaine (ex: lundi). Définissez la date de fin (après 5 séances ou à une date précise). Le système vérifie la disponibilité pour toutes les occurrences. Si une date est indisponible, vous serez averti et pourrez ajuster. Les participants reçoivent une seule invitation avec toutes les dates.",
+    "current_query": "Puis-je annuler une seule occurrence d'une série sans annuler toutes les autres ?",
+    "rewritten_query": "Comment annuler un seul lundi d'une série de réservations hebdomadaires ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "519",
+    "last_turn_query": "Comment savoir si une salle est libre dans l'heure qui suit sans faire de réservation ?",
+    "last_turn_answer": "Pour vérifier la disponibilité immédiate, allez dans la vue 'Salles' et consultez le planning en temps réel. Les créneaux verts sont libres, les rouges sont occupés. Vous pouvez aussi passer devant la salle : un écran tactile à l'entrée affiche le calendrier de la journée. Si la salle est libre, vous pouvez l'occuper sans réservation (usage informel) mais un réservant prioritaire pourrait vous demander de libérer. Il est recommandé de faire une réservation express (1 clic) même pour une occupation immédiate.",
+    "current_query": "Puis-je occuper une salle libre sans réservation si personne ne l'a réservée ?",
+    "rewritten_query": "Est-il autorisé d'utiliser une salle libre sans réservation à l'avance ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "520",
+    "last_turn_query": "Comment exporter mon planning de réservations de salles vers mon calendrier Outlook ?",
+    "last_turn_answer": "Pour exporter, allez dans 'Mes réservations'. Cliquez sur 'Exporter' en haut de la liste. Choisissez le format (iCal ou CSV). Téléchargez le fichier. Dans Outlook, importez le fichier via 'Fichier > Ouvrir > Importer'. Vous pouvez aussi synchroniser automatiquement : dans les paramètres du service, copiez le lien iCal et ajoutez-le comme calendrier Internet dans Outlook. Les réservations futures se mettront à jour automatiquement.",
+    "current_query": "La synchronisation automatique fonctionne-t-elle aussi avec Google Agenda ?",
+    "rewritten_query": "Le lien iCal pour exporter les réservations est-il compatible avec Google Agenda ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "521",
+    "last_turn_query": "Comment demander une salle plus grande si le nombre de participants augmente au dernier moment ?",
+    "last_turn_answer": "Pour changer de salle, ouvrez votre réservation. Cliquez sur 'Modifier' puis 'Changer de salle'. Le système affiche les salles disponibles au même créneau avec une capacité supérieure. Sélectionnez-en une. La réservation est transférée. Les participants reçoivent une notification du changement. Si aucune salle n'est disponible, vous pouvez soit fractionner le groupe en deux salles, soit demander à l'accueil de vous attribuer une salle non listée (salle de réunion exceptionnelle).",
+    "current_query": "Les participants sont-ils automatiquement informés du changement de salle ?",
+    "rewritten_query": "Notification automatique aux participants en cas de changement de salle ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "522",
+    "last_turn_query": "Comment réserver une salle pour demain après-midi ?",
+    "last_turn_answer": "Ouvrez 'Salles', choisissez demain, cliquez sur un créneau vert, remplissez le formulaire, validez.",
+    "current_query": "jveux 2h pas 1h30, comen on fait ?",
+    "rewritten_query": "Comment réserver une salle pour 2 heures au lieu d'1h30 ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "523",
+    "last_turn_query": "Comment annuler une réservation de salle que j'ai faite par erreur ?",
+    "last_turn_answer": "Allez dans 'Mes réservations', cliquez sur 'Annuler' à côté de la réservation, confirmez.",
+    "current_query": "jé annulé mé les collègues on pa reçu de mail, c normal ?",
+    "rewritten_query": "Les participants reçoivent-ils un email d'annulation ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "524",
+    "last_turn_query": "Comment prolonger ma réservation de salle si la réunion déborde ?",
+    "last_turn_answer": "Ouvrez la réservation, cliquez 'Prolonger', choisissez la nouvelle heure de fin, validez si la salle est libre.",
+    "current_query": "la salle é réservé apré, jpeu pa prolonger, jfé koi ?",
+    "rewritten_query": "Que faire si la salle est déjà réservée après mon créneau ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "525",
+    "last_turn_query": "Comment vérifier quels équipements sont disponibles dans une salle ?",
+    "last_turn_answer": "Cliquez sur le nom de la salle, une fiche affiche les équipements (écran, tableau, etc.).",
+    "current_query": "jveux une salle avec tableau blanc, comen filtrer ?",
+    "rewritten_query": "Comment filtrer les salles avec tableau blanc ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "526",
+    "last_turn_query": "Comment inviter des collègues à une réunion déjà programmée ?",
+    "last_turn_answer": "Ouvrez la réservation, cliquez 'Ajouter des participants', saisissez leurs noms, envoyez.",
+    "current_query": "jé ajouté un collègue mé i l'a pa reçu, comen savoir ?",
+    "rewritten_query": "Comment vérifier si un collègue a bien reçu l'invitation ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "527",
+    "last_turn_query": "Comment signaler un problème technique dans une salle ?",
+    "last_turn_answer": "Dans la réservation, cliquez 'Signaler un problème', choisissez le type, décrivez, envoyez.",
+    "current_query": "jé signalé un écran cassé ya 3j, personne est venu, jfé koi ?",
+    "rewritten_query": "Que faire si un signalement technique reste sans intervention ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "528",
+    "last_turn_query": "Comment réserver une salle pour tous les lundis ?",
+    "last_turn_answer": "Activez l'option 'Récurrence' lors de la réservation, choisissez 'chaque semaine' et le lundi.",
+    "current_query": "jveux annuler juste le lundi prochain, pas tous, comen ?",
+    "rewritten_query": "Comment annuler une seule occurrence d'une réservation récurrente ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "529",
+    "last_turn_query": "Comment savoir si une salle est libre dans l'heure qui suit ?",
+    "last_turn_answer": "Regardez le planning en temps réel (créneaux verts) ou l'écran tactile devant la salle.",
+    "current_query": "si jla prend san réserv, jpeu me faire virer ?",
+    "rewritten_query": "Puis-je utiliser une salle libre sans réservation ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "530",
+    "last_turn_query": "Comment exporter mes réservations vers Outlook ?",
+    "last_turn_answer": "Dans 'Mes réservations', cliquez 'Exporter', choisissez iCal, puis importez dans Outlook.",
+    "current_query": "ca marche aussi sur google agenda ?",
+    "rewritten_query": "L'export iCal fonctionne-t-il avec Google Agenda ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "531",
+    "last_turn_query": "Comment changer de salle pour une plus grande en cours de route ?",
+    "last_turn_answer": "Modifiez la réservation, cliquez 'Changer de salle', choisissez une salle disponible plus grande.",
+    "current_query": "les gens sont prévenus auto si je change de salle ?",
+    "rewritten_query": "Les participants sont-ils automatiquement informés du changement de salle ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "532",
+    "last_turn_query": "Comment réinitialiser mon mot de passe si j'ai oublié mon ancien mot de passe ?",
+    "last_turn_answer": "**Procédure de réinitialisation :**\n\n1. Sur la page de connexion, cliquez sur **\"Mot de passe oublié ?\"**\n2. Saisissez votre adresse email professionnelle.\n3. Vous recevrez un **lien de réinitialisation** dans votre boîte (valable 1 heure).\n4. Cliquez sur le lien, puis créez un nouveau mot de passe (minimum 8 caractères, avec une majuscule, un chiffre).\n\n**Si vous n'avez pas accès à votre email :**\n- Contactez votre administrateur RH ou IT.\n- Répondez aux questions de sécurité (si configurées).\n- Une vérification d'identité sera faite (carte d'identité).\n\n> **Note** : Le mot de passe ne doit pas être identique aux 5 derniers utilisés.",
+    "current_query": "Le lien de réinitialisation expire au bout d'une heure, puis-je en demander un nouveau ?",
+    "rewritten_query": "Puis-je demander un nouveau lien de réinitialisation après expiration ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "533",
+    "last_turn_query": "Comment changer mon mot de passe actuel sans passer par la réinitialisation ?",
+    "last_turn_answer": "**Pour modifier votre mot de passe :**\n\n- Connectez-vous à votre compte.\n- Allez dans **\"Mon profil\"** > **\"Sécurité\"**.\n- Cliquez sur **\"Changer le mot de passe\"**.\n- Saisissez :\n  * Ancien mot de passe\n  * Nouveau mot de passe\n  * Confirmation\n- Validez.\n\n**Contraintes :**\n- Longueur minimale : 12 caractères (recommandé)\n- Doit contenir : majuscule, minuscule, chiffre, caractère spécial\n- Ne peut pas contenir votre prénom ou nom\n\nUn email de confirmation vous sera envoyé. Si vous oubliez votre ancien mot de passe, utilisez la réinitialisation.",
+    "current_query": "Est-ce que le changement de mot de passe me déconnecte de tous mes appareils ?",
+    "rewritten_query": "Le changement de mot de passe déconnecte-t-il toutes les sessions actives ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "534",
+    "last_turn_query": "Comment activer la double authentification (2FA) sur mon compte employé ?",
+    "last_turn_answer": "**Activer la 2FA :**\n\n1. Allez dans **\"Mon profil\"** > **\"Sécurité\"** > **\"Authentification à deux facteurs\"**.\n2. Cliquez sur **\"Activer\"**.\n3. Choisissez la méthode :\n   - **Application authenticator** (Google Authenticator, Microsoft Authenticator) : scannez le QR code.\n   - **SMS** : renseignez votre numéro de mobile (code reçu par SMS).\n4. Saisissez le code de vérification.\n5. Téléchargez les **codes de secours** (à conserver dans un endroit sûr).\n\n**Désormais :**\n- À chaque connexion, après votre mot de passe, un code temporaire vous sera demandé.\n- Les codes de secours permettent d'accéder en cas de perte du téléphone.\n\n> **Obligatoire** pour les comptes administrateurs et finance.",
+    "current_query": "Si je perds mon téléphone, comment me connecter sans le code 2FA ?",
+    "rewritten_query": "Comment se connecter en cas de perte du téléphone avec la 2FA activée ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "535",
+    "last_turn_query": "Comment voir les permissions que j'ai dans l'outil (ce que je peux faire ou pas) ?",
+    "last_turn_answer": "**Pour consulter vos droits :**\n\n- Allez dans **\"Mon profil\"** > **\"Mes permissions\"** ou **\"Rôles et accès\"**.\n- Une liste s'affiche par module :\n  * *Ressources humaines* : consultation des bulletins, demande de congés\n  * *Finances* : accès en lecture seule, pas de validation\n  * *Projets* : création de tâches, modification des documents\n\n**Détails :**\n- Les permissions héritées de votre rôle (ex: Responsable, Collaborateur) sont indiquées.\n- Les permissions exceptionnelles (accordées individuellement) sont marquées **\"Direct\"**.\n- Vous pouvez demander une extension à votre manager via le bouton **\"Demander un accès\"**.",
+    "current_query": "Puis-je savoir qui m'a attribué une permission spécifique ?",
+    "rewritten_query": "Comment savoir qui a accordé une permission spécifique sur mon compte ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "536",
+    "last_turn_query": "Comment déléguer l'accès à mon calendrier à mon assistant sans lui donner mon mot de passe ?",
+    "last_turn_answer": "**Pour déléguer l'accès :**\n\n1. Allez dans **\"Paramètres\"** > **\"Calendrier\"** > **\"Délégation\"**.\n2. Cliquez sur **\"Ajouter un délégué\"**.\n3. Saisissez le nom de votre assistant (recherche dans l'annuaire).\n4. Choisissez les droits :\n   - *Voir seulement les disponibilités* (libre/occupé)\n   - *Voir les détails des événements*\n   - *Modifier les événements* (créer, déplacer, supprimer)\n   - *Gérer les invitations* (accepter/refuser pour vous)\n5. Validez.\n\n**L'assistant :**\n- Reçoit une notification.\n- Peut accéder à votre calendrier via son propre compte (sans votre mot de passe).\n- La délégation est réversible à tout moment.\n\n> **Conseil** : Pour des raisons de confidentialité, ne donnez jamais votre mot de passe.",
+    "current_query": "Mon assistant peut-il aussi répondre à des invitations de réunion en mon nom ?",
+    "rewritten_query": "Un assistant ayant accès à mon calendrier peut-il répondre aux invitations à ma place ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "537",
+    "last_turn_query": "Comment bloquer temporairement mon compte si je perds mon téléphone ou ma tablette ?",
+    "last_turn_answer": "**Pour bloquer votre compte :**\n\n- Depuis un autre appareil, connectez-vous à **\"Mon profil\"** > **\"Sécurité\"** > **\"Bloquer mon compte\"**.\n- Cliquez sur **\"Bloquer toutes les sessions\"**.\n- Toutes les sessions actives (web, mobile) sont immédiatement fermées.\n- Le compte devient inaccessible, même avec le bon mot de passe.\n\n**Pour débloquer :**\n- Contactez votre administrateur (IT) ou votre responsable.\n- Une vérification d'identité sera faite (question secrète, appel téléphonique).\n\n**Alternative :**\n- Si vous avez configuré la 2FA, vous pouvez révoquer les appareils depuis l'application authenticator.\n\n> **Important** : En cas de vol avéré, signalez-le immédiatement à la sécurité informatique.",
+    "current_query": "Combien de temps faut-il pour débloquer un compte après un blocage volontaire ?",
+    "rewritten_query": "Délai de déblocage d'un compte après blocage volontaire ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "538",
+    "last_turn_query": "Comment savoir qui a consulté mon profil ou mes informations personnelles ?",
+    "last_turn_answer": "**Pour voir l'historique des consultations :**\n\n1. Allez dans **\"Mon profil\"** > **\"Confidentialité\"** > **\"Journal des accès\"**.\n2. Une liste s'affiche avec :\n   - **Nom de la personne** ayant consulté\n   - **Date et heure**\n   - **Partie du profil consultée** (ex: adresse, numéro de téléphone, poste)\n\n**Restrictions :**\n- Seuls les administrateurs et vous-même voyez ce journal.\n- L'historique est conservé 90 jours.\n- Les consultations via les rapports automatisés ne sont pas toujours tracées.\n\nSi vous constatez un accès suspect, utilisez le bouton **\"Signaler\"** à côté de la ligne.",
+    "current_query": "Les administrateurs peuvent-ils voir mon journal d'accès sans mon accord ?",
+    "rewritten_query": "Les administrateurs ont-ils accès à mon journal de consultations de profil ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "539",
+    "last_turn_query": "Comment demander un accès en lecture à un dossier partagé que je ne peux pas voir ?",
+    "last_turn_answer": "**Pour demander l'accès :**\n\n1. Allez dans le module **\"Fichiers\"** > **\"Dossiers partagés\"**.\n2. Recherchez le dossier par son nom (barre de recherche).\n3. Si vous n'avez pas accès, un message **\"Accès restreint\"** s'affiche avec un bouton **\"Demander l'accès\"**.\n4. Cliquez dessus, un formulaire s'ouvre :\n   - **Raison** : (ex: \"Besoin des documents pour le projet X\")\n   - **Durée** : temporaire (1 semaine) ou permanent\n   - **Propriétaire** : sélectionné automatiquement (ou champ libre)\n5. Envoyez la demande.\n\n**Suivi :**\n- Le propriétaire reçoit une notification.\n- Vous serez averti par email si la demande est acceptée ou refusée.\n- Les accès temporaires expirent automatiquement.\n\nSi le dossier n'apparaît pas dans la recherche, contactez le propriétaire directement.",
+    "current_query": "Puis-je demander un accès pour plusieurs dossiers en une seule requête ?",
+    "rewritten_query": "Est-il possible de demander l'accès à plusieurs dossiers partagés en une seule demande ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "540",
+    "last_turn_query": "Comment transférer la propriété d'un dossier ou d'un document à un collègue avant mon départ ?",
+    "last_turn_answer": "**Procédure de transfert :**\n\n1. Ouvrez le dossier ou le document dont vous êtes propriétaire.\n2. Cliquez sur **\"Gérer l'accès\"** ou **\"Partager\"**.\n3. En bas de la liste des collaborateurs, cherchez **\"Transférer la propriété\"**.\n4. Saisissez le nom du collègue destinataire.\n5. Confirmez le transfert.\n\n**Effets :**\n- Le destinataire devient propriétaire (pleins droits : modifier, partager, supprimer).\n- Vous perdez les droits de propriété mais conservez l'accès en lecture (sauf si vous quittez l'entreprise).\n- Un email est envoyé aux deux parties.\n\n**Cas particulier :**\n- Si vous quittez l'entreprise, l'administrateur peut transférer automatiquement tous vos documents à votre manager.\n- Les dossiers contenant des sous-dossiers sont transférés en bloc.",
+    "current_query": "Le nouveau propriétaire peut-il à son tour transférer la propriété à quelqu'un d'autre ?",
+    "rewritten_query": "Un nouveau propriétaire peut-il retransférer la propriété à un autre collègue ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "541",
+    "last_turn_query": "Comment me déconnecter à distance d'un appareil que j'ai oublié (ex: ordinateur public) ?",
+    "last_turn_answer": "**Pour fermer les sessions distantes :**\n\n1. Depuis un autre appareil, connectez-vous à votre compte.\n2. Allez dans **\"Mon profil\"** > **\"Appareils connectés\"** ou **\"Sessions actives\"**.\n3. Une liste affiche :\n   - Type d'appareil (Windows, iPhone, etc.)\n   - Navigateur\n   - Dernière activité (date, heure, adresse IP)\n4. Cliquez sur **\"Déconnecter\"** à côté de l'appareil concerné.\n5. Confirmez.\n\n**Effet immédiat :**\n- La session est fermée ; la personne ne peut plus accéder.\n- Les modifications non sauvegardées sur cet appareil seront perdues.\n- Vous pouvez aussi choisir **\"Déconnecter tous les appareils\"** (sauf celui utilisé).\n\n**Recommandation :**\n- Changez votre mot de passe après avoir utilisé un ordinateur public.\n- Activez la 2FA pour éviter les accès non autorisés.",
+    "current_query": "La déconnexion à distance empêche-t-elle la personne de voir les fichiers en cache ?",
+    "rewritten_query": "La déconnexion à distance supprime-t-elle les fichiers en cache sur l'appareil ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "542",
+    "last_turn_query": "Comment réinitialiser mon mot de passe si j'ai oublié l'ancien ?",
+    "last_turn_answer": "Clique sur 'Mot de passe oublié' en bas de l'écran de connexion. Tu reçois un lien par email. Clique dessus et choisis un nouveau mot de passe. Si t'as pas accès à l'email, contacte l'IT.",
+    "current_query": "g pa recu le lien, jvé faire koi ?",
+    "rewritten_query": "Que faire si le lien de réinitialisation n'arrive pas ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "543",
+    "last_turn_query": "Comment changer mon mot de passe sans passer par 'oublié' ?",
+    "last_turn_answer": "Connecte-toi, va dans 'Mon profil' > 'Sécurité' > 'Changer mot de passe'. Tape l'ancien, puis le nouveau deux fois. Valide.",
+    "current_query": "jé peur ke sa me déco de tous mes tel, c vrai ?",
+    "rewritten_query": "Changer son mot de passe déconnecte-t-il tous les appareils ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "544",
+    "last_turn_query": "Comment activer la double authentification sur mon compte ?",
+    "last_turn_answer": "Va dans 'Sécurité' > 'Double authentification'. Choisis 'Appli authenticator' ou 'SMS'. Scanne le QR code avec Google Authenticator. Tape le code pour valider.",
+    "current_query": "jé perdu mon tel, comen je fé pour me co sans le code ?",
+    "rewritten_query": "Comment se connecter sans le code 2FA après perte du téléphone ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "545",
+    "last_turn_query": "Comment savoir ce que j'ai le droit de faire dans l'outil ?",
+    "last_turn_answer": "Va dans 'Mon profil' > 'Mes permissions'. Tu vois la liste par module : lecture, écriture, suppression. Si tu veux plus, demande à ton manager.",
+    "current_query": "jve savoir qui m'a donné l'accès à tel dossier, comen on voit ?",
+    "rewritten_query": "Comment savoir qui a attribué un accès à un dossier ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "546",
+    "last_turn_query": "Comment donner l'accès à mon calendrier à ma collègue sans lui filer mon mot de passe ?",
+    "last_turn_answer": "Va dans 'Paramètres' > 'Calendrier' > 'Délégation'. Ajoute sa recherche, choisis les droits (voir, modifier). Elle aura accès depuis son propre compte.",
+    "current_query": "el pe répondre aux invit à ma place ?",
+    "rewritten_query": "Une délégation calendrier permet-elle de répondre aux invitations ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "547",
+    "last_turn_query": "Comment bloquer mon compte si je perds mon tel ?",
+    "last_turn_answer": "Depuis un autre ordi, connecte-toi, va dans 'Sécurité' > 'Bloquer mon compte'. Toutes les sessions sont fermées. Pour débloquer, contacte l'IT.",
+    "current_query": "ca pren combien de temps a débloquer ?",
+    "rewritten_query": "Temps de déblocage d'un compte après blocage volontaire ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "548",
+    "last_turn_query": "Comment savoir qui a regardé mon profil perso ?",
+    "last_turn_answer": "Va dans 'Mon profil' > 'Confidentialité' > 'Journal des accès'. Tu vois les noms, dates et heures. Signale si suspect.",
+    "current_query": "les admins peuve voir ce journal san ke jle sache ?",
+    "rewritten_query": "Les administrateurs peuvent-ils consulter mon journal d'accès ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "549",
+    "last_turn_query": "Comment demander l'accès à un dossier partagé que je vois pas ?",
+    "last_turn_answer": "Recherche le dossier par son nom. Si t'as pas accès, un bouton 'Demander l'accès' apparaît. Remplis la raison, envoie. Le proprio reçoit une notif.",
+    "current_query": "jvé demander pour 3 dossier, jpe faire une seul demande ?",
+    "rewritten_query": "Peut-on demander l'accès à plusieurs dossiers en une seule demande ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "550",
+    "last_turn_query": "Comment transférer un dossier à un collègue avant que je parte ?",
+    "last_turn_answer": "Ouvre le dossier, 'Gérer l'accès', en bas 'Transférer la propriété'. Tape le nom du collègue, valide. Il devient propriétaire.",
+    "current_query": "si il le re-transfère a quelqun d'autre, jpe le savoir ?",
+    "rewritten_query": "Puis-je savoir si le nouveau propriétaire retransfère le dossier ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "551",
+    "last_turn_query": "Comment me déco à distance d'un PC public que j'ai oublié ?",
+    "last_turn_answer": "Connecte-toi depuis un autre appareil, va dans 'Appareils connectés'. Trouve le PC, clique 'Déconnecter'. La session est fermée.",
+    "current_query": "les fichier en cache sur ce PC i sont encore la ?",
+    "rewritten_query": "La déconnexion à distance supprime-t-elle les fichiers en cache ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "552",
+    "last_turn_query": "Comment modifier mon nom de famille dans mon profil après un mariage ?",
+    "last_turn_answer": "Pour changer votre nom de famille, connectez-vous et allez dans 'Mon profil' > 'Informations personnelles'. Cliquez sur le crayon à côté de 'Nom'. Saisissez votre nouveau nom. Vous devez joindre une copie de l'acte de mariage (format PDF ou photo). Un administrateur validera la modification sous 48h. Vous recevrez une notification par email une fois fait.",
+    "current_query": "jai pa de scan, jpe prendre une foto avec mon tel ?",
+    "rewritten_query": "Puis-je prendre une photo du justificatif avec mon téléphone ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "553",
+    "last_turn_query": "Comment ajouter une photo de profil qui s'affiche dans l'annuaire ?",
+    "last_turn_answer": "Allez dans 'Mon profil' > 'Photo'. Cliquez sur 'Importer'. Choisissez un fichier (JPG ou PNG, max 2 Mo). Recadrez si besoin. Validez. La photo sera visible par tous vos collègues dans l'annuaire et dans les messageries. Si vous ne voyez pas le changement, videz le cache de votre navigateur. Les photos trop anciennes (plus de 5 ans) peuvent être refusées par la modération automatique.",
+    "current_query": "ma foto é tro lourd, 5 Mo, comen la réduire ?",
+    "rewritten_query": "Comment réduire la taille d'une photo de profil trop lourde ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "554",
+    "last_turn_query": "Comment masquer mon numéro de téléphone aux collègues dans l'annuaire ?",
+    "last_turn_answer": "Pour masquer votre téléphone, allez dans 'Mon profil' > 'Confidentialité'. Cherchez 'Numéro de téléphone'. Choisissez 'Privé' ou 'Visible uniquement par les managers'. Si vous choisissez 'Privé', seuls les administrateurs RH verront votre numéro. Vous pouvez aussi le masquer uniquement pour certains services (ex: masquer aux stagiaires). Validez. Le changement est immédiat.",
+    "current_query": "si je masque mon tel, les gens peuve pas me joindre pour urgence ?",
+    "rewritten_query": "En masquant mon numéro, les collègues peuvent-ils encore me joindre en cas d'urgence ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "555",
+    "last_turn_query": "Comment modifier ma fonction (titre de poste) dans mon profil ?",
+    "last_turn_answer": "La fonction est généralement gérée par les RH. Vous ne pouvez pas la modifier vous-même. Pour demander un changement, adressez-vous à votre responsable ou aux RH. Ils mettront à jour votre fiche. Une fois modifié, le nouveau titre apparaîtra dans l'annuaire et sur votre carte de visite électronique. Vous pouvez toutefois ajouter un 'surnom professionnel' ou 'poste temporaire' dans la section 'Informations complémentaires'.",
+    "current_query": "jé changé de poste y a 3 mois, l'ancien titre est encore la, jfé koi ?",
+    "rewritten_query": "Mon ancien titre de poste n'a pas été mis à jour après 3 mois, comment faire ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "556",
+    "last_turn_query": "Comment ajouter une langue étrangère parlée à mon profil (ex: anglais, espagnol) ?",
+    "last_turn_answer": "Allez dans 'Mon profil' > 'Compétences'. Cliquez sur 'Ajouter une compétence'. Choisissez 'Langue' dans la catégorie. Saisissez la langue (ex: Anglais). Sélectionnez le niveau : Débutant, Intermédiaire, Courant, Natif. Vous pouvez aussi indiquer une certification (TOEIC, TOEFL) et son score. Validez. Cette information sera visible par les RH et les recruteurs internes pour les missions ou mobilités.",
+    "current_query": "jé un toiec a 950, comen jlé met ?",
+    "rewritten_query": "Comment ajouter un score TOEIC à mon profil de langue ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "557",
+    "last_turn_query": "Comment supprimer un compte utilisateur désactivé (ex: stagiaire parti) ?",
+    "last_turn_answer": "La suppression de compte est réservée aux administrateurs. Si vous êtes admin, allez dans 'Administration' > 'Utilisateurs'. Recherchez l'utilisateur. Cliquez sur 'Supprimer' (icône corbeille). Confirmez. Les données liées (documents, tâches) seront soit supprimées, soit transférées à un autre utilisateur (choisissez le cessionnaire). Attention : cette action est irréversible. Pour les comptes désactivés récemment, mieux vaut les archiver plutôt que supprimer immédiatement.",
+    "current_query": "si je supprime un compte, ces mails sont aussi supprimé ?",
+    "rewritten_query": "La suppression d'un compte utilisateur supprime-t-elle aussi ses emails ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "558",
+    "last_turn_query": "Comment changer le rôle d'un utilisateur (ex: passer de 'collaborateur' à 'manager') ?",
+    "last_turn_answer": "Pour changer un rôle, vous devez être administrateur. Allez dans 'Administration' > 'Utilisateurs'. Cliquez sur l'utilisateur. Dans l'onglet 'Rôles', décochez l'ancien rôle et cochez le nouveau. Validez. Les permissions sont mises à jour immédiatement. L'utilisateur reçoit une notification. Attention : le rôle 'manager' donne accès aux données de son équipe (salaires, évaluations). Assurez-vous que la personne a suivi la formation obligatoire.",
+    "current_query": "le nouveau manager peu voir les salaires des anciens collègues ?",
+    "rewritten_query": "Un nouveau manager peut-il voir les salaires de son équipe ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "559",
+    "last_turn_query": "Comment activer un compte utilisateur qui a été désactivé par erreur ?",
+    "last_turn_answer": "Seul un administrateur peut réactiver un compte. Allez dans 'Administration' > 'Utilisateurs désactivés'. Trouvez le compte. Cliquez sur 'Réactiver'. L'utilisateur recevra un email l'invitant à se connecter avec son ancien mot de passe (ou à en créer un nouveau si le mot de passe a expiré). Les permissions précédentes sont restaurées. Si le compte était désactivé depuis plus de 90 jours, les données peuvent être archivées ; contactez le support.",
+    "current_query": "le compte réactivé garde ses anciens mails et docs ?",
+    "rewritten_query": "Après réactivation, l'utilisateur retrouve-t-il ses anciens emails et documents ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "560",
+    "last_turn_query": "Comment exporter la liste de tous les utilisateurs avec leurs emails et rôles en CSV ?",
+    "last_turn_answer": "En tant qu'admin, allez dans 'Administration' > 'Utilisateurs'. Cliquez sur le bouton 'Exporter' en haut à droite. Choisissez les colonnes : nom, prénom, email, rôle, service, date d'embauche. Sélectionnez le format CSV. Téléchargez le fichier. L'export inclut tous les utilisateurs actifs. Pour les utilisateurs désactivés, cochez l'option correspondante. Le fichier peut être ouvert avec Excel. Attention : les mots de passe ne sont jamais exportés pour des raisons de sécurité.",
+    "current_query": "jveux exporter que les commerciaux, comen filtrer ?",
+    "rewritten_query": "Comment exporter uniquement les utilisateurs d'un service spécifique (ex: commercial) ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "561",
+    "last_turn_query": "Comment associer un utilisateur à plusieurs services (ex: IT et Sécurité) ?",
+    "last_turn_answer": "Pour affecter un utilisateur à plusieurs services, allez dans 'Administration' > 'Utilisateurs'. Modifiez l'utilisateur. Dans le champ 'Service', maintenez la touche Ctrl (ou Cmd) enfoncée pour sélectionner plusieurs services. Validez. L'utilisateur apparaîtra dans l'organigramme des deux services. Ses permissions seront la somme des permissions des deux services (si des conflits, la plus permissive l'emporte). Cette fonctionnalité n'est disponible que pour les comptes premium.",
+    "current_query": "si un service a des droits et l'autre non, le quel gagne ?",
+    "rewritten_query": "En cas de droits contradictoires entre deux services, lequel prévaut ?",
+    "quality": "poor",
+    "is_followup": "yes"
+  },
+  {
+    "id": "562",
+    "last_turn_query": "Comment modifier mon adresse email professionnelle dans mon profil ?",
+    "last_turn_answer": "Pour modifier votre email professionnel, allez dans 'Mon profil' > 'Coordonnées'. Cliquez sur le crayon à côté de l'email. Saisissez la nouvelle adresse. Un code de vérification sera envoyé à cette nouvelle adresse. Entrez le code reçu. Votre ancien email reste actif 7 jours le temps du transfert. Les notifications seront redirigées vers la nouvelle adresse après validation. Si vous ne recevez pas le code, vérifiez vos spams ou contactez l'administrateur.",
+    "current_query": "Que devient l'ancienne adresse email après le changement ?",
+    "rewritten_query": "L'ancienne adresse email est-elle encore utilisable après modification ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "563",
+    "last_turn_query": "Comment ajouter un numéro de téléphone professionnel secondaire (ex: fixe) ?",
+    "last_turn_answer": "Dans 'Mon profil' > 'Coordonnées', sous la section 'Téléphone', cliquez sur 'Ajouter un numéro'. Choisissez le type (fixe, mobile, fax). Saisissez le numéro avec l'indicatif (ex: +33 1 23 45 67 89). Cochez 'Visible dans l'annuaire' si vous souhaitez qu'il apparaisse aux collègues. Vous pouvez définir un numéro par défaut pour les appels sortants. Validez. Le numéro secondaire apparaît dans la fiche contact.",
+    "current_query": "Les collègues voient-ils les deux numéros ou seulement le principal ?",
+    "rewritten_query": "Les collègues voient-ils tous les numéros ou uniquement le principal ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "564",
+    "last_turn_query": "Comment définir mon fuseau horaire pour que les réunions s'affichent à l'heure locale ?",
+    "last_turn_answer": "Allez dans 'Mon profil' > 'Préférences' > 'Fuseau horaire'. Sélectionnez votre ville ou fuseau (ex: Europe/Paris). Cochez 'Ajuster automatiquement pour l'heure d'été'. Tous les événements du calendrier seront convertis dans votre fuseau. Les invitations envoyées depuis votre compte utiliseront ce fuseau. Si vous voyagez, vous pouvez changer temporairement sans affecter vos collègues. Le changement est immédiat après sauvegarde.",
+    "current_query": "Les heures des réunions déjà planifiées sont-elles recalculées automatiquement ?",
+    "rewritten_query": "Le changement de fuseau horaire recalcule-t-il les heures des réunions existantes ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "565",
+    "last_turn_query": "Comment ajouter une signature automatique à mes emails sortants dans mon profil ?",
+    "last_turn_answer": "Dans 'Mon profil' > 'Signature email', activez 'Ajouter une signature automatique'. Vous pouvez créer plusieurs signatures (ex: une pour les internes, une pour les externes). Rédigez le texte (gras, italique, lien possible). Utilisez des variables comme {{nom}}, {{poste}}, {{téléphone}} qui se remplaceront automatiquement. Choisissez la signature par défaut pour les nouveaux emails et pour les réponses/transferts. Validez. La signature apparaîtra dans tous vos emails envoyés depuis l'outil.",
+    "current_query": "Puis-je avoir une signature différente pour les réponses et les nouveaux messages ?",
+    "rewritten_query": "Est-il possible de configurer une signature distincte pour les réponses ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "566",
+    "last_turn_query": "Comment configurer les notifications pour recevoir un email quand mon profil est modifié ?",
+    "last_turn_answer": "Allez dans 'Mon profil' > 'Notifications' > 'Sécurité'. Activez 'M'alerter en cas de modification de mon profil'. Vous recevrez un email pour toute modification : changement de nom, d'email, de mot de passe, de photo, etc. Vous pouvez aussi recevoir une notification dans l'interface (icône cloche). Pour les changements effectués par un administrateur, l'email mentionnera le nom de l'administrateur. Désactivez si vous trouvez cela trop intrusif.",
+    "current_query": "Ces notifications incluent-elles les modifications faites par moi-même ?",
+    "rewritten_query": "Les notifications de modification de profil incluent-elles mes propres changements ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "567",
+    "last_turn_query": "Comment ajouter une certification professionnelle (ex: PMP, TOEIC) à mon profil ?",
+    "last_turn_answer": "Dans 'Mon profil' > 'Certifications', cliquez sur 'Ajouter une certification'. Remplissez : nom de la certification, organisme délivreur, date d'obtention, date d'expiration (si applicable). Importez le certificat en PDF (max 5 Mo). Vous pouvez définir la visibilité : publique (tous les collègues), privée (seulement RH), ou partagée avec votre manager. Une fois ajoutée, la certification apparaît dans votre CV interne. Les RH peuvent l'utiliser pour des projets ou promotions.",
+    "current_query": "Puis-je supprimer une certification expirée sans perdre l'historique ?",
+    "rewritten_query": "Comment supprimer une certification expirée tout en gardant une trace ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "568",
+    "last_turn_query": "Comment configurer mon statut de disponibilité (disponible, occupé, en réunion) par défaut ?",
+    "last_turn_answer": "Dans 'Mon profil' > 'Présence', choisissez votre statut par défaut : 'Disponible', 'Absent', 'Occupé', 'En déplacement'. Vous pouvez définir des plages horaires automatiques (ex: chaque jour de 12h à 14h, statut 'En pause'). Synchronisez avec votre calendrier : quand vous êtes en réunion, le statut passe automatiquement 'Occupé'. Vous pouvez aussi ajouter un message personnalisé (ex: 'En formation, réponse sous 24h'). Les collègues voient ce statut dans l'annuaire et les messageries.",
+    "current_query": "Le statut 'Occupé' bloque-t-il les notifications entrantes ?",
+    "rewritten_query": "Le statut 'Occupé' désactive-t-il les notifications ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "569",
+    "last_turn_query": "Comment ajouter un manager à mon profil si la hiérarchie n'est pas correcte ?",
+    "last_turn_answer": "La hiérarchie est généralement gérée par les RH. Pour signaler une erreur, allez dans 'Mon profil' > 'Hiérarchie'. Cliquez sur 'Signaler une erreur'. Sélectionnez le bon manager dans la liste (ou saisissez son nom). Ajoutez un commentaire (ex: 'Changement d'équipe depuis janvier'). Validez. Les RH recevront votre demande et mettront à jour dans un délai de 5 jours ouvrés. Vous recevrez une confirmation. Si urgent, contactez directement les RH.",
+    "current_query": "Puis-je avoir deux managers (co-management) dans mon profil ?",
+    "rewritten_query": "Est-il possible d'avoir deux managers dans la hiérarchie du profil ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "570",
+    "last_turn_query": "Comment exporter mon profil complet en PDF (CV interne) ?",
+    "last_turn_answer": "Dans 'Mon profil', cliquez sur 'Plus d'actions' (trois points) en haut à droite. Sélectionnez 'Exporter en PDF'. Une fenêtre vous propose de choisir les sections à inclure : informations personnelles, compétences, certifications, historique de poste, langues. Vous pouvez ajouter un en-tête personnalisé (ex: 'CV - Version mars 2025'). Le PDF généré est téléchargeable et peut être imprimé. Il n'inclut pas les informations confidentielles (salaire, notes d'évaluation). Seul vous et les RH pouvez exporter cette version.",
+    "current_query": "Le PDF exporté inclut-il ma photo de profil ?",
+    "rewritten_query": "La photo de profil est-elle incluse dans l'export PDF du CV interne ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "571",
+    "last_turn_query": "Comment configurer la langue de l'interface (français/anglais) dans mon profil ?",
+    "last_turn_answer": "Allez dans 'Mon profil' > 'Préférences' > 'Langue'. Choisissez Français ou Anglais. L'interface entière changera : menus, emails automatiques, notifications. Les contenus saisis par les utilisateurs (messages, commentaires) ne sont pas traduits. Vous pouvez aussi choisir 'Détection automatique' basée sur la langue de votre navigateur. Un redémarrage de session peut être nécessaire pour appliquer complètement le changement. Cette préférence est indépendante des autres utilisateurs.",
+    "current_query": "Le changement de langue affecte-t-il aussi les rapports exportés (ex: PDF) ?",
+    "rewritten_query": "Les rapports exportés en PDF utilisent-ils la langue sélectionnée dans mon profil ?",
+    "quality": "good",
+    "is_followup": "yes"
+  },
+  {
+    "id": "572",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Comment modifier ma photo de profil dans l'annuaire de l'entreprise ?",
+    "rewritten_query": "Comment modifier ma photo de profil dans l'annuaire de l'entreprise ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "573",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Comment masquer mon numéro de téléphone aux collègues dans l'annuaire ?",
+    "rewritten_query": "Comment masquer mon numéro de téléphone aux collègues dans l'annuaire ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "574",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Comment ajouter une langue étrangère parlée à mon profil employé ?",
+    "rewritten_query": "Comment ajouter une langue étrangère parlée à mon profil employé ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "575",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Comment configurer mes préférences de notification pour les changements de profil ?",
+    "rewritten_query": "Comment configurer mes préférences de notification pour les changements de profil ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "576",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Comment exporter mon profil complet au format PDF (CV interne) ?",
+    "rewritten_query": "Comment exporter mon profil complet au format PDF (CV interne) ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "577",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Comment ajouter une certification professionnelle (ex: PMP, TOEIC) à ma fiche RH ?",
+    "rewritten_query": "Comment ajouter une certification professionnelle (ex: PMP, TOEIC) à ma fiche RH ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "578",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Comment définir mon fuseau horaire pour que les réunions s'affichent correctement ?",
+    "rewritten_query": "Comment définir mon fuseau horaire pour que les réunions s'affichent correctement ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "579",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Comment ajouter une signature automatique à mes emails depuis mon profil ?",
+    "rewritten_query": "Comment ajouter une signature automatique à mes emails depuis mon profil ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "580",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Comment signaler une erreur dans ma hiérarchie (mauvais manager) ?",
+    "rewritten_query": "Comment signaler une erreur dans ma hiérarchie (mauvais manager) ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "581",
+    "last_turn_query": "",
+    "last_turn_answer": "",
+    "current_query": "Comment changer la langue de l'interface (français/anglais) dans mon profil ?",
+    "rewritten_query": "Comment changer la langue de l'interface (français/anglais) dans mon profil ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "582",
+    "last_turn_query": "Comment configurer un tunnel VPN sur mon ordinateur portable ?",
+    "last_turn_answer": "Pour configurer un tunnel VPN, ouvrez les paramètres réseau, cliquez sur 'Ajouter une connexion VPN', choisissez le protocole (L2TP ou OpenVPN), saisissez l'adresse du serveur et vos identifiants, puis enregistrez.",
+    "current_query": "Comment modifier mon adresse email professionnelle dans mon profil ?",
+    "rewritten_query": "Comment modifier mon adresse email professionnelle dans mon profil ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "583",
+    "last_turn_query": "Comment réparer un écran noir au démarrage de Windows ?",
+    "last_turn_answer": "Débranchez tous les périphériques, maintenez le bouton power 30 secondes, puis redémarrez. Si le problème persiste, essayez de démarrer en mode sans échec.",
+    "current_query": "Comment ajouter une photo de profil qui s'affiche dans l'annuaire de l'entreprise ?",
+    "rewritten_query": "Comment ajouter une photo de profil qui s'affiche dans l'annuaire de l'entreprise ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "584",
+    "last_turn_query": "Comment exporter des contacts depuis Outlook vers un fichier CSV ?",
+    "last_turn_answer": "Dans Outlook, allez dans Fichier > Ouvrir et exporter > Importer/Exporter > Exporter vers un fichier > Valeurs séparées par des virgules, puis sélectionnez le dossier Contacts.",
+    "current_query": "Comment masquer mon numéro de téléphone aux collègues dans l'annuaire ?",
+    "rewritten_query": "Comment masquer mon numéro de téléphone aux collègues dans l'annuaire ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "585",
+    "last_turn_query": "Comment créer un tableau croisé dynamique dans Excel ?",
+    "last_turn_answer": "Sélectionnez vos données, allez dans l'onglet Insertion, cliquez sur 'Tableau croisé dynamique', choisissez l'emplacement, puis glissez les champs dans les zones Lignes, Colonnes et Valeurs.",
+    "current_query": "Comment ajouter une langue étrangère parlée à mon profil employé ?",
+    "rewritten_query": "Comment ajouter une langue étrangère parlée à mon profil employé ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "586",
+    "last_turn_query": "Comment partager un dossier sur Google Drive avec un lien public ?",
+    "last_turn_answer": "Faites un clic droit sur le dossier, choisissez 'Partager', puis cliquez sur 'Générer un lien', réglez les autorisations en 'Lecture seule', et copiez le lien.",
+    "current_query": "Comment configurer mes préférences de notification pour les changements de profil ?",
+    "rewritten_query": "Comment configurer mes préférences de notification pour les changements de profil ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "587",
+    "last_turn_query": "Comment mettre à jour les pilotes graphiques sous Windows ?",
+    "last_turn_answer": "Allez dans le Gestionnaire de périphériques, développez 'Cartes graphiques', faites un clic droit sur votre carte, choisissez 'Mettre à jour le pilote', puis 'Rechercher automatiquement'.",
+    "current_query": "Comment exporter mon profil complet au format PDF (CV interne) ?",
+    "rewritten_query": "Comment exporter mon profil complet au format PDF (CV interne) ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "588",
+    "last_turn_query": "Comment désactiver les notifications push sur un iPhone ?",
+    "last_turn_answer": "Allez dans Réglages > Notifications, sélectionnez l'application, puis désactivez 'Autoriser les notifications'. Vous pouvez aussi le faire depuis le centre de contrôle.",
+    "current_query": "Comment ajouter une certification professionnelle (ex: PMP, TOEIC) à ma fiche RH ?",
+    "rewritten_query": "Comment ajouter une certification professionnelle (ex: PMP, TOEIC) à ma fiche RH ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "589",
+    "last_turn_query": "Comment nettoyer le cache de son navigateur Chrome ?",
+    "last_turn_answer": "Cliquez sur les trois points en haut à droite, allez dans 'Plus d'outils' > 'Effacer les données de navigation', choisissez 'Images et fichiers en cache', puis confirmez.",
+    "current_query": "Comment définir mon fuseau horaire pour que les réunions s'affichent correctement ?",
+    "rewritten_query": "Comment définir mon fuseau horaire pour que les réunions s'affichent correctement ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "590",
+    "last_turn_query": "Comment ajouter une imprimante réseau sous macOS ?",
+    "last_turn_answer": "Allez dans Préférences Système > Imprimantes et scanners, cliquez sur le '+' pour ajouter une imprimante, sélectionnez-la dans la liste, puis installez le pilote.",
+    "current_query": "Comment ajouter une signature automatique à mes emails depuis mon profil ?",
+    "rewritten_query": "Comment ajouter une signature automatique à mes emails depuis mon profil ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "591",
+    "last_turn_query": "Comment récupérer un fichier supprimé de la corbeille ?",
+    "last_turn_answer": "Ouvrez la corbeille, cliquez droit sur le fichier, sélectionnez 'Restaurer'. Le fichier revient à son emplacement d'origine.",
+    "current_query": "Comment signaler une erreur dans ma hiérarchie (mauvais manager) ?",
+    "rewritten_query": "Comment signaler une erreur dans ma hiérarchie (mauvais manager) ?",
+    "quality": "good",
+    "is_followup": "no"
+  },
+  {
+    "id": "592",
+    "last_turn_query": "Comment réserver la salle de réunion A ?",
+    "last_turn_answer": "Pour réserver la salle A, ouvrez le calendrier des salles, sélectionnez un créneau vert, puis cliquez sur 'Réserver'.",
+    "current_query": "jve changé mon nom dans le profil, comen on fait ?",
+    "rewritten_query": "Comment modifier mon nom dans mon profil ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "593",
+    "last_turn_query": "Comment commander un badge d'accès ?",
+    "last_turn_answer": "Pour commander un badge, allez dans 'Services' > 'Badges', remplissez le formulaire et validez.",
+    "current_query": "jve ajouté une foto a mon profil, el est ou le bouton ?",
+    "rewritten_query": "Où se trouve le bouton pour ajouter une photo de profil ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "594",
+    "last_turn_query": "Comment signaler une panne de café ?",
+    "last_turn_answer": "Pour signaler une panne de café, contactez l'accueil au poste 1234 ou via le chat 'Maintenance'.",
+    "current_query": "jve caché mon tel aux collègues, comen on paramètre ?",
+    "rewritten_query": "Comment masquer mon numéro de téléphone aux collègues ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "595",
+    "last_turn_query": "Comment imprimer un document en couleur ?",
+    "last_turn_answer": "Pour imprimer en couleur, sélectionnez l'imprimante adaptée et cochez l'option 'Couleur' dans les préférences d'impression.",
+    "current_query": "jve ajouté une langue a mon profil, anglais, comen faire ?",
+    "rewritten_query": "Comment ajouter une langue (anglais) à mon profil ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "596",
+    "last_turn_query": "Comment accéder au parking visiteur ?",
+    "last_turn_answer": "Le parking visiteur est au sous-sol -2, code d'accès 4567. Demandez un badge à l'accueil.",
+    "current_query": "jve voir les notif quand mon profil est modifié, ca se règle ou ?",
+    "rewritten_query": "Où configurer les notifications pour les modifications de profil ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "597",
+    "last_turn_query": "Comment commander des fournitures de bureau ?",
+    "last_turn_answer": "Allez dans l'intranet, section 'Fournitures', choisissez les articles et validez la commande.",
+    "current_query": "jve sortir mon CV en PDF depuis mon profil, c possible ?",
+    "rewritten_query": "Puis-je exporter mon profil au format PDF (CV) ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "598",
+    "last_turn_query": "Comment activer le chauffage dans mon bureau ?",
+    "last_turn_answer": "Utilisez le thermostat mural près de la porte (molette verte pour chaud, bleue pour froid).",
+    "current_query": "jve met une certification toiec sur ma fiche, comen on ajoute ?",
+    "rewritten_query": "Comment ajouter une certification TOEIC à ma fiche profil ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "599",
+    "last_turn_query": "Comment réserver un taxi pour un déplacement pro ?",
+    "last_turn_answer": "Appelez le service transport au 01 23 45 67 89 ou réservez via l'application 'Mobility'.",
+    "current_query": "jve que les réunion s'affiche a la bonne heure, jsuis a l'étranger, comen régler fuseau ?",
+    "rewritten_query": "Comment configurer mon fuseau horaire pour les réunions ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "600",
+    "last_turn_query": "Comment contacter le service informatique ?",
+    "last_turn_answer": "Le support IT est joignable par email à it-support@entreprise.com ou par téléphone au 1234.",
+    "current_query": "jve une signature auto dans mes mails, comen on la met dans le profil ?",
+    "rewritten_query": "Comment ajouter une signature automatique à mes emails depuis mon profil ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },
+  {
+    "id": "601",
+    "last_turn_query": "Comment déclarer un sinistre dans les locaux ?",
+    "last_turn_answer": "Remplissez le formulaire 'Incident' sur l'intranet, section 'Sécurité'. Un agent vous contactera.",
+    "current_query": "jé le mauvais manager sur ma fiche, jve le changer, comen signaler ?",
+    "rewritten_query": "Comment signaler une erreur dans ma hiérarchie (mauvais manager) ?",
+    "quality": "poor",
+    "is_followup": "no"
+  },

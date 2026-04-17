@@ -139,7 +139,7 @@ def extract_app_stats(json_file: str) -> dict:
 
 
 def main():
-    data_dir = Path("data/converted")
+    data_dir = Path("data/rag_final")
     
     if not data_dir.exists():
         print(f"✗ Directory {data_dir} not found")
@@ -242,7 +242,7 @@ def main():
         print(f"      BGE={bge_total:<6} Qwen={qwen_total:<6} Ratio (Qwen/BGE)={ratio_total:.1f}%")
     
     # Save detailed stats to JSON
-    output_file = "stats/statistics_converted.json"
+    output_file = "stats/statistics_rag_final.json"
     with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(all_stats, f, ensure_ascii=False, indent=2)
     

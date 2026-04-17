@@ -40,12 +40,12 @@ def compute_query_metrics(
 ) -> Dict[str, any]:
     """
     Computes standard retrieval metrics for a single query at multiple K values.
-    Returns dict with recall, precision, mrr, and ndcg_5.
+    Returns dict with recall, precision, mrr, and ndcg.
     """
-    k_limit = min(5, len(section_ids))
+
     return {
         "recall": {k: round(recall_at_k(section_ids, relevant_ids, k), 4) for k in eval_ks},
         "precision": {k: round(precision_at_k(section_ids, relevant_ids, k), 4) for k in eval_ks},
         "mrr": round(reciprocal_rank(section_ids, relevant_ids), 4),
-        "ndcg_5": round(ndcg_at_k(section_ids, relevant_ids, k_limit), 4)
+        "ndcg": {k: round(ndcg_at_k(section_ids, relevant_ids, k), 4) for k in eval_ks}
     }

@@ -11,7 +11,9 @@ class BaseVectorDB(ABC):
     def upsert(self, name: str, records: List[dict]): pass
     @abstractmethod
     def search(self, name: str, q_dense: Optional[np.ndarray], q_sparse: Optional[dict],
-               top_k: int, alpha: float, index_type: str) -> Tuple[List[str], List[float]]: pass
+               top_k: int, alpha: float, index_type: str) -> Tuple[List[str], List[float], List[dict]]:
+        """Returns (ids, scores, payloads)."""
+        pass
     @abstractmethod
     def collection_exists(self, name: str) -> bool: pass
     @abstractmethod
@@ -36,7 +38,6 @@ class QdrantDB(BaseVectorDB):
         vectors_cfg = {}
         sparse_cfg = {}
 
-        # Dense configuration (HNSW only applies to dense)
         if mode in ["dense", "hybrid", "finetuned_dense", "finetuned_hybrid"]:
             hnsw_cfg = None
             if index_type == "hnsw":
@@ -47,11 +48,10 @@ class QdrantDB(BaseVectorDB):
                 hnsw_config=hnsw_cfg
             )
 
-        # Sparse configuration (always inverted index, cannot use HNSW)
         if mode in ["sparse", "hybrid", "finetuned_hybrid"]:
             sparse_cfg["sparse"] = SparseVectorParams(
-                index=SparseIndexParams(on_disk=False),   # inverted index in RAM for experiments
-                modifier=Modifier.IDF                     # enables server-side IDF/BM25
+                index=SparseIndexParams(on_disk=False),
+                modifier=Modifier.IDF
             )
 
         self.client.create_collection(
@@ -80,7 +80,7 @@ class QdrantDB(BaseVectorDB):
         self.client.upsert(name, points, wait=True)
 
     def search(self, name: str, q_dense: Optional[np.ndarray], q_sparse: Optional[dict],
-               top_k: int, alpha: float, index_type: str):
+               top_k: int, alpha: float, index_type: str) -> Tuple[List[str], List[float], List[dict]]:
         from qdrant_client.models import Prefetch, FusionQuery, Fusion, SparseVector
         prefetches = []
         if q_dense is not None:
@@ -92,7 +92,6 @@ class QdrantDB(BaseVectorDB):
             )
             prefetches.append(Prefetch(query=vec, using="sparse", limit=top_k))
 
-        # Exact search only if index_type == "flat" (disables approximate indices)
         search_params = {"exact": True} if index_type == "flat" else None
 
         if len(prefetches) > 1:
@@ -101,7 +100,7 @@ class QdrantDB(BaseVectorDB):
                 prefetch=prefetches,
                 query=FusionQuery(fusion=Fusion.RRF),
                 limit=top_k,
-                with_payload=["original_id"],
+                with_payload=True,
                 search_params=search_params
             )
         elif len(prefetches) == 1:
@@ -110,12 +109,15 @@ class QdrantDB(BaseVectorDB):
                 query=prefetches[0].query,
                 using=prefetches[0].using,
                 limit=top_k,
-                with_payload=["original_id"],
+                with_payload=True,
                 search_params=search_params
             )
         else:
-            return [], []
-        return [p.payload.get("original_id", str(p.id)) for p in res.points], [p.score for p in res.points]
+            return [], [], []
+        ids = [p.id for p in res.points]
+        scores = [p.score for p in res.points]
+        payloads = [p.payload for p in res.points]
+        return ids, scores, payloads
 
     def collection_exists(self, name: str) -> bool:
         return self.client.collection_exists(name)
@@ -128,15 +130,15 @@ class QdrantDB(BaseVectorDB):
 
 
 class MilvusDB(BaseVectorDB):
-    # Placeholder 
+    # Placeholder – must also implement the new signature
     def __init__(self, uri: str):
         from pymilvus import MilvusClient
         self.client = MilvusClient(uri=uri)
     def create_collection(self, name: str, dim: int, mode: str, index_type: str): pass
     def upsert(self, name: str, records: List[dict]): pass
     def search(self, name: str, q_dense: Optional[np.ndarray], q_sparse: Optional[dict],
-               top_k: int, alpha: float, index_type: str) -> Tuple[List[str], List[float]]:
-        return [], []
+               top_k: int, alpha: float, index_type: str) -> Tuple[List[str], List[float], List[dict]]:
+        return [], [], []
     def collection_exists(self, name: str) -> bool: return False
     def drop_collection(self, name: str): pass
     def flush(self): pass
