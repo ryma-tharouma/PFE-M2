@@ -9,6 +9,8 @@ EXCEL
   Total articles: 70
   ✓ Good structure (kept): 40 (57.1%)
   ✗ Bad structure (filtered): 30 (42.9%)
+  ✗ Exceeds 1000 tokens (full_text, Qwen): 10
+  → Final kept after both filters: 30 (42.9%)
   Output: data\rag_final\excel.json
 
   Structure breakdown (top 15):
@@ -33,6 +35,8 @@ MOT
   Total articles: 32
   ✓ Good structure (kept): 21 (65.6%)
   ✗ Bad structure (filtered): 11 (34.4%)
+  ✗ Exceeds 1000 tokens (full_text, Qwen): 5
+  → Final kept after both filters: 16 (50.0%)
   Output: data\rag_final\mot.json
 
   Structure breakdown (top 15):
@@ -57,6 +61,8 @@ OUTLOOK
   Total articles: 240
   ✓ Good structure (kept): 184 (76.7%)
   ✗ Bad structure (filtered): 56 (23.3%)
+  ✗ Exceeds 1000 tokens (full_text, Qwen): 47
+  → Final kept after both filters: 137 (57.1%)
   Output: data\rag_final\outlook.json
 
   Structure breakdown (top 15):
@@ -80,36 +86,24 @@ OUTLOOK
   SUMMARY
 ================================================================================
 
-Category        Total      Kept       Filtered   %         
--------------------------------------------------------
-excel           70         40         30           57.1%
-mot             32         21         11           65.6%
-outlook         240        184        56           76.7%
--------------------------------------------------------
-TOTAL           342        245        97           71.6%
+Category        Total      Kept       Filtered (struct)  Filtered (>1000t)  %         
+--------------------------------------------------------------------------------
+excel           70         30         40                   42.9%
+mot             32         16         16                   50.0%
+outlook         240        137        103                  57.1%
+--------------------------------------------------------------------------------
+TOTAL           342        183        159                  53.5%
 
 ✓ RAG-ready articles saved to: data/rag_final/
 
-Good structure criteria:
-  • Must contain BOTH:
-    - Problem marker: 'symptômes' or 'la cause'
-    - Solution marker: 'résolution' or 'contournement'
-  • Common patterns kept:
-    • symptômes → la cause → résolution
-    • la cause → résolution → symptômes
-    • la cause → plus d'informations → résolution → symptômes
-    • contournement → la cause → résolution → symptômes
+Filters applied:
+  1. Good structure: must contain both problem ('symptômes' or 'la cause') and solution ('résolution' or 'contournement')
+  2. Maximum token length: full_text (plain text) ≤ 1000 tokens (using Qwen2.5-0.5B-Instruct tokenizer)
 
-Each article contains:
-  - section_id: unique identifier
-  - title: article title
-  - applies_to: list of affected versions
-  - problem: title + symptoms (markdown)
-  - answer: cause + resolution/workaround (markdown)
-  - full_text: complete formatted text
-  - source: original URL
-  - source_type: 'faq'
-  - category: article category (Excel, Word, Outlook)
+Field formatting:
+  - problem: plain text (no markdown) – like original article
+  - answer: markdown (keeps '## ' headings) for readability
+  - full_text: plain text (no markdown) – exactly as original article content
 
 ================================================================================
 
