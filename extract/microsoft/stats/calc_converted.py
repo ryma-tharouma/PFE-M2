@@ -8,6 +8,9 @@ from transformers import AutoTokenizer
 bge_tokenizer = AutoTokenizer.from_pretrained("BAAI/bge-m3")
 qwen_tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen2.5-0.5B-Instruct")
 
+# Thresholds to track
+THRESHOLDS = [1000, 1500, 2000]
+
 
 def count_tokens_bge(text: str) -> int:
     """Count tokens using BGE-M3 tokenizer"""
@@ -88,6 +91,10 @@ def extract_app_stats(json_file: str) -> dict:
     qwen_answer_tokens = []
     qwen_total_tokens = []
     
+    # Counters for exceeding thresholds (total tokens)
+    bge_exceed = {t: 0 for t in THRESHOLDS}
+    qwen_exceed = {t: 0 for t in THRESHOLDS}
+    
     article_count = 0
     
     for article in articles:
@@ -114,6 +121,13 @@ def extract_app_stats(json_file: str) -> dict:
             qwen_problem_tokens.append(qwen_problem)
             qwen_answer_tokens.append(qwen_answer)
             qwen_total_tokens.append(qwen_total)
+            
+            # Update exceed counters
+            for t in THRESHOLDS:
+                if bge_total > t:
+                    bge_exceed[t] += 1
+                if qwen_total > t:
+                    qwen_exceed[t] += 1
     
     if article_count == 0:
         print(f"  ✗ No valid articles found in {json_file}")
@@ -127,11 +141,13 @@ def extract_app_stats(json_file: str) -> dict:
             "problem_tokens": calculate_stats(bge_problem_tokens),
             "answer_tokens": calculate_stats(bge_answer_tokens),
             "total_tokens": calculate_stats(bge_total_tokens),
+            "exceed_thresholds": {str(t): c for t, c in bge_exceed.items()}
         },
         "qwen": {
             "problem_tokens": calculate_stats(qwen_problem_tokens),
             "answer_tokens": calculate_stats(qwen_answer_tokens),
             "total_tokens": calculate_stats(qwen_total_tokens),
+            "exceed_thresholds": {str(t): c for t, c in qwen_exceed.items()}
         }
     }
     
@@ -197,6 +213,14 @@ def main():
         s = stats["bge"]["total_tokens"]
         print(f"      min={s['min']:<6} q1={s['q1']:<6} q2={s['q2']:<6} q3={s['q3']:<6} max={s['max']:<6} mean={s['mean']:<6} (n={s['count']})")
         
+        # Exceed thresholds (BGE)
+        exceed_bge = stats["bge"]["exceed_thresholds"]
+        print(f"\n    Exceed thresholds (total tokens):")
+        for t in THRESHOLDS:
+            count = exceed_bge[str(t)]
+            percent = (count / articles * 100) if articles > 0 else 0
+            print(f"      > {t}: {count} articles ({percent:.1f}%)")
+        
         # QWEN TOKENIZER STATS
         print(f"\n\n    QWEN3-0.6B TOKENIZER")
         print(f"    {'-'*116}")
@@ -215,6 +239,14 @@ def main():
         print(f"\n    Total Tokens (Problem + Answer):")
         s = stats["qwen"]["total_tokens"]
         print(f"      min={s['min']:<6} q1={s['q1']:<6} q2={s['q2']:<6} q3={s['q3']:<6} max={s['max']:<6} mean={s['mean']:<6} (n={s['count']})")
+        
+        # Exceed thresholds (Qwen)
+        exceed_qwen = stats["qwen"]["exceed_thresholds"]
+        print(f"\n    Exceed thresholds (total tokens):")
+        for t in THRESHOLDS:
+            count = exceed_qwen[str(t)]
+            percent = (count / articles * 100) if articles > 0 else 0
+            print(f"      > {t}: {count} articles ({percent:.1f}%)")
         
         # COMPARISON
         print(f"\n\n    TOKENIZER COMPARISON (BGE vs Qwen3-0.6B)")
@@ -243,6 +275,7 @@ def main():
     
     # Save detailed stats to JSON
     output_file = "stats/statistics_rag_final.json"
+    os.makedirs("stats", exist_ok=True)
     with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(all_stats, f, ensure_ascii=False, indent=2)
     
