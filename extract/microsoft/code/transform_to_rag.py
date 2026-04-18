@@ -113,7 +113,6 @@ def transform_article(article, section_id):
         "full_text": full_text,
         "source": fetched_url,
         "source_type": "faq",
-        "category": category,
     }
 
 def transform_articles(input_dir="data/scraped", output_dir="data/rag_final"):
