@@ -70,7 +70,7 @@ class BGEEmbedder:
         else:
             self.st_model = None
 
-        # ---- KEY CHANGE: a registry of BM25 instances, one per app ----
+        # ----  a registry of BM25 instances, one per app ----
         self._bm25_registry: Dict[str, BM25TermFrequency] = {} if self.needs_sparse else None
 
     # ------------------------------------------------------------------
