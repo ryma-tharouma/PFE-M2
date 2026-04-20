@@ -60,6 +60,8 @@ def run_evaluate(cfg: dict):
                 for turn in conv["turns"]:
                     rewritten = turn.get("rewritten_query")
                     is_rewritten = bool(rewritten and rewritten.strip())
+                    # 🆕 Extract routing_label (default empty string if missing)
+                    routing_label = turn.get("routing_label", "")
                     all_turns.append({
                         "query_id": f"{conv_id}_t{turn['turn_id']}",
                         "query": turn["user_query"],
@@ -68,6 +70,7 @@ def run_evaluate(cfg: dict):
                         "app_id": app_id,
                         "query_quality": turn.get("query_quality", "unknown"),
                         "is_rewritten": is_rewritten,
+                        "routing_label": routing_label,   # 🆕
                     })
                     history.append(turn)
                     if len(history) > cfg["multi_turn"].get("window_size", 2) + 2:
@@ -118,9 +121,10 @@ def run_evaluate(cfg: dict):
                         # Output CSV file for this configuration
                         csv_filename = f"{db_type}_{mode}_{idx_type}_{agg_method}_{strategy}_detailed.csv"
                         csv_path = os.path.join(resolved_results, csv_filename)
+                        # 🆕 Added "routing_label" to fields
                         csv_fields = ["query_id", "mode", "db_type", "idx_type", "strategy", "aggregation",
                                       "rank", "doc_id", "score", "is_relevant", "query_quality", "is_rewritten",
-                                      "latency_ms"]
+                                      "routing_label", "latency_ms"]   # 🆕
 
                         # Load already processed query IDs from existing CSV
                         processed_qids = get_processed_query_ids(csv_path)
@@ -164,7 +168,6 @@ def run_evaluate(cfg: dict):
                             # Measure retrieval + reranking time
                             start_time = time.time()
                             try:
-                                # Expects search to return (ids, scores, payloads)
                                 chunk_ids, chunk_scores, chunk_payloads = db.search(
                                     name=coll_name,
                                     q_dense=q_dense,
@@ -178,19 +181,15 @@ def run_evaluate(cfg: dict):
                                 continue
                             latency_ms = (time.time() - start_time) * 1000
 
-                            # ------------------------------------------------------------
                             # Rerank chunks (if enabled)
-                            # ------------------------------------------------------------
                             if reranker and chunk_ids:
                                 k_rerank = min(reranker.top_k_rerank, len(chunk_ids))
                                 top_chunk_ids = chunk_ids[:k_rerank]
                                 top_chunk_scores = chunk_scores[:k_rerank]
                                 top_chunk_payloads = chunk_payloads[:k_rerank]
 
-                                # Extract chunk text from payload
                                 chunk_texts = [p.get("chunk_text", "") for p in top_chunk_payloads]
 
-                                # Rerank
                                 reranked_ids, reranked_scores = reranker.rerank_and_reorder(
                                     query=context_str,
                                     doc_ids=top_chunk_ids,
@@ -198,7 +197,6 @@ def run_evaluate(cfg: dict):
                                     original_scores=top_chunk_scores
                                 )
 
-                                # Build final chunk list: reranked top + remaining (unchanged order)
                                 final_chunk_ids = list(reranked_ids)
                                 final_chunk_scores = list(reranked_scores)
                                 final_chunk_payloads = []
@@ -214,9 +212,7 @@ def run_evaluate(cfg: dict):
                                 final_chunk_scores = chunk_scores
                                 final_chunk_payloads = chunk_payloads
 
-                            # ------------------------------------------------------------
-                            # Aggregate chunks to sections (same as before)
-                            # ------------------------------------------------------------
+                            # Aggregate chunks to sections
                             chunk_results = []
                             for cid, sc, payload in zip(final_chunk_ids, final_chunk_scores, final_chunk_payloads):
                                 chunk_results.append({
@@ -229,7 +225,7 @@ def run_evaluate(cfg: dict):
                             section_ids = [s["section_id"] for s in sections]
                             section_scores = {s["section_id"]: s["score"] for s in sections}
 
-                            # Write CSV (section level)
+                            # Write CSV (section level) – now with routing_label
                             with open(csv_path, "a", newline="", encoding="utf-8") as f:
                                 writer = csv.writer(f)
                                 for rank, sec_id in enumerate(section_ids, 1):
@@ -238,6 +234,7 @@ def run_evaluate(cfg: dict):
                                         turn["query_id"], mode, db_type, idx_type, strategy, agg_method,
                                         rank, sec_id, section_scores.get(sec_id, 0.0), is_relevant,
                                         turn["query_quality"], turn["is_rewritten"],
+                                        turn["routing_label"],    # 🆕
                                         round(latency_ms, 2)
                                     ])
 
