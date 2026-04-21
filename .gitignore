@@ -10,3 +10,5 @@ experiments/retriever/data/
 experiments/generator/data/
 experiments/generator/outputs/generated/
 experiments/build_data/data/
+experiments/rewriter/data/
+token.txt
