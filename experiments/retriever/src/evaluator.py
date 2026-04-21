@@ -10,20 +10,15 @@ from src.factories import get_vector_database, get_embedder, get_aggregator, get
 
 
 def get_processed_query_ids(csv_path: str) -> Set[str]:
-    """
-    Read existing CSV file and return the set of query_ids already processed.
-    Assumes CSV has header and first column is 'query_id'.
-    """
     if not os.path.exists(csv_path):
         return set()
     processed = set()
     with open(csv_path, "r", encoding="utf-8") as f:
         reader = csv.reader(f)
         try:
-            header = next(reader)  # skip header
+            header = next(reader)
         except StopIteration:
             return set()
-        # Find index of 'query_id' column (should be first, but be safe)
         try:
             qid_idx = header.index("query_id")
         except ValueError:
@@ -36,14 +31,14 @@ def get_processed_query_ids(csv_path: str) -> Set[str]:
 
 def run_evaluate(cfg: dict):
     resolved_results = cfg["paths"]["resolved_results"]
-    query_sources = cfg.get("evaluation", {}).get("query_sources", [])
-    mt_strategies = cfg.get("multi_turn", {}).get("strategies", ["none"])
-    max_retrieve = cfg.get("retrieval", {}).get("max_retrieve_sections", 10)
-    modes = cfg["indexing"]["modes"]
-    db_types = cfg["indexing"].get("db_types", [cfg["database"]["type"]])
-    index_types = cfg["indexing"]["index_types"]
+    query_sources    = cfg.get("evaluation", {}).get("query_sources", [])
+    mt_strategies    = cfg.get("multi_turn", {}).get("strategies", ["none"])
+    max_retrieve     = cfg.get("retrieval", {}).get("max_retrieve_sections", 10)
+    modes            = cfg["indexing"]["modes"]
+    db_types         = cfg["indexing"].get("db_types", [cfg["database"]["type"]])
+    index_types      = cfg["indexing"]["index_types"]
 
-    raw_agg = cfg["retrieval"].get("aggregation_method", "max")
+    raw_agg     = cfg["retrieval"].get("aggregation_method", "max")
     agg_methods = [raw_agg] if isinstance(raw_agg, str) else list(raw_agg)
 
     # Load all turns
@@ -54,23 +49,22 @@ def run_evaluate(cfg: dict):
             continue
         with open(path, "r", encoding="utf-8") as f:
             for conv_line in f:
-                conv = json.loads(conv_line)
-                conv_id, app_id = conv["conversation_id"], conv.get("app_id", "manual_bdm")
+                conv    = json.loads(conv_line)
+                conv_id = conv["conversation_id"]
+                app_id  = conv.get("app_id", "manual_bdm")
                 history = []
                 for turn in conv["turns"]:
-                    rewritten = turn.get("rewritten_query")
-                    is_rewritten = bool(rewritten and rewritten.strip())
-                    # 🆕 Extract routing_label (default empty string if missing)
                     routing_label = turn.get("routing_label", "")
+                    isfollow_up  = bool(turn.get("isfollow_up", False))
                     all_turns.append({
-                        "query_id": f"{conv_id}_t{turn['turn_id']}",
-                        "query": turn["user_query"],
-                        "history": list(history),
+                        "query_id":     f"{conv_id}_t{turn['turn_id']}",
+                        "query":        turn["user_query"],
+                        "history":      list(history),
                         "relevant_ids": set(turn.get("relevant_sections", [])),
-                        "app_id": app_id,
+                        "app_id":       app_id,
                         "query_quality": turn.get("query_quality", "unknown"),
-                        "is_rewritten": is_rewritten,
-                        "routing_label": routing_label,   # 🆕
+                        "isfollow_up": isfollow_up,
+                        "routing_label": routing_label,
                     })
                     history.append(turn)
                     if len(history) > cfg["multi_turn"].get("window_size", 2) + 2:
@@ -101,9 +95,8 @@ def run_evaluate(cfg: dict):
 
             for mode in modes:
                 embedder = get_embedder(mode=mode, cfg=cfg)
-                reranker = get_reranker(cfg)  # None if disabled
+                reranker = get_reranker(cfg)
 
-                # Pre‑load BM25 vocabularies if needed
                 if mode in ["sparse", "hybrid", "finetuned_hybrid"]:
                     for app_id in unique_app_ids:
                         vocab_path = os.path.join(resolved_results, "vocab", f"{app_id}_{mode}.json")
@@ -118,34 +111,30 @@ def run_evaluate(cfg: dict):
                         cfg["retrieval"]["aggregation_method"] = agg_method
                         agg = get_aggregator(cfg)
 
-                        # Output CSV file for this configuration
                         csv_filename = f"{db_type}_{mode}_{idx_type}_{agg_method}_{strategy}_detailed.csv"
-                        csv_path = os.path.join(resolved_results, csv_filename)
-                        # 🆕 Added "routing_label" to fields
-                        csv_fields = ["query_id", "mode", "db_type", "idx_type", "strategy", "aggregation",
-                                      "rank", "doc_id", "score", "is_relevant", "query_quality", "is_rewritten",
-                                      "routing_label", "latency_ms"]   # 🆕
+                        csv_path     = os.path.join(resolved_results, csv_filename)
+                        csv_fields   = [
+                            "query_id", "mode", "db_type", "idx_type", "strategy", "aggregation",
+                            "rank", "doc_id", "score", "is_relevant",
+                            "query_quality", "isfollow_up", "routing_label", "latency_ms"
+                        ]
 
-                        # Load already processed query IDs from existing CSV
                         processed_qids = get_processed_query_ids(csv_path)
                         if processed_qids:
                             print(f"    Resume: {len(processed_qids)} query IDs already processed in {csv_filename}")
 
-                        # Write header if file is new (empty or doesn't exist)
                         if not os.path.exists(csv_path) or os.path.getsize(csv_path) == 0:
                             with open(csv_path, "w", newline="", encoding="utf-8") as f:
                                 csv.writer(f).writerow(csv_fields)
 
                         print(f"  Processing {csv_filename}")
 
-                        # Process each turn, skip if already done
                         for turn in all_turns:
                             if turn["query_id"] in processed_qids:
                                 continue
 
                             app_id = turn["app_id"]
 
-                            # Skip if BM25 required but vocab missing
                             if mode in ["sparse", "hybrid", "finetuned_hybrid"]:
                                 if app_id not in embedder._bm25_registry:
                                     print(f"    No BM25 vocab for app '{app_id}', skipping turn {turn['query_id']}")
@@ -153,10 +142,10 @@ def run_evaluate(cfg: dict):
 
                             context_str = ctx_mgr.build_context(turn["history"], turn["query"])
 
-                            q_dense = None
+                            q_dense  = None
                             q_sparse = None
                             if mode != "sparse":
-                                q_dense = embedder.encode_dense([context_str])[0]
+                                q_dense  = embedder.encode_dense([context_str])[0]
                             if mode != "dense":
                                 q_sparse = embedder.encode_sparse([context_str], app_id)[0]
 
@@ -165,7 +154,6 @@ def run_evaluate(cfg: dict):
                                 print(f"    Collection {coll_name} does not exist, skipping turn {turn['query_id']}")
                                 continue
 
-                            # Measure retrieval + reranking time
                             start_time = time.time()
                             try:
                                 chunk_ids, chunk_scores, chunk_payloads = db.search(
@@ -181,14 +169,12 @@ def run_evaluate(cfg: dict):
                                 continue
                             latency_ms = (time.time() - start_time) * 1000
 
-                            # Rerank chunks (if enabled)
                             if reranker and chunk_ids:
-                                k_rerank = min(reranker.top_k_rerank, len(chunk_ids))
-                                top_chunk_ids = chunk_ids[:k_rerank]
-                                top_chunk_scores = chunk_scores[:k_rerank]
+                                k_rerank           = min(reranker.top_k_rerank, len(chunk_ids))
+                                top_chunk_ids      = chunk_ids[:k_rerank]
+                                top_chunk_scores   = chunk_scores[:k_rerank]
                                 top_chunk_payloads = chunk_payloads[:k_rerank]
-
-                                chunk_texts = [p.get("chunk_text", "") for p in top_chunk_payloads]
+                                chunk_texts        = [p.get("chunk_text", "") for p in top_chunk_payloads]
 
                                 reranked_ids, reranked_scores = reranker.rerank_and_reorder(
                                     query=context_str,
@@ -197,35 +183,29 @@ def run_evaluate(cfg: dict):
                                     original_scores=top_chunk_scores
                                 )
 
-                                final_chunk_ids = list(reranked_ids)
+                                payload_map        = {cid: p for cid, p in zip(top_chunk_ids, top_chunk_payloads)}
+                                final_chunk_ids    = list(reranked_ids)
                                 final_chunk_scores = list(reranked_scores)
-                                final_chunk_payloads = []
-                                payload_map = {cid: p for cid, p in zip(top_chunk_ids, top_chunk_payloads)}
-                                for cid in reranked_ids:
-                                    final_chunk_payloads.append(payload_map[cid])
+                                final_chunk_payloads = [payload_map[cid] for cid in reranked_ids]
+
                                 if len(chunk_ids) > k_rerank:
                                     final_chunk_ids.extend(chunk_ids[k_rerank:])
                                     final_chunk_scores.extend(chunk_scores[k_rerank:])
                                     final_chunk_payloads.extend(chunk_payloads[k_rerank:])
                             else:
-                                final_chunk_ids = chunk_ids
-                                final_chunk_scores = chunk_scores
+                                final_chunk_ids      = chunk_ids
+                                final_chunk_scores   = chunk_scores
                                 final_chunk_payloads = chunk_payloads
 
-                            # Aggregate chunks to sections
-                            chunk_results = []
-                            for cid, sc, payload in zip(final_chunk_ids, final_chunk_scores, final_chunk_payloads):
-                                chunk_results.append({
-                                    "id": cid,
-                                    "score": sc,
-                                    "payload": payload
-                                })
+                            chunk_results = [
+                                {"id": cid, "score": sc, "payload": payload}
+                                for cid, sc, payload in zip(final_chunk_ids, final_chunk_scores, final_chunk_payloads)
+                            ]
 
-                            sections = agg.aggregate(chunk_results)
-                            section_ids = [s["section_id"] for s in sections]
+                            sections       = agg.aggregate(chunk_results)
+                            section_ids    = [s["section_id"] for s in sections]
                             section_scores = {s["section_id"]: s["score"] for s in sections}
 
-                            # Write CSV (section level) – now with routing_label
                             with open(csv_path, "a", newline="", encoding="utf-8") as f:
                                 writer = csv.writer(f)
                                 for rank, sec_id in enumerate(section_ids, 1):
@@ -233,9 +213,8 @@ def run_evaluate(cfg: dict):
                                     writer.writerow([
                                         turn["query_id"], mode, db_type, idx_type, strategy, agg_method,
                                         rank, sec_id, section_scores.get(sec_id, 0.0), is_relevant,
-                                        turn["query_quality"], turn["is_rewritten"],
-                                        turn["routing_label"],    # 🆕
-                                        round(latency_ms, 2)
+                                        turn["query_quality"], turn["isfollow_up"],
+                                        turn["routing_label"], round(latency_ms, 2)
                                     ])
 
                             processed_qids.add(turn["query_id"])

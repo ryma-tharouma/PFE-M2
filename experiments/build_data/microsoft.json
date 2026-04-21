@@ -1,0 +1,470 @@
+[
+  {
+    "conversation_id": "conv_12",
+    "app_id": "word",
+    "turns": [
+      {
+        "turn_id": 1,
+        "user_query": "j'ai un fichier word de 600 mo et word refuse de l'ouvrir, y a un moyen ?",
+        "rewritten_query": null,
+        "query_quality": "well_written",
+        "isfollow-up": false,
+        "routing_label": "faq",
+        "relevant_sections": ["2"],
+        "answer": "## La cause\n\nIl s’agit de la taille maximale de fichier que Word peut ouvrir.\n\nRemarque\n\nLa taille maximale du fichier est limitée à 32 Mo uniquement pour le texte total du document et n’inclut pas les graphiques, quelle que soit la manière dont l'image graphique est insérée (Lien vers le fichier, Enregistrer avec le document ou style d'habillage) dans le document. Par conséquent, si le fichier contient des graphiques, la taille maximale du fichier peut être supérieure à 32 Mo.\n\n## Résolution\n\nIl existe une solution de contournement pour résoudre ce problème.\n\nÉtapes de contournement :\n\n1. Renommez le fichier Word en zip (.docx à .zip).\n2. Ouvrez l’Explorateur Windows, recherchez, puis ouvrez le fichier compressé enregistré qui a une extension de nom de fichier .zip.\n Remarque\n\nPour pouvoir modifier l’extension « docx » en « zip », vous devez définir les options de l’Explorateur Windows pour afficher les extensions.\n3. Sélectionnez le dossier word, puis ouvrez le dossier multimédia pour afficher les graphiques.\n4. Supprimez (ou déplacez-vous vers un nouveau dossier) certains graphiques pour réduire la taille du fichier.\n5. Renommez le fichier en docx et ouvrez-le avec Word. Si Word affiche certaines erreurs, car il ne trouve pas de fichiers, cliquez sur Oui pour récupérer le contenu.\n6. Il y aura des espaces réservés pour les images supprimées (ou déplacées).\n7. Cliquez avec le bouton droit sur l’espace réservé de l’image, sélectionnez Modifier l’image et accédez aux dossiers dans lesquels les images sont enregistrées pour sélectionner les images.\n8. Cliquez sur la flèche en regard du bouton Insérer, puis sélectionnez Lien vers fichier.\n9. Enregistrez le document."
+      },
+      {
+        "turn_id": 2,
+        "user_query": "j'essaie de sélectionner plusieurs formes avec ma souris dans Word mais je peux pas faire un rectangle, comment faire ?",
+        "rewritten_query": null,
+        "query_quality": "well_written",
+        "isfollow-up": false,
+        "routing_label": "faq",
+        "relevant_sections": ["3"],
+        "answer": "## Résolution\n\nPour résoudre ce problème, appliquez l’une des méthodes suivantes.\n\nMéthode 1 : Insérer un canevas de dessin avant d’insérer des objets\n\nSi vous souhaitez toujours que le canevas de dessin apparaisse lorsque vous insérez des `AutoShape` objets, procédez comme suit :\n\n1. Dans le menu Fichier\n, sélectionnez Options\n.\n2. Sélectionnez Avancé\n.\n3. Sous Options d’édition\n, activez la case à cocher Créer automatiquement un canevas de dessin lors de l’insertion AutoShapes\n.\n4. Cliquez sur OK\n.\n\nMéthode 2 : Ajouter un bouton à la barre d’outils Accès rapide\n\nSi vous ne souhaitez pas que le canevas de dessin soit créé automatiquement, vous pouvez ajouter un bouton à la barre d’outils Accès rapide (QAT) pour créer le canevas de dessin manuellement. Pour ce faire, procédez comme suit :\n\n1. Dans le menu déroulant De la barre d’outils Accès rapide\n, sélectionnez Autres commandes\n.\n2. Sélectionnez le menu déroulant sous Choisir des commandes\n, puis sélectionnez Commandes non dans le ruban\n.\n3. Faites défiler la liste, sélectionnez Insérer un dessin\n, puis sélectionnez Ajouter\n.\n4. Cliquez sur OK\n.\n\nLa commande **Insérer un dessin** est désormais ajoutée à la barre d’outils Accès rapide.\n\nMéthode 3 : Utiliser la touche Ctrl avec la souris pour sélectionner plusieurs AutoShape objets\n\n1. Sélectionnez un AutoShape\nobjet.\n2. Appuyez sur la touche Ctrl.\n3. Sélectionnez d’autres AutoShape\nobjets pendant que vous continuez à appuyer sur la touche Ctrl.\n\nMéthode 4 : Utiliser le volet Sélection\n\n1. Sélectionnez un AutoShape\nobjet dans votre document.\n2. Dans le menu Outils de dessin\n, sélectionnez Format\n.\n3. Dans le groupe Organiser\n, sélectionnez Volet Sélection\n.\n\nLe volet Sélection s’affiche. Le volet Sélection vous permet de sélectionner plusieurs `AutoShape` objets à l’aide des étapes de la méthode 3.\n\nMéthode 5 : Dans Word 2016 et Word 2013, utilisez Select Objects\n\n1. Sous l’onglet Accueil, sélectionnez Sélectionner des\n> objets\n.\n2. Utilisez la souris pour dessiner un rectangle de sélection autour des formes."
+      },
+      {
+        "turn_id": 3,
+        "user_query": "j'ai un document word avec des equations et des images, et quand je l'ouvre j'ai une erreur 'le nom dans la balise de fin doit correspondre'... tu connais ?",
+        "rewritten_query": null,
+        "query_quality": "well_written",
+        "isfollow-up": false,
+        "routing_label": "faq",
+        "relevant_sections": ["5"],
+        "answer": "## La cause\n\nCe problème est lié strictement aux balises oMath et se produit lorsqu’un objet graphique ou une zone de texte est ancré dans le même paragraphe que celui qui contient l’équation. Le document affiche l’équation et l’objet sur la même ligne que illustré dans cette image :\n\nL’erreur peut ne pas se produire tant que le document n’est pas enregistré, réédité et enregistré à nouveau.\n\n## Résolution\n\nOffice 2013 et Office 2010 Service Pack 1 résout ce problème pour les nouveaux fichiers. Il empêche également le problème de se récurriser avec tous les fichiers récupérés avec la solution Fix it dans cet article.\n\nSi Office 2010 est actuellement installé sur votre ordinateur, nous vous recommandons de suivre les étapes suivantes :\n\n**Étape 1**\n\nTéléchargez Office 2010 Service Pack 1. Pour ce faire, suivez les étapes fournies dans cet article de la base de connaissances Microsoft :\n\n[2460049](https://support.microsoft.com/help/2460049) - Description d’Office 2010 SP1\n\n**Étape 2**\n\nSi vous êtes familiarisé avec la modification du code XML, vous pouvez essayer de résoudre le problème vous-même en corrigeant les balises oMath incompatibles dans le document. Consultez l’exemple suivant :\n\n```xml\nIncorrect tags:\n\n<mc:AlternateContent>\n\n<mc:Choice Requires=\"wps\">\n\n<m:oMath>\n\n…\n\n</mc:AlternateContent>\n\n</m:oMath>\n\nCorrect tags:\n\n<m:oMath>\n\n<mc:AlternateContent>\n\n<mc:Choice Requires=\"wps\">\n\n…\n\n</mc:AlternateContent>\n\n</m:oMath>\n```\n\n**Note** Vous devrez utiliser une application telle que le Bloc-notes pour modifier le code XML.\n\n**Cela a-t-il résolu le problème ?**\n\n- Vérifiez si le problème est résolu. Si le problème est résolu, vous avez terminé avec cette section. Si le problème n’est pas résolu, vous pouvez contacter le support technique\n.\n- Nous vous remercions de vos commentaires. Pour fournir des commentaires ou signaler des problèmes avec cette solution, envoyez-nous un e-mail\n."
+      },
+      {
+        "turn_id": 4,
+        "user_query": "mon publipostage dans Word ne garde pas les codes postaux avec les zéros, comment faire pour qu'il les garde ?",
+        "rewritten_query": null,
+        "query_quality": "well_written",
+        "isfollow-up": false,
+        "routing_label": "faq",
+        "relevant_sections": ["6"],
+        "answer": "## La cause\n\nCe comportement se produit parce que les données de la liste des destinataires dans Word apparaissent dans le format natif dans lequel Excel les stocke, sans la mise en forme appliquée aux cellules de feuille de calcul qui contiennent les données.\n\n## Résolution\n\nPour résoudre ce comportement, appliquez l’une des méthodes suivantes :\n\nMéthode 1\n\nUtilisez Dynamic Data Exchange (DDE) pour vous connecter à la feuille de calcul Excel qui contient les données que vous souhaitez utiliser.\n\n1. Démarrez Word, puis ouvrez un nouveau document vide.\n2. Sélectionnez Fichier\n> Options\n.\n3. Sous l’onglet Avancé\n, accédez à la section Général\n.\n4. Cochez la case Confirmer la conversion de format de fichier à l'ouverture\n, puis sélectionnez OK\n.\n5. Sous l’onglet Publipostage\n, cliquez sur Démarrer le publipostage\n, puis sur Assistant Fusion et publipostage pas à pas\n.\n6. Dans le volet Fusion et publipostage\n, sélectionnez le type de document sur lequel vous souhaitez travailler, puis sélectionnez Suivant\n.\n7. Sous Sélectionner le document de démarrage\n, sélectionnez le document de départ que vous souhaitez utiliser, puis sélectionnez Suivant\n.\n8. Sous Sélectionner des destinataires\n, sélectionnez Utiliser une liste existante\n, puis sélectionnez Parcourir\n.\n9. Dans la boîte de dialogue Sélectionner une source de données\n, recherchez le dossier qui contient le classeur Excel que vous souhaitez utiliser comme source de données, sélectionnez classeur\n, puis sélectionnez Ouvrir\n.\n10. Dans la boîte de dialogue Confirmer la source de données\n, activez la case à cocher Afficher tout\n. sélectionnez Feuilles de calcul MS Excel via DDE (*.xls)\n, puis sélectionnez OK\n.\n11. Dans la boîte de dialogue Microsoft Excel\n, sous Nom ou plage de cellules\n, sélectionnez la plage de cellules ou la feuille de calcul qui contient les données que vous souhaitez utiliser, puis sélectionnez OK\n.\n\nRemarque\n\nVos données s’affichent désormais dans la boîte de dialogue Destinataires de fusion et publipostage avec la même mise en forme qui apparaît dans la feuille de calcul Excel.\n\nMéthode 2\n\nFormatez le champ Excel contenant le code postal en tant que texte.\n\n1. Dans Excel, sélectionnez la colonne qui contient le champ Code postal.\n2. Sous l’onglet Accueil\n, accédez au groupe Cellules\n. Ensuite, sélectionnez Format\n, puis Format des cellules\n.\n3. Sélectionnez l’onglet Nombre\n.\n4. Sous Catégorie\n, sélectionnez Texte\n, puis OK\n.\n5. Enregistrez la source de données. Ensuite, passez à l’opération de fusion de courrier et publipostage dans Word."
+      },
+      {
+        "turn_id": 5,
+        "user_query": "mon Word rame trop, surtout quand je travaille sur des documents avec beaucoup de modifications suivies. Et en plus j'ai remarqué que c'est pire quand le fichier est sur le serveur. C'est lié ?",
+        "rewritten_query": null,
+        "query_quality": "well_written",
+        "isfollow-up": false,
+        "routing_label": "rag",
+        "relevant_sections": ["16", "11"],
+        "answer": "## La cause\n\nCe problème peut se produire si les modifications suivies dans le document ne sont pas acceptées ou rejetées périodiquement.\n\n## Résolution\n\nPour résoudre ce problème, procédez comme suit :\n\n1. Fermez toutes les instances de Word.\n2. Redémarrez Word, puis ouvrez un nouveau document vide.\n3. Sous l’onglet Révision\n, sélectionnez Toutes les marques\ndans le groupe Suivi\n.\n4. Sélectionnez Afficher le balisage\n, puis définissez Les bulles\nsur Afficher uniquement les commentaires et la mise en forme dans les bulles\n.\n5. Utilisez Fichier\n> Ouvrir\npour ouvrir le document problématique.\n\nÀ ce stade, Word doit être réactif. Vous pouvez maintenant accepter ou rejeter les modifications et supprimer des commentaires.\n\n## La cause\n\nL’emplacement du fichier de récupération automatique pointe vers un partage réseau. Cela va forcer Word à utiliser des fichiers situés dans un dossier partagé sur le réseau comme fichiers temporaires.\n\n## Résolution\n\nPour résoudre ce problème, vous devez définir l’emplacement du fichier de récupération automatique sur un chemin local. Le chemin d’accès par défaut est %APPDATA%\\Microsoft\\Word. Vérifiez également que %APPDATA% (ou les données d’application itinérantes) pointe vers un dossier local.\n\nPour modifier ce paramètre, accédez à Fichier - Options - Enregistrer et modifier la zone de texte « Emplacement du fichier de récupération automatique : ». Tapez un chemin local valide."
+      },
+      {
+        "turn_id": 6,
+        "user_query": "j'ai un document avec des étiquettes de confidentialité, j'ai supprimé l'étiquette mais les en-têtes et pieds de page sont restés. Comment les enlever ?",
+        "rewritten_query": null,
+        "query_quality": "well_written",
+        "isfollow-up": false,
+        "routing_label": "faq",
+        "relevant_sections": ["7"],
+        "answer": "## Résolution\n\nMicrosoft a publié une mise à jour pour Word afin de corriger ce problème. Les documents créés après le 12 août 2020 ne seront pas affectés. Tous les documents créés entre le 21 mai 2020 et le 12 août 2020 peuvent toujours être affectés par ce problème.\n\nPour résoudre ce problème sur n’importe quel document concerné, procédez comme suit :\n\n1. Ouvrez le document concerné.\n2. Sélectionnez le menu déroulant Sensibilité\npour appliquer une étiquette non protégée.\n3. Attendez cinq secondes.\n4. Utilisez la liste déroulante Sensibilité\npour désélectionner l’étiquette précédemment appliquée.\n5. Fermez le document."
+      },
+      {
+        "turn_id": 7,
+        "user_query": "je veux imprimer mon document en PDF mais la résolution des images change, elles sont moins nettes. Comment garder la qualité d'origine ?",
+        "rewritten_query": null,
+        "query_quality": "well_written",
+        "isfollow-up": false,
+        "routing_label": "faq",
+        "relevant_sections": ["8"],
+        "answer": "## Contournement\n\nImportant\n\nSuivez attentivement les étapes décrites dans cette section. Des problèmes graves peuvent se produire si vous modifiez le Registre de manière incorrecte. Avant de modifier celui-ci, [sauvegardez le Registre pour restauration](https://support.microsoft.com/help/322756) en cas de problèmes.\n\nPour contourner ce problème, vous pouvez modifier la qualité d’impression par défaut en ajoutant la clé reg suivante :\n\n**Word 2013**\n\nSous-clé de Registre : [HKEY_CURRENT_USER\\Software\\Microsoft\\Office\\15.0\\Word\\Options]\n\nNom de la valeur du Registre : PrintHighQualityDefault\n\nType de valeur de Registre : REG_DWORD\n\nDonnées de valeur du Registre : 1\n\n**Word 2010**\n\nSous-clé de Registre : [HKEY_CURRENT_USER\\Software\\Microsoft\\Office\\14.0\\Word\\Options]\n\nNom de la valeur du Registre : PrintMediumQualityDefault\n\nType de valeur de Registre : REG_DWORD\n\nDonnées de valeur du Registre : 1\n\nPour plus d’informations sur l’ajout de la reg, consultez [Comment ajouter, modifier ou supprimer des sous-clés et des valeurs de Registre à l’aide d’un fichier .reg](https://support.microsoft.com/help/310516)."
+      },
+      {
+        "turn_id": 8,
+        "user_query": "tu peux me donner le code pour un site web en HTML ?",
+        "rewritten_query": null,
+        "query_quality": "well_written",
+        "isfollow-up": false,
+        "routing_label": "ood",
+        "relevant_sections": [],
+        "answer": null
+      },
+      {
+        "turn_id": 9,
+        "user_query": "j'ai un document Word avec des équations et des objets, quand je l'ouvre j'ai une erreur de balise, et aussi mes références croisées ne se mettent pas à jour après avoir ajouté des titres. Comment régler tout ça ?",
+        "rewritten_query": null,
+        "query_quality": "well_written",
+        "isfollow-up": false,
+        "routing_label": "rag",
+        "relevant_sections": ["5", "4"],
+        "answer": "## La cause\n\nCe problème est lié strictement aux balises oMath et se produit lorsqu’un objet graphique ou une zone de texte est ancré dans le même paragraphe que celui qui contient l’équation. Le document affiche l’équation et l’objet sur la même ligne que illustré dans cette image :\n\nL’erreur peut ne pas se produire tant que le document n’est pas enregistré, réédité et enregistré à nouveau.\n\n## Résolution\n\nOffice 2013 et Office 2010 Service Pack 1 résout ce problème pour les nouveaux fichiers. Il empêche également le problème de se récurriser avec tous les fichiers récupérés avec la solution Fix it dans cet article.\n\nSi Office 2010 est actuellement installé sur votre ordinateur, nous vous recommandons de suivre les étapes suivantes :\n\n**Étape 1**\n\nTéléchargez Office 2010 Service Pack 1. Pour ce faire, suivez les étapes fournies dans cet article de la base de connaissances Microsoft :\n\n[2460049](https://support.microsoft.com/help/2460049) - Description d’Office 2010 SP1\n\n**Étape 2**\n\nSi vous êtes familiarisé avec la modification du code XML, vous pouvez essayer de résoudre le problème vous-même en corrigeant les balises oMath incompatibles dans le document. Consultez l’exemple suivant :\n\n```xml\nIncorrect tags:\n\n<mc:AlternateContent>\n\n<mc:Choice Requires=\"wps\">\n\n<m:oMath>\n\n…\n\n</mc:AlternateContent>\n\n</m:oMath>\n\nCorrect tags:\n\n<m:oMath>\n\n<mc:AlternateContent>\n\n<mc:Choice Requires=\"wps\">\n\n…\n\n</mc:AlternateContent>\n\n</m:oMath>\n```\n\n**Note** Vous devrez utiliser une application telle que le Bloc-notes pour modifier le code XML.\n\n**Cela a-t-il résolu le problème ?**\n\n- Vérifiez si le problème est résolu. Si le problème est résolu, vous avez terminé avec cette section. Si le problème n’est pas résolu, vous pouvez contacter le support technique\n.\n- Nous vous remercions de vos commentaires. Pour fournir des commentaires ou signaler des problèmes avec cette solution, envoyez-nous un e-mail\n.\n\n## La cause\n\nLorsque vous créez un lien de référence croisée, un signet masqué est créé au début du titre, ce qui provoque ce problème. Lorsque vous fractionnez le titre, le signet ne se déplace pas. Lorsque vous mettez à jour le lien de référence croisée, le lien n’est pas mis à jour.\n\n## Contournement\n\nPour contourner ce problème, procédez comme suit :\n\n1. Sélectionnez la référence croisée rompue, puis appuyez sur Alt+F9. Le code de champ s’affiche pour le champ REF pour la référence croisée. Notez le nom du signet pour la référence croisée. Le nom du signet commence par la chaîne suivante :\n _Ref\n2. Recherchez et sélectionnez le titre numéroté dans le plan vers lequel la référence croisée doit pointer.\n3. Sous l’onglet **Insertion** , dans le groupe **Liens** , cliquez sur **Signet**.\n4. Dans la boîte de dialogue **Signet** , cliquez pour activer la case à cocher **Signets masqués** .\n5. Recherchez, puis sélectionnez le nom du signet qui correspond au nom du signet que vous avez noté à l’étape 1.\n6. Cliquez sur **Ajouter**. La boîte de dialogue **Signet** se ferme.\n7. Appuyez sur Alt+F9 pour masquer les codes de champ.\n8. Recherchez la référence croisée rompue.\n9. Cliquez avec le bouton droit sur le lien de référence croisée, puis cliquez sur **Mettre à jour le champ**.\n\nLa référence croisée met correctement à jour le numéro de titre pour qu’il corresponde au numéro de chapitre numéroté dans le plan que la référence croisée désigne."
+      },
+      {
+        "turn_id": 10,
+        "user_query": "pourquoi quand j'enregistre un fichier Word la boîte de dialogue s'ouvre deux fois ?",
+        "rewritten_query": null,
+        "query_quality": "well_written",
+        "isfollow-up": false,
+        "routing_label": "faq",
+        "relevant_sections": ["13"],
+        "answer": "## La cause\n\nCe problème se produit car le modèle Normal.dotm est endommagé.\n\n## Résolution\n\nPour résoudre ce problème, créez un fichier Normal.dotm en modifiant le nom de l’ancien fichier. Pour ce faire, procédez comme suit :\n\n1. Démarrez l’Explorateur Windows, tapez *%appdata%\\Microsoft\\Templates* dans la barre d’adresses, puis sélectionnez **Entrée**.\n2. Cliquez avec le bouton droit sur **Normal.dotm**, puis sélectionnez **Renommer**.\n3. Remplacez le nom du fichier par *Normal.old.dotm*.\n4. Redémarrez Word. Un modèle **Normal.dotm** est généré automatiquement.\n5. Essayez d’enregistrer un fichier pour vérifier si le problème est résolu."
+      },
+      {
+        "turn_id": 11,
+        "user_query": "j un document Word intégré dans un autre fichier Office, et quand j le modif direct ça scintille, c'est chiant. Comment faire ?",
+        "rewritten_query": null,
+        "query_quality": "poorly_written",
+        "isfollow-up": false,
+        "routing_label": "faq",
+        "relevant_sections": ["9"],
+        "answer": "## Contournement\n\nIl s’agit d’un problème connu. Pour contourner ce problème, modifiez l’objet Word incorporé en mode ouvert. Pour ce faire, procédez comme suit :\n\n1. Cliquez avec le bouton droit sur l’objet de document Word incorporé.\n2. Sélectionnez l’objet Document\n.\n3. Cliquez sur Ouvrir\n."
+      },
+      {
+        "turn_id": 12,
+        "user_query": "j'ai un publipostage avec un fichier Excel partagé sur le réseau, plusieurs personnes l'utilisent, et j'ai une erreur 'table externe pas au format attendu'. Aussi, les numéros de téléphone perdent leurs zéros au début. Comment résoudre les deux ?",
+        "rewritten_query": null,
+        "query_quality": "well_written",
+        "isfollow-up": false,
+        "routing_label": "rag",
+        "relevant_sections": ["10", "6"],
+        "answer": "## La cause\n\nLorsque vous stockez un fichier .xlsx dans un dossier partagé et que vous l’utilisez comme source de données dans un publipostage Word, Word ouvre le fichier .xlsx exclusivement. Si un autre utilisateur tente d’ouvrir un fichier Word qui utilise simultanément la même source de données, seules les autorisations en lecture seule peuvent être accordées et, par conséquent, la requête échoue.\n\n## Contournement\n\nPour contourner ce problème, utilisez un fichier .csv ou .xls au lieu d’un fichier .xlsx comme source de données. Par exemple, ouvrez votre source de données dans Excel, puis **enregistrez-la sous forme de classeur Excel 97-2003 (*.XLS)** ou **de fichier CSV (valeurs séparées par des virgules) (*.CSV)**.\n\n## La cause\n\nCe comportement se produit parce que les données de la liste des destinataires dans Word apparaissent dans le format natif dans lequel Excel les stocke, sans la mise en forme appliquée aux cellules de feuille de calcul qui contiennent les données.\n\n## Résolution\n\nPour résoudre ce comportement, appliquez l’une des méthodes suivantes :\n\nMéthode 2\n\nFormatez le champ Excel contenant le code postal en tant que texte.\n\n1. Dans Excel, sélectionnez la colonne qui contient le champ Code postal.\n2. Sous l’onglet Accueil\n, accédez au groupe Cellules\n. Ensuite, sélectionnez Format\n, puis Format des cellules\n.\n3. Sélectionnez l’onglet Nombre\n.\n4. Sous Catégorie\n, sélectionnez Texte\n, puis OK\n.\n5. Enregistrez la source de données. Ensuite, passez à l’opération de fusion de courrier et publipostage dans Word."
+      },
+      {
+        "turn_id": 13,
+        "user_query": "j une image qui s'affiche pas dans mon doc Word, à la place y a un message 'La partie image avec la relation rID8 n’a pas été trouvée'. Comment récupérer ?",
+        "rewritten_query": null,
+        "query_quality": "poorly_written",
+        "isfollow-up": false,
+        "routing_label": "faq",
+        "relevant_sections": ["12"],
+        "answer": "## La cause\n\nCela se produit lorsqu’il existe une cible manquante dans le document XML. Le champ cible est défini sur « NULL ».\n\n## Résolution\n\nPour résoudre cette erreur, procédez comme suit :\n\n1. Utilisez l’Explorateur de fichiers pour accéder au dossier dans lequel le document est stocké.\n2. Cliquez avec le bouton droit sur le fichier, puis sélectionnez **Renommer**. Remplacez l’extension du fichier par .docx par .zip, puis sélectionnez Entrée.\n Remarque\n\nSi vous voyez une boîte de dialogue qui demande « Êtes-vous sûr de vouloir la modifier ? », sélectionnez Oui.\n3. Double-cliquez sur le fichier (ou cliquez avec le bouton droit et sélectionnez **Ouvrir**).\n4. Accédez au dossier word/_rels.\n5. Ouvrez le fichier document.xmlfichier .rels dans le Bloc-notes ou n’importe quel éditeur de texte.\n Remarque\n\nDans de nombreux cas, si vous double-cliquez sur un fichier XML, il s’ouvre dans un navigateur web qui ne vous permettra pas de modifier le fichier. Pour ouvrir le Bloc-notes, sélectionnez Démarrer , puis tapez le Bloc-notes. Démarrez le Bloc-notes, sélectionnez Ouvrir, puis accédez au dossier répertorié à l’étape 4. Si vous ne voyez pas le fichier, tapez . dans le champ Nom de fichier , puis sélectionnez Entrée.\n6. Recherchez dans le fichier .rels document.xmlpour identifier rID8.\n7. Dans l’exemple ci-dessous, la cible est incorrectement définie sur NULL :\n \n\n```console\n<Relationship Id=\"rId8\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/image\" Target=\"NULL\"/>\n```\n\nEn guise de correctif, remplacez NULL par le nom de l’image (qui doit être stocké dans le dossier multimédia) :\n \n\n```console\n<Relationship Id=\"rId8\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/image\" Target=\"media/yourimagename.jpeg\"/>\n```\n8. Enregistrez et fermez le fichier XML.\n9. Utilisez l’Explorateur de fichiers pour parcourir à nouveau le fichier et modifier l’extension de .zip en .docx.\n10. Ouvrez le fichier et vérifiez si l’image s’affiche."
+      },
+      {
+        "turn_id": 14,
+        "user_query": "quel temps fera-t-il demain à Lyon ?",
+        "rewritten_query": null,
+        "query_quality": "well_written",
+        "isfollow-up": false,
+        "routing_label": "ood",
+        "relevant_sections": [],
+        "answer": null
+      },
+      {
+        "turn_id": 15,
+        "user_query": "comment faire pour que le connecteur suive la forme quand je la déplace dans Word ?",
+        "rewritten_query": null,
+        "query_quality": "well_written",
+        "isfollow-up": false,
+        "routing_label": "faq",
+        "relevant_sections": ["1"],
+        "answer": "## La cause\n\nCe comportement se produit parce que le connecteur n’est pas connecté à la forme.\n\n## Résolution\n\nPour résoudre ce comportement, insérez les formes et le connecteur dans un nouveau canevas de dessin. Lorsque les formes et le connecteur sont insérés dans un nouveau canevas de dessin, le connecteur est connecté à la forme. Et le connecteur reste connecté à la forme lorsque vous déplacez la forme.\n\nPour insérer un nouveau canevas de dessin, sous l’onglet **Insertion**, cliquez sur Formes dans le groupe **Illustrations**, puis sur **Nouveau canevas de dessin**. Ensuite, insérez les formes et le connecteur souhaités."
+      }
+    ]
+  },
+  {
+    "conversation_id": "conv_13",
+    "app_id": "excel",
+    "turns": [
+      {
+        "turn_id": 1,
+        "user_query": "pourquoi dans Excel mes colonnes sont affichées avec des chiffres au lieu des lettres A, B, C ? Comment faire pour revenir à l'affichage normal ?",
+        "rewritten_query": null,
+        "query_quality": "well_written",
+        "isfollow-up": false,
+        "routing_label": "faq",
+        "relevant_sections": ["9"],
+        "answer": "## La cause\n\nCe comportement se produit lorsque la case à cocher **style de référence R1C1** est cochée dans la boîte de dialogue Options.\n\n## Résolution\n\nPour modifier ce comportement, procédez comme suit :\n\n1. Ouvrez Microsoft Excel.\n2. Dans le menu Outils\n, cliquez sur Options\n.\n3. Cliquez sur l’onglet Formules\n.\n4. Sous Utilisation des formules\n, cliquez pour effacer la case à cocher style de référence R1C1\n(coin supérieur gauche), puis cliquez sur OK.\n\nSi vous activez la case à cocher **style de référence R1C1** , Excel modifie le style de référence des en-têtes de ligne et de colonne, et les références de cellule du style A1 au style R1C1."
+      },
+      {
+        "turn_id": 2,
+        "user_query": "et du coup, maintenant que j'ai remis les lettres, je peux pas utiliser les formules avec des numéros de colonne ? Parfois c'est pratique",
+        "rewritten_query": "Puis-je encore utiliser des références de colonnes numériques (style R1C1) après avoir désactivé le style de référence R1C1 ?",
+        "query_quality": "well_written",
+        "isfollow-up": true,
+        "routing_label": "rag",
+        "relevant_sections": ["9"],
+        "answer": "Si vous activez la case à cocher **style de référence R1C1** , Excel modifie le style de référence des en-têtes de ligne et de colonne, et les références de cellule du style A1 au style R1C1."
+      },
+      {
+        "turn_id": 3,
+        "user_query": "j'ai un tableau croisé dynamique et je veux utiliser la fonction DCOUNT dessus, mais ça me retourne une erreur #VALEUR. Comment faire ?",
+        "rewritten_query": null,
+        "query_quality": "well_written",
+        "isfollow-up": false,
+        "routing_label": "faq",
+        "relevant_sections": ["13"],
+        "answer": "## La cause\n\nCe problème se produit parce que le paramètre de champ des fonctions DCOUNT et DSUM ne peut pas utiliser une référence de cellule ou une étiquette de colonne pour récupérer les données de la table de base de données. Lorsque vous utilisez les fonctions DCOUNT et DSUM sur un tableau croisé dynamique, le paramètre de champ ne peut utiliser qu’un nombre pour représenter la position de la colonne dans la liste. Par exemple, le paramètre peut utiliser 1 pour la première colonne, 2 pour la deuxième colonne, et ainsi de suite. N’utilisez pas de guillemets autour du nombre.\n\n## Contournement\n\nPour contourner ce problème, utilisez une étiquette de colonne ou la valeur de position de colonne pour identifier la colonne à utiliser dans le paramètre de champ.\n\nPar exemple, en utilisant l’exemple dans la section « Symptômes », la fonction DCOUNT peut être réécrite comme suit :\n\nDCOUNT(C10 :F20,4,H2 :H12)"
+      },
+      {
+        "turn_id": 4,
+        "user_query": "quand j'imprime ma feuille Excel, j'ai des pages blanches qui sortent en plus. Comment éviter ça ?",
+        "rewritten_query": null,
+        "query_quality": "well_written",
+        "isfollow-up": false,
+        "routing_label": "faq",
+        "relevant_sections": ["3"],
+        "answer": "## La cause\n\nCe comportement peut se produire dans l’une des conditions suivantes :\n\n- Les seules données d’une page se trouvent dans les cellules mises en forme de manière à ce qu’elles soient vides.\n Les cellules mises en forme pour apparaître vides incluent celles avec des polices blanches, des paramètres zéros en tant que vides, trois points-virgules (voir l’exemple 1 dans la section « Plus d’informations »), etc.\n- Une cellule de la page contient une erreur et des erreurs ont été sélectionnées pour être imprimées comme vides.\n- Il existe des pages entièrement vides devant toutes les pages qui contiennent des données (y compris les deux premières conditions indiquées ici), qui sont imprimées comme vides.\n- La feuille de calcul contient des objets de dessin situés dans des zones inattendues de la feuille de calcul.\n- La feuille de calcul contient des colonnes masquées avec des sauts de page manuels\n Ces objets peuvent être très petits en taille, mis en forme comme blanc, et ainsi de suite.\n\nRemarque\n\nLes pages qui contiennent des lignes ou des colonnes masquées ne sont pas imprimées (s’il n’existe aucune autre donnée sur la page), ni les pages intermédiaires.\n\n## Contournement\n\nPour contourner ce problème, effectuez les étapes suivantes :\n\n1. Dans le menu Fichier, cliquez sur Imprimer.\n **Note** Dans Excel 2007, cliquez sur le **bouton Microsoft Office**, puis sur **Imprimer**.\n2. Sous Plage d’impression, sélectionnez uniquement la page ou les pages que vous souhaitez imprimer."
+      },
+      {
+        "turn_id": 5,
+        "user_query": "j'ai une formule =SUMIF([Source]Sheet1!$A$1:$A$8,\"a\",[Source]Sheet1!$B$1:$B$8) qui me retourne #VALEUR! alors que le classeur source est fermé. Comment corriger ?",
+        "rewritten_query": null,
+        "query_quality": "well_written",
+        "isfollow-up": false,
+        "routing_label": "faq",
+        "relevant_sections": ["1"],
+        "answer": "## La cause\n\nCe comportement se produit lorsque la formule qui contient la fonction fait référence aux cellules d’un classeur fermé et que les cellules sont calculées.\n\nRemarque\n\nSi vous ouvrez le classeur référencé, la formule fonctionne correctement.\n\n## Contournement\n\nPour contourner ce comportement, utilisez une combinaison des fonctions SUM et IF dans une formule de tableau.\n\nExemples\n\nRemarque\n\nVous devez entrer chaque formule en tant que formule matricielle. Pour entrer une formule de tableau dans Microsoft Excel pour Windows, appuyez sur Ctrl+Maj+Entrée.\n\nSUMIF\n\nAu lieu d’utiliser une formule similaire à ce qui suit :\n\n> =SUMIF([Source]Sheet1!$A$1:$A$8,\"a\",[Source]Sheet1!$B$1:$B$8)\n\nUtilisez la formule suivante :\n\n> =SOMME(SI([Source]Sheet1!$A$1:$A$8=\"a\",[Source]Sheet1!$B$1:$B$8,0))\n\nCOUNTIF\n\nAu lieu d’utiliser une formule similaire à ce qui suit :\n\n> =COUNTIF([Source]Sheet1 !$A$1 :$A$8,\"a »)\n\nUtilisez la formule suivante :\n\n> =SOMME(SI([Source]Sheet1 !$A$1 :$A$8=\"a »,1,0))\n\nCOUNTBLANK\n\nAu lieu d’utiliser une formule similaire à ce qui suit :\n\n> =COUNTBLANK([Source]Sheet1!$A$1:$A$8)\n\nUtilisez la formule suivante :\n\n> =SOMME(SI([Source]Sheet1!$A$1:$A$8=\"\",1,0))\n\nQuand utiliser une formule matricielle **SUM(IF())**, utilisez une logique **ET** ou **OU** pour remplacer les fonctions SUMIFS ou COUNTIFS."
+      },
+      {
+        "turn_id": 6,
+        "user_query": "et pour compter au lieu de sommer, je fais la même chose avec SOMME(SI(...)) ?",
+        "rewritten_query": "Comment remplacer une formule COUNTIF qui référence un classeur fermé par une formule matricielle SUM(IF) ?",
+        "query_quality": "well_written",
+        "isfollow-up": true,
+        "routing_label": "rag",
+        "relevant_sections": ["1"],
+        "answer": "COUNTIF\n\nAu lieu d’utiliser une formule similaire à ce qui suit :\n\n> =COUNTIF([Source]Sheet1 !$A$1 :$A$8,\"a »)\n\nUtilisez la formule suivante :\n\n> =SOMME(SI([Source]Sheet1 !$A$1 :$A$8=\"a »,1,0))"
+      },
+      {
+        "turn_id": 7,
+        "user_query": "comment faire une capture d'écran sur mon ordinateur ?",
+        "rewritten_query": null,
+        "query_quality": "well_written",
+        "isfollow-up": false,
+        "routing_label": "ood",
+        "relevant_sections": [],
+        "answer": null
+      },
+      {
+        "turn_id": 8,
+        "user_query": "quand j'essaie de trier mes données, Excel me dit 'Cette opération nécessite que les cellules fusionnées soient de taille identique'. Comment faire pour trier quand même ?",
+        "rewritten_query": null,
+        "query_quality": "well_written",
+        "isfollow-up": false,
+        "routing_label": "faq",
+        "relevant_sections": ["21"],
+        "answer": "## La cause\n\nCe problème peut se produire si vous triez une plage de cellules et si les conditions suivantes sont remplies :\n\n- Vous avez précédemment fusionné certaines des cellules, mais pas toutes les cellules de la plage de tri.\n- Vous avez précédemment fusionné toutes les cellules de la plage de tri et les cellules ne sont pas toutes de la même taille.\n\n## Contournement\n\nPour contourner ce problème, divisez toutes les cellules fusionnées de la plage ou fusionnez-les toutes de manière à ce que les cellules fusionnées aient la même taille. Chaque cellule fusionnée de la plage doit occuper le même nombre de lignes et de colonnes que les autres cellules fusionnées de la plage.\n\nSolution générale\n\n1. Sélectionnez l’ensemble de la plage à trier.\n2. Dans le groupe **Alignement** sous l’onglet **Accueil** , sélectionnez le lanceur de boîte de dialogue **Alignement** .\n3. Activez l’onglet **Alignement** , puis désactivez la case à cocher **Fusionner les cellules** .\n4. Cliquez sur **OK**.\n\nRemarque\n\nCela peut modifier la disposition des données dans la plage.\n\nExemple de solution\n\n1. Dans une feuille de calcul, tapez les données suivantes :\n \n\n```asciidoc\nA1: B1: Name C1: Value\nA2: B2: Sue  C2: 1\nA3: B3: Tom  C3: 2\n```\n2. Fusionnez les cellules A1 et B1, A2 et B2, et A3 et B3. Pour ce faire, procédez comme suit :\n 1. Sélectionnez chaque paire de cellules.\n2. Sélectionnez le lanceur de boîte de dialogue **Alignement** dans le groupe **Alignement** sous l’onglet **Accueil** .\n3. Sélectionnez l’onglet **Alignement** , puis **cochez** la case Fusionner les cellules.\n4. Cliquez sur **OK**.\nNe fusionnez pas de cellules dans la colonne C.\n3. Sélectionnez les cellules A1 :C3, sélectionnez **Trier et filtrer** dans le groupe **Édition** sous l’onglet **Accueil** , puis cliquez sur **Tri personnalisé**.\n4. Dans la zone **De tri** , sélectionnez « Colonne C » en regard de **Trier par**, puis **sélectionnez OK**. Le message d’erreur doit s’afficher comme indiqué ci-dessus.\n5. Pour résoudre ce problème, effectuez l’une des opérations suivantes :\n 1. Annuler la fusion des cellules A1 :B3 afin qu’il n’y ait pas de cellules fusionnées dans la sélection.\n2. Fusionnez les cellules C1 et D1, C2 et D2, C3 et D3, afin que la colonne C soit de même taille (fusionnée) que la colonne A/B. Sélectionnez ensuite les cellules A1 :D3, puis répétez les étapes 3 et 4 à l’aide d’une taille de plage uniforme."
+      },
+      {
+        "turn_id": 9,
+        "user_query": "j'ai trop de cellules fusionnées, les désunir toutes va me faire perdre la mise en forme. Y a pas une autre astuce ?",
+        "rewritten_query": "Existe-t-il une autre solution pour trier une plage contenant des cellules fusionnées sans les désunir toutes ?",
+        "query_quality": "well_written",
+        "isfollow-up": true,
+        "routing_label": "rag",
+        "relevant_sections": ["21"],
+        "answer": "fusionnez-les toutes de manière à ce que les cellules fusionnées aient la même taille. Chaque cellule fusionnée de la plage doit occuper le même nombre de lignes et de colonnes que les autres cellules fusionnées de la plage.\n\nExemple de solution\n\n...\n2. Fusionnez les cellules C1 et D1, C2 et D2, C3 et D3, afin que la colonne C soit de même taille (fusionnée) que la colonne A/B. Sélectionnez ensuite les cellules A1 :D3, puis répétez les étapes 3 et 4 à l’aide d’une taille de plage uniforme."
+      },
+      {
+        "turn_id": 10,
+        "user_query": "j'ai ouvert deux fenêtres Excel différentes, et je peux pas utiliser 'Coller spécial' avec les options Formules ou Formats. Pourquoi ?",
+        "rewritten_query": null,
+        "query_quality": "well_written",
+        "isfollow-up": false,
+        "routing_label": "faq",
+        "relevant_sections": ["6"],
+        "answer": "## La cause\n\nCe comportement se produit car Excel ne peut pas utiliser sa fonctionnalité de copie interne lorsque vous exécutez plusieurs instances d’Excel. Au lieu de cela, Excel s’appuie sur la boîte de dialogue **Coller spécial** Windows pour ses fonctionnalités de copie. Lorsque vous exécutez une seule instance d’Excel, Excel utilise sa fonctionnalité de copie interne. Par conséquent, la boîte de dialogue **Coller spécial d’Excel** est disponible dans ce cas.\n\n## Contournement\n\nPour contourner ce comportement, ouvrez les deux classeurs dans la même instance d’Excel."
+      },
+      {
+        "turn_id": 11,
+        "user_query": "j'ai une macro VBA qui ouvre Excel, fait des trucs, puis se ferme. Mais dans le gestionnaire de tâches, Excel reste en mémoire. Comment bien le fermer ?",
+        "rewritten_query": null,
+        "query_quality": "well_written",
+        "isfollow-up": false,
+        "routing_label": "faq",
+        "relevant_sections": ["2"],
+        "answer": "## La cause\n\nCe comportement peut se produire si les conditions suivantes sont remplies :\n\n- Un complément COM est installé dans Excel.\n- Le complément COM affecte une référence Excel ou une référence de membre Excel à un objet global.\n\nPar exemple, ce comportement est connu pour se produire lorsque l’outil de recherche Google Desktop est installé dans Excel. Pour plus d’informations sur l’outil de recherche Google Desktop, visitez le site Web Google suivant :\n\n[https://desktop.google.com](https://desktop.google.com/)\n\n## Contournement\n\nPour contourner ce comportement, supprimez le complément COM dans Excel. Pour ce faire, suivez ces étapes, selon les besoins de la version d’Excel que vous exécutez.\n\nMicrosoft Office Excel 2007\n\n1. Cliquez sur le bouton Microsoft Office\n, puis sur Options Excel\n.\n2. Cliquez sur Compléments\n.\n3. Cliquez sur Compléments Excel\ndans la zone Gérer\n, puis sur Go\n.\n4. Dans la boîte de dialogue Compléments\n, cliquez pour désactiver la case à cocher des compléments connus pour entraîner ce comportement.\n5. Cliquez sur OK\n.\n\nMicrosoft Office Excel 2003\n\n1. Dans le menu Outils\n, cliquez sur Compléments\n.\n2. Dans la boîte de dialogue Compléments\n, cliquez pour désactiver la case à cocher des compléments connus pour provoquer ce comportement.\n3. Cliquez sur OK\n."
+      },
+      {
+        "turn_id": 12,
+        "user_query": "j'ai un graphique avec une courbe de tendance, mais quand j'utilise l'équation pour calculer des valeurs, les résultats sont faux. Pourquoi ?",
+        "rewritten_query": null,
+        "query_quality": "well_written",
+        "isfollow-up": false,
+        "routing_label": "faq",
+        "relevant_sections": ["8"],
+        "answer": "## La cause\n\nMicrosoft Excel trace incorrectement les courbes de tendance, car l’équation affichée peut fournir des résultats incorrects lorsque vous entrez manuellement des valeurs X. Pour l’apparence, chaque valeur X est arrondie au nombre de chiffres significatifs affichés dans le graphique. Ce comportement permet à l’équation d’occuper moins d’espace dans la zone de graphique. Toutefois, la précision du graphique est réduite. Une tendance peut sembler incorrecte.\n\n## Contournement\n\nPour contourner ce comportement, augmentez les chiffres de l’équation de courbe de tendance en augmentant le nombre de décimales affichées :\n\n1. Dans le graphique, sélectionnez l’équation de courbe de tendance.\n2. Dans le menu Format\n, cliquez sur Étiquettes de données sélectionnées\n.\n3. Sélectionnez l’onglet Nombre\n, puis sélectionnez Numéro\ndans la liste Des catégories\n.\n4. Dans la zone Décimales\n, augmentez le nombre de décimales à 30 afin que vous puissiez voir tous les décimales.\n5. Cliquez sur OK\n."
+      },
+      {
+        "turn_id": 13,
+        "user_query": "et est-ce que le problème d'arrondi arrive aussi sur les graphiques en courbes ou en colonnes ?",
+        "rewritten_query": null,
+        "query_quality": "well_written",
+        "isfollow-up": false,
+        "routing_label": "rag",
+        "relevant_sections": ["8"],
+        "answer": "Remarque\n\nLa formule de la courbe de tendance est utilisée pour un graphique de dispersion XY. Ce graphique trace à la fois l’axe X et l’axe Y en tant que valeurs. Les graphiques en courbes, colonnes et barres tracent uniquement l’axe Y sous forme de valeurs. Dans ces types de graphiques, l'axe X est tracé comme une série linéaire, quelle que soit l'étiquette réelle. Par conséquent, la courbe de tendance est inexacte si elle est affichée sur ces types de graphiques. Ce comportement est voulu."
+      },
+      {
+        "turn_id": 14,
+        "user_query": "je copie une formule sur 50 000 lignes dans Excel et j'ai un message 'Pas assez de mémoire'. Comment faire pour copier quand même ?",
+        "rewritten_query": null,
+        "query_quality": "well_written",
+        "isfollow-up": false,
+        "routing_label": "faq",
+        "relevant_sections": ["14"],
+        "answer": "## La cause\n\nChaque instance de Microsoft Excel 2007, Excel 2010 et Excel 2013 32 bits est limitée à 2 gigaoctets (Go) de mémoire (espace tas interne). Chaque instance est également limitée à 32 760 cellules sources lorsque vous effectuez une opération de remplissage intelligente. Lorsque vous copiez ou remplissez de grandes sections d’une feuille de calcul, une ou ces deux limitations peuvent affecter le résultat.\n\n## Contournement\n\nPour contourner la limite de cellule source, procédez comme suit :\n\n1. Remplissez uniquement la partie de la plage que vous devez remplir.\n2. Sélectionnez uniquement la dernière ligne ou les deux dernières lignes de la plage remplie, puis remplissez plus loin la feuille.\n3. Répétez l’étape 2 jusqu’à ce que vous ayez rempli tout l’ensemble que vous devez compléter. Pour contourner la limite de mémoire, divisez votre travail en classeurs plus petits et ouvrez-les dans des instances distinctes d’Excel."
+      },
+      {
+        "turn_id": 15,
+        "user_query": "j'exporte des données depuis SharePoint vers Excel, mais après quelques secondes j'ai une erreur 'Une erreur inattendue s'est produite'. Comment régler ça ?",
+        "rewritten_query": null,
+        "query_quality": "well_written",
+        "isfollow-up": false,
+        "routing_label": "faq",
+        "relevant_sections": ["4"],
+        "answer": "## La cause\n\nExcel a un délai d’expiration de 55 secondes lors de l’extraction de données à partir de SharePoint. Par conséquent, vous pouvez recevoir le message d’erreur lorsque le délai d’expiration de ce client est dépassé.\n\n## Résolution\n\nVous pouvez augmenter la valeur de délai d’expiration Excel par défaut à l’aide d’une clé de Registre. Pour augmenter la valeur du délai d’expiration Excel, procédez comme suit :\n\n1. Ouvrez l'Éditeur du Registre. Recherchez et sélectionnez la sous-clé de Registre suivante :\n - Pour une installation MSI d’Excel\n **Pour Excel 32 bits sur Windows 32 bits ou Excel 64 bits sur Windows 64 bits**\n `HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Office\\16.0\\Access Connectivity Engine\\Engines`\n **Pour Excel 32 bits sur Windows 64 bits**\n `HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Microsoft\\Office\\16.0\\Access Connectivity Engine\\Engines`\n- Pour l'installation Click-to-Run d'Excel\n **Pour Excel 32 bits sur Windows 32 bits ou Excel 64 bits sur Windows 64 bits**\n `HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Office\\ClickToRun\\REGISTRY\\MACHINE\\Software\\Microsoft\\Office\\16.0\\Access Connectivity Engine\\Engines`\n **Pour Excel 32 bits sur Windows 64 bits**\n `HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Office\\ClickToRun\\REGISTRY\\MACHINE\\Software\\Wow6432Node\\Microsoft\\Office\\16.0\\Access Connectivity Engine\\Engines`\n2. Dans le menu **Édition**, pointez sur **Nouveau**, puis sélectionnez **Valeur DWORD**.\n3. Tapez **DataFetchTimeout**, puis **appuyez sur Entrée**.\n4. Cliquez avec le bouton droit sur **DataFetchTimeout**, puis sélectionnez **Modifier**.\n5. Sélectionnez **Decimal** pour **base**, tapez **90000** dans la zone **de données Valeur** , puis sélectionnez **OK**.\n Remarque\n\nSi la nouvelle valeur ne résout pas le problème, essayez une valeur supérieure. DataFetchTimeout est en millisecondes.\n6. Quittez l’Éditeur du Registre."
+      }
+    ]
+  },
+  {
+    "conversation_id": "conv_14",
+    "app_id": "outlook",
+    "turns": [
+      {
+        "turn_id": 1,
+        "user_query": "Depuis qu'on a activé l'authentification moderne dans Microsoft 365, mon Outlook affiche 'Déconnecté' dans la barre d'état. Comment faire ?",
+        "rewritten_query": null,
+        "query_quality": "well_written",
+        "isfollow-up": false,
+        "routing_label": "faq",
+        "relevant_sections": ["1"],
+        "answer": "## La cause\n\nUn problème connu dans Office crée une mauvaise communication entre Office et Windows qui oblige Windows à fournir les informations d’identification par défaut au lieu des informations d’identification de compte appropriées requises pour accéder à la boîte aux lettres.\n\nCe problème se produit le plus souvent si plusieurs boîtes aux lettres sont ajoutées au profil Outlook et qu’au moins une de ces boîtes aux lettres utilise un compte de connexion qui n’est pas identique au compte de connexion Windows de l’utilisateur.\n\n## Résolution\n\nLa solution la plus efficace à ce problème consiste à [recréer votre profil Outlook.](https://support.microsoft.com/office/create-an-outlook-profile-f544c1ba-3352-4b3b-be0b-8d42a540459d)"
+      },
+      {
+        "turn_id": 2,
+        "user_query": "ok et du coup si je recrée mon profil, est-ce que je perds mes signatures et mes règles ?",
+        "rewritten_query": null,
+        "query_quality": "well_written",
+        "isfollow-up": false,
+        "routing_label": "ood",
+        "relevant_sections": [],
+        "answer": null
+      },
+      {
+        "turn_id": 3,
+        "user_query": "J'ai Outlook 2016 et depuis qu'on a migré vers Microsoft 365, il me demande mon mot de passe tout le temps. Pourtant j'ai l'authentification moderne activée normalement.",
+        "rewritten_query": null,
+        "query_quality": "well_written",
+        "isfollow-up": false,
+        "routing_label": "faq",
+        "relevant_sections": ["2"],
+        "answer": "## La cause\n\nOutlook limite ses choix de schémas d’authentification aux schémas pris en charge par RPC. Mais les schémas d’authentification n’incluent pas l’authentification moderne.\n\n## Résolution\n\n> **Important**\n> Suivez attentivement les étapes décrites dans cette section. Des problèmes graves peuvent se produire si vous modifiez le Registre de manière incorrecte. Avant de le modifier, sauvegardez le Registre afin de pouvoir le restaurer en cas de problème.\nCréez la clé de Registre suivante pour forcer Outlook à utiliser une méthode d’authentification plus récente pour les services web, comme EWS et la découverte automatique. Nous recommandons aux utilisateurs de forcer Outlook à utiliser l’authentification moderne.\n\n1. Quittez Outlook.\n2. Démarrez l’Éditeur du Registre à l’aide de l’une des procédures suivantes, selon les besoins de votre version de Windows :\n - Windows 10, Windows 8.1 et Windows 8\n: appuyez sur Touche Windows + R pour ouvrir une boîte de dialogue Exécuter\n. Tapez regedit.exe\n, puis appuyez sur Entrée.\n- Windows 7\n: Cliquez sur Démarrer\n, tapez regedit.exe\ndans la zone de recherche, puis appuyez sur Entrée.\n3. Dans l’Éditeur du Registre, recherchez et cliquez sur la sous-clé de Registre suivante :\n \n\n```console\nHKEY_CURRENT_USER\\Software\\Microsoft\\Exchange\n```\n4. Dans le menu **Modifier** , pointez sur **Nouveau**, puis cliquez sur **Valeur DWORD**.\n5. Tapez *AlwaysUseMSOAuthForAutoDiscover*, puis appuyez sur Entrée.\n6. Cliquez avec le bouton droit sur **AlwaysUseMSOAuthForAutoDiscover**, puis cliquez sur **Modifier**.\n7. Dans la zone **de données Valeur** , tapez *1*, puis cliquez sur **OK**.\n8. Quittez l’Éditeur du Registre."
+      },
+      {
+        "turn_id": 4,
+        "user_query": "j change mon mdp windows et depuis outlook me l redemande sans cesse mm quand j le mets, c'est relou comment faire ?",
+        "rewritten_query": null,
+        "query_quality": "poorly_written",
+        "isfollow-up": false,
+        "routing_label": "faq",
+        "relevant_sections": ["3"],
+        "answer": "## La cause\n\nAvant la modification de votre mot de passe, vous avez enregistré vos informations d’identification. Les informations d’identification stockées ne sont pas remplacées quand Outlook déclenche l’invite d’authentification même si vous activez l’option **Mémoriser mes informations d’identification** .\n\n## Résolution\n\nPour résoudre ce problème, installez la dernière mise à jour pour Outlook 2010 ou Outlook 2013. Pour plus d’informations sur les dernières mises à jour pour Microsoft Outlook, consultez [Comment installer les dernières mises à jour applicables pour Microsoft Outlook (anglais américain uniquement).](https://learn.microsoft.com/fr-fr/outlook/troubleshoot/installation/install-outlook-latest-updates)\n\n## Contournement\n\nSi vous ne parvenez pas à installer la dernière mise à jour pour Outlook 2010 ou Outlook 2013, vous pouvez contourner ce problème en supprimant toutes les informations d’identification précédemment enregistrées. Pour supprimer les informations d’identification stockées et forcer Outlook à utiliser vos informations d’identification de bureau Windows, procédez comme suit.\n\n1. Cliquez sur **Démarrer**, cliquez sur **Panneau de configuration**, puis sur **Gestionnaire d’informations d’identification**.\n Remarque\n\nSi l’affichage est défini surCatégorie, cliquez d’abord sur Comptes d’utilisateur , puis sur Gestionnaire d’informations d’identification.\n2. Recherchez l’ensemble des informations d’identification qui ont **Outlook** dans le nom.\n3. Cliquez sur le nom pour développer l’ensemble d’informations d’identification, puis cliquez sur **Supprimer du coffre**.\n4. Répétez l’étape 3 pour tous les ensembles d’informations d’identification supplémentaires qui ont le mot **Outlook** dans le nom."
+      },
+      {
+        "turn_id": 5,
+        "user_query": "je veu changer protocole de connexion MAPI sur HTTP mais depuis outlook me demande sans arret mon mdp comment résoudre",
+        "rewritten_query": null,
+        "query_quality": "poorly_written",
+        "isfollow-up": false,
+        "routing_label": "faq",
+        "relevant_sections": ["4"],
+        "answer": "## La cause\n\nCe problème se produit car Outlook 2016 ou 2010 continue d’essayer d’utiliser les informations d’identification mises en cache pour l’ancien protocole RPC via HTTP.\n\n## Contournement\n\nPour contourner ce problème, supprimez les informations d’identification mises en cache du Gestionnaire d’informations d’identification sur les ordinateurs des utilisateurs. Pour ce faire, procédez comme suit :\n\n1. Dans le Panneau de configuration, cliquez sur Comptes d’utilisateurs\n> Gestionnaire d’informations d’identification\n> Informations d’identification Windows\n.\n2. Supprimez toutes les informations d’identification qui commencent par MicrosoftOffice15_Data :SSPI\nou MicrosoftOffice16_Data :SSPI\n.\n3. Redémarrez Outlook.\n4. Entrez les informations d’identification de l’utilisateur au format domaine /utilisateur\n."
+      },
+      {
+        "turn_id": 6,
+        "user_query": "a chaque fois ke j ouvre outlook il me demande mon mdp meme si j le met jarrive pas a cree un profil",
+        "rewritten_query": null,
+        "query_quality": "poorly_written",
+        "isfollow-up": false,
+        "routing_label": "faq",
+        "relevant_sections": ["5"],
+        "answer": "## La cause\n\nCe problème se produit si la case **à cocher Autoriser Office à se connecter à Internet** sous **Options de confidentialité du Centre de confidentialité** n’est pas activée.\n\n## Résolution\n\nPour résoudre ce problème, activez l’option permettant à Office de se connecter aux services en ligne en suivant ces étapes pour votre version d’Outlook.\n\nOutlook 2016, Outlook 2019 et Outlook pour Microsoft 365 :\n\n1. Sous l’onglet **Fichier** , sélectionnez **Options**.\n2. Sélectionnez **Centre de gestion de la confidentialité**, puis sélectionnez **Paramètres du Centre de gestion de la confidentialité**.\n3. Sélectionnez **Options de confidentialité**, puis activez la case **à cocher Autoriser Office à se connecter aux services en ligne de Microsoft pour fournir des fonctionnalités pertinentes pour votre utilisation et vos préférences** .\n4. Sélectionnez **OK** deux fois pour fermer la boîte de dialogue **Options Outlook** .\n Remarque\n\nSi la case à cocher Autoriser Office à se connecter aux services en ligne de Microsoft pour fournir des fonctionnalités pertinentes pour votre utilisation et vos préférences n’est pas disponible, consultez la section Informations supplémentaires pour plus d’informations sur ce paramètre.\n\nOutlook 2013 :\n\n1. Sous l’onglet **Fichier** , sélectionnez **Options**.\n2. Sélectionnez **Centre de gestion de la confidentialité**, puis sélectionnez **Paramètres du Centre de gestion de la confidentialité**.\n3. Sélectionnez **Options de confidentialité**, puis activez la case **à cocher Autoriser Office à se connecter à Internet** .\n4. Sélectionnez **OK** deux fois pour fermer la boîte de dialogue **Options Outlook** .\n Remarque\n\nSi la case à cocher Autoriser Office à se connecter à Internet n’est pas disponible, consultez la section Informations supplémentaires pour plus d’informations sur ce paramètre."
+      },
+      {
+        "turn_id": 7,
+        "user_query": "si j passe de réseau local a étendu outlook demande identifiants c normal",
+        "rewritten_query": null,
+        "query_quality": "poorly_written",
+        "isfollow-up": false,
+        "routing_label": "faq",
+        "relevant_sections": ["7"],
+        "answer": "## La cause\n\nCe problème se produit lorsque la méthode d’authentification du client d’Outlook Anywhere est définie sur Authentification de base sur le serveur Exchange.\n\nLorsque l’utilisateur bascule vers un autre réseau, Outlook peut changer le type de connexion TCP vers HTTPS. Si la méthode d’authentification du client d’Outlook Anywhere est définie sur Authentification de base, l’utilisateur est invité à entrer des informations d’identification.\n\n## Résolution\n\nPour résoudre ce problème, définissez la méthode d’authentification cliente d’Outlook Anywhere sur l’authentification NTLM sur le serveur Exchange."
+      },
+      {
+        "turn_id": 8,
+        "user_query": "je peut pas repondre aux demandes de reunion et en plus quand mon delegue envoie une mise a jour ca reste pas a jour",
+        "rewritten_query": null,
+        "query_quality": "well_written",
+        "isfollow-up": false,
+        "routing_label": "rag",
+        "relevant_sections": ["12", "20"],
+        "answer": "## La cause\n\nCe problème se produit si l’organisateur de la réunion vous ajoute en tant que ressource à la réunion et que vous êtes externe au domaine de l’organisateur de la réunion.\n\n## Résolution\n\nPour contourner ce comportement, demandez à l’organisateur de la réunion de vous ajouter en tant que participant obligatoire ou facultatif au lieu d’une ressource.\n\n## La cause\n\nCe problème se produit quand Outlook traite la réponse **acceptée** avant la fin de la synchronisation du calendrier. Il s’agit d’une limitation connue dans Outlook 2019, Outlook 2016 et Outlook pour Microsoft 365.\n\n## Contournement\n\nVous pouvez éviter ce problème si vous fournissez suffisamment de temps pour qu’Outlook termine la synchronisation de la réunion périodique avant de créer une exception à la périodicité de la réunion et d’envoyer une mise à jour pour l’exception."
+      },
+      {
+        "turn_id": 9,
+        "user_query": "j joint un elemn outlook a reunion de groupe mais la piece jointe a disparu comment faire",
+        "rewritten_query": null,
+        "query_quality": "poorly_written",
+        "isfollow-up": false,
+        "routing_label": "faq",
+        "relevant_sections": ["9"],
+        "answer": "## La cause\n\nCe problème se produit lors de l’utilisation du bouton **Élément Outlook** sous l’onglet **Insertion** du ruban. Il s’agit d’une limitation connue dans Outlook avec les calendriers de groupe Microsoft 365.\n\n## Contournement\n\nCopiez et collez le contenu de l’élément Outlook souhaité dans le corps de la réunion ou du rendez-vous. Vous pouvez également charger l’élément Outlook dans **fichiers** dans le groupe Microsoft 365 ou dans OneDrive Entreprise, puis inclure un lien dans le corps de la réunion ou du rendez-vous."
+      },
+      {
+        "turn_id": 10,
+        "user_query": "et si je met le fichier sur onedrive comment je fais pour que tout le monde puisse le voir sans connecter",
+        "rewritten_query": "Comment partager un fichier OneDrive avec un lien de partage sans authentification pour tous les participants d’une réunion Outlook ?",
+        "query_quality": "well_written",
+        "isfollow-up": true,
+        "routing_label": "rag",
+        "relevant_sections": ["9"],
+        "answer": "Copiez et collez le contenu de l’élément Outlook souhaité dans le corps de la réunion ou du rendez-vous. Vous pouvez également charger l’élément Outlook dans **fichiers** dans le groupe Microsoft 365 ou dans OneDrive Entreprise, puis inclure un lien dans le corps de la réunion ou du rendez-vous.\n\nPour partager le fichier avec tous les participants sans qu’ils aient à se connecter, utilisez l’option “Créer un lien” dans OneDrive, choisissez “Toute personne disposant du lien” comme type de partage, puis copiez le lien généré dans le corps de la réunion."
+      },
+      {
+        "turn_id": 11,
+        "user_query": "je peu pas ajouter de calendrier internet dans outlook 2016 ca marche pas",
+        "rewritten_query": null,
+        "query_quality": "well_written",
+        "isfollow-up": false,
+        "routing_label": "faq",
+        "relevant_sections": ["13"],
+        "answer": "## La cause\n\nPar défaut, Outlook 2016, Outlook 2019, Outlook pour Microsoft 365 et le nouveau Outlook utilisent une nouvelle pile moderne d'authentification. Même si le fichier de calendrier Internet que vous essayez d’ouvrir ne nécessite pas d’authentification, Outlook diffuse sa capacité à effectuer une authentification moderne sur le serveur qui contient le calendrier. La plupart des logiciels serveur répondent à cette diffusion en prenant en charge l’authentification moderne. Toutefois, certains serveurs considèrent que la diffusion est une demande cliente non valide. Par conséquent, ils retournent une réponse qui entraîne l’annulation de la tentative d’ajout du calendrier dans Outlook.\n\nPar exemple, les logiciels serveur qui s’exécutent sur Amazon Web Services (AWS) peuvent considérer la diffusion d’authentification comme non valide et refuser la connexion.\n\n## Contournement\n\nPour contourner ce problème, utilisez Outlook sur le web. Cette application n’a pas le comportement d’en-tête d’authentification décrit dans la section Cause. Par conséquent, il ouvre le calendrier Internet que vous souhaitez ajouter.\n\nPour utiliser Outlook sur le web pour ajouter un calendrier Internet, procédez comme suit :\n\n1. Connectez-vous à Outlook sur le web.\n2. Basculez vers le module Calendrier\n.\n3. Sélectionnez le menu Ajouter un calendrier\n.\n4. Sélectionnez l’option À partir d’Internet\n.\n5. Ajoutez le chemin d’accès à votre fichier de calendrier Internet et un nom de calendrier facultatif.\n6. Cliquez sur Enregistrer\n."
+      },
+      {
+        "turn_id": 12,
+        "user_query": "j comprend pas prq les boutons accepter et refuser sont pas la dans les demandes de tache que j'envoie",
+        "rewritten_query": null,
+        "query_quality": "poorly_written",
+        "isfollow-up": false,
+        "routing_label": "faq",
+        "relevant_sections": ["57"],
+        "answer": "## La cause\n\nOutlook a envoyé la demande de tâche en tant que message RTF (Rich Text Format), mais un composant de transport a changé le format du message en HTML. La conversion en HTML a supprimé les éléments de boutons et a désorganisé la mise en page du message.\n\nSi le destinataire est *interne* à votre organisation Exchange, votre configuration Exchange peut avoir :\n\n- Connecteur sortant\nqui route les messages via un service externe. Le flux de messagerie interne conserve le format des messages RTF, mais les services externes convertissent souvent les messages RTF en HTML. Par exemple, les services de signature et de confidentialité convertissent les messages RTF en HTML.\n\nSi le destinataire est *externe* à votre organisation Exchange, votre configuration Exchange peut avoir :\n\n- Connecteur sortant qui achemine les messages via un service externe qui modifie le format du message en HTML.\n- Paramètre [de domaine](https://learn.microsoft.com/fr-fr/exchange/mail-flow-best-practices/remote-domains/remote-domains)`TNEFEnabled` distant qui convertit les messages RTF sortants en HTML.\n\n## Résolution\n\nPour résoudre le problème, vérifiez les paramètres suivants, puis apportez les modifications appropriées :\n\n- **Pour les destinataires internes et externes**, vérifiez si un connecteur sortant achemine les messages via un service externe. Si c’est le cas, envisagez d’ajouter une [exception](https://learn.microsoft.com/fr-fr/exchange/security-and-compliance/mail-flow-rules/conditions-and-exceptions) à la règle de flux de messagerie qui achemine les messages vers ce connecteur. Par exemple, vous pouvez exclure les messages de demande de tâche d’être routés via des services externes en créant une exception pour les messages dont le sujet commence par «`Task request:` ».\n- **Pour les destinataires externes**, vérifiez le `TNEFEnabled` paramètre de tous les domaines distants. Pour ce faire, exécutez la commande suivante :\n \n\n```powershell\nGet-RemoteDomain | Where {$_.TNEFEnabled -ne $true}\n```\n\nSi le `TNEFEnabled` paramètre d’un domaine distant est `$null` ou `$false`, Exchange convertit les messages RTF en HTML pour les destinataires de ce domaine. Par exemple, si le `TNEFEnabled` paramètre de votre domaine distant par défaut est `$null`, et s’il s’agit de votre seul domaine distant, Exchange convertit tous les messages RTF externes en HTML. Pour résoudre le problème d’un destinataire externe affecté, procédez comme suit :\n\n1. [Créez un domaine distant](https://learn.microsoft.com/fr-fr/powershell/module/exchange/new-remotedomain) pour le domaine du destinataire externe concerné.\n2. Définir `TNEFEnabled` sur `$true` pour ce domaine en exécutant la commande suivante :\n \n\n```powershell\nSet-RemoteDomain -Identity <name of the new remote domain> -TNEFEnabled $true\n```\n\nRemarque\n\nÉvitez de définir la valeur TNEFEnabled$true sur le domaine distant par défaut, car cette modification affecte tous les destinataires externes, y compris ceux dont le client de messagerie peut ne pas prendre en charge les messages RTF."
+      },
+      {
+        "turn_id": 13,
+        "user_query": "quand j'ouvre un fichier excel depuis outlook ca marche pas word non plus ca dit erreur pare feu",
+        "rewritten_query": null,
+        "query_quality": "poorly_written",
+        "isfollow-up": false,
+        "routing_label": "faq",
+        "relevant_sections": ["67"],
+        "answer": "## La cause\n\nCe problème se produit si toutes les conditions suivantes sont remplies :\n\n- Le service de pare-feu Windows n’est pas en cours d’exécution.\n- Vous utilisez Outlook sur un ordinateur Windows 8, Windows 8.1 ou Windows Server 2012.\n\n## Résolution\n\nPour résoudre ce problème, démarrez le service de pare-feu Windows. Pour ce faire, procédez comme suit :\n\n1. Appuyez sur la touche de logo Windows+R (pour ouvrir la boîte de dialogue Exécuter).\n2. Tapez services.msc\n, puis sélectionnez OK\n.\n3. Dans la fenêtre Services\n, cliquez avec le bouton droit sur Pare-feu Windows\n, puis sélectionnez Démarrer\n."
+      },
+      {
+        "turn_id": 14,
+        "user_query": "j un gros fichier outlook de 15 go et outlook rame quand je clique sur les dossiers",
+        "rewritten_query": null,
+        "query_quality": "poorly_written",
+        "isfollow-up": false,
+        "routing_label": "faq",
+        "relevant_sections": ["66"],
+        "answer": "## La cause\n\nCe problème se produit lorsque la taille de votre fichier de données Outlook est de 10 gigaoctets (Go) ou plus.\n\n## Résolution\n\nPour résoudre ce problème, réduisez la taille de votre fichier de données Outlook en déplaçant ou en archivage des éléments à partir du fichier.\n\nOutlook 2007 et versions ultérieures\n\nVous pouvez également envisager d’utiliser des filtres de synchronisation pour les profils en mode mis en cache pour réduire la taille de votre `.ost` fichier. Le billet de blog suivant explique comment réduire la taille de votre fichier de données local à l’aide de filtres de synchronisation.\n\n[Optimisation des performances du mode cache Outlook 2007 pour une boîte aux lettres très volumineuse](https://techcommunity.microsoft.com/t5/exchange-team-blog/optimizing-outlook-2007-cache-mode-performance-for-a-very-large/ba-p/589536)\n\nIl s’agit d’une solution stopgap et est fournie ici pour référence si vous ne pouvez pas réduire la taille de votre boîte aux lettres. Par exemple, vous ne pouvez pas réduire la taille de votre boîte aux lettres si vous devez conserver une archive de tous les messages électroniques envoyés et reçus sur une période de plusieurs années.\n\nOutlook 2013 et versions ultérieures\n\nPour Outlook 2013 et versions ultérieures, vous pouvez également essayer d’utiliser la fonctionnalité Curseur de synchronisation pour les profils en mode mis en cache. Cette fonctionnalité vous permet de contrôler le nombre de mois de messages électroniques synchronisés avec votre `.ost` fichier. Pour plus d’informations sur la fonctionnalité de curseur de synchronisation, consultez [Seul un sous-ensemble des éléments de votre boîte aux lettres Exchange est synchronisé dans Outlook](https://learn.microsoft.com/fr-fr/outlook/troubleshoot/user-interface/only-subset-items-synchronized)."
+      },
+      {
+        "turn_id": 15,
+        "user_query": "j des regles de boite de reception sur le web mais elle aparraissent pas dans outlook windows c normal ?",
+        "rewritten_query": null,
+        "query_quality": "poorly_written",
+        "isfollow-up": false,
+        "routing_label": "faq",
+        "relevant_sections": ["51"],
+        "answer": "## La cause\n\nCe comportement est voulu. Le comportement se produit si vous utilisez Outlook sur le web ou le nouvel Outlook pour Windows pour créer ou modifier une règle, et que la règle nouvelle ou mise à jour a l’une des conditions ou actions suivantes :\n\n**Conditions**\n\n- L’adresse du destinataire comprend un ou plusieurs mots spécifiques\n- Le message est une demande de réunion nouvelle ou mise à jour\n- Le message a une classification\n\n**Actions**\n\n- Affecter le message à une catégorie\n- Marquer le message en lecture\n- Affecter le message à un niveau d’importance\n\nRemarque\n\nMême si la règle n’apparaît pas dans la boîte de dialogue Règles et alertes d’Outlook pour Windows classique, la règle s’exécute toujours sur les e-mails entrants.\n\n## Contournement\n\nUtilisez Outlook sur le web ou le nouvel Outlook pour Windows pour afficher, modifier, exécuter ou supprimer votre règle.\n\nVous pouvez ignorer en toute sécurité le message d’avertissement dans Outlook pour Windows classique."
+      }
+    ]
+  }
+]

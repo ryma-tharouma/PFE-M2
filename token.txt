@@ -1,0 +1,3 @@
+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
+usage: 
+setx HF_TOKEN "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"
