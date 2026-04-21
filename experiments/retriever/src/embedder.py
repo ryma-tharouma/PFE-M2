@@ -65,7 +65,7 @@ class BGEEmbedder:
                 model_path = model_cfg.get("base_name", "BAAI/bge-m3")
             cache_key = (model_path, self.device)
             if cache_key not in BGEEmbedder._model_cache:
-                BGEEmbedder._model_cache[cache_key] = SentenceTransformer(model_path, device=self.device)
+                BGEEmbedder._model_cache[cache_key] = SentenceTransformer(model_path, device=self.device, trust_remote_code=True)
             self.st_model = BGEEmbedder._model_cache[cache_key]
         else:
             self.st_model = None
