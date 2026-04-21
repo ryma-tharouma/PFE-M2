@@ -1,144 +1,201 @@
-# src/components/rag_pipeline.py
-from typing import List, Dict, Optional, Union
-from concurrent.futures import ThreadPoolExecutor, Future
-from vector_store import VectorStore
-from embedder import Embedder
-from rewriter import OllamaRewriter
+import os
+import json
+import functools
+import logging
+from typing import List, Dict, Tuple
+
+from retriever import Retriever
 from generator import Generator
 
+logger = logging.getLogger(__name__)
+
+
+# ----------------------------------------------------------------------
+# Section store — loads and caches app JSON files
+# ----------------------------------------------------------------------
+
+@functools.lru_cache(maxsize=128)
+def _load_sections(app_path: str) -> List[Dict]:
+    with open(app_path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def _get_section(apps_dir: str, app_id: str, section_id: str) -> Dict:
+    """Return the raw section dict, or {} if not found."""
+    app_path = os.path.join(apps_dir, f"{app_id}.json")
+    if not os.path.exists(app_path):
+        logger.warning("App file not found: %s", app_path)
+        return {}
+    for sec in _load_sections(app_path):
+        if str(sec.get("section_id")) == str(section_id):
+            return sec
+    logger.warning("Section '%s' not found in app '%s'.", section_id, app_id)
+    return {}
+
+
+def _section_text(sec: Dict) -> str:
+    """Extract the text to pass to the generator for a section."""
+    if sec.get("source_type") == "faq":
+        return sec.get("full_text", sec.get("answer", ""))
+    breadcrumb = sec.get("breadcrumb", "")
+    content    = sec.get("content", "")
+    return f"{breadcrumb} : {content}".strip()
+
+
+def _section_source(sec: Dict) -> Dict:
+    """Build the source object returned to the caller."""
+    if sec.get("source_type") == "faq":
+        return {"source": sec.get("source", "")}
+    return {
+        "source_pdf": sec.get("source_pdf", ""),
+        "breadcrumb": sec.get("breadcrumb", ""),
+    }
+
+
+# ----------------------------------------------------------------------
+# Routing
+# ----------------------------------------------------------------------
+
+def _determine_routing(
+    section_ids: List[str],
+    scores: List[float],
+    metadatas: List[Dict],
+) -> str:
+    """
+    Decide whether to answer via FAQ (direct lookup) or RAG (generation).
+    Returns "faq" or "rag".
+
+    TODO: fill in real routing logic.
+    """
+    return "rag"
+
+
+# ----------------------------------------------------------------------
+# RAG pipeline
+# ----------------------------------------------------------------------
 
 class RAG:
     """
-    Optimized RAG pipeline with parallel retrieval:
+    Full retrieval-augmented generation pipeline.
 
-    1. Rewrite query
-    2. Run FAQ + Manual retrieval in parallel
-    3. If FAQ ≥ threshold → return immediately
-    4. Else use manual results → generate
-    5. Else → return none
+    chat() always returns a generator with a consistent interface:
+        - yields str tokens (one at a time for RAG, one shot for FAQ)
+        - final item is always a sentinel dict:
+            {
+                "done"    : True,
+                "sources" : List[Dict],          # in score order
+                # only when verbose=True:
+                "ttft_sec"  : float,
+                "total_sec" : float,
+            }
+
+    Args:
+        retriever : configured Retriever instance
+        generator : configured Generator instance
+        apps_dir  : directory containing per-app JSON section files
     """
 
-    def __init__(
+    def __init__(self, retriever: Retriever, generator: Generator, apps_dir: str):
+        self.retriever = retriever
+        self.generator = generator
+        self.apps_dir  = apps_dir
+
+    def chat(
         self,
-        generator_model: str,
-        rewriter_model: str,
-        embedder_model: str,
-        faq_threshold: float = 0.75,
-        rag_threshold: float = 0.6,
-        topK: int = 3,
-        generate_or_stream: str = "generate",
-        persist_dir: str = "db/chroma",
-        rewrite_history_turns: int = 6,
-        generator_history_turns: int = 6,
-        max_workers: int = 2,
+        query: str,
+        app_id: str,
+        history: str = "",
+        verbose: bool = False,
     ):
-        self.faq_threshold = faq_threshold
-        self.rag_threshold = rag_threshold
-        self.topK = topK
-        self.generate_or_stream = generate_or_stream
-        self.rewrite_history_turns = rewrite_history_turns
-        self.generator_history_turns = generator_history_turns
+        """
+        Run the full pipeline and stream the response.
 
-        self.embedder = Embedder(embedder_model)
-        self.vstore = VectorStore(persist_dir=persist_dir, embedder=self.embedder)
-        self.rewriter = OllamaRewriter(model_name=rewriter_model)
-        self.generator = Generator()
-        self.generator_model = generator_model
+        Args:
+            query   : user query string
+            app_id  : identifies which app/collection to search
+            history : previous turn as "Utilisateur: ...\\nAssistant: ..."
+            verbose : if True, sentinel includes ttft_sec and total_sec
 
-        self.executor = ThreadPoolExecutor(max_workers=max_workers)
+        Yields:
+            str tokens, then a final sentinel dict (see class docstring).
+        """
+        # 1. Retrieve
+        section_ids, scores, metadatas = self.retriever.retrieve(query, app_id)
 
-    # ==================== QUERY REWRITE ====================
-    def rewrite_query(self, query: str, history: Optional[List[Dict]] = None) -> str:
-        history = history or []
-        rewrite_history = history[-self.rewrite_history_turns:]
-        return self.rewriter.rewrite(query, history=rewrite_history)
+        if not section_ids:
+            yield {"done": True, "sources": []}
+            return
 
-    # ==================== FAQ ====================
-    def _retrieve_faq(self, query: str, app_name: str) -> Optional[Dict]:
-        faq = self.vstore.retrieve_faq(query, app_name)
-        if faq and faq["score"] >= self.faq_threshold:
-            return {
-                "answer": faq["answer"],
-                "sources": [faq],
-                "used": "faq"
-            }
-        return None
+        # 2. Route
+        routing = _determine_routing(section_ids, scores, metadatas)
 
-    # ==================== MANUAL ====================
-    def _retrieve_manual(self, query: str, app_name: str) -> List[Dict]:
-        return self.vstore.retrieve_manual(query, app_name, top_k=self.topK)
+        # 3. Load section dicts (needed for both paths)
+        sections = [
+            _get_section(self.apps_dir, app_id, sid)
+            for sid in section_ids
+        ]
 
-    def _generate_from_manual(
-        self,
-        query: str,
-        manual_docs: List[Dict],
-        history: List[Dict],
-    ) -> Optional[Dict]:
-
-        if not manual_docs:
-            return None
-
-        min_score = min(d["score"] for d in manual_docs)
-        if min_score < self.rag_threshold:
-            return None
-
-        gen_history = history[-self.generator_history_turns:]
-
-        if self.generate_or_stream == "stream":
-            answer = self.generator.stream(
-                model_name=self.generator_model,
-                query=query,
-                context_docs=manual_docs,
-                history=gen_history
-            )
+        if routing == "faq":
+            yield from self._faq_path(sections, scores)
         else:
-            answer = self.generator.generate(
-                model_name=self.generator_model,
-                query=query,
-                context_docs=manual_docs,
-                history=gen_history
-            )
+            yield from self._rag_path(query, sections, section_ids, scores, history, verbose)
 
-        return {
-            "answer": answer,
-            "sources": manual_docs,
-            "used": "rag"
-        }
+    # ------------------------------------------------------------------
+    # FAQ path
+    # ------------------------------------------------------------------
 
-    # ==================== MAIN ====================
-    def answer(
+    def _faq_path(self, sections: List[Dict], scores: List[float]):
+        # Return the top-scored section's answer directly
+        top_sec = sections[0]
+        answer  = top_sec.get("answer", top_sec.get("full_text", ""))
+        if answer:
+            yield answer
+
+        yield {"done": True, "sources": [_section_source(top_sec)]}
+
+    # ------------------------------------------------------------------
+    # RAG path
+    # ------------------------------------------------------------------
+
+    def _rag_path(
         self,
         query: str,
-        app_name: str,
-        history: Optional[List[Dict]] = None
-    ) -> Dict[str, Union[str, List[Dict]]]:
+        sections: List[Dict],
+        section_ids: List[str],
+        scores: List[float],
+        history: str,
+        verbose: bool,
+    ):
+        # Build sources in score order (before generation)
+        sources = [_section_source(sec) for sec in sections if sec]
 
-        history = history or []
+        # Sort section texts alphabetically by section_id for the generator
+        sorted_pairs = sorted(
+            ((sid, sec) for sid, sec in zip(section_ids, sections) if sec),
+            key=lambda x: x[0],
+        )
+        section_texts = [_section_text(sec) for _, sec in sorted_pairs]
 
-        # 1. Rewrite
-        rewritten = self.rewrite_query(query, history)
+        # Stream tokens from generator
+        ttft_sec  = None
+        total_sec = None
 
-        # 2. Launch parallel retrieval
-        faq_future: Future = self.executor.submit(self._retrieve_faq, rewritten, app_name)
-        manual_future: Future = self.executor.submit(self._retrieve_manual, rewritten, app_name)
+        for item in self.generator.generate(
+            query=query,
+            section_texts=section_texts,
+            history=history,
+            verbose=verbose,
+        ):
+            if isinstance(item, dict):
+                # timing sentinel from generator
+                ttft_sec  = item.get("ttft_sec")
+                total_sec = item.get("total_sec")
+            else:
+                yield item
 
-        # 3. Check FAQ FIRST (blocking but fast)
-        faq_result = faq_future.result()
-        if faq_result:
-            # Optional: cancel manual if still running (best-effort)
-            manual_future.cancel()
-            return faq_result
-
-        # 4. FAQ failed → use manual (already running!)
-        manual_docs = manual_future.result()
-
-        rag_result = self._generate_from_manual(rewritten, manual_docs, history)
-        if rag_result:
-            return rag_result
-
-        # 5. Nothing found
-        return {
-            "answer": None,
-            "sources": [],
-            "used": "none"
-        }
+        # Final sentinel — always includes sources
+        sentinel: Dict = {"done": True, "sources": sources}
+        if verbose:
+            sentinel["ttft_sec"]  = ttft_sec
+            sentinel["total_sec"] = total_sec
+        yield sentinel
