@@ -1,11 +1,11 @@
 experiment:
-  name: "phase_test_bge_manuels_k20_no_ood"
+  name: "phase_test_FDE_level3"
   description: "Multi-mode, multi-strategy retrieval eval with routing thresholds"
   results_dir: "data/results/{experiment_name}/"
 
 database:
   type: "qdrant"
-  path: "data/vector_db_level2/"
+  path: "data/vector_db_FDE_level3/"
 
 indexing:
   db_types: ["qdrant"]
@@ -18,7 +18,7 @@ indexing:
 chunking:
   strategy: "adaptive"
   max_tokens: 8000
-  overlap_tokens: 10
+  overlap_tokens: 20
 
 retrieval:
   max_retrieve_sections: 20
@@ -43,7 +43,7 @@ routing:
 evaluation:
   query_sources:
     - name: "eval_set"
-      path: "data/conversations/original_turns.jsonl" #  Swap for dev/test
+      path: "data/conversations/original_convos_level3.jsonl" #  Swap for dev/test
   checkpoint_every: 10
 
 paths:
@@ -51,14 +51,14 @@ paths:
   conversations_dir: "data/conversations/"
 
 model:
-  base_name: "BAAI/bge-m3"
+  base_name: "dangvantuan/french-document-embedding"
   finetuned_path: "models/bge-m3-ft/"
   use_fp16: false
   device: "cpu"
-  embedding_dim: 1024
+  embedding_dim: 768
 
 reranker:
-  enabled: true # set to false to disable
+  enabled: false # set to false to disable
   model_name: "BAAI/bge-reranker-v2-m3"
   device: "cpu" # or "cuda"
   batch_size: 8

@@ -28,13 +28,13 @@ class AdaptiveChunker:
         
         if source_type == "faq":
             # FAQ: embed only the problem field
-            problem = str(sec.get("problem", "")).strip()
+            problem = str(sec.get("problem", "")).lower().strip()
             return problem
         else:
             # Manual / default: embed title + breadcrumb + content
-            title = str(sec.get("title", "")).strip()
-            breadcrumb = str(sec.get("breadcrumb", "")).strip()
-            content = str(sec.get("content", "")).strip()
+            title = str(sec.get("title", "")).lower().strip()
+            breadcrumb = str(sec.get("breadcrumb", "")).lower().strip()
+            content = str(sec.get("content", "")).lower().strip()
             # Join with spaces, avoid multiple spaces if some fields empty
             parts = [p for p in [title, breadcrumb, content] if p]
             return " ".join(parts)
