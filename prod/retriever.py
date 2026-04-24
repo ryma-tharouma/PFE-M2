@@ -1,12 +1,14 @@
+# retriever.py
 import logging
+import time
 import torch
 import numpy as np
-from typing import List, Optional
+from typing import List, Optional, Tuple
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
 from embedder import Embedder
 from chunker import Aggregator
-from vector_db import VectorDB
+from vector_store import VectorDB
 
 logger = logging.getLogger(__name__)
 
@@ -24,29 +26,29 @@ class Reranker:
     def __init__(
         self,
         model_name: str = "BAAI/bge-reranker-v2-m3",
-        batch_size: int = 16,
+        batch_size: int = 8,
         top_k_rerank: int = 20,
     ):
-        self.batch_size = batch_size
+        self.batch_size   = batch_size
         self.top_k_rerank = top_k_rerank
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.device       = "cuda" if torch.cuda.is_available() else "cpu"
 
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
-        self.model = AutoModelForSequenceClassification.from_pretrained(model_name)
+        self.model     = AutoModelForSequenceClassification.from_pretrained(model_name)
         self.model.to(self.device)
         self.model.eval()
 
     def _score(self, query: str, documents: List[str]) -> List[float]:
-        pairs = [(query, doc) for doc in documents]
+        pairs  = [(query, doc) for doc in documents]
         scores = []
         with torch.no_grad():
             for i in range(0, len(pairs), self.batch_size):
-                batch = pairs[i : i + self.batch_size]
+                batch  = pairs[i : i + self.batch_size]
                 inputs = self.tokenizer(
                     batch,
                     padding=True,
                     truncation=True,
-                    max_length=512,
+                    max_length=8000,
                     return_tensors="pt",
                 ).to(self.device)
                 logits = self.model(**inputs).logits.squeeze(-1).float().cpu().tolist()
@@ -59,10 +61,9 @@ class Reranker:
         chunk_ids: List[str],
         chunk_texts: List[str],
         chunk_scores: List[float],
-    ) -> tuple[List[str], List[float], List[str]]:
+    ) -> Tuple[List[str], List[float], List[str]]:
         """
         Rerank top_k_rerank chunks and leave the rest untouched.
-
         Returns reordered (chunk_ids, chunk_scores, chunk_texts).
         """
         if not chunk_ids:
@@ -101,15 +102,15 @@ class Retriever:
         self,
         db: VectorDB,
         embedder: Embedder,
-        search_top_k: int = 50,
+        search_top_k: int = 20,
         rerank: bool = False,
         rerank_top_k: int = 20,
-        sections_top_k: int = 10,
-        reranker_batch_size: int = 16,
+        sections_top_k: int = 5,
+        reranker_batch_size: int = 8,
     ):
-        self.db = db
-        self.embedder = embedder
-        self.search_top_k = search_top_k
+        self.db            = db
+        self.embedder      = embedder
+        self.search_top_k  = search_top_k
         self.sections_top_k = sections_top_k
 
         self.reranker: Optional[Reranker] = (
@@ -119,7 +120,11 @@ class Retriever:
         )
         self.aggregator = Aggregator(top_k=sections_top_k)
 
-    def retrieve(self, query: str, app_id: str) -> tuple[List[str], List[float], List[dict]]:
+    def retrieve(
+        self,
+        query: str,
+        app_id: str,
+    ) -> Tuple[List[str], List[float], List[dict], float, float]:
         """
         Run the full retrieval pipeline.
 
@@ -128,15 +133,20 @@ class Retriever:
             app_id : collection name in the vector DB
 
         Returns:
-            (section_ids, scores, metadatas) — all sorted best-first.
+            (section_ids, scores, metadatas, embed_sec, search_sec)
             section_ids : list of section ID strings
             scores      : corresponding aggregated scores
-            metadatas   : corresponding payload dicts (source_type, source_pdf, etc.)
+            metadatas   : corresponding payload dicts
+            embed_sec   : time taken to embed the query (seconds)
+            search_sec  : time taken for vector search + rerank + aggregation (seconds)
         """
         # 1. Embed query
+        t0 = time.perf_counter()
         query_vector = self.embedder.encode_one(query)
+        embed_sec = time.perf_counter() - t0
 
         # 2. Vector search → chunks
+        t1 = time.perf_counter()
         chunk_ids, chunk_scores, chunk_payloads = self.db.search(
             name=app_id,
             query_vector=query_vector,
@@ -144,11 +154,11 @@ class Retriever:
         )
 
         if not chunk_ids:
-            return [], [], []
+            return [], [], [], embed_sec, time.perf_counter() - t1
 
         # 3. Optional rerank
         if self.reranker:
-            chunk_texts = [p.get("chunk_text", "") for p in chunk_payloads]
+            chunk_texts = [p.get("embed_text", "") for p in chunk_payloads]
             chunk_ids, chunk_scores, _ = self.reranker.rerank(
                 query, chunk_ids, chunk_texts, chunk_scores
             )
@@ -158,12 +168,13 @@ class Retriever:
             {"id": cid, "score": sc, "payload": pl}
             for cid, sc, pl in zip(chunk_ids, chunk_scores, chunk_payloads)
         ]
-        sections = self.aggregator.aggregate(chunk_results)
+        sections  = self.aggregator.aggregate(chunk_results)
+        search_sec = time.perf_counter() - t1
 
         ids       = [s["section_id"] for s in sections]
         scores    = [s["score"]      for s in sections]
         metadatas = [s["metadata"]   for s in sections]
-        return ids, scores, metadatas
+        return ids, scores, metadatas, embed_sec, search_sec
 
     def cleanup(self):
         self.embedder.cleanup()
