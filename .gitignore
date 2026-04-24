@@ -12,3 +12,4 @@ experiments/generator/outputs/generated/
 experiments/build_data/data/
 experiments/rewriter/data/
 token.txt
+prod/qdrant_data/

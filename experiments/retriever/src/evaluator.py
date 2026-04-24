@@ -41,7 +41,6 @@ def run_evaluate(cfg: dict):
     raw_agg     = cfg["retrieval"].get("aggregation_method", "max")
     agg_methods = [raw_agg] if isinstance(raw_agg, str) else list(raw_agg)
 
-    # Load all turns
     all_turns = []
     for src in query_sources:
         path = src["path"]
@@ -57,13 +56,13 @@ def run_evaluate(cfg: dict):
                     routing_label = turn.get("routing_label", "")
                     isfollow_up  = bool(turn.get("isfollow_up", False))
                     all_turns.append({
-                        "query_id":     f"{conv_id}_t{turn['turn_id']}",
-                        "query":        turn["user_query"],
-                        "history":      list(history),
-                        "relevant_ids": set(turn.get("relevant_sections", [])),
-                        "app_id":       app_id,
+                        "query_id":      f"{conv_id}_t{turn['turn_id']}",
+                        "query":         turn["user_query"],
+                        "history":       list(history),
+                        "relevant_ids":  set(turn.get("relevant_sections", [])),
+                        "app_id":        app_id,
                         "query_quality": turn.get("query_quality", "unknown"),
-                        "isfollow_up": isfollow_up,
+                        "isfollow_up":   isfollow_up,
                         "routing_label": routing_label,
                     })
                     history.append(turn)
@@ -145,7 +144,7 @@ def run_evaluate(cfg: dict):
                             q_dense  = None
                             q_sparse = None
                             if mode != "sparse":
-                                q_dense  = embedder.encode_dense([context_str])[0]
+                                q_dense = embedder.encode_dense([context_str], is_query=True)[0]
                             if mode != "dense":
                                 q_sparse = embedder.encode_sparse([context_str], app_id)[0]
 
@@ -183,9 +182,9 @@ def run_evaluate(cfg: dict):
                                     original_scores=top_chunk_scores
                                 )
 
-                                payload_map        = {cid: p for cid, p in zip(top_chunk_ids, top_chunk_payloads)}
-                                final_chunk_ids    = list(reranked_ids)
-                                final_chunk_scores = list(reranked_scores)
+                                payload_map          = {cid: p for cid, p in zip(top_chunk_ids, top_chunk_payloads)}
+                                final_chunk_ids      = list(reranked_ids)
+                                final_chunk_scores   = list(reranked_scores)
                                 final_chunk_payloads = [payload_map[cid] for cid in reranked_ids]
 
                                 if len(chunk_ids) > k_rerank:

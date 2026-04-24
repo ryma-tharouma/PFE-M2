@@ -1,28 +1,29 @@
 configs:
-  # - id: "qwen_2b_history"
-  #   model_name: "Qwen/Qwen3.5-2B"
-  #   prompt_file: "default.txt"
-  #   model_kwargs:
-  #     device_map: "auto"
-  #     torch_dtype: "float16"
-  #   generation_kwargs:
-  #     max_new_tokens: 256
-  #     temperature: 0.1
-  #     do_sample: true
-  #     top_p: 0.9
-  #     top_k: 20
-  # - id: "qwen_2b_prompt_1"
-  #   model_name: "Qwen/Qwen3.5-2B"
-  #   prompt_file: "prompt_1.txt"
-  #   model_kwargs:
-  #     device_map: "auto"
-  #     torch_dtype: "float16"
-  #   generation_kwargs:
-  #     max_new_tokens: 256
-  #     temperature: 0.1
-  #     do_sample: true
-  #     top_p: 0.9
-  #     top_k: 20
+  - id: "qwen_2b_history"
+    model_name: "Qwen/Qwen3.5-2B"
+    prompt_file: "default.txt"
+    model_kwargs:
+      device_map: "auto"
+      torch_dtype: "float16"
+    generation_kwargs:
+      max_new_tokens: 1024
+      do_sample: false
+      #repetition_penalty: 1.1
+    chat_template_kwargs:
+      enable_thinking: false
+
+  - id: "qwen_2b_prompt_1"
+    model_name: "Qwen/Qwen3.5-2B"
+    prompt_file: "prompt_1.txt"
+    model_kwargs:
+      device_map: "auto"
+      torch_dtype: "float16"
+    generation_kwargs:
+      max_new_tokens: 1024
+      do_sample: false
+      #repetition_penalty: 1.1
+    chat_template_kwargs:
+      enable_thinking: false
 
   - id: "qwen_2b_prompt_1_eng"
     model_name: "Qwen/Qwen3.5-2B"
@@ -31,8 +32,19 @@ configs:
       device_map: "auto"
       torch_dtype: "float16"
     generation_kwargs:
-      max_new_tokens: 256
-      temperature: 0.1
-      do_sample: true
-      top_p: 0.9
-      top_k: 20
+      max_new_tokens: 1024
+      do_sample: false
+      #repetition_penalty: 1.1
+    chat_template_kwargs:
+      enable_thinking: false
+
+  - id: "ministral_3b_prompt_1"
+    model_name: "mistralai/Ministral-3-3B-Instruct-2512"
+    prompt_file: "prompt_1.txt"
+    model_kwargs:
+      device_map: "auto"
+      torch_dtype: "float16"
+    generation_kwargs:
+      max_new_tokens: 1024
+      do_sample: false
+      #repetition_penalty: 1.1

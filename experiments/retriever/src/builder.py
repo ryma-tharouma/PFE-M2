@@ -11,12 +11,12 @@ from typing import List, Dict
 from src.factories import get_embedder, get_vector_database, get_chunker
 
 def run_build(cfg: dict):
-    apps_dir = cfg["paths"]["apps_dir"]
-    results_dir = cfg["paths"]["resolved_results"]
-    db_types = cfg["indexing"].get("db_types", [cfg["database"]["type"]])
-    modes = cfg["indexing"]["modes"]
-    index_types = cfg["indexing"]["index_types"]
-    batch_size = cfg["indexing"].get("batch_size", 32)
+    apps_dir      = cfg["paths"]["apps_dir"]
+    results_dir   = cfg["paths"]["resolved_results"]
+    db_types      = cfg["indexing"].get("db_types", [cfg["database"]["type"]])
+    modes         = cfg["indexing"]["modes"]
+    index_types   = cfg["indexing"]["index_types"]
+    batch_size    = cfg["indexing"].get("batch_size", 32)
     drop_existing = cfg["indexing"].get("drop_existing", True)
 
     os.makedirs(results_dir, exist_ok=True)
@@ -35,7 +35,7 @@ def run_build(cfg: dict):
     chunker = get_chunker(cfg)
 
     for db_type in db_types:
-        original_db_type = cfg["database"]["type"]
+        original_db_type        = cfg["database"]["type"]
         cfg["database"]["type"] = db_type
 
         try:
@@ -53,7 +53,7 @@ def run_build(cfg: dict):
                         with open(app_path, "r", encoding="utf-8") as f:
                             sections = json.load(f)
 
-                        app_id = Path(app_path).stem
+                        app_id    = Path(app_path).stem
                         coll_name = f"{app_id}_{mode}_{db_type}_{idx_type}"
 
                         if db.collection_exists(coll_name):
@@ -68,11 +68,10 @@ def run_build(cfg: dict):
                         db.create_collection(coll_name, dim=dim, mode=mode, index_type=idx_type)
 
                         processed_chunks = chunker.process_sections(sections)
-                        total_chunks = len(processed_chunks)
+                        total_chunks     = len(processed_chunks)
                         print(f"      {app_id}: {len(sections)} sections -> {total_chunks} chunks")
 
-                        # Fit and save BM25 vocabulary for this app (if needed)
-                        vocab_dir = os.path.join(cfg["paths"]["resolved_results"], "vocab")
+                        vocab_dir  = os.path.join(cfg["paths"]["resolved_results"], "vocab")
                         os.makedirs(vocab_dir, exist_ok=True)
                         vocab_path = os.path.join(vocab_dir, f"{app_id}_{mode}.json")
 
@@ -85,14 +84,13 @@ def run_build(cfg: dict):
                         start_time = time.time()
 
                         for i in range(0, total_chunks, batch_size):
-                            batch_chunks = processed_chunks[i : i+batch_size]
-                            texts = [c["embed_text"] for c in batch_chunks]
-                            vectors = embedder.encode_batch(texts, app=app_id)
+                            batch_chunks = processed_chunks[i : i + batch_size]
+                            texts        = [c["embed_text"] for c in batch_chunks]
+                            vectors      = embedder.encode_batch(texts, app=app_id, is_query=False)
 
                             records = []
                             for j, chunk in enumerate(batch_chunks):
                                 payload = {k: v for k, v in chunk.items() if k not in ["embed_text", "id"]}
-                                # Store chunk text for later reranking
                                 payload["chunk_text"] = chunk["embed_text"]
                                 rec = {
                                     "id": chunk.get("id", f"{chunk['parent_section_id']}_c{chunk.get('chunk_index', 0)}"),
@@ -110,16 +108,16 @@ def run_build(cfg: dict):
                         db.flush()
 
                         build_time = time.time() - start_time
-                        speed = round(total_chunks / build_time, 1) if build_time > 0 else 0
+                        speed      = round(total_chunks / build_time, 1) if build_time > 0 else 0
 
                         metric = {
-                            "app_id": app_id,
-                            "mode": mode,
-                            "db_type": db_type,
-                            "index_type": idx_type,
-                            "chunks_indexed": total_chunks,
-                            "build_time_sec": round(build_time, 2),
-                            "speed": speed
+                            "app_id":          app_id,
+                            "mode":            mode,
+                            "db_type":         db_type,
+                            "index_type":      idx_type,
+                            "chunks_indexed":  total_chunks,
+                            "build_time_sec":  round(build_time, 2),
+                            "speed":           speed,
                         }
                         with open(metrics_out, "a", encoding="utf-8") as f:
                             f.write(json.dumps(metric) + "\n")

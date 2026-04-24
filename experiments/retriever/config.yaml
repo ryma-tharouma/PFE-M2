@@ -1,11 +1,11 @@
 experiment:
-  name: "phase_test_bge_micro_rewrite"
+  name: "phase_test_bge_l2_rerank"
   description: "Multi-mode, multi-strategy retrieval eval with routing thresholds"
   results_dir: "data/results/{experiment_name}/"
 
 database:
   type: "qdrant"
-  path: "data/vector_db_bge_micro/"
+  path: "data/vector_db_bge_clean_l2/"
 
 indexing:
   db_types: ["qdrant"]
@@ -43,11 +43,11 @@ routing:
 evaluation:
   query_sources:
     - name: "eval_set"
-      path: "data/conversations/rewritten_Qwen_Qwen3.5-0.8B.jsonl" #  Swap for dev/test
+      path: "data/conversations/original_convos_level2.jsonl" #  Swap for dev/test
   checkpoint_every: 10
 
 paths:
-  apps_dir: "data/app_micro/"
+  apps_dir: "data/clean_apps_l2/"
   conversations_dir: "data/conversations/"
 
 model:
@@ -58,7 +58,7 @@ model:
   embedding_dim: 1024
 
 reranker:
-  enabled: false # set to false to disable
+  enabled: true # set to false to disable
   model_name: "BAAI/bge-reranker-v2-m3"
   device: "cpu" # or "cuda"
   batch_size: 8
