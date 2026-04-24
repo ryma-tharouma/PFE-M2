@@ -22,7 +22,7 @@ class Generator:
         generation_kwargs: Optional[Dict] = None,
         # --- CPU / llama-cpp ---
         gguf_path: str = None,
-        n_ctx: int = 8000,
+        n_ctx: int = 4000,
         n_threads: int = 4,
         # --- GPU / HuggingFace ---
         hf_model_name: str = None,

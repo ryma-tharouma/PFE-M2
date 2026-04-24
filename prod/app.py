@@ -120,7 +120,7 @@ def build_assistant(
         device=device,
         gguf_path="models/Qwen3.5-4B-Q4_K_S.gguf",
         n_ctx=4000,
-        n_threads=4,
+        n_threads=os.cpu_count(),
         hf_model_name="Qwen/Qwen3.5-4B",
         torch_dtype="float16",
         generation_kwargs=(
