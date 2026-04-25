@@ -1,0 +1,101 @@
+# =============================================================================
+# Central configuration for the RAG pipeline
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Vector Database (Qdrant)
+# -----------------------------------------------------------------------------
+vector_db:
+  # For remote Qdrant server (provide host + port)
+  host: null # e.g., "localhost" or "qdrant.example.com"
+  port: 6333 # default Qdrant port
+  api_key: null # if authentication is required
+  # For local file-based Qdrant (use path instead of host)
+  path: "qdrant_data/" # local storage path
+
+# -----------------------------------------------------------------------------
+# Chunker (splits sections into token-bounded chunks)
+# -----------------------------------------------------------------------------
+chunker:
+  max_tokens: 1024 # maximum tokens per chunk
+  overlap: 10 # overlapping tokens between consecutive chunks
+  tokenizer_model: "BAAI/bge-m3" # HuggingFace tokenizer name
+
+# -----------------------------------------------------------------------------
+# Aggregator (collapses chunk-level results to section-level)
+# -----------------------------------------------------------------------------
+aggregator:
+  top_k: 3 # max number of sections to return after aggregation
+
+# -----------------------------------------------------------------------------
+# Embedder (sentence transformer for dense embeddings)
+# -----------------------------------------------------------------------------
+embedder:
+  model_name: "BAAI/bge-m3" # HuggingFace sentence-transformer model
+  device: "cpu" # "cpu" or "cuda"
+  batch_size: 32 # encoding batch size
+
+# -----------------------------------------------------------------------------
+# Retriever (vector search and optional reranking)
+# -----------------------------------------------------------------------------
+retriever:
+  search_top_k: 10 # number of chunks to retrieve from vector DB
+  sections_top_k: 3 # number of final sections after aggregation
+  # Reranking is controlled in the "reranker" section below
+
+# -----------------------------------------------------------------------------
+# Reranker (cross-encoder, optional)
+# -----------------------------------------------------------------------------
+reranker:
+  enabled: false # set to true to use reranking
+  model_name: "BAAI/bge-reranker-v2-m3"
+  batch_size: 32
+  top_k_rerank: 10 # number of top chunks to rerank
+
+# -----------------------------------------------------------------------------
+# Generator (LLM for answer generation)
+# -----------------------------------------------------------------------------
+generator:
+  device: "cpu" # "cpu" or "cuda"
+  prompt_file: "prompt_1.txt" # path to system prompt template (required)
+  generation_kwargs: {} # optional overrides for any generation param
+
+  # CPU-specific (llama-cpp)
+  gguf_path: "models/Qwen3.5-4B-Q4_K_S.gguf" # required if device=cpu
+  n_ctx: 4000
+  n_threads: 4
+  n_batch: 1024
+
+  # GPU-specific (HuggingFace)
+  hf_model_name: "Qwen/Qwen2-7B-Instruct" # required if device=cuda
+  torch_dtype: "float16" # float16, bfloat16, float32
+
+  # Shared generation defaults (can be overridden via generation_kwargs)
+  max_tokens: 1024 # CPU default; GPU uses 256 unless overridden
+  temperature: 0.1
+  top_p: 0.8
+  top_k: 20
+  # CPU-only:
+  min_p: 0.0
+  presence_penalty: 1.5
+  repeat_penalty: 1.1
+  # GPU-only:
+  do_sample: true # enabling sampling (if false, greedy)
+
+# -----------------------------------------------------------------------------
+# RAG pipeline (routing logic)
+# -----------------------------------------------------------------------------
+rag:
+  routing_threshold: 3.0 # top score must exceed second by this to use FAQ path
+
+# -----------------------------------------------------------------------------
+# Assistant (stateful session management)
+# -----------------------------------------------------------------------------
+assistant:
+  max_turns: 1 # number of conversation turns to keep in history
+  verbose: true # enable detailed logging and timing output
+  log_dir: "logs" # directory for rotating log files
+  # Optional (for future scaling) – not yet implemented in code:
+  # session_backend: "memory"    # "memory", "redis", or "sqlite"
+  # redis_url: "redis://localhost:6379"
+  # sqlite_path: "sessions.db"

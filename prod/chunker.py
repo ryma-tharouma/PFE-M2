@@ -1,3 +1,4 @@
+# chunker.py
 import logging
 from typing import List, Dict, Any
 from transformers import AutoTokenizer
@@ -10,24 +11,33 @@ class Chunker:
     Splits sections into token-bounded chunks ready for embedding.
 
     Embedding text is built per source_type:
-      - "faq"            : problem field only
+      - "faq"            : problem field only (fallback to full_text)
       - "manuel"/default : title + breadcrumb + content
     """
 
     _tokenizer_cache: dict = {}
 
-    def __init__(self, max_tokens: int = 8000, overlap: int = 10):
-        if overlap < 0:
+    def __init__(self, config: Dict[str, Any]):
+        """
+        Args:
+            config: dictionary containing a "chunker" section with keys:
+                - max_tokens (int, default 1024)
+                - overlap (int, default 10)
+                - tokenizer_model (str, default "BAAI/bge-m3")
+        """
+        chunker_cfg = config.get("chunker", {})
+        self.max_tokens = chunker_cfg.get("max_tokens", 1024)
+        self.overlap = chunker_cfg.get("overlap", 10)
+        tokenizer_model = chunker_cfg.get("tokenizer_model", "BAAI/bge-m3")
+
+        if self.overlap < 0:
             raise ValueError("overlap must be >= 0")
-        if overlap >= max_tokens:
+        if self.overlap >= self.max_tokens:
             raise ValueError("overlap must be less than max_tokens")
 
-        self.max_tokens = max_tokens
-        self.overlap = overlap
-
-        if "BAAI/bge-m3" not in Chunker._tokenizer_cache:
-            Chunker._tokenizer_cache["BAAI/bge-m3"] = AutoTokenizer.from_pretrained("BAAI/bge-m3")
-        self.tokenizer = Chunker._tokenizer_cache["BAAI/bge-m3"]
+        if tokenizer_model not in Chunker._tokenizer_cache:
+            Chunker._tokenizer_cache[tokenizer_model] = AutoTokenizer.from_pretrained(tokenizer_model)
+        self.tokenizer = Chunker._tokenizer_cache[tokenizer_model]
 
     def process_sections(self, sections: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """
@@ -47,11 +57,11 @@ class Chunker:
 
     def _build_embed_text(self, sec: Dict[str, Any]) -> str:
         if sec.get("source_type") == "faq":
-            return str(sec.get("problem", "")).lower().strip()
+            return str(sec.get("problem", sec.get("full_text", "")))  # fallback to full_text
         parts = [
-            str(sec.get("title", "")).lower().strip(),
-            str(sec.get("breadcrumb", "")).lower().strip(),
-            str(sec.get("content", "")).lower().strip(),
+            str(sec.get("title", "")),
+            str(sec.get("breadcrumb", "")),
+            str(sec.get("content", "")),
         ]
         return " ".join(p for p in parts if p)
 
@@ -103,8 +113,14 @@ class Aggregator:
     using max-score aggregation.
     """
 
-    def __init__(self, top_k: int = 10):
-        self.top_k = top_k
+    def __init__(self, config: Dict[str, Any]):
+        """
+        Args:
+            config: dictionary containing an "aggregator" section with key:
+                - top_k (int, default 10)
+        """
+        agg_cfg = config.get("aggregator", {})
+        self.top_k = agg_cfg.get("top_k", 10)
 
     def aggregate(self, results: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """

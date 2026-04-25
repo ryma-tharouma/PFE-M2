@@ -1,7 +1,7 @@
 # vector_store.py
 import uuid
 import numpy as np
-from typing import List, Tuple, Optional
+from typing import List, Tuple, Optional, Dict, Any
 
 
 class VectorDB:
@@ -11,16 +11,21 @@ class VectorDB:
 
     def __init__(
         self,
-        path: str = None,
-        host: str = None,
-        port: int = 6333,
-        api_key: str = None,
+        path: Optional[str] = None,
+        host: Optional[str] = None,
+        port: Optional[int] = None,
+        api_key: Optional[str] = None,
     ):
         from qdrant_client import QdrantClient
         if host:
+            # Use remote Qdrant server
+            if port is None:
+                raise ValueError("port must be specified when host is provided")
             self.client = QdrantClient(host=host, port=port, api_key=api_key)
-        else:
+        elif path:
             self.client = QdrantClient(path=path)
+        else:
+            raise ValueError("Either host or path must be provided")
 
     # ------------------------------------------------------------------
     # Collection management
@@ -45,7 +50,7 @@ class VectorDB:
     # Writes
     # ------------------------------------------------------------------
 
-    def upsert(self, name: str, records: List[dict]) -> None:
+    def upsert(self, name: str, records: List[Dict[str, Any]]) -> None:
         from qdrant_client.models import PointStruct
         points = []
         for r in records:
@@ -60,7 +65,7 @@ class VectorDB:
             )
         self.client.upsert(collection_name=name, points=points, wait=True)
 
-    def insert_one(self, name: str, record: dict) -> None:
+    def insert_one(self, name: str, record: Dict[str, Any]) -> None:
         self.upsert(name, [record])
 
     # ------------------------------------------------------------------
@@ -72,7 +77,7 @@ class VectorDB:
         name: str,
         query_vector: np.ndarray,
         top_k: int = 20,
-    ) -> Tuple[List[str], List[float], List[dict]]:
+    ) -> Tuple[List[str], List[float], List[Dict[str, Any]]]:
         results = self.client.query_points(
             collection_name=name,
             query=self._to_list(query_vector),
@@ -84,6 +89,9 @@ class VectorDB:
         scores   = [p.score for p in results.points]
         payloads = [p.payload for p in results.points]
         return ids, scores, payloads
+    
+    def close(self):
+        self.client.close()
 
     # ------------------------------------------------------------------
     # Helpers
@@ -100,13 +108,25 @@ class VectorDB:
         return list(vector)
 
 
-def get_vector_db(cfg: dict) -> VectorDB:
-    db_cfg = cfg.get("database", {})
-    host   = db_cfg.get("host")
+def get_vector_db(cfg: Dict[str, Any]) -> VectorDB:
+    """
+    Create a VectorDB instance from a configuration dictionary.
+
+    Expected config structure:
+        vector_db:
+            host: "localhost"       # optional, if omitted use local path
+            port: 6333              # required if host is given
+            api_key: "your-key"     # optional
+            path: "data/vector_db/" # used if host is not provided
+    """
+    vdb_cfg = cfg.get("vector_db", {})
+    host = vdb_cfg.get("host")
     if host:
         return VectorDB(
-            host    = host,
-            port    = db_cfg.get("port", 6333),
-            api_key = db_cfg.get("api_key"),
+            host=host,
+            port=vdb_cfg.get("port", 6333),
+            api_key=vdb_cfg.get("api_key"),
         )
-    return VectorDB(path=db_cfg.get("path", "data/vector_db/"))
+    else:
+        path = vdb_cfg.get("path", "data/vector_db/")
+        return VectorDB(path=path)

@@ -1,56 +1,43 @@
 # app.py
+import gc
 import json
 import os
 
 import streamlit as st
-import torch
+import yaml
 
 from assistant import Assistant
 from chunker import Chunker
 from embedder import Embedder
-from generator import Generator
-from rag import RAG
-from retriever import Retriever
-from vector_store import VectorDB
+from vector_store import get_vector_db
 
 
 # ----------------------------------------------------------------------
-# Constants
+# Load config (cached globally)
 # ----------------------------------------------------------------------
 
-VECTOR_SIZE   = 1024          # BGE-M3 output dimension
-DEFAULT_PROMPT = """\
-You are a technical assistant. Use the provided context to answer the user's question.
+@st.cache_resource
+def load_config():
+    with open("config.yaml", "r") as f:
+        return yaml.safe_load(f)
 
-Context:
-{context}
-
-Conversation history:
-{history}
-"""
+CONFIG = load_config()
+VECTOR_SIZE = 1024  # BGE-M3 output dimension
+CHUNKER_CFG = CONFIG.get("chunker", {})
+ASSISTANT_CFG = CONFIG.get("assistant", {})
 
 
 # ----------------------------------------------------------------------
 # Indexing
 # ----------------------------------------------------------------------
 
-def index_sections(
-    db: VectorDB,
-    embedder: Embedder,
-    sections: list,
-    collection_name: str,
-    max_tokens: int = 8000,
-    overlap: int = 10,
-) -> None:
-    chunker = Chunker(max_tokens=max_tokens, overlap=overlap)
-    chunks  = chunker.process_sections(sections)
-
+def index_sections(db, embedder, sections, collection_name, max_tokens, overlap):
+    chunker = Chunker(CONFIG)
+    chunks = chunker.process_sections(sections)
     if not chunks:
         raise ValueError("No chunks produced — check section content.")
-
-    texts      = [c["embed_text"] for c in chunks]
+    texts = [c["embed_text"] for c in chunks]
     embeddings = embedder.encode(texts)
-
     records = [
         {"id": c["id"], "dense": vec, "payload": c.copy()}
         for c, vec in zip(chunks, embeddings)
@@ -59,78 +46,85 @@ def index_sections(
 
 
 # ----------------------------------------------------------------------
-# Build assistant (cached so it survives Streamlit reruns)
+# Build assistant
 # ----------------------------------------------------------------------
 
-@st.cache_resource(show_spinner=False)
 def build_assistant(
     app_id: str,
-    sections_json: str,          # serialised so st.cache_resource can hash it
-    embedder_cfg: str,           # serialised
-    use_rerank: bool,
+    sections_json: str,
     force_reindex: bool,
-    prompt_file: str = "prompt_1.txt",
-    db_path: str = "./qdrant_data",
-    max_turns: int = 1,
+    max_turns: int,
+    db_path: str = "qdrant_data",
 ) -> Assistant:
-    sections     = json.loads(sections_json)
-    embedder_cfg = json.loads(embedder_cfg)
+    sections = json.loads(sections_json)
 
-    # 1. Embedder
-    embedder = Embedder(cfg=embedder_cfg)
+    # Use a copy of config to set DB path
+    temp_config = CONFIG.copy()
+    temp_config["vector_db"] = CONFIG.get("vector_db", {}).copy()
+    temp_config["vector_db"]["path"] = db_path
 
-    # 2. Vector DB
-    db = VectorDB(path=db_path)
-    collection_exists = db.collection_exists(app_id)
+    # Open a single DB client for the lifetime of this assistant
+    db = get_vector_db(temp_config)
 
-    # 3. Index if needed
-    if collection_exists and not force_reindex:
-        st.info(
-            f"Collection '{app_id}' already exists. "
-            "Enable 'Force re-index' in the sidebar to overwrite."
-        )
+    embedder = Embedder(CONFIG)
+
+    if db.collection_exists(app_id) and not force_reindex:
+        st.info(f"Collection '{app_id}' already exists. Enable 'Force re-index' to overwrite.")
     else:
-        if collection_exists:
+        if db.collection_exists(app_id):
             db.drop_collection(app_id)
         db.create_collection(name=app_id, dim=VECTOR_SIZE)
-
         with st.spinner("Chunking and embedding sections…"):
-            index_sections(db, embedder, sections, app_id)
+            index_sections(
+                db=db,
+                embedder=embedder,
+                sections=sections,
+                collection_name=app_id,
+                max_tokens=CHUNKER_CFG.get("max_tokens", 1024),
+                overlap=CHUNKER_CFG.get("overlap", 10),
+            )
         st.success("Indexing complete!")
 
-    # 4. Retriever
-    retriever = Retriever(
-        db=db,
-        embedder=embedder,
-        search_top_k=5,
-        rerank=use_rerank,
-        rerank_top_k=5 if use_rerank else 0,
-        sections_top_k=3,
-    )
+    # Prepare assistant config with user's max_turns
+    assistant_config = CONFIG.copy()
+    assistant_config["assistant"] = assistant_config.get("assistant", {}).copy()
+    assistant_config["assistant"]["max_turns"] = max_turns
 
-    # 5. Prompt file — create default if missing
-    if not os.path.exists(prompt_file):
-        with open(prompt_file, "w", encoding="utf-8") as f:
-            f.write(DEFAULT_PROMPT)
+    return Assistant(assistant_config, db=db, embedder=embedder)
 
-    # 6. Generator — CPU or GPU
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    generator = Generator(
-        prompt_file=prompt_file,
-        device=device,
-        gguf_path="models/Qwen3.5-4B-Q4_K_S.gguf",
-        n_ctx=4000,
-        n_threads=os.cpu_count(),
-        hf_model_name="Qwen/Qwen3.5-4B",
-        torch_dtype="float16",
-        generation_kwargs=(
-            {"max_tokens": 512} if device == "cpu" else {"max_new_tokens": 512}
-        ),
-    )
 
-    # 7. RAG + Assistant
-    rag = RAG(retriever=retriever, generator=generator)
-    return Assistant(rag=rag, max_turns=max_turns, verbose=True, log_dir="logs")
+# ----------------------------------------------------------------------
+# Helper: tear down the current assistant and release the DB file lock
+# ----------------------------------------------------------------------
+
+def _close_current_assistant() -> None:
+    """
+    Closes the existing assistant's DB client, deletes the reference, and
+    forces a GC cycle so Qdrant releases its __db.lock file before we try
+    to open a new client pointing at the same path.
+    """
+    if "assistant" not in st.session_state:
+        return
+
+    old: Assistant = st.session_state.pop("assistant")
+
+    # Close the vector DB connection (releases the file lock)
+    try:
+        if hasattr(old, "vector_db") and old.vector_db is not None:
+            old.vector_db.close()
+    except Exception:
+        pass
+
+    # Run any additional cleanup (generator / retriever / embedder)
+    try:
+        old.cleanup()
+    except Exception:
+        pass
+
+    # Drop the reference and force CPython to finalise the Qdrant client
+    # object — this is what actually releases the OS-level file lock.
+    del old
+    gc.collect()
 
 
 # ----------------------------------------------------------------------
@@ -143,9 +137,7 @@ st.title("📄 RAG Chat – Upload & Ask")
 # ---------- Sidebar ----------
 with st.sidebar:
     st.header("1. Upload JSON")
-    uploaded_file = st.file_uploader(
-        "Select a JSON file (list of sections)", type=["json"]
-    )
+    uploaded_file = st.file_uploader("Select a JSON file (list of sections)", type=["json"])
 
     if uploaded_file:
         raw_bytes = uploaded_file.read()
@@ -157,31 +149,32 @@ with st.sidebar:
 
         st.success(f"Loaded {len(sections)} sections")
 
-        base_name  = os.path.splitext(uploaded_file.name)[0]
-        app_id     = base_name.replace(" ", "_").replace("-", "_")
-        max_turns  = st.slider("History turns", min_value=1, max_value=5, value=1)
-        use_rerank = st.checkbox("Enable reranking (slower, more accurate)", value=False)
+        base_name = os.path.splitext(uploaded_file.name)[0]
+        app_id = base_name.replace(" ", "_").replace("-", "_")
+        max_turns = st.slider("History turns", min_value=1, max_value=5, value=ASSISTANT_CFG.get("max_turns", 1))
+        st.info("Reranking is configured in `config.yaml` (`reranker.enabled`).")
         force_reindex = st.checkbox("Force re-index (overwrite existing data)", value=False)
 
         if st.button("🚀 Index & Start Chat"):
-            embedder_cfg = json.dumps({
-                "model":    {"base_name": "BAAI/bge-m3", "device": "cpu"},
-                "indexing": {"batch_size": 16},
-            })
+            # ── CRITICAL: close the old client BEFORE opening a new one ──
+            # Qdrant uses a file lock on the db path. If the old client is
+            # still alive when get_vector_db() is called, it throws:
+            #   "Storage folder already accessed by another instance"
+            # _close_current_assistant() closes, deletes, and gc-collects
+            # the old client so the lock is released first.
+            _close_current_assistant()
 
             try:
                 assistant = build_assistant(
-                    app_id        = app_id,
-                    sections_json = json.dumps(sections),
-                    embedder_cfg  = embedder_cfg,
-                    use_rerank    = use_rerank,
-                    force_reindex = force_reindex,
-                    max_turns     = max_turns,
+                    app_id=app_id,
+                    sections_json=json.dumps(sections),
+                    force_reindex=force_reindex,
+                    max_turns=max_turns,
+                    db_path="qdrant_data",
                 )
                 st.session_state["assistant"] = assistant
-                st.session_state["app_id"]    = app_id
-                # Reset chat history whenever a new file is indexed
-                st.session_state["messages"]  = []
+                st.session_state["app_id"] = app_id
+                st.session_state["messages"] = []
                 st.success("Ready! Start chatting below.")
                 st.balloons()
             except Exception as e:
@@ -192,29 +185,27 @@ if "assistant" not in st.session_state:
     st.info("👈 Upload a JSON file and click 'Index & Start Chat' to begin.")
     st.stop()
 
-assistant : Assistant = st.session_state["assistant"]
-app_id    : str       = st.session_state["app_id"]
+assistant: Assistant = st.session_state["assistant"]
+app_id: str = st.session_state["app_id"]
 
 st.header(f"💬 Chat with **{app_id}**")
 
 if "messages" not in st.session_state:
     st.session_state["messages"] = []
 
-# Render previous messages
 for msg in st.session_state["messages"]:
     with st.chat_message(msg["role"]):
         st.markdown(msg["content"])
 
-# New user input
 if prompt := st.chat_input("Ask about the manual…"):
     st.session_state["messages"].append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
 
     with st.chat_message("assistant"):
-        placeholder   = st.empty()
+        placeholder = st.empty()
         full_response = ""
-        sources       = []
+        sources = []
 
         for item in assistant.chat(
             session_id="streamlit_session",
