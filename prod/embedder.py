@@ -1,6 +1,7 @@
+# embedder.py
 import os
 import numpy as np
-from typing import List
+from typing import List, Dict, Any
 
 
 class Embedder:
@@ -11,19 +12,24 @@ class Embedder:
 
     _model_cache: dict = {}
 
-    def __init__(self, cfg: dict):
-        model_cfg = cfg.get("model", {})
-        indexing_cfg = cfg.get("indexing", {})
+    def __init__(self, config: Dict[str, Any]):
+        """
+        Args:
+            config: dictionary containing an "embedder" section with keys:
+                - model_name (str, default "BAAI/bge-m3")
+                - device (str, default "cpu")
+                - batch_size (int, default 32)
+        """
+        embedder_cfg = config.get("embedder", {})
+        self.model_name = embedder_cfg.get("model_name", "BAAI/bge-m3")
+        self.device = embedder_cfg.get("device", "cpu")
+        self.batch_size = embedder_cfg.get("batch_size", 32)
 
-        self.device = model_cfg.get("device", "cpu")
-        self.batch_size = indexing_cfg.get("batch_size", 16)
-        model_path = model_cfg.get("base_name", "BAAI/bge-m3")
-
-        cache_key = (model_path, self.device)
+        cache_key = (self.model_name, self.device)
         if cache_key not in Embedder._model_cache:
             from sentence_transformers import SentenceTransformer
             Embedder._model_cache[cache_key] = SentenceTransformer(
-                model_path, device=self.device
+                self.model_name, device=self.device
             )
         self.model = Embedder._model_cache[cache_key]
 

@@ -3,14 +3,18 @@ import json
 import logging
 import logging.handlers
 import os
-from datetime import datetime
-from typing import Dict, Generator, List
+from typing import Dict, Generator, List, Any, Optional
 
+# Import all components needed to build the pipeline
+from vector_store import get_vector_db, VectorDB
+from embedder import Embedder
+from retriever import Retriever
+from generator import Generator
 from rag import RAG
 
 
 # ----------------------------------------------------------------------
-# Per-date file logging setup
+# Per-date file logging setup (unchanged)
 # ----------------------------------------------------------------------
 
 def _setup_logger(log_dir: str = "logs") -> logging.Logger:
@@ -34,25 +38,21 @@ def _setup_logger(log_dir: str = "logs") -> logging.Logger:
 
 
 # ----------------------------------------------------------------------
-# Session store
+# Session store (unchanged)
 # ----------------------------------------------------------------------
 
 class Session:
     def __init__(self, session_id: str, max_turns: int = 1):
         self.session_id = session_id
-        self.max_turns  = max_turns
-        self.history: List[Dict] = []   # [{"query": str, "answer": str}, ...]
+        self.max_turns = max_turns
+        self.history: List[Dict] = []
 
     def get_history_text(self) -> str:
-        """
-        Format the last `max_turns` turns as a history string for the RAG pipeline.
-        Returns empty string if no history yet.
-        """
         if not self.history:
             return ""
         return "\n".join(
             f"Utilisateur: {t['query']}\nAssistant: {t['answer']}"
-            for t in self.history   # already capped to max_turns by add_turn
+            for t in self.history
         )
 
     def add_turn(self, query: str, answer: str) -> None:
@@ -65,35 +65,57 @@ class Session:
 
 
 # ----------------------------------------------------------------------
-# Assistant
+# Assistant - now optionally reuses db and embedder
 # ----------------------------------------------------------------------
 
 class Assistant:
     """
-    Stateful assistant that manages sessions and delegates to RAG.
+    Stateful assistant that builds the full RAG pipeline from config and manages sessions.
+
+    Configuration (top-level sections required):
+        - vector_db
+        - embedder
+        - retriever
+        - reranker (optional)
+        - generator
+        - rag
+        - assistant (for its own settings)
 
     Args:
-        rag       : configured RAG instance
-        max_turns : how many previous turns to keep and pass as history (default 1)
-        verbose   : if True, logs timing info and includes it in responses
-        log_dir   : directory for rotating log files
+        config   : complete configuration dictionary (loaded from config.yaml)
+        db       : optional existing VectorDB instance (reused if provided)
+        embedder : optional existing Embedder instance (reused if provided)
     """
 
-    def __init__(
-        self,
-        rag: RAG,
-        max_turns: int = 1,
-        verbose: bool = False,
-        log_dir: str = "logs",
-    ):
-        self.rag       = rag
-        self.max_turns = max_turns
-        self.verbose   = verbose
-        self.logger    = _setup_logger(log_dir)
+    def __init__(self, config: Dict[str, Any], db: Optional[VectorDB] = None, embedder: Optional[Embedder] = None):
+        self.config = config
+
+        # 1. Vector DB – reuse if provided, otherwise create new
+        self.vector_db = db if db is not None else get_vector_db(config)
+
+        # 2. Embedder – reuse if provided, otherwise create new
+        self.embedder = embedder if embedder is not None else Embedder(config)
+
+        # 3. Retriever (needs db and embedder)
+        self.retriever = Retriever(config, db=self.vector_db, embedder=self.embedder)
+
+        # 4. Generator
+        self.generator = Generator(config)
+
+        # 5. RAG pipeline
+        self.rag = RAG(config, retriever=self.retriever, generator=self.generator)
+
+        # 6. Assistant's own settings
+        asst_cfg = config.get("assistant", {})
+        self.max_turns = asst_cfg.get("max_turns", 1)
+        self.verbose = asst_cfg.get("verbose", False)
+        log_dir = asst_cfg.get("log_dir", "logs")
+
+        self.logger = _setup_logger(log_dir)
         self._sessions: Dict[str, Session] = {}
 
     # ------------------------------------------------------------------
-    # Session management
+    # Session management (unchanged)
     # ------------------------------------------------------------------
 
     def _get_or_create_session(self, session_id: str) -> Session:
@@ -102,48 +124,22 @@ class Assistant:
         return self._sessions[session_id]
 
     def reset_session(self, session_id: str) -> None:
-        """Clear conversation history for a session."""
         if session_id in self._sessions:
             self._sessions[session_id].reset()
             if self.verbose:
                 self.logger.info("Session reset | session_id=%s", session_id)
 
     def delete_session(self, session_id: str) -> None:
-        """Remove session entirely."""
         if session_id in self._sessions:
             del self._sessions[session_id]
             if self.verbose:
                 self.logger.info("Session deleted | session_id=%s", session_id)
 
     # ------------------------------------------------------------------
-    # Main chat interface
+    # Main chat interface (unchanged)
     # ------------------------------------------------------------------
 
-    def chat(
-        self,
-        session_id: str,
-        query: str,
-        app_id: str,
-    ) -> Generator:
-        """
-        Stream a response for the given query.
-
-        Yields str tokens, then a final sentinel dict:
-            {
-                "done"    : True,
-                "sources" : List[Dict],
-                # if verbose=True:
-                "embed_sec"   : float,
-                "search_sec"  : float,
-                "ttft_sec"    : float,
-                "total_sec"   : float,
-            }
-
-        Args:
-            session_id : unique identifier for the conversation session
-            query      : user query string
-            app_id     : application identifier chosen by the user in frontend
-        """
+    def chat(self, session_id: str, query: str, app_id: str) -> Generator:
         session = self._get_or_create_session(session_id)
         history = session.get_history_text()
 
@@ -173,15 +169,13 @@ class Assistant:
 
         if self.verbose and sentinel:
             self.logger.info(
-                "Response complete | session_id=%s | app_id=%s | "
-                "tokens=%d | embed=%.3fs | search=%.3fs | ttft=%.3fs | total=%.3fs | sources=%s",
-                session_id,
-                app_id,
-                len(answer_tokens),
-                sentinel.get("embed_sec")  or 0.0,
+                "Response complete | session_id=%s | app_id=%s | tokens=%d | "
+                "embed=%.3fs | search=%.3fs | ttft=%.3fs | total=%.3fs | sources=%s",
+                session_id, app_id, len(answer_tokens),
+                sentinel.get("embed_sec") or 0.0,
                 sentinel.get("search_sec") or 0.0,
-                sentinel.get("ttft_sec")   or 0.0,
-                sentinel.get("total_sec")  or 0.0,
+                sentinel.get("ttft_sec") or 0.0,
+                sentinel.get("total_sec") or 0.0,
                 json.dumps(sentinel.get("sources", [])),
             )
 
@@ -195,18 +189,15 @@ class Assistant:
                 )
             yield {"done": True, "sources": []}
 
+    # ------------------------------------------------------------------
+    # Cleanup (optional, for graceful shutdown)
+    # ------------------------------------------------------------------
 
-'''
-backend usage:
-
-assistant = Assistant(rag=rag, max_turns=3, verbose=True, log_dir="logs")
-
-# in your route handler:
-for item in assistant.chat(session_id="abc123", query="...", app_id="manuel_parc_auto"):
-    if isinstance(item, dict) and item["done"]:
-        sources     = item["sources"]
-        embed_sec   = item.get("embed_sec")
-        search_sec  = item.get("search_sec")
-    else:
-        stream_to_frontend(item)  # send token
-'''
+    def cleanup(self):
+        """Clean up resources (models, caches)."""
+        if hasattr(self, 'generator'):
+            self.generator.cleanup()
+        if hasattr(self, 'retriever'):
+            self.retriever.cleanup()
+        if hasattr(self, 'embedder'):
+            self.embedder.cleanup()
