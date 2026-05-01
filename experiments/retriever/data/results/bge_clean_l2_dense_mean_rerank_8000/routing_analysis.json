@@ -1,0 +1,33 @@
+{
+  "l2__true__mean__dense__yes__20__8000__bge": {
+    "faq": {
+      "query_count": 61,
+      "total_retrieved_docs": 1180,
+      "wrong_retrievals": 1119,
+      "min_score_wrong": -11.0338,
+      "max_score_wrong": 4.3581,
+      "mean_score_wrong": -6.1531,
+      "p75_score_wrong": -4.7798,
+      "p95_score_wrong": -0.1146
+    },
+    "rag": {
+      "query_count": 132,
+      "total_retrieved_docs": 2628,
+      "wrong_retrievals": 2499,
+      "min_score_wrong": -11.0368,
+      "max_score_wrong": 4.2899,
+      "mean_score_wrong": -6.9948,
+      "p75_score_wrong": -5.4901,
+      "p95_score_wrong": -1.7654
+    },
+    "ood": {
+      "query_count": 16,
+      "total_retrieved_docs": 312,
+      "min_score": -11.0392,
+      "max_score": -4.2194,
+      "mean_score": -8.9559,
+      "p75_score": -7.5238,
+      "p95_score": -5.6978
+    }
+  }
+}

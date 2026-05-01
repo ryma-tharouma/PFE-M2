@@ -1,0 +1,15 @@
+{"app_id": "excel", "mode": "dense", "db_type": "qdrant", "index_type": "flat", "chunks_indexed": 30, "build_time_sec": 48.33, "speed": 0.6}
+{"app_id": "manuel_bdm", "mode": "dense", "db_type": "qdrant", "index_type": "flat", "chunks_indexed": 44, "build_time_sec": 208.2, "speed": 0.2}
+{"app_id": "manuel_parc_auto", "mode": "dense", "db_type": "qdrant", "index_type": "flat", "chunks_indexed": 277, "build_time_sec": 318.03, "speed": 0.9}
+{"app_id": "outlook", "mode": "dense", "db_type": "qdrant", "index_type": "flat", "chunks_indexed": 137, "build_time_sec": 298.84, "speed": 0.5}
+{"app_id": "word", "mode": "dense", "db_type": "qdrant", "index_type": "flat", "chunks_indexed": 16, "build_time_sec": 15.79, "speed": 1.0}
+{"app_id": "excel", "mode": "sparse", "db_type": "qdrant", "index_type": "flat", "chunks_indexed": 30, "build_time_sec": 0.1, "speed": 307.9}
+{"app_id": "manuel_bdm", "mode": "sparse", "db_type": "qdrant", "index_type": "flat", "chunks_indexed": 44, "build_time_sec": 0.15, "speed": 284.4}
+{"app_id": "manuel_parc_auto", "mode": "sparse", "db_type": "qdrant", "index_type": "flat", "chunks_indexed": 277, "build_time_sec": 0.88, "speed": 316.2}
+{"app_id": "outlook", "mode": "sparse", "db_type": "qdrant", "index_type": "flat", "chunks_indexed": 137, "build_time_sec": 0.43, "speed": 317.9}
+{"app_id": "word", "mode": "sparse", "db_type": "qdrant", "index_type": "flat", "chunks_indexed": 16, "build_time_sec": 0.05, "speed": 330.3}
+{"app_id": "excel", "mode": "hybrid", "db_type": "qdrant", "index_type": "flat", "chunks_indexed": 30, "build_time_sec": 60.94, "speed": 0.5}
+{"app_id": "manuel_bdm", "mode": "hybrid", "db_type": "qdrant", "index_type": "flat", "chunks_indexed": 44, "build_time_sec": 252.99, "speed": 0.2}
+{"app_id": "manuel_parc_auto", "mode": "hybrid", "db_type": "qdrant", "index_type": "flat", "chunks_indexed": 277, "build_time_sec": 327.71, "speed": 0.8}
+{"app_id": "outlook", "mode": "hybrid", "db_type": "qdrant", "index_type": "flat", "chunks_indexed": 137, "build_time_sec": 256.97, "speed": 0.5}
+{"app_id": "word", "mode": "hybrid", "db_type": "qdrant", "index_type": "flat", "chunks_indexed": 16, "build_time_sec": 15.92, "speed": 1.0}

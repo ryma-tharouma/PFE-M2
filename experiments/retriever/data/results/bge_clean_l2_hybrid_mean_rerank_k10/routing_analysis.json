@@ -1,0 +1,33 @@
+{
+  "l2__true__mean__hybrid__yes__10__1024__bge": {
+    "faq": {
+      "query_count": 61,
+      "total_retrieved_docs": 1117,
+      "wrong_retrievals": 1056,
+      "min_score_wrong": -11.0232,
+      "max_score_wrong": 4.3581,
+      "mean_score_wrong": -2.517,
+      "p75_score_wrong": 0.125,
+      "p95_score_wrong": 0.1962
+    },
+    "rag": {
+      "query_count": 132,
+      "total_retrieved_docs": 2284,
+      "wrong_retrievals": 2152,
+      "min_score_wrong": -11.0334,
+      "max_score_wrong": 4.2899,
+      "mean_score_wrong": -2.822,
+      "p75_score_wrong": 0.1245,
+      "p95_score_wrong": 0.1667
+    },
+    "ood": {
+      "query_count": 16,
+      "total_retrieved_docs": 285,
+      "min_score": -11.0392,
+      "max_score": 0.202,
+      "mean_score": -4.333,
+      "p75_score": 0.0909,
+      "p95_score": 0.1452
+    }
+  }
+}

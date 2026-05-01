@@ -1,0 +1,5 @@
+{"app_id": "excel", "mode": "dense", "db_type": "qdrant", "index_type": "flat", "chunks_indexed": 30, "build_time_sec": 52.91, "speed": 0.6}
+{"app_id": "manuel_bdm", "mode": "dense", "db_type": "qdrant", "index_type": "flat", "chunks_indexed": 34, "build_time_sec": 541.44, "speed": 0.1}
+{"app_id": "manuel_parc_auto", "mode": "dense", "db_type": "qdrant", "index_type": "flat", "chunks_indexed": 60, "build_time_sec": 556.52, "speed": 0.1}
+{"app_id": "outlook", "mode": "dense", "db_type": "qdrant", "index_type": "flat", "chunks_indexed": 137, "build_time_sec": 260.17, "speed": 0.5}
+{"app_id": "word", "mode": "dense", "db_type": "qdrant", "index_type": "flat", "chunks_indexed": 16, "build_time_sec": 16.43, "speed": 1.0}

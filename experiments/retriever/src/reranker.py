@@ -38,7 +38,7 @@ class BGEReranker:
                     batch,
                     padding=True,
                     truncation=True,
-                    max_length=8000,
+                    max_length=1024,
                     return_tensors="pt"
                 ).to(self.device)
                 outputs = self.model(**inputs)

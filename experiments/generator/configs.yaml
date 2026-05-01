@@ -1,50 +1,93 @@
 configs:
-  - id: "qwen_2b_history"
-    model_name: "Qwen/Qwen3.5-2B"
-    prompt_file: "default.txt"
-    model_kwargs:
-      device_map: "auto"
-      torch_dtype: "float16"
-    generation_kwargs:
-      max_new_tokens: 1024
-      do_sample: false
-      #repetition_penalty: 1.1
-    chat_template_kwargs:
-      enable_thinking: false
+  # - id: qwen3.5_4b_gguf_original_l2_prompt1
+  #   backend: gguf
+  #   prompt_file: prompts/prompt_1.txt
+  #   gguf_path: models/Qwen3.5-4B-Q4_K_S.gguf
+  #   n_ctx: 16384
+  #   n_gpu_layers: 0 # partial GPU offload optional
+  #   generation_kwargs:
+  #     max_tokens: 2048
+  #     temperature: 0.1
+  #     top_p: 0.8
+  #     top_k: 20
+  #     min_p: 0.0
+  #     repeat_penalty: 1.1
+  # - id: qwen3.5_4b_gguf_original_l2_prompt2
+  #   backend: gguf
+  #   prompt_file: prompts/prompt_2.txt
+  #   gguf_path: models/Qwen3.5-4B-Q4_K_S.gguf
+  #   n_ctx: 16384
+  #   n_gpu_layers: 0 # partial GPU offload optional
+  #   generation_kwargs:
+  #     max_tokens: 2048
+  #     temperature: 0.1
+  #     top_p: 0.8
+  #     top_k: 20
+  #     min_p: 0.0
+  #     repeat_penalty: 1.1
+  # - id: ministral_3_8b_gguf_original_l2_prompt2
+  #   backend: gguf
+  #   prompt_file: prompts/prompt_2.txt
+  #   gguf_path: models/Ministral-3-8B-Instruct-2512-Q4_K_M.gguf
+  #   n_ctx: 16384
+  #   n_gpu_layers: 0 # partial GPU offload optional
+  #   generation_kwargs:
+  #     max_tokens: 2048
+  #     temperature: 0.1
+  #     top_p: 0.8
+  #     top_k: 20
+  #     min_p: 0.0
+  #     repeat_penalty: 1.1
 
-  - id: "qwen_2b_prompt_1"
-    model_name: "Qwen/Qwen3.5-2B"
-    prompt_file: "prompt_1.txt"
-    model_kwargs:
-      device_map: "auto"
-      torch_dtype: "float16"
+  # - id: mistral_hf
+  #   backend: hf
+  #   prompt_file: prompt.txt
+  #   model_name: mistralai/Mistral-7B-Instruct-v0.3
+  #   model_kwargs:
+  #     torch_dtype: bfloat16
+  #     device_map: cuda
+  #   generation_kwargs:
+  #     max_new_tokens: 1024
+  #     temperature: 0.1
+  # - id: qwen2.5_7b_gguf_original_l2_prompt2_cache
+  #   backend: gguf
+  #   prompt_file: prompts/prompt_2.txt
+  #   gguf_path: models/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf
+  #   n_ctx: 16384
+  #   n_gpu_layers: 0 # partial GPU offload optional
+  #   enable_prefix_cache: true
+  #   generation_kwargs:
+  #     max_tokens: 2048
+  #     temperature: 0.1
+  #     top_p: 0.8
+  #     top_k: 20
+  #     min_p: 0.0
+  #     repeat_penalty: 1.1
+  - id: llama_8b_gguf_original_l2_prompt2
+    backend: gguf
+    prompt_file: prompts/prompt_2.txt
+    gguf_path: models/Llama-3.1-8B-Instruct-Q4_K_S.gguf
+    n_ctx: 16384
+    n_gpu_layers: 0 # partial GPU offload optional
+    enable_prefix_cache: true
     generation_kwargs:
-      max_new_tokens: 1024
-      do_sample: false
-      #repetition_penalty: 1.1
-    chat_template_kwargs:
-      enable_thinking: false
-
-  - id: "qwen_2b_prompt_1_eng"
-    model_name: "Qwen/Qwen3.5-2B"
-    prompt_file: "prompt_1_eng.txt"
-    model_kwargs:
-      device_map: "auto"
-      torch_dtype: "float16"
-    generation_kwargs:
-      max_new_tokens: 1024
-      do_sample: false
-      #repetition_penalty: 1.1
-    chat_template_kwargs:
-      enable_thinking: false
-
-  - id: "ministral_3b_prompt_1"
-    model_name: "mistralai/Ministral-3-3B-Instruct-2512"
-    prompt_file: "prompt_1.txt"
-    model_kwargs:
-      device_map: "auto"
-      torch_dtype: "float16"
-    generation_kwargs:
-      max_new_tokens: 1024
-      do_sample: false
-      #repetition_penalty: 1.1
+      max_tokens: 2048
+      temperature: 0.1
+      top_p: 0.8
+      top_k: 20
+      min_p: 0.0
+      repeat_penalty: 1.1
+  # - id: qwen3.5_9b_gguf_original_l2_prompt2
+  #   backend: gguf
+  #   prompt_file: prompts/prompt_2.txt
+  #   gguf_path: models/Qwen3.5-9B-Q4_K_S.gguf
+  #   n_ctx: 16384
+  #   n_gpu_layers: 0 # partial GPU offload optional
+  #   enable_prefix_cache: true
+  #   generation_kwargs:
+  #     max_tokens: 2048
+  #     temperature: 0.1
+  #     top_p: 0.8
+  #     top_k: 20
+  #     min_p: 0.0
+  #     repeat_penalty: 1.1

@@ -1,0 +1,108 @@
+{
+  "summary": {
+    "total_conversations": 14,
+    "total_turns": 209,
+    "avg_turns_per_conversation": 14.928571428571429,
+    "min_turns_per_conversation": 11,
+    "max_turns_per_conversation": 16
+  },
+  "turns_distribution": {
+    "11": 1,
+    "15": 10,
+    "16": 3
+  },
+  "routing_labels": {
+    "faq": {
+      "count": 98,
+      "percentage": 46.89
+    },
+    "rag": {
+      "count": 95,
+      "percentage": 45.45
+    },
+    "ood": {
+      "count": 16,
+      "percentage": 7.66
+    }
+  },
+  "query_quality": {
+    "poorly_written": {
+      "count": 45,
+      "percentage": 21.53
+    },
+    "well_written": {
+      "count": 164,
+      "percentage": 78.47
+    }
+  },
+  "follow_up_analysis": {
+    "follow_up_queries": {
+      "count": 68,
+      "percentage": 32.54
+    },
+    "new_queries": {
+      "count": 141,
+      "percentage": 67.46
+    }
+  },
+  "app_distribution": {
+    "manuel_parc_auto": {
+      "count": 9,
+      "percentage": 64.29
+    },
+    "manuel_bdm": {
+      "count": 2,
+      "percentage": 14.29
+    },
+    "word": {
+      "count": 1,
+      "percentage": 7.14
+    },
+    "excel": {
+      "count": 1,
+      "percentage": 7.14
+    },
+    "outlook": {
+      "count": 1,
+      "percentage": 7.14
+    }
+  },
+  "raw_counts": {
+    "routing_labels_raw": {
+      "faq": 98,
+      "rag": 95,
+      "ood": 16
+    },
+    "query_quality_raw": {
+      "poorly_written": 45,
+      "well_written": 164
+    },
+    "follow_up_raw": {
+      "false": 141,
+      "true": 68
+    },
+    "app_id_raw": {
+      "manuel_parc_auto": 9,
+      "manuel_bdm": 2,
+      "word": 1,
+      "excel": 1,
+      "outlook": 1
+    },
+    "turns_per_conversation_raw": [
+      11,
+      15,
+      15,
+      15,
+      16,
+      15,
+      15,
+      15,
+      16,
+      16,
+      15,
+      15,
+      15,
+      15
+    ]
+  }
+}

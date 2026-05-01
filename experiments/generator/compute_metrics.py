@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import os
 import json
+import csv
 import argparse
 import numpy as np
 import re
@@ -12,16 +13,24 @@ _rouge     = load_metric("rouge")
 _bertscore = load_metric("bertscore")
 
 
+# ══════════════════════════════════════════════════════════════════════════════
+# Text cleaning
+# ══════════════════════════════════════════════════════════════════════════════
+
 def clean_text(text: str) -> str:
     text = re.sub(r'<think>.*?</think>', '', text, flags=re.DOTALL)
-    text = re.sub(r'```.*?```', '', text, flags=re.DOTALL)
-    text = re.sub(r'`[^`]*`', '', text)
+    text = re.sub(r'```.*?```',          '', text, flags=re.DOTALL)
+    text = re.sub(r'`[^`]*`',            '', text)
     text = re.sub(r'\*\*([^*]+)\*\*', r'\1', text)
-    text = re.sub(r'\*([^*]+)\*', r'\1', text)
+    text = re.sub(r'\*([^*]+)\*',     r'\1', text)
     text = text.lower()
     text = re.sub(r'\s+', ' ', text)
     return text.strip()
 
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Core metric computation
+# ══════════════════════════════════════════════════════════════════════════════
 
 def compute_metrics(predictions: List[str], references: List[str]) -> Dict:
     cleaned_preds = [clean_text(p) for p in predictions]
@@ -29,7 +38,7 @@ def compute_metrics(predictions: List[str], references: List[str]) -> Dict:
 
     bleu_score = _bleu.compute(
         predictions=cleaned_preds,
-        references=[[r] for r in cleaned_refs]
+        references=[[r] for r in cleaned_refs],
     )
     rouge_results = _rouge.compute(
         predictions=cleaned_preds,
@@ -38,14 +47,16 @@ def compute_metrics(predictions: List[str], references: List[str]) -> Dict:
     )
     rougeL = sum(rouge_results["rougeL"]) / len(rouge_results["rougeL"])
 
-    bertscore_score = _bertscore.compute(
-        predictions=cleaned_preds, references=cleaned_refs, lang="fr"
+    bertscore_result = _bertscore.compute(
+        predictions=cleaned_preds,
+        references=cleaned_refs,
+        lang="fr",
     )
 
     return {
-        "bleu":         bleu_score["bleu"],
-        "rougeL":       rougeL,
-        "bertscore_f1": sum(bertscore_score["f1"]) / len(bertscore_score["f1"]),
+        "bleu":         round(bleu_score["bleu"], 6),
+        "rougeL":       round(rougeL, 6),
+        "bertscore_f1": round(sum(bertscore_result["f1"]) / len(bertscore_result["f1"]), 6),
     }
 
 
@@ -53,12 +64,12 @@ def _timing_stats(times: List[float], prefix: str) -> Dict:
     if not times:
         return {}
     return {
-        f"{prefix}_mean_sec": round(np.mean(times), 4),
-        f"{prefix}_min_sec":  round(min(times), 4),
-        f"{prefix}_max_sec":  round(max(times), 4),
-        f"{prefix}_q1_sec":   round(np.percentile(times, 25), 4),
-        f"{prefix}_q2_sec":   round(np.percentile(times, 50), 4),
-        f"{prefix}_q3_sec":   round(np.percentile(times, 75), 4),
+        f"{prefix}_mean_sec": round(float(np.mean(times)),              4),
+        f"{prefix}_min_sec":  round(float(min(times)),                  4),
+        f"{prefix}_max_sec":  round(float(max(times)),                  4),
+        f"{prefix}_q1_sec":   round(float(np.percentile(times, 25)),    4),
+        f"{prefix}_median_sec": round(float(np.percentile(times, 50)),  4),
+        f"{prefix}_q3_sec":   round(float(np.percentile(times, 75)),    4),
     }
 
 
@@ -67,7 +78,7 @@ def _group_metrics(records: List[Dict]) -> Dict:
         return {"count": 0}
     result = compute_metrics(
         [r["prediction"] for r in records],
-        [r["reference"]  for r in records]
+        [r["reference"]  for r in records],
     )
     result["count"] = len(records)
     result.update(_timing_stats([r["gen_time"] for r in records], "generation_time"))
@@ -75,61 +86,123 @@ def _group_metrics(records: List[Dict]) -> Dict:
     return result
 
 
-def compute_breakdown_metrics(rag_records: List[Dict]) -> Dict:
-    # by query_quality: well_written / poorly_written
-    quality_groups: Dict[str, List[Dict]] = {}
-    for rec in rag_records:
-        key = str(rec["query_quality"]) if rec["query_quality"] is not None else "unknown"
-        quality_groups.setdefault(key, []).append(rec)
+# ══════════════════════════════════════════════════════════════════════════════
+# Data loading — all routing labels
+# ══════════════════════════════════════════════════════════════════════════════
 
-    # by isfollow_up: true / false
-    follow_up_groups: Dict[str, List[Dict]] = {"true": [], "false": []}
-    for rec in rag_records:
-        follow_up_groups["true" if rec["isfollow_up"] else "false"].append(rec)
-
-    # cross breakdown: quality x follow_up
-    cross_groups: Dict[str, List[Dict]] = {}
-    for rec in rag_records:
-        quality = str(rec["query_quality"]) if rec["query_quality"] is not None else "unknown"
-        follow  = "follow_up" if rec["isfollow_up"] else "standalone"
-        key     = f"{quality}_{follow}"
-        cross_groups.setdefault(key, []).append(rec)
-
-    return {
-        "by_query_quality": {k: _group_metrics(v) for k, v in quality_groups.items()},
-        "by_follow_up":     {k: _group_metrics(v) for k, v in follow_up_groups.items()},
-        "by_quality_x_follow_up": {k: _group_metrics(v) for k, v in cross_groups.items()},
-    }
-
-
-def load_rag_records(jsonl_path: str) -> List[Dict]:
+def load_records(jsonl_path: str) -> List[Dict]:
+    """Load all valid (non-failed) records regardless of routing_label."""
     records = []
     with open(jsonl_path, "r", encoding="utf-8") as f:
         for line in f:
+            line = line.strip()
+            if not line:
+                continue
             try:
                 rec = json.loads(line)
                 if (
                     not rec.get("failed")
                     and rec.get("generated")
                     and rec.get("ground_truth")
-                    and rec.get("routing_label") == "rag"
                 ):
                     records.append({
                         "prediction":    rec["generated"],
                         "reference":     rec["ground_truth"],
+                        "routing_label": rec.get("routing_label", "unknown"),
                         "query_quality": rec.get("query_quality"),
-                        "isfollow_up":  rec.get("isfollow_up", False),
-                        "gen_time":      rec.get("generation_time_sec", 0.0),
-                        "ttft":          rec.get("ttft_sec", 0.0),
+                        "isfollow_up":   rec.get("isfollow_up", False),
+                        "gen_time":      rec.get("generation_time_sec") or 0.0,
+                        "ttft":          rec.get("ttft_sec") or 0.0,
                     })
             except (json.JSONDecodeError, KeyError):
                 continue
     return records
 
 
+# ══════════════════════════════════════════════════════════════════════════════
+# Breakdown helpers
+# ══════════════════════════════════════════════════════════════════════════════
+
+def compute_breakdowns(records: List[Dict]) -> Dict[str, Dict]:
+    """
+    Returns a flat dict of group_name → metrics dict, covering:
+      - overall
+      - per routing_label
+      - (rag only) by query_quality
+      - (rag only) by isfollow_up
+      - (rag only) by quality x follow_up
+    """
+    groups: Dict[str, List[Dict]] = {}
+
+    # overall
+    groups["overall"] = records
+
+    # per routing label
+    for rec in records:
+        key = f"routing_{rec['routing_label']}"
+        groups.setdefault(key, []).append(rec)
+
+    # RAG-only breakdowns
+    rag_records = [r for r in records if r["routing_label"] == "rag"]
+
+    for rec in rag_records:
+        quality = str(rec["query_quality"]) if rec["query_quality"] is not None else "unknown"
+        groups.setdefault(f"rag_quality_{quality}", []).append(rec)
+
+    for rec in rag_records:
+        fu = "follow_up" if rec["isfollow_up"] else "standalone"
+        groups.setdefault(f"rag_{fu}", []).append(rec)
+
+    for rec in rag_records:
+        quality = str(rec["query_quality"]) if rec["query_quality"] is not None else "unknown"
+        fu      = "follow_up" if rec["isfollow_up"] else "standalone"
+        groups.setdefault(f"rag_{quality}_{fu}", []).append(rec)
+
+    return {name: _group_metrics(recs) for name, recs in groups.items()}
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# CSV writing
+# ══════════════════════════════════════════════════════════════════════════════
+
+# All columns that may appear in a row, in display order
+_COLUMNS = [
+    "config_id",
+    "group",
+    "count",
+    "bleu",
+    "rougeL",
+    "bertscore_f1",
+    "generation_time_mean_sec",
+    "generation_time_min_sec",
+    "generation_time_max_sec",
+    "generation_time_q1_sec",
+    "generation_time_median_sec",
+    "generation_time_q3_sec",
+    "ttft_mean_sec",
+    "ttft_min_sec",
+    "ttft_max_sec",
+    "ttft_q1_sec",
+    "ttft_median_sec",
+    "ttft_q3_sec",
+]
+
+
+def write_csv(rows: List[Dict], path: str):
+    with open(path, "w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=_COLUMNS, extrasaction="ignore")
+        writer.writeheader()
+        writer.writerows(rows)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Entry point
+# ══════════════════════════════════════════════════════════════════════════════
+
 def main():
     parser = argparse.ArgumentParser(description="Compute metrics from generation outputs")
-    parser.add_argument("--input",      type=str, required=True, help="Path to .jsonl generation file")
+    parser.add_argument("--input",      type=str, required=True,
+                        help="Path to .jsonl generation file (combined rag+ood)")
     parser.add_argument("--output-dir", type=str, default="outputs/metrics")
     args = parser.parse_args()
 
@@ -137,57 +210,61 @@ def main():
     config_id = os.path.splitext(os.path.basename(args.input))[0]
 
     print(f"Loading generations from: {args.input}")
-    rag_records = load_rag_records(args.input)
-    print(f"Found {len(rag_records)} valid RAG records")
+    records = load_records(args.input)
 
-    if not rag_records:
+    label_counts = {}
+    for r in records:
+        label_counts[r["routing_label"]] = label_counts.get(r["routing_label"], 0) + 1
+    print(f"Loaded {len(records)} valid records: {label_counts}")
+
+    if not records:
         print("No valid records found, exiting.")
         return
 
-    print("Computing overall metrics (BERTScore may take a while)...")
-    metrics = compute_metrics(
-        [r["prediction"] for r in rag_records],
-        [r["reference"]  for r in rag_records]
-    )
-    metrics["count"] = len(rag_records)
-    metrics.update(_timing_stats([r["gen_time"] for r in rag_records], "generation_time"))
-    metrics.update(_timing_stats([r["ttft"]     for r in rag_records], "ttft"))
+    print("Computing metrics per group (BERTScore may take a while)...")
+    breakdowns = compute_breakdowns(records)
 
-    metrics_path = os.path.join(args.output_dir, f"{config_id}.json")
-    with open(metrics_path, "w", encoding="utf-8") as f:
-        json.dump(metrics, f, indent=2, ensure_ascii=False)
+    # Build CSV rows
+    rows = []
+    for group_name, metrics in breakdowns.items():
+        if metrics.get("count", 0) == 0:
+            continue
+        row = {"config_id": config_id, "group": group_name}
+        row.update(metrics)
+        rows.append(row)
 
-    print("Computing breakdown metrics...")
-    breakdown      = compute_breakdown_metrics(rag_records)
-    breakdown_path = os.path.join(args.output_dir, f"{config_id}_breakdown.json")
-    with open(breakdown_path, "w", encoding="utf-8") as f:
-        json.dump(breakdown, f, indent=2, ensure_ascii=False)
+    # Sort: overall first, then routing_, then rag breakdowns
+    def _sort_key(r):
+        g = r["group"]
+        if g == "overall":        return (0, g)
+        if g.startswith("routing_"): return (1, g)
+        return (2, g)
 
-    print(f"\nMetrics saved to:   {metrics_path}")
-    print(f"Breakdown saved to: {breakdown_path}")
-    print(f"\n  Overall ({metrics['count']} turns):")
-    print(f"    BLEU:         {metrics['bleu']:.4f}")
-    print(f"    RougeL:       {metrics['rougeL']:.4f}")
-    print(f"    BERTScore F1: {metrics['bertscore_f1']:.4f}")
-    if "generation_time_mean_sec" in metrics:
-        print(f"    Avg gen time: {metrics['generation_time_mean_sec']:.2f}s")
-        print(f"    Avg TTFT:     {metrics['ttft_mean_sec']:.2f}s")
+    rows.sort(key=_sort_key)
 
-    print(f"\n  By query quality:")
-    for k, v in breakdown["by_query_quality"].items():
-        if v.get("count", 0) > 0:
-            print(f"    [{k}] n={v['count']}  BLEU={v.get('bleu',0):.4f}  RougeL={v.get('rougeL',0):.4f}  BERTScore={v.get('bertscore_f1',0):.4f}")
+    csv_path = os.path.join(args.output_dir, f"{config_id}_metrics.csv")
+    write_csv(rows, csv_path)
+    print(f"\nMetrics CSV saved to: {csv_path}")
 
-    print(f"\n  By follow-up:")
-    for k, v in breakdown["by_follow_up"].items():
-        if v.get("count", 0) > 0:
-            print(f"    [{k}] n={v['count']}  BLEU={v.get('bleu',0):.4f}  RougeL={v.get('rougeL',0):.4f}  BERTScore={v.get('bertscore_f1',0):.4f}")
-
-    print(f"\n  By quality x follow-up:")
-    for k, v in breakdown["by_quality_x_follow_up"].items():
-        if v.get("count", 0) > 0:
-            print(f"    [{k}] n={v['count']}  BLEU={v.get('bleu',0):.4f}  RougeL={v.get('rougeL',0):.4f}  BERTScore={v.get('bertscore_f1',0):.4f}")
+    # ── Console summary ───────────────────────────────────────────────────────
+    print(f"\n{'─'*70}")
+    print(f"{'group':<35} {'n':>5}  {'BLEU':>7}  {'RougeL':>7}  {'BERT F1':>8}")
+    print(f"{'─'*70}")
+    for row in rows:
+        print(
+            f"{row['group']:<35} "
+            f"{row.get('count', 0):>5}  "
+            f"{row.get('bleu', 0):>7.4f}  "
+            f"{row.get('rougeL', 0):>7.4f}  "
+            f"{row.get('bertscore_f1', 0):>8.4f}"
+        )
+    print(f"{'─'*70}")
 
 
 if __name__ == "__main__":
     main()
+
+# python compute_metrics.py \
+#     --input      outputs/generated/my_config.jsonl \
+#     --output-dir outputs/metrics
+#python compute_metrics.py --input  data/outputs/generated/qwen3.5_4b_gguf_original_l2_rerank20DenseMean_prompt1.jsonl --output-dir data/outputs/metrics

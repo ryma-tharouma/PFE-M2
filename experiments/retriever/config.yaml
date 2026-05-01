@@ -1,29 +1,29 @@
 experiment:
-  name: "phase_test_bge_l2_rerank"
-  description: "Multi-mode, multi-strategy retrieval eval with routing thresholds"
+  name: "bge_clean_l2_dense_mean_rerank_k10"
+  description: ""
   results_dir: "data/results/{experiment_name}/"
 
 database:
   type: "qdrant"
-  path: "data/vector_db_bge_clean_l2/"
+  path: "data/vector_db_clean_bge_l2/"
 
 indexing:
   db_types: ["qdrant"]
   modes: ["dense"]
   # modes: ["dense", "sparse", "hybrid", "finetuned_dense","finetuned_hybrid"]
   index_types: ["flat"]
-  batch_size: 16
+  batch_size: 32
   drop_existing: true
 
 chunking:
   strategy: "adaptive"
-  max_tokens: 8000
+  max_tokens: 1024
   overlap_tokens: 20
 
 retrieval:
-  max_retrieve_sections: 20
-  eval_k_sections: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20]
-  aggregation_method: ["max"]
+  max_retrieve_sections: 10
+  eval_k_sections: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  aggregation_method: ["mean"]
   alpha: 0.7
 
 multi_turn:
@@ -51,6 +51,7 @@ paths:
   conversations_dir: "data/conversations/"
 
 model:
+  # base_name: "Lajavaness/sentence-camembert-large"
   base_name: "BAAI/bge-m3"
   finetuned_path: "models/bge-m3-ft/"
   use_fp16: false
@@ -61,6 +62,6 @@ reranker:
   enabled: true # set to false to disable
   model_name: "BAAI/bge-reranker-v2-m3"
   device: "cpu" # or "cuda"
-  batch_size: 8
-  top_k_rerank: 20 # number of retrieved chunks to rerank
+  batch_size: 32
+  top_k_rerank: 10 # number of retrieved chunks to rerank
   use_fp16: true # only works with CUDA

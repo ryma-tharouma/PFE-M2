@@ -6,8 +6,12 @@ models/
 experiments/generator/tasks/faq/data/
 experiments/generator/tasks/rag/data/
 experiments/generator/tasks/rewrite/data/
-experiments/retriever/data/
-experiments/generator/data/
+experiments/retriever/data/apps_l2/
+experiments/retriever/data/apps_l3/
+experiments/retriever/data/clean_apps_l2/
+experiments/retriever/data/apps_l3/
+experiments/retriever/data/clean_apps_l3/
+experiments/generator/data/conversations/
 experiments/generator/outputs/generated/
 experiments/build_data/data/
 experiments/rewriter/data/

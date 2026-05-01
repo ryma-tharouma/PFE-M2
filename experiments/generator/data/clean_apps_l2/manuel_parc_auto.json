@@ -1,0 +1,1404 @@
+[
+  {
+    "section_id": "sec_00001",
+    "title": "Introduction",
+    "global_title": "Introduction",
+    "parent": "",
+    "breadcrumb": "Introduction",
+    "level": 1,
+    "page": 9,
+    "content": "Ce document constitue le guide d'utilisation de l'application PARC-AUTO, développée dans le cadre de la digitalisation de la gestion du patrimoine automobile au sein du groupe\nSonatrach et de ses entités.\nL'application PARC-AUTO a été conçue comme un outil structurant permettant de :\n•  Centraliser les informations relatives aux différents parcs automobiles de Sonatrach,\n•  Suivre l'évolution et l'état des véhicules dans le temps,\n•  Gérer les affectations du personnel et des chauffeurs,\n•  Planifier et suivre les opérations de maintenance et les dépenses de réparation,\n•  Assurer la traçabilité des interventions et des décisions prises sur le patrimoine automobile.\nElle répond aux besoins exprimés par les différents intervenants du système de gestion du parc automobile, dans un objectif d'optimisation des ressources, de suivi rigoureux des coûts, de planification efficace des opérations et de conformité réglementaire liée à la gestion des flottes de véhicules.",
+    "captions": [],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00002",
+    "title": "Modules Fonctionnels de l’application PARC-AUTO",
+    "global_title": "Modules Fonctionnels de l’application PARC-AUTO",
+    "parent": "",
+    "breadcrumb": "Modules Fonctionnels de l’application PARC-AUTO",
+    "level": 1,
+    "page": 9,
+    "content": "L'application est composée de plusieurs modules interdépendants, chacun jouant un rôle clé dans la démarche de gestion globale du patrimoine automobile :\n• Gestion de la Flotte Ce module constitue le cœur du système et se divise en deux sous-modules :\n  o Référentiel Véhicules : Gestion des données de base nécessaires à la caractérisation des véhicules (marques, modèles, types de carburant, carrosseries, genres, couleurs, motifs de restitution, périmètres d'utilisation).\n  o Gestion des Véhicules : Enregistrement et suivi détaillé de chaque véhicule du parc avec ses caractéristiques techniques, son historique et son statut.\n• Gestion du Personnel Permet de gérer les informations des employés susceptibles d'utiliser les véhicules de l'entreprise, incluant leurs données personnelles, leurs affectations et leurs droits d'accès aux véhicules.\n• Gestion des Affectations des Véhicules Assure l'attribution des véhicules au personnel autorisé selon des critères définis, avec suivi des périodes d'affectation et gestion des retours de véhicules.\n• Gestion des Chauffeurs Module spécialisé pour la gestion des chauffeurs professionnels, incluant leurs qualifications, leurs permis de conduire, leurs formations et leurs affectations aux véhicules ou missions.\n• Gestion des Demandes de Déplacements Traitement des demandes de déplacement émises par le personnel, avec workflow de validation, planification des missions et suivi de leur réalisation.\n• Gestion des Demandes de Maintenance Planification et suivi des opérations de maintenance préventive et corrective, incluant la gestion des demandes d'intervention, leur validation et leur exécution.\n• Gestion du Transport Module étendu couvrant différents types de transport :\n  o Transport Personnel : Organisation des déplacements individuels des employés.\n  o Transport Crèches : Gestion spécifique du transport des enfants des employés vers les structures d'accueil.\n  o Réservations Bus : Planification et réservation des véhicules de transport collectif.\n• Gestion des Assurances des Véhicules Suivi des contrats d'assurance, des échéances, des sinistres et des remboursements pour l'ensemble de la flotte automobile.\n• Gestion du Carburant Contrôle de la consommation de carburant par véhicule, gestion des cartes carburant, suivi des coûts et analyse des consommations.\n• Gestion des Structures Référentiel des entités organisationnelles de Sonatrach (divisions, sites, services) pour le rattachement des véhicules et la gestion des responsabilités.\n• Gestion des Partenaires Gestion des prestataires externes intervenant sur le parc automobile (garagistes, assureurs, fournisseurs de carburant, centres de contrôle technique).\n• Gestion des Demandes de Mise à la Réforme Traitement des demandes de retrait du service des véhicules en fin de vie, avec workflow de validation et suivi de la procédure de réforme.\n• Gestion du Contrôle Technique Suivi des échéances et des résultats des contrôles techniques obligatoires, avec planification des rendez-vous et gestion des contre-visites.\n• Gestion des Vignettes Administration des différentes vignettes et autorisations nécessaires à la circulation des véhicules (vignettes d'assurance, taxes, autorisations spéciales).\n• Gestion des Utilisateurs Administration des comptes utilisateurs, attribution des rôles et des droits d'accès aux\ndifférents modules selon les responsabilités de chaque utilisateur. L'ensemble de ces modules permet de couvrir l'intégralité de la gestion du patrimoine automobile de Sonatrach, depuis l'acquisition d'un véhicule jusqu'à sa mise à la réforme, en passant par toutes les étapes de son cycle de vie opérationnel.",
+    "captions": [],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00003",
+    "title": "Accès à l'Application PARC-AUTO et Authentification",
+    "global_title": "Accès à l'Application PARC-AUTO et Authentification",
+    "parent": "",
+    "breadcrumb": "Accès à l'Application PARC-AUTO et Authentification",
+    "level": 1,
+    "page": 10,
+    "content": "Pour accéder à l'application PARC-AUTO, veuillez suivre les étapes ci-dessous :\n1. Accéder à l'URL : Ouvrez votre navigateur internet (Chrome, Firefox, Edge, etc.) et saisissez l'adresse suivante dans la barre d'adresse :\nwww.parc-auto.sonatrach.dz.\n2. Page de Connexion : Une fois l'URL saisie, vous serez redirigé vers la page de connexion de l'application PARC-AUTO.\n3. Authentification : L'authentification à PARC-AUTO est intégrée avec le système Active\nDirectory de Sonatrach. Cela signifie que vous pouvez vous connecter en utilisant le même nom d'utilisateur et mot de passe que ceux que vous utilisez pour accéder à votre session informatique au sein de l'entreprise.\no\nNom d'utilisateur : Entrez le nom d'utilisateur que vous utilisez pour vous connecter à votre ordinateur professionnel.\no\nMot de passe : Saisissez votre mot de passe Active Directory, le même que pour la session de votre ordinateur.\n4. Connexion : Après avoir entré vos identifiants, cliquez sur le bouton S’identifier. Si vos informations d'identification sont correctes, vous serez redirigé vers l'interface de l'application PARC-AUTO, où vous pourrez accéder aux différents modules en fonction de vos droits d'utilisateur.\nEn cas de problème de connexion, veuillez vérifier que vos identifiants Active Directory sont corrects ou contactez le service informatique pour vous assister.",
+    "captions": [
+      {
+        "text": "Figure 1: Page d'authentification",
+        "image_path": "images/manuel_parc_auto/page_d_authentification_01.png",
+        "page": 11
+      }
+    ],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00004",
+    "title": "Gestion des utilisateurs",
+    "global_title": "Gestion des utilisateurs",
+    "parent": "",
+    "breadcrumb": "Gestion des utilisateurs",
+    "level": 1,
+    "page": 11,
+    "content": "La gestion des utilisateurs permet de créer et administrer les comptes d'accès à l'application PARC-AUTO. Ce module assure la gestion des droits d'accès via l'attribution de rôles spécifiques à chaque utilisateur, garantissant ainsi un accès sécurisé et adapté aux responsabilités de chacun au sein de l'organisation.\nPour accéder à la gestion des utilisateurs, cliquez sur l'option correspondante dans le menu de l'application.",
+    "captions": [
+      {
+        "text": "Figure 2 : Menu Utilisateurs",
+        "image_path": "images/manuel_parc_auto/menu_utilisateurs_02.png",
+        "page": 12
+      }
+    ],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00005",
+    "title": "Liste des utilisateurs",
+    "global_title": "Gestion des utilisateurs",
+    "parent": "Gestion des utilisateurs",
+    "breadcrumb": "Gestion des utilisateurs > Liste des utilisateurs",
+    "level": 2,
+    "page": 12,
+    "content": "La page principale de gestion des utilisateurs affiche la liste complète des comptes enregistrés dans le système. Cette interface propose les fonctionnalités suivantes :\n•\nChamp de recherche : Outil de filtrage permettant de localiser rapidement un utilisateur spécifique par son nom, prénom, email ou identifiant.\n•\nTableau récapitulatif listant les utilisateurs avec les informations essentielles :\n  o Nom\n  o Email\n  o Identifiant\n  o Actions disponibles",
+    "captions": [
+      {
+        "text": "Figure 3 : Liste des utilisateurs",
+        "image_path": "images/manuel_parc_auto/liste_des_utilisateurs_03.png",
+        "page": 12
+      }
+    ],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00006",
+    "title": "Gestion des utilisateurs existants",
+    "global_title": "Gestion des utilisateurs",
+    "parent": "Gestion des utilisateurs",
+    "breadcrumb": "Gestion des utilisateurs > Gestion des utilisateurs existants",
+    "level": 2,
+    "page": 13,
+    "content": "Pour chaque utilisateur listé, trois actions sont disponibles dans la colonne\nActions : Activer / Désactiver un utilisateur\n• Principe : Cette fonction permet de contrôler l'accès à l'application sans supprimer définitivement le compte utilisateur.\n• Utilisateur activé : Peut se connecter et interagir normalement avec l'application selon ses droits.\n• Utilisateur désactivé : Ne peut plus se connecter à l'application, mais la traçabilité de ses actions antérieures est conservée dans le système.\nProcédure :\n1. Cliquez sur le bouton \"Activer\" ou \"Désactiver\" selon le statut actuel de l'utilisateur.\n2. Un pop-up de confirmation s'affiche avec le message : \"Êtes-vous sûr de vouloir changer l'état de cet élément ?\"\n3. Cliquez sur \"Oui\" pour confirmer le changement de statut ou \"Non\" pour annuler.",
+    "captions": [],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00007",
+    "title": "Création d'un utilisateur",
+    "global_title": "Gestion des utilisateurs",
+    "parent": "Gestion des utilisateurs",
+    "breadcrumb": "Gestion des utilisateurs > Création d'un utilisateur",
+    "level": 2,
+    "page": 13,
+    "content": "Pour créer un nouveau compte utilisateur, procédez comme suit :\n1. Cliquez sur le bouton \"Ajouter\" situé en haut de la page liste.\n2. Vous serez redirigé vers la page de création où vous devrez renseigner le formulaire avec les champs obligatoires suivants :\no Nom : Nom de famille de l'utilisateur\no Prénom : Prénom de l'utilisateur\no Email : Adresse électronique professionnelle\no Identifiant : Identifiant unique pour la connexion\n3. Attribution des rôles : Sélectionnez un ou plusieurs rôles en cochant les cases\ncorrespondantes.   Important : Au moins un rôle doit être sélectionné pour valider la création du compte.\n4. Cliquez sur \"Enregistrer\" pour finaliser la création de l'utilisateur.\nUne fois créé, l'utilisateur pourra accéder à l'application avec son identifiant et bénéficiera des droits associés aux rôles qui lui ont été attribués.",
+    "captions": [
+      {
+        "text": "Figure 4 : Création d'un utilisateur",
+        "image_path": "images/manuel_parc_auto/creation_d_un_utilisateur_04.png",
+        "page": 14
+      }
+    ],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00008",
+    "title": "Modifier un utilisateur",
+    "global_title": "Gestion des utilisateurs",
+    "parent": "Gestion des utilisateurs",
+    "breadcrumb": "Gestion des utilisateurs > Modifier un utilisateur",
+    "level": 2,
+    "page": 14,
+    "content": "La fonction de modification permet d'ajuster les rôles attribués à un utilisateur existant.\nProcédure :\n1. Cliquez sur le bouton \"Modifier\" correspondant à l'utilisateur concerné.\n2. Vous serez redirigé vers la page de modification où vous pourrez :\no Consulter les informations de base de l'utilisateur (non modifiables)\no Modifier uniquement les rôles en cochant ou décochant les cases appropriées\n3. Validez les modifications en cliquant sur \"Enregistrer\".\nRappel : Au moins un rôle doit rester sélectionné.",
+    "captions": [],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00009",
+    "title": "Supprimer un utilisateur",
+    "global_title": "Gestion des utilisateurs",
+    "parent": "Gestion des utilisateurs",
+    "breadcrumb": "Gestion des utilisateurs > Supprimer un utilisateur",
+    "level": 2,
+    "page": 14,
+    "content": "La suppression retire définitivement l'utilisateur du système.\nProcédure :\n1. Cliquez sur le bouton \"Supprimer\" correspondant à l'utilisateur à éliminer.\n2. Un pop-up de confirmation s'affiche avec le message : \"Désiriez-vous supprimer cet utilisateur ?\"\n3. Cliquez sur \"Oui\" pour confirmer la suppression définitive ou \"Non\" pour annuler l'opération.\nAttention : Cette action est irréversible. Assurez-vous de la nécessité de cette suppression avant de confirmer.",
+    "captions": [],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00010",
+    "title": "Sécurité et traçabilité",
+    "global_title": "Gestion des utilisateurs",
+    "parent": "Gestion des utilisateurs",
+    "breadcrumb": "Gestion des utilisateurs > Sécurité et traçabilité",
+    "level": 2,
+    "page": 15,
+    "content": "Le système de gestion des utilisateurs intègre les principes suivants :\n•\nConservation de la traçabilité : Même en cas de désactivation d'un compte, l'historique des actions réalisées par l'utilisateur est préservé dans le système.\n•\nGestion granulaire des droits : L'attribution multiple de rôles permet une gestion fine des autorisations selon les responsabilités de chaque utilisateur.\n•\nSécurité des opérations : Toutes les actions critiques (activation/désactivation, suppression) sont soumises à confirmation pour éviter les erreurs de manipulation.",
+    "captions": [],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00011",
+    "title": "Gestion de la Flotte",
+    "global_title": "Gestion de la Flotte",
+    "parent": "",
+    "breadcrumb": "Gestion de la Flotte",
+    "level": 1,
+    "page": 15,
+    "content": "La gestion de la flotte constitue le module central de l'application PARC-AUTO. Elle se\ncompose de deux sous-modules principaux : le Référentiel Véhicules pour la gestion des\ndonnées de base, et la Gestion des Véhicules pour l'administration détaillée du parc automobile.",
+    "captions": [],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00012",
+    "title": "Référentiel Véhicules",
+    "global_title": "Gestion de la Flotte",
+    "parent": "Gestion de la Flotte",
+    "breadcrumb": "Gestion de la Flotte > Référentiel Véhicules",
+    "level": 2,
+    "page": 15,
+    "content": "Le référentiel véhicules permet de gérer l'ensemble des données de référence nécessaires à la caractérisation des véhicules. Pour chaque élément du référentiel, l'interface propose une page de liste, une page de création et une page de modification. Tous les éléments peuvent être désactivés ou supprimés selon les besoins.\n\nMarques\n• Champs : Désignation, Logo • Actions disponibles : Activer/Désactiver, Modifier, Supprimer\n\nModèles\n• Champs : Nom, Marque, Statut (Activé/Désactivé)\n• Actions disponibles : Activer/Désactiver, Modifier, Supprimer\n\nCarburants\n• Champs : Type\n• Actions disponibles : Activer/Désactiver, Modifier, Supprimer\n\nCarrosseries\n• Champs : Désignation\n• Actions disponibles : Activer/Désactiver, Modifier, Supprimer\n\nGenres\n• Champs : Désignation\n• Actions disponibles : Activer/Désactiver, Modifier, Supprimer\n\nCouleurs\n• Champs : Désignation\n• Actions disponibles : Activer/Désactiver, Modifier, Supprimer\n\nMotifs de Restitution\n• Champs : Motif\n• Actions disponibles : Activer/Désactiver, Modifier, Supprimer\n\nPérimètres\n• Champs : Désignation, Parcours\n• Actions disponibles : Consulter, Modifier, Supprimer\n\nPage Liste des Véhicules\nLa page principale offre une vue d'ensemble de la flotte avec les fonctionnalités suivantes :\nFormulaire de filtrage avec 4 champs de recherche :\n•  Marque\n•  Modèle\n•  Matricule/Numéro de châssis\n•  Année de mise en circulation\nFonctionnalités principales :\n• Bouton \"Ajouter un véhicule\" : Accès direct à la page de création\n•\nBouton \"Exporter\" : Téléchargement d'un fichier Excel contenant la liste détaillée des véhicules\nColonnes du tableau :\n•  Marque\n•  Modèle\n•  Immatriculation\n•  Numéro de châssis\n•  Couleur\n•  Mise en circulation\n•  État\n•  Actions\nActions par véhicule :\n• Consulter : Accès à la page de détails du véhicule\n• Modifier : Accès à la page de modification\n•\nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"\n\nCréation d'un Véhicule\nLe formulaire de création permet de saisir toutes les caractéristiques du véhicule :\nFonctionnalités avancées :\n•\nMarque : Liste déroulante + bouton orange avec icône \"+\" pour créer une nouvelle marque via un pop-up (champ désignation + bouton \"Valider\")\n• Modèle : Même principe que pour les marques avec création à la volée\n• Photos : Possibilité d'attacher plusieurs photos du véhicule\n• Autres champs : Couleur, Carrosserie, Genre, et tous les attributs techniques\nAprès remplissage, cliquez sur \"Enregistrer\" pour valider la création.\n\nModification d'un Véhicule\nLa page de modification reprend le même formulaire que la création, permettant la modification de toutes les propriétés du véhicule.\n\nConsultation d'un Véhicule\nLa page de consultation offre une vue complète et interactive du véhicule avec plusieurs sections de gestion :\n\nInformations Générales\nAffichage de toutes les caractéristiques : énergie, boîte de vitesse, couleur, photos, etc.\n\nGestion du Kilométrage\n• Dernier kilométrage : Affichage direct (ex: \"105236 KM le 23/07/2025\")\n• Bouton \"Liste des kilométrages\" : Accès à l'historique complet\n• Ajout de kilométrage : Formulaire avec date et kilométrage\n\nGestion des Immatriculations\n• Liste : Immatriculation, Date d'attachement, Actions (Consulter, Modifier, Supprimer)\n• Ajout : Création d'une nouvelle immatriculation\n\nGestion des Cartes Naftal\n• Liste : Numéro, Code, Date d'expiration, Actions\n• Création : Ajout de nouvelles cartes carburant\n\nGestion des Affectations\nTrois sections distinctes avec liste et création pour chaque type :\n• Affectation aux Chauffeurs\n• Affectation aux Entités\n• Affectation aux Personnels\n\nGestion des Documents\nAdministration des documents officiels liés au véhicule :\n•  Carte grise\n•  Carte jaune\n•  Assurance\n•  Autres documents administratifs Chaque section propose une liste des documents existants et la possibilité d'en ajouter de nouveaux.",
+    "captions": [
+      {
+        "text": "Figure 5 : Liste Marques",
+        "image_path": "images/manuel_parc_auto/liste_marques_05.png",
+        "page": 16
+      },
+      {
+        "text": "Figure 6 : Liste Modèles",
+        "image_path": "images/manuel_parc_auto/liste_modeles_06.png",
+        "page": 17
+      },
+      {
+        "text": "Figure 7 : Liste Carburants",
+        "image_path": "images/manuel_parc_auto/liste_carburants_07.png",
+        "page": 17
+      },
+      {
+        "text": "Figure 8 : Liste Carrosseries",
+        "image_path": "images/manuel_parc_auto/liste_carrosseries_08.png",
+        "page": 18
+      },
+      {
+        "text": "Figure 9 : Liste Genres",
+        "image_path": "images/manuel_parc_auto/liste_genres_09.png",
+        "page": 18
+      },
+      {
+        "text": "Figure 10 : Liste Couleurs",
+        "image_path": "images/manuel_parc_auto/liste_couleurs_10.png",
+        "page": 19
+      },
+      {
+        "text": "Figure 11 : Liste des motifs de restitution",
+        "image_path": "images/manuel_parc_auto/liste_des_motifs_de_restitution_11.png",
+        "page": 19
+      },
+      {
+        "text": "Figure 12 : Liste Périmètres",
+        "image_path": "images/manuel_parc_auto/liste_perimetres_12.png",
+        "page": 19
+      },
+      {
+        "text": "Figure 13 : Formulaire de Filtre véhicules",
+        "image_path": "images/manuel_parc_auto/formulaire_de_filtre_vehicules_13.png",
+        "page": 20
+      },
+      {
+        "text": "Figure 14 : Liste Véhicules",
+        "image_path": "images/manuel_parc_auto/liste_vehicules_14.png",
+        "page": 21
+      },
+      {
+        "text": "Figure 15 : Formulaire de création d'un véhicule",
+        "image_path": "images/manuel_parc_auto/formulaire_de_creation_d_un_vehicule_15.png",
+        "page": 22
+      },
+      {
+        "text": "Figure 16 : Détails d'un véhicule",
+        "image_path": "images/manuel_parc_auto/details_d_un_vehicule_16.png",
+        "page": 23
+      },
+      {
+        "text": "Figure 17 : Gestion des Immatriculations",
+        "image_path": "images/manuel_parc_auto/gestion_des_immatriculations_17.png",
+        "page": 24
+      },
+      {
+        "text": "Figure 18 : Gestion des Cartes Naftal",
+        "image_path": "images/manuel_parc_auto/gestion_des_cartes_naftal_18.png",
+        "page": 24
+      },
+      {
+        "text": "Figure 19 : Gestion d'affectations aux chauffeurs",
+        "image_path": "images/manuel_parc_auto/gestion_d_affectations_aux_chauffeurs_19.png",
+        "page": 24
+      },
+      {
+        "text": "Figure 20 : Gestion d'affectations Entités",
+        "image_path": "images/manuel_parc_auto/gestion_d_affectations_entites_20.png",
+        "page": 25
+      },
+      {
+        "text": "Figure 21 : Gestion d'affectations Personnels",
+        "image_path": "images/manuel_parc_auto/gestion_d_affectations_personnels_21.png",
+        "page": 25
+      },
+      {
+        "text": "Figure 22 : Gestion Documents Véhicule",
+        "image_path": "images/manuel_parc_auto/gestion_documents_vehicule_22.png",
+        "page": 25
+      }
+    ],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00013",
+    "title": "Gestion des Affectations des Véhicules",
+    "global_title": "Gestion des Affectations des Véhicules",
+    "parent": "",
+    "breadcrumb": "Gestion des Affectations des Véhicules",
+    "level": 1,
+    "page": 26,
+    "content": "Ce module permet de gérer l'attribution des véhicules aux différents utilisateurs de l'entreprise selon trois types d'affectation : chauffeurs, personnels et entités.",
+    "captions": [],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00014",
+    "title": "Formulaire de Recherche",
+    "global_title": "Gestion des Affectations des Véhicules",
+    "parent": "Page Liste des Affectations",
+    "breadcrumb": "Gestion des Affectations des Véhicules > Page Liste des Affectations > Formulaire de Recherche",
+    "level": 2,
+    "page": 26,
+    "content": "Le formulaire de filtrage comprend les champs suivants :\n• Véhicule : Recherche par véhicule spécifique\n• Date début : Filtre par date de début d'affectation\n• Date fin : Filtre par date de fin d'affectation\n•\nType d'affectation : Sélection entre Chauffeurs, Personnels et Entités (filtre par défaut : Chauffeurs)\n\nListe des Affectations\nLe tableau affiche les colonnes suivantes (la première colonne varie selon le type sélectionné) :\n• Chauffeur/Personnel/Entité (selon le type d'affectation)\n• Véhicule\n• Date affectation\n• Date restitution\n• Date fin ODM (Ordre de Mission)\n• Actions\n\nActions Disponibles\nPour chaque affectation, quatre boutons sont disponibles :\n• Restituer : Visible uniquement pour les affectations non restituées\n• Consulter : Accès à la page de détails de l'affectation\n• Modifier : Pop-up avec formulaire de modification\n•\nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"",
+    "captions": [
+      {
+        "text": "Figure 23 : Formulaire recherche affectation véhicules",
+        "image_path": "images/manuel_parc_auto/formulaire_recherche_affectation_vehicules_23.png",
+        "page": 26
+      },
+      {
+        "text": "Figure 24 : Liste des affectations",
+        "image_path": "images/manuel_parc_auto/liste_des_affectations_24.png",
+        "page": 26
+      }
+    ],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00015",
+    "title": "Création d'une Nouvelle Affectation",
+    "global_title": "Gestion des Affectations des Véhicules",
+    "parent": "Gestion des Affectations des Véhicules",
+    "breadcrumb": "Gestion des Affectations des Véhicules > Création d'une Nouvelle Affectation",
+    "level": 2,
+    "page": 27,
+    "content": "1. Cliquez sur le bouton \"Nouvelle affectation\" en haut de la page\n2. Un pop-up s'ouvre avec le formulaire de création comprenant :\no Véhicule : Sélection du véhicule à affecter\no Date d'affectation : Date de début d'affectation\no Type d'affectation : Choix entre Chauffeur, Personnel ou Entité\no Champs spécifiques : Selon le type sélectionné, des champs additionnels apparaissent\n3. Remplissez tous les champs requis selon le type d'affectation\n4. Cliquez sur \"Valider\" pour créer l'affectation",
+    "captions": [
+      {
+        "text": "Figure 25 : Formulaire de création d'une affectation",
+        "image_path": "images/manuel_parc_auto/formulaire_de_creation_d_une_affectation_25.png",
+        "page": 27
+      }
+    ],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00016",
+    "title": "Restitution d'un Véhicule",
+    "global_title": "Gestion des Affectations des Véhicules",
+    "parent": "Gestion des Affectations des Véhicules",
+    "breadcrumb": "Gestion des Affectations des Véhicules > Restitution d'un Véhicule",
+    "level": 2,
+    "page": 28,
+    "content": "1. Cliquez sur le bouton \"Restituer\" de l'affectation concernée\n2. Vous êtes redirigé vers la page de restitution\n3. Remplissez le formulaire avec les informations suivantes :\no Motif de restitution : Sélection du motif dans la liste déroulante\no Date de restitution : Date effective de retour du véhicule\no Observations : Commentaires sur l'état du véhicule ou autres remarques\no Kilométrage : Relevé kilométrique au moment de la restitution\no Date de kilométrage : Date du relevé kilométrique\no Photos : Possibilité d'attacher des photos du véhicule lors de la restitution\n4. Validez la restitution pour finaliser le processus\n\nAffectation de Type Chauffeur\nLa page de consultation comprend :\nInformations principales :\n•  Détails complets de l'affectation\n•  Informations de restitution (si le véhicule a été restitué)\n• Bouton \"Télécharger l'ordre de mission\" en haut de page\nGestion des Ordres de Mission : Section dédiée en bas de page permettant de :\n• Ajouter un nouvel ordre de mission\n• Modifier un ordre de mission existant\n• Supprimer un ordre de mission\n\nAffectations de Type Personnel et Entité\nPour ces types d'affectation, la page de consultation affiche uniquement :\n• Informations de l'affectation : Détails de l'attribution du véhicule\n• Informations de restitution : Détails du retour du véhicule (si applicable)",
+    "captions": [
+      {
+        "text": "Figure 26 : Page de restitution d'un véhicule",
+        "image_path": "images/manuel_parc_auto/page_de_restitution_d_un_vehicule_26.png",
+        "page": 28
+      },
+      {
+        "text": "Figure 27 : Page détails affectation",
+        "image_path": "images/manuel_parc_auto/page_details_affectation_27.png",
+        "page": 29
+      }
+    ],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00017",
+    "title": "Modification d'une Affectation",
+    "global_title": "Gestion des Affectations des Véhicules",
+    "parent": "Gestion des Affectations des Véhicules",
+    "breadcrumb": "Gestion des Affectations des Véhicules > Modification d'une Affectation",
+    "level": 2,
+    "page": 29,
+    "content": "La modification s'effectue via un pop-up contenant le formulaire pré-rempli avec les données existantes. Vous pouvez modifier tous les champs selon le type d'affectation, puis valider les changements.",
+    "captions": [],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00018",
+    "title": "Gestion du Personnel",
+    "global_title": "Gestion du Personnel",
+    "parent": "",
+    "breadcrumb": "Gestion du Personnel",
+    "level": 1,
+    "page": 30,
+    "content": "Ce module permet de gérer les informations des employés susceptibles d'utiliser les véhicules de l'entreprise, incluant leurs données personnelles, leurs affectations et leurs droits d'accès aux véhicules.",
+    "captions": [],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00019",
+    "title": "Import depuis Ressources Humaines",
+    "global_title": "Gestion du Personnel",
+    "parent": "Page Liste du Personnel",
+    "breadcrumb": "Gestion du Personnel > Page Liste du Personnel > Import depuis Ressources Humaines",
+    "level": 2,
+    "page": 30,
+    "content": "Le bouton \"Importer depuis Resource humaine\" ouvre un pop-up avec un formulaire de recherche :\n• Matricule : Recherche par numéro matricule\n• Nom : Filtre par nom de famille\n• Prénom : Filtre par prénom\n• Fonction : Recherche par fonction/poste\nBouton \"Actualiser\" : Réinitialise les critères de recherche\n\nFonctionnalités principales\n• Bouton \"Ajouter\" : Accès direct à la page de création d'un personnel\n•\nTableau récapitulatif avec les colonnes :\n  o Matricule\n  o Nom\n  o Prénom\n  o Fonction\n  o Email\n  o Numéro de téléphone\n  o Entité\n  o Actions\n\nActions disponibles\nPour chaque personnel, trois actions sont proposées :\n• Consulter : Accès à la page de détails du personnel\n• Modifier : Accès à la page de modification\n•\nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"",
+    "captions": [
+      {
+        "text": "Figure 28 : Importer personnel",
+        "image_path": "images/manuel_parc_auto/importer_personnel_28.png",
+        "page": 30
+      },
+      {
+        "text": "Figure 29 : Liste personnels",
+        "image_path": "images/manuel_parc_auto/liste_personnels_29.png",
+        "page": 31
+      }
+    ],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00020",
+    "title": "Création d'un Personnel",
+    "global_title": "Gestion du Personnel",
+    "parent": "Gestion du Personnel",
+    "breadcrumb": "Gestion du Personnel > Création d'un Personnel",
+    "level": 2,
+    "page": 31,
+    "content": "Le formulaire de création comprend les champs suivants :\n• Login : Identifiant de connexion\n• Matricule : Numéro matricule unique\n• Nom : Nom de famille\n• Prénom : Prénom de l'employé\n• Fonction : Poste/fonction occupée\n• Email : Adresse électronique professionnelle\n• Numéro de téléphone : Contact téléphonique\n• Entité : Structure organisationnelle de rattachement\nAprès remplissage des champs, cliquez sur \"Enregistrer\" pour valider la création.",
+    "captions": [
+      {
+        "text": "Figure 30 : Création d'un personnel",
+        "image_path": "images/manuel_parc_auto/creation_d_un_personnel_30.png",
+        "page": 32
+      }
+    ],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00021",
+    "title": "Modification d'un Personnel",
+    "global_title": "Gestion du Personnel",
+    "parent": "Gestion du Personnel",
+    "breadcrumb": "Gestion du Personnel > Modification d'un Personnel",
+    "level": 2,
+    "page": 32,
+    "content": "La page de modification reprend le même formulaire que la création, pré-rempli avec les données existantes du personnel. Tous les champs peuvent être modifiés selon les besoins.",
+    "captions": [],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00022",
+    "title": "Consultation d'un Personnel",
+    "global_title": "Gestion du Personnel",
+    "parent": "Gestion du Personnel",
+    "breadcrumb": "Gestion du Personnel > Consultation d'un Personnel",
+    "level": 2,
+    "page": 32,
+    "content": "La page de consultation affiche toutes les informations détaillées du personnel.\n\nSection Affectations Véhicules\nCette section présente :\n• Liste des affectations : Historique complet des véhicules affectés au personnel\n•\nCréation d'affectations : Possibilité d'attribuer de nouveaux véhicules directement depuis cette page Les affectations affichent les mêmes informations que dans le module dédié : véhicule, dates d'affectation et de restitution, statut.",
+    "captions": [
+      {
+        "text": "Figure 31 : Page détails d'un personnel",
+        "image_path": "images/manuel_parc_auto/page_details_d_un_personnel_31.png",
+        "page": 33
+      }
+    ],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00023",
+    "title": "Gestion des Chauffeurs",
+    "global_title": "Gestion des Chauffeurs",
+    "parent": "",
+    "breadcrumb": "Gestion des Chauffeurs",
+    "level": 1,
+    "page": 33,
+    "content": "Ce module spécialisé permet de gérer les chauffeurs professionnels, incluant leurs qualifications, leurs permis de conduire, leurs formations et leurs affectations aux véhicules ou missions.",
+    "captions": [],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00024",
+    "title": "Import depuis Ressources Humaines",
+    "global_title": "Gestion des Chauffeurs",
+    "parent": "Page Liste des Chauffeurs",
+    "breadcrumb": "Gestion des Chauffeurs > Page Liste des Chauffeurs > Import depuis Ressources Humaines",
+    "level": 2,
+    "page": 33,
+    "content": "Le bouton \"Importer depuis Resource humaine\" ouvre un pop-up avec un formulaire de recherche :\n• Matricule : Recherche par numéro matricule\n• Nom : Filtre par nom de famille\n• Prénom : Filtre par prénom\n• Fonction : Recherche par fonction/poste\nBouton \"Actualiser\" : Réinitialise les critères de recherche\n\nAlertes de Suivi\nLe système affiche des alertes importantes en haut de page :\n\nExemple : \"Il y'a 3 chauffeurs avec un permis de conduire sur le point d'expirer ou déjà expiré.\" \nExemple : \"Il y'a 5 chauffeur(s) avec un ordre de mission sur le point d'expirer ou déjà expiré.\"\n\nOutils de Filtrage\n\nChamp de recherche : Recherche libre par nom, matricule, etc. \nListe déroulante de filtres :\n  o Tous les chauffeurs\n  o Permis expiré ou expire prochainement\n  o Autres filtres contextuels\n\nFonctionnalités principales\n\nBouton \"Ajouter\" : Accès à la page de création d'un chauffeur \nTableau récapitulatif avec les colonnes :\n  o Nom\n  o Date de naissance\n  o Adresse\n  o Date de recrutement\n  o Actions\n\nActions disponibles\nPour chaque chauffeur, quatre actions sont proposées :\n\nConsulter : Accès à la page de détails du chauffeur \nModifier : Accès à la page de modification \nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\" \nActiver/Désactiver : Contrôle de l'état du chauffeur",
+    "captions": [
+      {
+        "text": "Figure 32 : Liste des chauffeurs",
+        "image_path": "images/manuel_parc_auto/liste_des_chauffeurs_32.png",
+        "page": 35
+      }
+    ],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00025",
+    "title": "Création d'un Chauffeur",
+    "global_title": "Gestion des Chauffeurs",
+    "parent": "Gestion des Chauffeurs",
+    "breadcrumb": "Gestion des Chauffeurs > Création d'un Chauffeur",
+    "level": 2,
+    "page": 35,
+    "content": "Le formulaire de création comprend :\n\nNom : Nom de famille \nPrénom : Prénom du chauffeur \nMatricule : Numéro matricule unique \nDate de naissance : Date de naissance \nEmail : Adresse électronique \nAdresse : Adresse personnelle \nAutres informations : Champs additionnels selon les besoins \nPhoto : Possibilité d'attacher une photo du chauffeur\nAprès remplissage, cliquez sur \"Enregistrer\" pour valider la création.",
+    "captions": [],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00026",
+    "title": "Modification d'un Chauffeur",
+    "global_title": "Gestion des Chauffeurs",
+    "parent": "Gestion des Chauffeurs",
+    "breadcrumb": "Gestion des Chauffeurs > Modification d'un Chauffeur",
+    "level": 2,
+    "page": 35,
+    "content": "La page de modification reprend le même formulaire que la création, pré-rempli avec les données existantes du chauffeur. Tous les champs peuvent être modifiés selon les besoins.",
+    "captions": [
+      {
+        "text": "Figure 33 : Création d'un chauffeur",
+        "image_path": "images/manuel_parc_auto/creation_d_un_chauffeur_33.png",
+        "page": 36
+      }
+    ],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00027",
+    "title": "Consultation d'un Chauffeur",
+    "global_title": "Gestion des Chauffeurs",
+    "parent": "Gestion des Chauffeurs",
+    "breadcrumb": "Gestion des Chauffeurs > Consultation d'un Chauffeur",
+    "level": 2,
+    "page": 37,
+    "content": "La page de consultation présente une vue complète avec plusieurs sections de gestion :\n\nInformations Générales\nAffichage de toutes les données personnelles et professionnelles du chauffeur.\nBouton \"Fiche de renseignement\" : Téléchargement d'un fichier Excel contenant toutes les informations du chauffeur.\n\nGestion des Permis de Conduire\nCette section permet de gérer les différentes catégories de permis :\n\nListe des permis : Affichage par catégorie (A, B, C, D, etc.) \nDate d'émission : Date d'obtention du permis \nDate d'expiration : Date de validité \nActions : Ajouter, modifier ou supprimer des permis\n\nGestion des Affectations Véhicules\nSection dédiée aux véhicules affectés au chauffeur :\n\nListe des affectations : Historique complet des véhicules affectés \nCréation d'affectations : Possibilité d'attribuer de nouveaux véhicules directement depuis cette page \nInformations affichées : Véhicule, dates d'affectation et de restitution, statut\n\nGestion des Absences\nAdministration des périodes d'indisponibilité du chauffeur :\n\nType d'absence : Nature de l'absence (congé, maladie, formation, etc.) \nDate début : Date de début de l'absence \nDate fin : Date de fin de l'absence \nActions : Ajouter, modifier ou supprimer des périodes d'absence",
+    "captions": [
+      {
+        "text": "Figure 34 : Page détails d'un chauffeur",
+        "image_path": "images/manuel_parc_auto/page_details_d_un_chauffeur_34.png",
+        "page": 38
+      }
+    ],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00028",
+    "title": "Gestion des Structures",
+    "global_title": "Gestion des Structures",
+    "parent": "",
+    "breadcrumb": "Gestion des Structures",
+    "level": 1,
+    "page": 39,
+    "content": "Ce module permet de gérer le référentiel des entités organisationnelles de Sonatrach (divisions, sites, services) pour le rattachement des véhicules et la gestion des responsabilités.\nIl se compose de deux sous-modules : la gestion des structures et la gestion des entités.",
+    "captions": [],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00029",
+    "title": "Page Liste des Structures",
+    "global_title": "Gestion des Structures",
+    "parent": "Gestion des Structures",
+    "breadcrumb": "Gestion des Structures > Gestion des Structures > Page Liste des Structures",
+    "level": 2,
+    "page": 39,
+    "content": "Tableau récapitulatif avec les colonnes :\n•  Code\n•  Désignation\n•  Actions\n\nActions disponibles\nPour chaque structure, trois actions sont proposées :\n• Consulter : Accès à la page de détails de la structure\n• Modifier : Accès à la page de modification\n•\nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"\n\nCréation et Modification d'une Structure\nLe formulaire comprend les champs suivants :\n• Code : Code unique de la structure\n• Désignation : Nom de la structure\nAprès remplissage, cliquez sur \"Enregistrer\" pour valider.\n\nConsultation d'une Structure\nLa page de consultation affiche les informations de base :\n•  Code de la structure\n•  Désignation de la structure\n\nPage Liste des Entités\nFonctionnalités principales :\n• Bouton \"Ajouter\" : Accès à la page de création d'une entité\n•\nTableau récapitulatif avec les colonnes :\n  o Structure\n  o Code\n  o Désignation\n  o Email\n  o Actions\n\nActions disponibles\nPour chaque entité, trois actions sont proposées :\n• Consulter : Accès à la page de détails de l'entité\n• Modifier : Accès à la page de modification\n•\nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"\n\nCréation et Modification d'une Entité\nLe formulaire comprend les champs suivants :\n\nInformations de l'entité\n• Structure de l'entité : Rattachement à une structure parente\n• Code : Code unique de l'entité\n• Désignation : Nom de l'entité\n• Email : Adresse électronique de l'entité\n• Compte analytique : Code comptable de rattachement\n\nInformations du contact\n• Nom du contact : Nom du responsable de contact\n• Prénom du contact : Prénom du responsable de contact\n• Fonction du contact : Fonction du responsable\n• Email du contact : Adresse électronique du contact\nAprès remplissage, cliquez sur \"Enregistrer\" pour valider la création ou modification.\n\nConsultation d'une Entité\nLa page de consultation affiche toutes les informations détaillées de l'entité, incluant les données de base et les informations de contact.",
+    "captions": [],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00030",
+    "title": "Gestion des Partenaires",
+    "global_title": "Gestion des Partenaires",
+    "parent": "",
+    "breadcrumb": "Gestion des Partenaires",
+    "level": 1,
+    "page": 41,
+    "content": "Ce module permet de gérer les prestataires externes intervenant sur le parc automobile.",
+    "captions": [],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00031",
+    "title": "Fonctionnalités principales",
+    "global_title": "Gestion des Partenaires",
+    "parent": "Page Liste des Partenaires",
+    "breadcrumb": "Gestion des Partenaires > Page Liste des Partenaires > Fonctionnalités principales",
+    "level": 2,
+    "page": 41,
+    "content": "\nBouton \"Ajouter\" : Accès direct à la page de création d'un partenaire \nTableau récapitulatif avec les colonnes :\n  o Désignation\n  o Raison sociale\n  o Adresse\n  o Email\n  o Prestataire (Oui/Non)\n  o Fournisseur (Oui/Non)\n  o Actions\n\nActions disponibles\nPour chaque partenaire, trois actions sont proposées :\n\nConsulter : Accès à la page de détails du partenaire \nModifier : Accès à la page de modification \nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"",
+    "captions": [
+      {
+        "text": "Figure 35 : Page liste partenaires",
+        "image_path": "images/manuel_parc_auto/page_liste_partenaires_35.png",
+        "page": 41
+      }
+    ],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00032",
+    "title": "Création d'un Partenaire",
+    "global_title": "Gestion des Partenaires",
+    "parent": "Gestion des Partenaires",
+    "breadcrumb": "Gestion des Partenaires > Création d'un Partenaire",
+    "level": 2,
+    "page": 42,
+    "content": "Le formulaire de création comprend les champs suivants :\n\nClassification du partenaire\n\nEst-ce que c'est un prestataire ? : Sélection Oui/Non \nEst-ce que c'est un fournisseur ? : Sélection Oui/Non\n\nInformations générales\n\nDésignation : Nom commercial du partenaire \nRaison sociale : Raison sociale officielle \nAdresse : Adresse complète du partenaire\n\nCoordonnées de contact\n\nEmail : Adresse électronique \nNuméro de téléphone : Contact téléphonique \nAutres coordonnées : Informations de contact supplémentaires\nAprès remplissage des champs, cliquez sur \"Enregistrer\" pour valider la création.",
+    "captions": [
+      {
+        "text": "Figure 36 : Page création d'un partenaire",
+        "image_path": "images/manuel_parc_auto/page_creation_d_un_partenaire_36.png",
+        "page": 42
+      }
+    ],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00033",
+    "title": "Modification d'un Partenaire",
+    "global_title": "Gestion des Partenaires",
+    "parent": "Gestion des Partenaires",
+    "breadcrumb": "Gestion des Partenaires > Modification d'un Partenaire",
+    "level": 2,
+    "page": 43,
+    "content": "La page de modification reprend le même formulaire que la création, pré-rempli avec les données existantes du partenaire. Tous les champs peuvent être modifiés selon les besoins.",
+    "captions": [],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00034",
+    "title": "Consultation d'un Partenaire",
+    "global_title": "Gestion des Partenaires",
+    "parent": "Gestion des Partenaires",
+    "breadcrumb": "Gestion des Partenaires > Consultation d'un Partenaire",
+    "level": 2,
+    "page": 43,
+    "content": "La page de consultation affiche toutes les informations détaillées du partenaire, incluant sa classification (prestataire/fournisseur), ses informations générales et ses coordonnées de contact complètes.",
+    "captions": [],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00035",
+    "title": "Gestion des Wilayas",
+    "global_title": "Gestion des Wilayas",
+    "parent": "",
+    "breadcrumb": "Gestion des Wilayas",
+    "level": 1,
+    "page": 43,
+    "content": "Ce module permet de gérer le référentiel géographique des wilayas et communes, nécessaire pour la localisation des véhicules, partenaires et structures. Il se compose de deux sous- modules : la gestion des wilayas et la gestion des communes.",
+    "captions": [],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00036",
+    "title": "Page Liste des Wilayas",
+    "global_title": "Gestion des Wilayas",
+    "parent": "Gestion des Wilayas",
+    "breadcrumb": "Gestion des Wilayas > Gestion des Wilayas > Page Liste des Wilayas",
+    "level": 2,
+    "page": 43,
+    "content": "Fonctionnalités principales : \nBouton \"Ajouter\" : Accès à la page de création d'une wilaya \nTableau récapitulatif avec les colonnes :\n  o Désignation\n  o Code\n  o Nombre de communes\n  o Actions\n\nActions disponibles\nPour chaque wilaya, trois actions sont proposées :\n\nConsulter : Accès à la page de détails de la wilaya \nModifier : Accès à la page de modification \nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"\n\nCréation et Modification d'une Wilaya\nLe formulaire comprend les champs suivants :\n\nCode : Code numérique de la wilaya \nDésignation : Nom de la wilaya\nAprès remplissage, cliquez sur \"Enregistrer\" pour valider.\n\nConsultation d'une Wilaya\nLa page de consultation affiche :\n\nInformations de base\n Désignation de la wilaya  Code de la wilaya\n\nGestion des Communes\nSection dédiée permettant de gérer les communes rattachées à cette wilaya :\n\nListe des communes : Affichage des communes existantes \nCréation de communes : Possibilité d'ajouter de nouvelles communes directement depuis cette page\n\nPage Liste des Communes\nOutils de recherche : \nListe déroulante des wilayas : Filtre par wilaya \nChamp de recherche : Recherche libre par désignation\nFonctionnalités principales : \nBouton \"Ajouter\" : Accès à la page de création d'une commune \nTableau récapitulatif avec les colonnes :\n  o Wilaya\n  o Désignation\n  o Actions\n\nActions disponibles\nPour chaque commune, trois actions sont proposées :\n\nConsulter : Accès à la page de détails de la commune \nModifier : Accès à la page de modification \nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"\n\nCréation et Modification d'une Commune\nLe formulaire comprend les champs suivants :\n\nWilaya : Sélection de la wilaya de rattachement via liste déroulante \nDésignation : Nom de la commune\nAprès remplissage, cliquez sur \"Enregistrer\" pour valider la création ou modification.\n\nConsultation d'une Commune\nLa page de consultation affiche les informations de base :\n Wilaya de rattachement  Désignation de la commune",
+    "captions": [
+      {
+        "text": "Figure 37 : Page liste wilayas",
+        "image_path": "images/manuel_parc_auto/page_liste_wilayas_37.png",
+        "page": 44
+      },
+      {
+        "text": "Figure 38 : Page détails wilaya",
+        "image_path": "images/manuel_parc_auto/page_details_wilaya_38.png",
+        "page": 45
+      },
+      {
+        "text": "Figure 39 : Page liste communes",
+        "image_path": "images/manuel_parc_auto/page_liste_communes_39.png",
+        "page": 46
+      }
+    ],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00037",
+    "title": "Gestion des Vignettes",
+    "global_title": "Gestion des Vignettes",
+    "parent": "",
+    "breadcrumb": "Gestion des Vignettes",
+    "level": 1,
+    "page": 47,
+    "content": "Ce module permet l'administration des différentes vignettes et autorisations nécessaires à la circulation des véhicules (vignettes d'assurance, taxes, autorisations spéciales). Il se compose de trois sous-modules : gestion des catégories, gestion du barème et gestion des vignettes.",
+    "captions": [],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00038",
+    "title": "Page Liste des Catégories",
+    "global_title": "Gestion des Vignettes",
+    "parent": "Gestion des Catégories de Vignettes",
+    "breadcrumb": "Gestion des Vignettes > Gestion des Catégories de Vignettes > Page Liste des Catégories",
+    "level": 2,
+    "page": 47,
+    "content": "Fonctionnalités principales : \nBouton \"Ajouter\" : Accès à la page de création d'une catégorie \nTableau récapitulatif avec les colonnes :\n  o Désignation\n  o Type (Utilitaire, Transport, Tourisme)\n  o Poids min\n  o Poids max\n  o Nombre sièges min\n  o Nombre sièges max\n  o Puissance min\n  o Puissance max\n  o Actions\n\nActions disponibles\nPour chaque catégorie, trois actions sont proposées :\n\nConsulter : Accès à la page de détails de la catégorie \nModifier : Accès à la page de modification \nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"\n\nCréation et Modification d'une Catégorie\nLe formulaire comprend :\n\nChamps de base\n\nDésignation : Nom de la catégorie \nType : Sélection parmi Utilitaire, Transport, Tourisme\n\nChamps conditionnels\nSelon le type sélectionné, des champs spécifiques s'affichent :\n\nType Transport : Nombre de sièges min et max \nAutres types : Poids min/max, puissance min/max selon le type\nAprès remplissage, cliquez sur \"Enregistrer\" pour valider.\n\nConsultation d'une Catégorie\nLa page de consultation affiche toutes les informations de la catégorie selon son type et ses caractéristiques.\n\nPage Liste des Barèmes\nFonctionnalités principales : \nBouton \"Ajouter\" : Accès à la page de création d'un barème \nTableau récapitulatif avec les colonnes :\n  o Catégories\n  o Âge min\n  o Âge max\n  o Tarif\n  o Actions\n\nActions disponibles\nPour chaque barème, trois actions sont proposées :\n\nConsulter : Accès à la page de détails du barème \nModifier : Accès à la page de modification \nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"\n\nCréation et Modification d'un Barème\nLe formulaire comprend les champs suivants :\n\nCatégorie de la vignette : Sélection via liste déroulante \nÂge min : Âge minimum du véhicule \nÂge max : Âge maximum du véhicule \nTarif : Montant de la vignette\nAprès remplissage, cliquez sur \"Enregistrer\" pour valider.\n\nConsultation d'un Barème\nLa page de consultation affiche toutes les informations du barème : catégorie, tranche d'âge et tarif associé.\n\nPage Liste des Vignettes\nOutils de recherche : \nAnnée : Filtre par année de vignette \nVéhicule : Sélection d'un véhicule spécifique via liste déroulante\nFonctionnalités principales : \nBouton \"Ajouter\" : Accès à la page de création de vignettes \nBouton \"Exporter les vignettes\" : Téléchargement d'un fichier Excel contenant la liste des vignettes en attente \nTableau récapitulatif avec les colonnes :\n  o Véhicule\n  o Année\n  o Date achat\n  o Montant\n  o Statut (Acheté/Attente)\n  o Actions\n\nGestion des Statuts\nBouton \"Marquer comme acheté\" :  Cases à cocher disponibles devant chaque vignette avec statut \"Attente\"  Sélection multiple possible  Changement de statut en lot vers \"Acheté\"\n\nActions disponibles\nPour chaque vignette :\n\nModifier : Disponible uniquement pour les vignettes en attente \nSupprimer : Disponible uniquement pour les vignettes en attente\n\nCréation de Vignettes\nProcédure :\n1. Saisir l'année : Par exemple \"2026\"\n2. Cliquer sur le bouton orange avec icône loupe : Récupération automatique de tous les véhicules sans vignette pour l'année sélectionnée\n3. Sélection des véhicules : Cocher les cases des véhicules concernés\n4. Date d'achat : Renseigner la date d'achat prévue\n5. Cliquer sur \"Marquer pour achat\" : Création des vignettes en statut \"Attente\"\n\nModification d'une Vignette\nLe formulaire de modification comprend :\n\nVéhicule : Information du véhicule (non modifiable) \nAnnée : Année de la vignette \nStatut : État de la vignette \nDate achat : Date d'achat effective\nImportant : Seules les vignettes en statut \"Attente\" peuvent être modifiées ou supprimées.",
+    "captions": [
+      {
+        "text": "Figure 40 : Page liste catégories vignettes",
+        "image_path": "images/manuel_parc_auto/page_liste_categories_vignettes_40.png",
+        "page": 47
+      },
+      {
+        "text": "Figure 41 : Page création d'une catégorie de vignette",
+        "image_path": "images/manuel_parc_auto/page_creation_d_une_categorie_de_vignette_41.png",
+        "page": 48
+      },
+      {
+        "text": "Figure 42 : Page liste barèmes vignettes",
+        "image_path": "images/manuel_parc_auto/page_liste_baremes_vignettes_42.png",
+        "page": 49
+      },
+      {
+        "text": "Figure 43 : Page liste vignettes",
+        "image_path": "images/manuel_parc_auto/page_liste_vignettes_43.png",
+        "page": 51
+      },
+      {
+        "text": "Figure 44 : Page achat vignettes",
+        "image_path": "images/manuel_parc_auto/page_achat_vignettes_44.png",
+        "page": 52
+      },
+      {
+        "text": "Figure 45 : Page modification vignette",
+        "image_path": "images/manuel_parc_auto/page_modification_vignette_45.png",
+        "page": 52
+      }
+    ],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00039",
+    "title": "Gestion du Contrôle Technique",
+    "global_title": "Gestion du Contrôle Technique",
+    "parent": "",
+    "breadcrumb": "Gestion du Contrôle Technique",
+    "level": 1,
+    "page": 53,
+    "content": "Ce module permet le suivi des échéances et des résultats des contrôles techniques obligatoires, avec planification des rendez-vous et gestion des contre-visites. Il se compose de cinq sous-modules : gestion des types, gestion des catégories, gestion des périodicités, gestion des barèmes et gestion du contrôle technique.",
+    "captions": [],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00040",
+    "title": "Page Liste des Types",
+    "global_title": "Gestion du Contrôle Technique",
+    "parent": "Gestion des Types",
+    "breadcrumb": "Gestion du Contrôle Technique > Gestion des Types > Page Liste des Types",
+    "level": 2,
+    "page": 53,
+    "content": "Fonctionnalités principales : \nBouton \"Ajouter\" : Accès à la page de création d'un type \nTableau récapitulatif avec les colonnes :\n  o Désignation\n  o Actions\n\nActions disponibles\nPour chaque type, trois actions sont proposées :\n\nConsulter : Accès à la page de détails du type \nModifier : Accès à la page de modification \nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"\n\nCréation et Modification d'un Type\nLe formulaire comprend :\n\nDésignation du type : Nom du type de contrôle technique\nAprès remplissage, cliquez sur \"Enregistrer\" pour valider.\n\nPage Liste des Catégories\nFonctionnalités principales : \nBouton \"Ajouter\" : Accès à la page de création d'une catégorie \nTableau récapitulatif avec les colonnes :\n  o Désignation\n  o Actions\n\nActions disponibles\nPour chaque catégorie, trois actions sont proposées :\n\nConsulter : Accès à la page de détails de la catégorie \nModifier : Accès à la page de modification \nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"\n\nCréation et Modification d'une Catégorie\nLe formulaire comprend :\n\nDésignation de la catégorie : Nom de la catégorie de véhicule\nAprès remplissage, cliquez sur \"Enregistrer\" pour valider.\n\nPage Liste des Périodicités\nFonctionnalités principales : \nBouton \"Ajouter\" : Accès à la page de création d'une périodicité \nTableau récapitulatif avec les colonnes :\n  o Catégorie\n  o Âge minimal\n  o Âge maximal\n  o Période en mois\n  o Actions\n\nActions disponibles\nPour chaque périodicité, trois actions sont proposées :\n\nConsulter : Accès à la page de détails de la périodicité \nModifier : Accès à la page de modification \nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"\n\nCréation et Modification d'une Périodicité\nLe formulaire comprend les champs suivants :\n\nCatégorie : Sélection de la catégorie via liste déroulante \nÂge minimal : Âge minimum du véhicule en années \nÂge maximal : Âge maximum du véhicule en années \nPériode en mois : Fréquence du contrôle technique\nAprès remplissage, cliquez sur \"Enregistrer\" pour valider.\n\nConsultation d'une Périodicité\nLa page de consultation affiche toutes les informations : catégorie, tranche d'âge et périodicité associée.\n\nPage Liste des Barèmes\nFonctionnalités principales : \nBouton \"Ajouter\" : Accès à la page de création d'un barème \nTableau récapitulatif avec les colonnes :\n  o Catégorie\n  o Type\n  o Tarif périodique\n  o Tarif contre-expertise\n  o Actions\n\nActions disponibles\nPour chaque barème, trois actions sont proposées :\n\nConsulter : Accès à la page de détails du barème \nModifier : Accès à la page de modification \nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"\n\nCréation et Modification d'un Barème\nLe formulaire comprend les champs suivants :\n\nCatégorie : Sélection de la catégorie via liste déroulante \nType : Sélection du type via liste déroulante \nTarif périodique : Coût du contrôle technique régulier \nTarif contre-expertise : Coût de la contre-visite\nAprès remplissage, cliquez sur \"Enregistrer\" pour valider.\n\nConsultation d'un Barème\nLa page de consultation affiche toutes les informations du barème : catégorie, type et tarifs associés.\n\nPage Liste des Contrôles Techniques\nFonctionnalités principales : \nBouton \"Ajouter\" : Accès à la page de création d'un contrôle technique \nTableau récapitulatif avec les colonnes :\n  o Véhicule\n  o Date d'effet\n  o Prochaine date\n  o Tarif\n  o Statut (Payé/Non payé)\n  o Actions\n\nActions disponibles\nPour chaque contrôle technique, trois actions sont proposées :\n\nConsulter : Accès à la page de détails du contrôle technique \nModifier : Accès à la page de modification \nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"\n\nCréation et Modification d'un Contrôle Technique\nLe formulaire comprend les champs suivants :\n\nVéhicule : Sélection du véhicule via liste déroulante \nType de la visite : Sélection du type via liste déroulante \nDate d'effet : Date de réalisation du contrôle technique \nDate limite des réserves : Date limite pour corriger les défaillances \nNon Payé : Indicateur de statut de paiement \nObligatoire : Caractère obligatoire du contrôle \nRéserves : Défaillances constatées lors du contrôle \nObservations : Commentaires et remarques supplémentaires\nAprès remplissage, cliquez sur \"Enregistrer\" pour valider.\n\nConsultation d'un Contrôle Technique\nLa page de consultation affiche toutes les informations détaillées du contrôle technique :\nvéhicule concerné, dates, tarification, réserves et observations.",
+    "captions": [
+      {
+        "text": "Figure 46 : Page liste périodes CT",
+        "image_path": "images/manuel_parc_auto/page_liste_periodes_ct_46.png",
+        "page": 54
+      },
+      {
+        "text": "Figure 47 : Page liste barèmes CT",
+        "image_path": "images/manuel_parc_auto/page_liste_baremes_ct_47.png",
+        "page": 56
+      },
+      {
+        "text": "Figure 48 : Page liste contrôles techniques",
+        "image_path": "images/manuel_parc_auto/page_liste_controles_techniques_48.png",
+        "page": 57
+      }
+    ],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00041",
+    "title": "Gestion des Assurances",
+    "global_title": "Gestion des Assurances",
+    "parent": "",
+    "breadcrumb": "Gestion des Assurances",
+    "level": 1,
+    "page": 58,
+    "content": "Ce module permet de suivre les contrats d'assurance, des échéances, des sinistres et des remboursements pour l'ensemble de la flotte automobile. Il se compose de deux sous-modules : la gestion des assurances véhicules et la gestion des sinistres.",
+    "captions": [],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00042",
+    "title": "Page Liste des Assurances",
+    "global_title": "Gestion des Assurances",
+    "parent": "Gestion des Assurances Véhicules",
+    "breadcrumb": "Gestion des Assurances > Gestion des Assurances Véhicules > Page Liste des Assurances",
+    "level": 2,
+    "page": 58,
+    "content": "Outils de recherche :\n• Année : Filtre par année d'assurance\nFonctionnalités principales :\n• Bouton \"Ajouter\" : Accès direct à la page de création d'une assurance\n•\nTableau récapitulatif avec les colonnes :\n  o Date début\n  o Date fin\n  o Statut (En attente/Validé)\n  o Actions\n\nActions disponibles\nPour chaque assurance, trois actions sont proposées :\n• Consulter : Accès à la page de détails de l'assurance\n• Modifier : Accès à la page de modification\n•\nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"\n\nCréation d'une Assurance\nLe formulaire de création se divise en plusieurs sections :\n\nSection 1 : Sélection des Véhicules\nFormulaire de filtrage des véhicules avec les champs :\n• Marque : Filtre par marque de véhicule\n• Modèle : Filtre par modèle\n• Année de mise en circulation : Filtre par année\n• Immatriculation : Recherche par numéro d'immatriculation\nListe des véhicules : Affichage des véhicules avec case à cocher devant chaque véhicule pour sélection multiple.\n\nSection 2 : Véhicules Sélectionnés\nAffichage dynamique de la liste des véhicules sélectionnés dans la première section.\n\nSection 3 : Informations de l'Assurance\n• Date début : Date de début de couverture\n• Date fin : Date de fin de couverture\n• Compagnie d'assurance : Nom de l'assureur\n• Facture : Attachement du document de facturation\n• Type d'assurance : Sélection entre RC (Responsabilité Civile) et Tout risques\n• Statut : État de l'assurance (En attente/Validé)\n• Observations : Commentaires et remarques supplémentaires\nAprès remplissage complet, cliquez sur \"Enregistrer\" pour valider la création.\n\nModification d'une Assurance\nLa page de modification reprend le même formulaire que la création, pré-rempli avec les données existantes de l'assurance. Toutes les sections peuvent être modifiées selon les besoins.\n\nConsultation d'une Assurance\nLa page de consultation affiche toutes les informations détaillées de l'assurance.\nFonctionnalités spéciales :\n•\nBouton d'export Excel : Positionné en haut à droite avec icône fichier Excel, permet le téléchargement d'un document Excel contenant toutes les informations de l'assurance\n\nSection Véhicules Assurés\nListe des véhicules couverts par cette assurance avec fonctionnalité spécifique :\n•\nBouton \"Importer un document\" : Disponible devant chaque véhicule pour attacher le document d'assurance spécifique à ce véhicule\n\nPage Liste des Sinistres\nIndicateurs statistiques en haut de page :\n• Total des sinistres : Nombre total de sinistres enregistrés\n• Dépenses : Montant total des dépenses liées aux sinistres\n• Remboursements : Montant total des remboursements reçus\nOutils de recherche :\n• Marque : Filtre par marque de véhicule\n• Modèle : Filtre par modèle\n• Statut : Filtre par statut du sinistre\n• Matricule : Recherche par matricule du conducteur\n• Date début : Date de début de période\n• Date fin : Date de fin de période\nFonctionnalités principales :\n• Bouton \"Ajouter\" : Accès à la page de création d'un sinistre\n•\nTableau récapitulatif avec les colonnes :\n  o Véhicule\n  o Date\n  o Lieu\n  o Avec adversaire (Oui/Non)\n  o Statut\n  o Actions\n\nActions disponibles\nPour chaque sinistre, trois actions sont proposées :\n• Consulter : Accès à la page de détails du sinistre\n• Modifier : Accès à la page de modification\n•\nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"\n\nStatistiques Complémentaires\nEn bas de page, deux sections statistiques :\n\nStatistiques des Chauffeurs\n• Affichage : Nombre de sinistres par chauffeur\n• Objectif : Identification des chauffeurs à risque\n\nStatistiques des Véhicules\n• Affichage : Nombre de sinistres par véhicule\n• Objectif : Identification des véhicules problématiques\n\nCréation et Modification d'un Sinistre\nLe formulaire se divise en plusieurs sections principales :\n\nSection 1 : Informations sur l'Événement\n• Véhicule : Sélection du véhicule impliqué\n• Date de l'événement : Date et heure du sinistre\n• Description : Description détaillée des circonstances\n• Autres informations contextuelles.\n\nSection 2 : Description des Dommages par le Chef Parc\n• Évaluation des dégâts : Description technique des dommages\n• Avec restitution du véhicule : oui/non\n\nSection 3 : Déclaration du Gestionnaire d'Assurance\n• Documents\n• Photos\n\nSection 4 : Réparation\n• Statut : État d'avancement de la réparation\n• Date d'expertise : Date de passage de l'expert\n• Proposé pour la mise à la réforme: oui/non\n\nSection Conditionnelle : Zone Gestionnaire Assurance\nAffichage : Cette section n'apparaît que lorsque le statut est \"Traité\" Sous-section Remboursement\n• Montant remboursé : Somme versée par l'assurance\n• Montant de réparation :\n• Date de remboursement : Date de réception des fonds\n• Mode de règlement : Chèque, virement, etc.\n•\nRéférences : Numéro de chèque ou référence virement Sous-section Complément\n• Motif du complément : Raison de la demande additionnelle\n• Montant demandé : Somme complémentaire réclamée\n• Statut de la demande : Accepté/Refusé/En cours\n• Justificatifs : Documents à l'appui de la demande\nAprès remplissage, cliquez sur \"Enregistrer\" pour valider la création ou modification.\n\nConsultation d'un Sinistre\nLa page de consultation affiche l'intégralité des informations détaillées du sinistre, organisées selon les mêmes sections que le formulaire de création :\n• Informations complètes sur l'événement\n• Description des dommages : Évaluation du chef de parc\n• Déclaration et suivi assurance : Historique des échanges\n• État des réparations : Progression des travaux\n• Données financières : Remboursements et compléments éventuels",
+    "captions": [
+      {
+        "text": "Figure 49 : Page liste assurances",
+        "image_path": "images/manuel_parc_auto/page_liste_assurances_49.png",
+        "page": 58
+      },
+      {
+        "text": "Figure 50 : Section sélectionner véhicules assurances",
+        "image_path": "images/manuel_parc_auto/section_selectionner_vehicules_assurances_50.png",
+        "page": 59
+      },
+      {
+        "text": "Figure 51 : Section véhicules sélectionnés assurances",
+        "image_path": "images/manuel_parc_auto/section_vehicules_selectionnes_assurances_51.png",
+        "page": 59
+      },
+      {
+        "text": "Figure 52 : Formulaire création assurance",
+        "image_path": "images/manuel_parc_auto/formulaire_creation_assurance_52.png",
+        "page": 60
+      },
+      {
+        "text": "Figure 53 : Page détails assurance",
+        "image_path": "images/manuel_parc_auto/page_details_assurance_53.png",
+        "page": 61
+      },
+      {
+        "text": "Figure 54 : Page liste sinistres",
+        "image_path": "images/manuel_parc_auto/page_liste_sinistres_54.png",
+        "page": 62
+      },
+      {
+        "text": "Figure 55 : Statistiques sinistres",
+        "image_path": "images/manuel_parc_auto/statistiques_sinistres_55.png",
+        "page": 63
+      },
+      {
+        "text": "Figure 56 : Informations sur sinistre",
+        "image_path": "images/manuel_parc_auto/informations_sur_sinistre_56.png",
+        "page": 64
+      },
+      {
+        "text": "Figure 57 : Description des dommages sinistre",
+        "image_path": "images/manuel_parc_auto/description_des_dommages_sinistre_57.png",
+        "page": 64
+      },
+      {
+        "text": "Figure 58 : Déclaration sinistre",
+        "image_path": "images/manuel_parc_auto/declaration_sinistre_58.png",
+        "page": 65
+      },
+      {
+        "text": "Figure 59 : Réparation sinistre",
+        "image_path": "",
+        "page": 65
+      },
+      {
+        "text": "Figure 60 : Zone réservée gestionnaire assurance sinistre",
+        "image_path": "images/manuel_parc_auto/zone_reservee_gestionnaire_assurance_sinistre_60.png",
+        "page": 66
+      }
+    ],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00043",
+    "title": "Gestion du Carburant",
+    "global_title": "Gestion du Carburant",
+    "parent": "",
+    "breadcrumb": "Gestion du Carburant",
+    "level": 1,
+    "page": 67,
+    "content": "Ce module permet le contrôle de la consommation de carburant par véhicule, la gestion des cartes carburant, le suivi des coûts et l'analyse des consommations. Il se compose de cinq sous-modules : gestion des acquisitions, affectations, restitutions, cartes Naftal et importation des transactions.",
+    "captions": [],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00044",
+    "title": "Page Liste des Acquisitions",
+    "global_title": "Gestion du Carburant",
+    "parent": "Gestion des Acquisitions",
+    "breadcrumb": "Gestion du Carburant > Gestion des Acquisitions > Page Liste des Acquisitions",
+    "level": 2,
+    "page": 67,
+    "content": "Fonctionnalités principales :\n• Bouton \"Ajouter\" : Accès direct à la page de création d'une acquisition\n•\nTableau récapitulatif avec les colonnes :\n  o Date d'acquisition\n  o Prix unitaire\n  o Nombre de bons\n  o Bons restants\n  o Actions\n\nActions disponibles\nPour chaque acquisition, trois actions sont proposées :\n• Consulter : Accès à la page de détails de l'acquisition\n• Modifier : Accès à la page de modification\n•\nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"\n\nCréation et Modification d'une Acquisition\nLe formulaire comprend les champs suivants :\n• Date d'acquisition : Date d'achat des bons carburant\n• Prix unitaire : Coût par bon carburant\n• Observations : Commentaires et remarques supplémentaires\nAprès remplissage, cliquez sur \"Enregistrer\" pour valider la création ou modification.\n\nConsultation d'une Acquisition\nLa page de consultation affiche toutes les informations de l'acquisition avec des fonctionnalités de gestion des bons.\n\nAjout de Bons à l'Acquisition\nFormulaire d'ajout comprenant :\n• Numéro du premier bon : Numéro de départ de la série\n• Nombre de bons : Quantité de bons à ajouter\nProcédure :\n1. Remplir les champs du formulaire\n2. Cliquer sur \"Vérifier la disponibilité\" pour contrôler que tous les numéros de bons sont disponibles\n3. Si tous les bons sont disponibles, cliquer sur \"Ajouter les bons\" pour finaliser l'ajout\nImportant : Tous les bons de la série doivent être disponibles pour pouvoir procéder à l'ajout.\n\nSection Liste des Bons\nAffichage de tous les bons rattachés à cette acquisition :\n• Bons non affectés : Possibilité de suppression individuelle\n• Bons affectés : Affichage en lecture seule\n\nPage Liste des Affectations\nOutils de recherche :\n• Formulaire de recherche par période : Filtre entre deux dates\nFonctionnalités principales :\n• Bouton \"Ajouter\" : Accès à la page de création d'une affectation\n•\nExport Excel : Cases à cocher devant chaque affectation pour sélection multiple, puis bouton avec icône Excel pour exportation des affectations sélectionnées\n•\nTableau récapitulatif avec les colonnes :\n  o Structure\n  o Véhicule\n  o Date d'affectation\n  o Objet\n  o Nombre de bons\n  o Bons consommés\n  o Actions\n\nActions disponibles\nPour chaque affectation, trois actions sont proposées :\n• Consulter : Accès à la page de détails de l'affectation\n• Modifier : Accès à la page de modification\n•\nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"\n\nCréation d'une Affectation\nLe formulaire de création comprend :\n\nSection Informations Générales\n• Date d'affectation : Date d'attribution des bons\n• Véhicule : Sélection du véhicule bénéficiaire\n• Kilométrage : Relevé kilométrique au moment de l'affectation\n• Objet : Motif ou destination de l'affectation\n• Observations : Commentaires supplémentaires\n\nSection Sélection des Bons\nAprès remplissage des informations générales :\n1. Cliquer sur le bouton orange \"Sélectionner des bons\"\n2. Un pop-up s'ouvre avec le formulaire :\no Numéro du premier bon : Début de l'intervalle\no Dernier bon : Fin de l'intervalle\n3. Cliquer sur le bouton avec icône \"+\" pour afficher la liste des bons dans l'intervalle\n4. Tableau des bons avec colonnes :\n  o Numéro\n  o Montant\n  o Affecté (Oui/Non)\n  o Case à cocher (pour les bons non affectés)\n5. Sélectionner les bons désirés via les cases à cocher\n6. Cliquer sur \"Valider\" pour fermer le pop-up\n7. Cliquer sur \"Enregistrer\" pour finaliser l'affectation\n\nModification d'une Affectation\nLa page de modification reprend le même formulaire que la création, pré-rempli avec les données existantes. La sélection des bons peut être modifiée selon la même procédure.\n\nConsultation d'une Affectation\nLa page de consultation affiche toutes les informations de l'affectation.\nFonctionnalités spéciales :\n•\nBouton \"Remise de bons\" : Téléchargement d'un fichier Excel contenant les détails de l'affectation\n\nSection Liste des Bons Affectés\n• Affichage : Liste de tous les bons rattachés à cette affectation\n• Suppression : Possibilité de retirer des bons individuellement\n•\nAjout : Bouton \"Sélectionner des bons\" ouvrant le même pop-up que lors de la création pour ajouter des bons supplémentaires\n\nPage Liste des Restitutions\nFonctionnalités principales :\n• Bouton \"Ajouter\" : Accès à la page de création d'une restitution\n•\nTableau récapitulatif avec les colonnes :\n  o Date de restitution\n  o Véhicule\n  o Nombre de bons\n  o Actions\n\nActions disponibles\nPour chaque restitution, trois actions sont proposées :\n• Consulter : Accès à la page de détails de la restitution\n• Modifier : Accès à la page de modification\n•\nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"\n\nCréation et Modification d'une Restitution\nProcédure :\n1. Sélection de l'affectation : Choisir une affectation via la liste déroulante\n2. Affichage des bons : Liste automatique des bons affectés à cette affectation\n3. Sélection des bons à restituer : Cocher les cases devant les bons concernés\n4. Date de restitution : Saisir la date de retour des bons\n5. Cliquer sur \"Enregistrer\" pour valider la restitution\n\nConsultation d'une Restitution\nLa page de consultation affiche toutes les informations de la restitution.\nFonctionnalité spéciale :\n•\nBouton \"Restitution de bons\" : Téléchargement d'un fichier Excel contenant les détails de la restitution\n\nPage Liste des Cartes Naftal\nOutils de recherche :\n• Liste déroulante des véhicules : Filtre par véhicule\n• Champ de recherche libre : Recherche par numéro, code.\nFonctionnalités principales :\n• Bouton \"Ajouter\" : Accès à la page de création d'une carte Naftal\n•\nTableau récapitulatif avec les colonnes :\n  o Numéro\n  o Code\n  o Date expiration\n  o Véhicule\n  o Actions\n\nActions disponibles\nPour chaque carte Naftal, trois actions sont proposées :\n• Consulter : Accès à la page de détails de la carte\n• Modifier : Accès à la page de modification\n•\nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"\n\nCréation et Modification d'une Carte Naftal\nLe formulaire comprend les champs suivants :\n• Véhicule : Sélection du véhicule via liste déroulante\n• Numéro de la carte : Numéro d'identification unique\n• Code : Code d'accès de la carte\n• Date d'expiration : Date de validité de la carte\nAprès remplissage, cliquez sur \"Enregistrer\" pour valider la création ou modification.\n\nConsultation d'une Carte Naftal\nLa page de consultation affiche toutes les informations de la carte avec trois sections de gestion :\n\nSection Liste des Transactions\nAffichage de l'historique complet des transactions effectuées avec cette carte.\n\nSection Gestion des Rechargements\nAdministration des opérations de rechargement de la carte :\n• Ajout de recharges : Enregistrement des nouvelles recharges\n• Historique des recharges : Liste des rechargements précédents\n• Suivi des montants : Évolution du solde de la carte\n\nSection Gestion des Déchargements\nAdministration des opérations de déchargement de la carte :\n• Ajout de déchargements : Enregistrement des retraits de crédit\n• Historique des déchargements : Liste des déchargements effectués\n\nPage Unique d'Importation\nCette fonctionnalité permet l'importation en lot des données de transactions carburant.\nProcédure :\n1. Sélection du fichier : Utiliser le champ \"Sélectionner un fichier\" pour charger le fichier de données\n2. Respect du template : Le fichier doit respecter le format de template défini par l'application\n3. Traitement : Cliquer sur le bouton \"Traiter\" pour lancer l'importation\nImportant : Le fichier d'importation doit strictement respecter le template prédéfini pour garantir un traitement correct des données.\nFonctionnalités :\n• Validation automatique : Vérification de la conformité du fichier\n• Rapport d'importation : Affichage des résultats du traitement",
+    "captions": [
+      {
+        "text": "Figure 61 : Page liste acquisitions carburant",
+        "image_path": "",
+        "page": 67
+      },
+      {
+        "text": "Figure 62 : page détails acquisition",
+        "image_path": "images/manuel_parc_auto/page_details_acquisition_62.png",
+        "page": 69
+      },
+      {
+        "text": "Figure 63 : Page liste affectations carburant",
+        "image_path": "images/manuel_parc_auto/page_liste_affectations_carburant_63.png",
+        "page": 70
+      },
+      {
+        "text": "Figure 64 : Page création affectation de bons carburant",
+        "image_path": "images/manuel_parc_auto/page_creation_affectation_de_bons_carburant_64.png",
+        "page": 71
+      },
+      {
+        "text": "Figure 65 : Page détails affectation bon carburant",
+        "image_path": "images/manuel_parc_auto/page_details_affectation_bon_carburant_65.png",
+        "page": 72
+      },
+      {
+        "text": "Figure 66 : Page liste restitutions carburant",
+        "image_path": "images/manuel_parc_auto/page_liste_restitutions_carburant_66.png",
+        "page": 73
+      },
+      {
+        "text": "Figure 67 : Page création restitution bons carburant",
+        "image_path": "images/manuel_parc_auto/page_creation_restitution_bons_carburant_67.png",
+        "page": 74
+      },
+      {
+        "text": "Figure 68 : Page liste cartes naftal",
+        "image_path": "images/manuel_parc_auto/page_liste_cartes_naftal_68.png",
+        "page": 75
+      },
+      {
+        "text": "Figure 69 : Page détails carte naftal",
+        "image_path": "images/manuel_parc_auto/page_details_carte_naftal_69.png",
+        "page": 76
+      },
+      {
+        "text": "Figure 70 : Page Importation transactions",
+        "image_path": "images/manuel_parc_auto/page_importation_transactions_70.png",
+        "page": 77
+      }
+    ],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00045",
+    "title": "Gestion des Demandes de Déplacements",
+    "global_title": "Gestion des Demandes de Déplacements",
+    "parent": "",
+    "breadcrumb": "Gestion des Demandes de Déplacements",
+    "level": 1,
+    "page": 77,
+    "content": "Ce module permet le traitement des demandes de déplacement émises par le personnel, avec workflow de validation, planification des missions et suivi de leur réalisation.",
+    "captions": [],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00046",
+    "title": "Outils de recherche",
+    "global_title": "Gestion des Demandes de Déplacements",
+    "parent": "Page Liste des Demandes de Déplacements",
+    "breadcrumb": "Gestion des Demandes de Déplacements > Page Liste des Demandes de Déplacements > Outils de recherche",
+    "level": 2,
+    "page": 77,
+    "content": "Formulaire de filtrage :\n• Date de début : Début de la période de recherche\n• Date de fin : Fin de la période de recherche\n\nFonctionnalités principales\n• Bouton \"Ajouter\" : Accès direct à la page de création d'une demande de déplacement\n•\nTableau récapitulatif avec les colonnes :\n  o Nom du demandeur\n  o Date départ\n  o Lieu départ\n  o Lieu arrivée\n  o Nombre personnes\n  o Statut\n  o Actions\n\nActions disponibles\nPour chaque demande de déplacement :\n• Consulter : Accès à la page de détails de la demande",
+    "captions": [
+      {
+        "text": "Figure 71 : Page liste demandes déplacements",
+        "image_path": "images/manuel_parc_auto/page_liste_demandes_deplacements_71.png",
+        "page": 78
+      }
+    ],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00047",
+    "title": "Création d'une Demande de Déplacement",
+    "global_title": "Gestion des Demandes de Déplacements",
+    "parent": "Gestion des Demandes de Déplacements",
+    "breadcrumb": "Gestion des Demandes de Déplacements > Création d'une Demande de Déplacement",
+    "level": 2,
+    "page": 78,
+    "content": "Le formulaire de création comprend les champs suivants :\n\nInformations du Demandeur\n• Nom du demandeur : Nom et prénom de la personne qui effectue la demande\n• Email du demandeur : Adresse électronique du demandeur\n\nInformations du Responsable\n• Nom du responsable : Nom et prénom du responsable hiérarchique\n• Email du responsable : Adresse électronique du responsable\n\nDétails du Déplacement\n• Lieu de départ : Point de départ du déplacement\n• Lieu d'arrivée : Destination du déplacement\n• Date de départ : Date et heure prévues du départ\n• Nombre de personne(s) : Nombre total de passagers\n• Observations : Commentaires et informations complémentaires\n\nWorkflow de Validation\nAprès la création de la demande :\n1. Enregistrement : Cliquer sur \"Enregistrer\" pour sauvegarder la demande\n2. Notification automatique : Un email est automatiquement envoyé au responsable du demandeur pour validation\n3. Décision : Le responsable peut valider ou refuser la demande\n4. Après validation du responsable un email est envoyé au chef département pour donner ça décision, il peut valider ou refuser.",
+    "captions": [
+      {
+        "text": "Figure 72 : Page création demande déplacement",
+        "image_path": "images/manuel_parc_auto/page_creation_demande_deplacement_72.png",
+        "page": 79
+      }
+    ],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00048",
+    "title": "Consultation d'une Demande de Déplacement",
+    "global_title": "Gestion des Demandes de Déplacements",
+    "parent": "Gestion des Demandes de Déplacements",
+    "breadcrumb": "Gestion des Demandes de Déplacements > Consultation d'une Demande de Déplacement",
+    "level": 2,
+    "page": 80,
+    "content": "La page de consultation affiche toutes les informations détaillées de la demande :\n\nInformations Générales\n• Détails complets de la demande : Toutes les données saisies lors de la création\n• Statut actuel : État de la demande (En attente, Validée, Refusée)\n• Historique : Suivi des étapes de validation\n\nGestion par le Chef de Parc\nFonctionnalité conditionnelle : Une fois la demande validée par le chef de département, le chef de parc peut :\n•\nAffecter un véhicule : Attribution d'un véhicule disponible pour réaliser le déplacement\n• Planifier la mission : Organisation logistique du déplacement\n• Suivi de la réalisation : Contrôle de l'exécution de la demande\nImportant : L'affectation de véhicule n'est possible qu'après validation par le chef de département.\n\nÉtats de la Demande\n• En attente : Demande créée, en attente de validation hiérarchique\n•\nValidée : Demande approuvée par le chef de département, prête pour affectation de véhicule\n• Refusée : Demande rejetée par le chef de département\n• Traitée : Véhicule affecté et déplacement planifié",
+    "captions": [
+      {
+        "text": "Figure 73 : Page détails demande déplacement",
+        "image_path": "images/manuel_parc_auto/page_details_demande_deplacement_73.png",
+        "page": 80
+      }
+    ],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00049",
+    "title": "Gestion des Maintenances",
+    "global_title": "Gestion des Maintenances",
+    "parent": "",
+    "breadcrumb": "Gestion des Maintenances",
+    "level": 1,
+    "page": 81,
+    "content": "Ce module permet la planification et le suivi des opérations de maintenance préventive et corrective, incluant la gestion des demandes d'intervention, leur validation et leur exécution. Il se compose de deux sous-modules : gestion des contrats et gestion des demandes de maintenance.",
+    "captions": [],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00050",
+    "title": "Page Liste des Contrats",
+    "global_title": "Gestion des Maintenances",
+    "parent": "Gestion des Contrats",
+    "breadcrumb": "Gestion des Maintenances > Gestion des Contrats > Page Liste des Contrats",
+    "level": 2,
+    "page": 81,
+    "content": "Alertes de Suivi : Le système affiche des alertes importantes en haut de page :\n• Exemple : \"Le contrat n° 1210 a atteint 100% de son montant total.\"\n•  Alertes d'échéances et de dépassements budgétaires\nOutils de recherche :\n• Formulaire de filtrage par période : Recherche entre deux dates\n•\nListe déroulante de filtres :\n  o Tous les contrats\n  o Date d'échéance\n  o Autres critères contextuels\nFonctionnalités principales :\n• Bouton \"Ajouter\" : Accès à la page de création d'un contrat\n•\nTableau récapitulatif avec les colonnes :\n  o Numéro\n  o Objet\n  o Prestataire\n  o Date d'effet\n  o Date d'expiration\n  o Statut\n  o Actions\n\nActions disponibles\nPour chaque contrat, trois actions sont proposées :\n• Consulter : Accès à la page de détails du contrat\n• Modifier : Accès à la page de modification\n•\nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"\n\nCréation et Modification d'un Contrat\nLe formulaire comprend les champs suivants :\nInformations générales :\n• Numéro de contrat : Référence unique du contrat\n• Prestataire : Sélection du partenaire via liste déroulante\n• Objet du contrat : Titre ou nature des services\n• Description : Descriptif détaillé des prestations\nInformations temporelles :\n• Date de signature\n• Date d'effet\n• Date de fin de contrat prévue\n• Date de fin effective\nInformations financières :\n• Montant : Valeur totale du contrat\nAprès remplissage, cliquez sur \"Enregistrer\" pour valider la création ou modification.\n\nConsultation d'un Contrat\nLa page de consultation affiche toutes les informations détaillées du contrat avec trois sections de gestion :\n\nSection Gestion des Documents\n• Liste des documents\n• Ajout de documents : Upload de nouveaux fichiers\n• Actions : Consultation, téléchargement, suppression\n\nSection Gestion des Avenants\n• Liste des avenants : Modifications contractuelles apportées\n• Création d'avenants : Ajout de modifications au contrat initial\n• Suivi : Historique des évolutions contractuelles\n\nSection Gestion des Reconductions\n• Reconductions automatiques : Paramétrage des renouvellements\n• Reconductions manuelles : Gestion des prolongations ponctuelles\n• Historique : Suivi des reconductions précédentes\n\nPage Liste des Demandes de Maintenance\nOutils de recherche :\n• Formulaire de recherche par période : Filtre entre deux dates\nFonctionnalités principales :\n• Bouton \"Ajouter\" : Accès à la page de création d'une demande\n•\nTableau récapitulatif avec les colonnes :\n  o Nom du demandeur\n  o Date\n  o Immatriculation véhicule\n  o Statut\n  o Montant global\n  o Actions\n\nActions disponibles\nPour chaque demande, deux actions sont proposées :\n• Consulter : Accès à la page de détails de la demande\n•\nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"\n\nCréation d'une Demande de Maintenance\nLe formulaire de création comprend :\n• Véhicule : Sélection du véhicule via liste déroulante\n• Nature de la demande : Type d'intervention requise\n• Description : Descriptif détaillé du problème ou de la maintenance requise\nAprès remplissage, cliquez sur \"Enregistrer\" pour valider la création.\n\nConsultation d'une Demande de Maintenance\nLa page de consultation affiche toutes les informations de la demande avec des fonctionnalités de suivi :\n\nInformations Générales\n• Données de création : Véhicule, nature, description\n• Date de la demande : Horodatage de création\n• État actuel : Statut de progression de la demande\n\nWorkflow de Traitement\nSaisie du Kilométrage\n• Bouton orange \"Saisir le kilométrage\" : Ouverture d'un pop-up avec :\no Date : Date de relevé\no Kilométrage : Relevé kilométrique\n• Cliquer sur \"Valider\" pour confirmer\nÉtape 2 : Envoi à l'Atelier\n• Bouton \"Envoyer le véhicule à l'atelier\" : Ouverture d'un pop-up avec :\no Date d'envoi : Date de transmission\no Chauffeur : Personne responsable du transport\n• Cliquer sur \"Valider\" pour confirmer l'envoi\nÉtape 3 : Confirmation de Réception\n•\nBouton \"Confirmer la réception du véhicule à l'atelier\" : Visible uniquement après envoi\n• Pop-up de confirmation avec :\no Date de réception : Date d'arrivée effective\n• Cliquer sur \"Valider\" pour confirmer la réception\n\nSections Conditionnelles (après réception)\nUne fois la réception confirmée, deux sections s'affichent :\n\nSection Gestion des Opérations de Maintenance\nCette section permet de gérer les interventions selon deux types :\n\nOpérations Externes\nPage de consultation d'opération externe :\n• Informations complètes : Détails de l'opération\n• Actions disponibles :\no Accepter la réparation : Validation de l'intervention\no Refuser la réparation : Rejet de l'intervention\no Attacher un ODS : Ajout d'un Ordre De Service\no Valider l'opération : Finalisation de l'intervention\nSections de gestion spécialisées :\n•\nGestion des Travaux Supplémentaires : Administration des interventions additionnelles non prévues\n• Gestion des Retours sur Opérations : Suivi des réclamations et corrections\n• Section Photos : Gestion des images avant/après intervention\n\nOpérations Internes\nPage de consultation d'opération interne :\n• Informations de l'opération : Détails de l'intervention\n• Section Photos : Documentation visuelle de l'intervention\nCréation d'Opérations : Le formulaire de création varie selon le type sélectionné :\n• Champs dynamiques : Adaptation automatique selon le type (externe/interne)\n• Spécifications particulières : Champs spécialisés pour chaque type d'opération\n\nSection Gestion des Achats\nAdministration des pièces et fournitures nécessaires :\n• Demandes d'achats : Création de demandes d'approvisionnement\n• Suivi des commandes : Contrôle des livraisons\n• Gestion des stocks : Administration des pièces de rechange",
+    "captions": [
+      {
+        "text": "Figure 74 : Page liste contrat maintenance",
+        "image_path": "images/manuel_parc_auto/page_liste_contrat_maintenance_74.png",
+        "page": 82
+      },
+      {
+        "text": "Figure 75 : Page création contrat maintenance",
+        "image_path": "images/manuel_parc_auto/page_creation_contrat_maintenance_75.png",
+        "page": 83
+      },
+      {
+        "text": "Figure 76 : Gestion documents contrat maintenance",
+        "image_path": "images/manuel_parc_auto/gestion_documents_contrat_maintenance_76.png",
+        "page": 83
+      },
+      {
+        "text": "Figure 77 : Gestion avenants contrat maintenance",
+        "image_path": "images/manuel_parc_auto/gestion_avenants_contrat_maintenance_77.png",
+        "page": 84
+      },
+      {
+        "text": "Figure 78 : Gestion reconductions contrat maintenance",
+        "image_path": "images/manuel_parc_auto/gestion_reconductions_contrat_maintenance_78.png",
+        "page": 84
+      },
+      {
+        "text": "Figure 79 : Page liste demandes maintenance",
+        "image_path": "images/manuel_parc_auto/page_liste_demandes_maintenance_79.png",
+        "page": 85
+      },
+      {
+        "text": "Figure 80 : Page détails demande maintenance",
+        "image_path": "images/manuel_parc_auto/page_details_demande_maintenance_80.png",
+        "page": 86
+      },
+      {
+        "text": "Figure 81 : Gestion opérations demande maintenance",
+        "image_path": "images/manuel_parc_auto/gestion_operations_demande_maintenance_81.png",
+        "page": 87
+      },
+      {
+        "text": "Figure 82 : Page détails opération maintenance",
+        "image_path": "images/manuel_parc_auto/page_details_operation_maintenance_82.png",
+        "page": 88
+      },
+      {
+        "text": "Figure 83 : gestion détails opération maintenance",
+        "image_path": "images/manuel_parc_auto/gestion_details_operation_maintenance_83.png",
+        "page": 88
+      },
+      {
+        "text": "Figure 84 : Gestion achats demande maintenance",
+        "image_path": "images/manuel_parc_auto/gestion_achats_demande_maintenance_84.png",
+        "page": 89
+      }
+    ],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00051",
+    "title": "Gestion du Transport",
+    "global_title": "Gestion du Transport",
+    "parent": "",
+    "breadcrumb": "Gestion du Transport",
+    "level": 1,
+    "page": 89,
+    "content": "Ce module étendu couvre différents types de transport au sein de l'organisation. Il se compose de trois sous-modules : transport personnel, transport crèches et réservations bus.",
+    "captions": [],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00052",
+    "title": "Transport Personnel",
+    "global_title": "Gestion du Transport",
+    "parent": "Gestion du Transport",
+    "breadcrumb": "Gestion du Transport > Transport Personnel",
+    "level": 2,
+    "page": 89,
+    "content": "Le transport personnel comprend huit modules de gestion : contrats, lignes, bus, chauffeurs, personnel, doléances, demandes et pannes.\n\nPage Liste des Contrats\nOutils de recherche :\n• Formulaire de recherche par période : Filtre entre deux dates\nFonctionnalités principales :\n• Bouton \"Ajouter\" : Accès à la page de création d'un contrat\n•\nTableau récapitulatif avec les colonnes :\n  o Numéro\n  o Prestataire\n  o Date signature\n  o Date effet\n  o Date expiration\n  o Montant\n  o Nombre de pannes\n  o Statut\n  o Actions\n\nActions disponibles\nPour chaque contrat, trois actions sont proposées :\n• Consulter : Accès à la page de détails du contrat\n• Modifier : Accès à la page de modification\n•\nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"\n\nCréation et Modification d'un Contrat\nLe formulaire comprend les champs suivants :\n• Numéro du contrat : Référence unique du contrat\n• Prestataire : Sélection du partenaire via liste déroulante\n• Date de signature : Date de signature du contrat\n• Date d'effet du contrat : Date de début de validité\n• Date d'expiration du contrat : Date de fin de validité\n• Montant : Valeur totale du contrat\n• Statut : État du contrat\n• Lignes : Sélection multiple via cases à cocher\nAprès remplissage, cliquez sur \"Enregistrer\" pour valider la création ou modification.\n\nConsultation d'un Contrat\nLa page de consultation affiche toutes les informations du contrat avec cinq sections de gestion :\n• Les lignes de ce contrat\n• La gestion des bus\n• La gestion des factures\n• La gestion des avenants\n• La gestion des documents\n\nPage Liste des Lignes\nFonctionnalités principales :\n• Bouton \"Ajouter\" : Accès à la page de création d'une ligne\n•\nTableau récapitulatif avec les colonnes :\n  o Numéro ligne\n  o Désignation\n  o NBR Arrêts\n  o NBR Pannes\n  o Capacité ligne\n  o Places occupées\n  o Active\n  o Actions\n\nActions disponibles\nPour chaque ligne, trois actions sont proposées :\n• Consulter : Accès à la page de détails de la ligne\n• Modifier : Accès à la page de modification\n•\nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"\n\nCréation et Modification d'une Ligne\nLe formulaire comprend les champs suivants :\n• Désignation : Nom de la ligne\n• Numéro de la ligne : Numéro d'identification\n• Activé : Sélection Oui/Non\n• Observations : Commentaires supplémentaires\n• Photos : Possibilité d'attacher des photos du trajet aller et retour\nAprès remplissage, cliquez sur \"Enregistrer\" pour valider la création ou modification.\n\nConsultation d'une Ligne\nLa page de consultation affiche toutes les informations de la ligne avec une fonctionnalité de gestion des arrêts de cette ligne.\n\nPage Liste des Bus\nFonctionnalités principales :\n• Bouton \"Ajouter\" : Accès à la page de création d'un bus\n•\nTableau récapitulatif avec les colonnes :\n  o Bus\n  o Immatriculation\n  o Num châssis\n  o Date expiration contrôle technique\n  o Date expiration assurance\n  o Nombre de places\n  o Nombre de pannes\n  o Actions\n\nActions disponibles\nPour chaque bus, trois actions sont proposées :\n• Consulter : Accès à la page de détails du bus\n• Modifier : Accès à la page de modification\n•\nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"\n\nCréation et Modification d'un Bus\nLe formulaire comprend les champs suivants :\n• Marque : Sélection + bouton orange avec icône \"+\" pour création à la volée\n• Modèle : Sélection + bouton orange avec icône \"+\" pour création à la volée\n• Immatriculation : Numéro d'immatriculation\n• Numéro châssis : Identifiant du châssis\n• Puissance : Puissance du véhicule\n• Nombre places : Capacité en passagers\n• Date d'expiration du contrôle technique : Échéance du contrôle\n• Date d'expiration de l'assurance : Échéance de l'assurance\n• Ligne : Affectation à une ligne\n• Date d'affectation à la ligne : Date d'attribution\n• Observations : Commentaires supplémentaires\n• Activé : Sélection Oui/Non\nFonctionnalité spéciale : Pour marque et modèle, cliquer sur le bouton orange avec icône \"+\" ouvre un pop-up avec formulaire de création rapide.\n\nConsultation d'un Bus\nLa page de consultation affiche toutes les informations détaillées du bus.\n\nPage Liste des Chauffeurs Bus\nFonctionnalités principales :\n• Bouton \"Ajouter\" : Accès à la page de création d'un chauffeur\n•\nTableau récapitulatif avec les colonnes :\n  o Nom\n  o Date naissance\n  o Email\n  o Adresse\n  o Date expiration permis\n  o Actions\n\nActions disponibles\nPour chaque chauffeur, trois actions sont proposées :\n• Consulter : Accès à la page de détails du chauffeur\n• Modifier : Accès à la page de modification\n•\nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"\n\nCréation et Modification d'un Chauffeur\nLe formulaire comprend les champs suivants :\n• Nom : Nom de famille\n• Prénom : Prénom\n• Email : Adresse électronique\n• Date naissance : Date de naissance\n• Adresse personnel : Adresse de domicile\n• Num tél : Numéro de téléphone\n• Num permis de conduire : Numéro du permis\n• Date délivrance permis : Date d'obtention\n• Date expiration permis : Date d'échéance\n• Ligne : Affectation à une ligne\n• Permis de conduire : Attachement du document\n\nConsultation d'un Chauffeur\nLa page de consultation affiche toutes les informations du chauffeur avec possibilité de modifier la ligne d'affectation via un bouton orange ouvrant un pop-up avec liste déroulante des lignes.\n\nPage Liste du Personnel\nImport depuis Ressources Humaines :\nLe bouton \"Importer depuis Ressource humaine\" ouvre un pop-up avec formulaire de recherche :\n• Matricule : Recherche par matricule\n• Nom : Filtre par nom\n• Prénom : Filtre par prénom\n• Fonction : Recherche par fonction\n• Bouton \"Actualiser\" : Réinitialise les critères\nOutils de recherche :\n• Formulaire de filtrage par ligne, arrêt, entité, activé\n• Champ de recherche libre\nFonctionnalités principales :\n• Bouton \"Ajouter\" : Accès à la page de création\n•\nTableau récapitulatif avec les colonnes :\n  o Ligne\n  o Matricule\n  o Nom\n  o Fonction\n  o Email\n  o Activé (Oui/Non)\n  o Actions\n\nActions disponibles\nPour chaque personnel, trois actions sont proposées :\n• Consulter : Accès à la page de détails\n• Modifier : Accès à la page de modification\n•\nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"\n\nCréation et Modification d'un Personnel\nLe formulaire comprend les champs suivants :\n• Ligne utilisée : Sélection de la ligne\n• Arrêt utilisé : Sélection de l'arrêt\n• Matricule : Numéro matricule\n• Nom : Nom de famille\n• Prénom : Prénom\n• Fonction : Poste occupé\n• Email : Adresse électronique\n• Numéro de téléphone : Contact téléphonique\n• Entité : Structure de rattachement\n• Identifiant Active Directory : Identifiant système\n• Active ? : Statut d'activation\n\nConsultation d'un Personnel\nLa page de consultation affiche toutes les informations détaillées du personnel.\n\nPage Liste des Doléances\nFonctionnalités principales :\n• Bouton \"Ajouter\" : Accès à la page de création d'une doléance\n•\nTableau récapitulatif avec les colonnes :\n  o Envoyé par\n  o Ligne concernée\n  o Chauffeur concerné\n  o Bus concerné\n  o Date d'envoi\n  o Statut\n  o Actions\n\nActions disponibles\nPour chaque doléance, trois actions sont proposées :\n• Consulter : Accès à la page de détails\n• Modifier : Accès à la page de modification\n•\nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"\n\nCréation et Modification d'une Doléance\nLe formulaire comprend les champs suivants :\n• Envoyé par : Auteur de la doléance\n• Ligne concernée : Ligne impliquée\n• Bus concerné : Véhicule concerné\n• Chauffeur concerné : Chauffeur impliqué\n• Description : Description détaillée\n• Observations : Commentaires supplémentaires\n\nConsultation d'une Doléance\nLa page de consultation affiche toutes les informations détaillées de la doléance.\n\nPage Liste des Demandes\nFonctionnalités principales :\n• Bouton \"Ajouter\" : Accès à la page de création d'une demande\n•\nTableau récapitulatif avec les colonnes :\n  o Date d'envoi\n  o Envoyé par\n  o Ligne concernée\n  o Entité\n  o Statut\n  o Actions\n\nActions disponibles\nPour chaque demande, trois actions sont proposées :\n• Consulter : Accès à la page de détails\n• Modifier : Accès à la page de modification\n•\nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"\n\nCréation et Modification d'une Demande\nLe formulaire comprend les champs suivants :\n• Envoyé par : Auteur de la demande\n• Ligne concernée : Ligne impliquée\n• Bus concerné : Véhicule concerné\n• Chauffeur concerné : Chauffeur impliqué\n• Description : Description détaillée\n• Observations : Commentaires supplémentaires\n\nConsultation d'une Demande\nLa page de consultation affiche toutes les informations détaillées de la demande.\n\nPage Liste des Pannes\nOutils de recherche :\n• Formulaire de filtrage par contrat, ligne, bus\n• Champ de saisie libre\nFonctionnalités principales :\n• Bouton \"Ajouter\" : Accès à la page de création d'une panne\n•\nTableau récapitulatif avec les colonnes :\n  o Ligne\n  o Bus\n  o Immatriculation\n  o Type\n  o Date de la panne\n  o Description\n  o Actions\n\nActions disponibles\nPour chaque panne, trois actions sont proposées :\n• Consulter : Accès à la page de détails\n• Modifier : Accès à la page de modification\n•\nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"\n\nCréation et Modification d'une Panne\nLe formulaire comprend les champs suivants :\n• Ligne : Ligne concernée\n• Bus : Véhicule en panne\n• Type : Type de panne\n• Date et heure de la panne : Horodatage de l'incident\n• Description : Descriptif détaillé de la panne\n\nConsultation d'une Panne\nLa page de consultation affiche toutes les informations détaillées de la panne.",
+    "captions": [
+      {
+        "text": "Figure 85 : Page liste contrats transport personnel",
+        "image_path": "images/manuel_parc_auto/page_liste_contrats_transport_personnel_85.png",
+        "page": 90
+      },
+      {
+        "text": "Figure 86 : Page création contrat transport personnel",
+        "image_path": "images/manuel_parc_auto/page_creation_contrat_transport_personnel_86.png",
+        "page": 91
+      },
+      {
+        "text": "Figure 87 : Gestion lignes contrat TP",
+        "image_path": "images/manuel_parc_auto/gestion_lignes_contrat_tp_87.png",
+        "page": 92
+      },
+      {
+        "text": "Figure 88 : Gestion bus contrat TP",
+        "image_path": "images/manuel_parc_auto/gestion_bus_contrat_tp_88.png",
+        "page": 92
+      },
+      {
+        "text": "Figure 89 : Gestion factures contrat TP",
+        "image_path": "images/manuel_parc_auto/gestion_factures_contrat_tp_89.png",
+        "page": 92
+      },
+      {
+        "text": "Figure 90 : Gestion avenants contrat TP",
+        "image_path": "images/manuel_parc_auto/gestion_avenants_contrat_tp_90.png",
+        "page": 93
+      },
+      {
+        "text": "Figure 91 : Gestion documents contrat TP",
+        "image_path": "images/manuel_parc_auto/gestion_documents_contrat_tp_91.png",
+        "page": 93
+      },
+      {
+        "text": "Figure 92 : Page liste lignes TP",
+        "image_path": "images/manuel_parc_auto/page_liste_lignes_tp_92.png",
+        "page": 94
+      },
+      {
+        "text": "Figure 93 : Page détails ligne TP",
+        "image_path": "images/manuel_parc_auto/page_details_ligne_tp_93.png",
+        "page": 95
+      },
+      {
+        "text": "Figure 94 : Page liste bus TP",
+        "image_path": "images/manuel_parc_auto/page_liste_bus_tp_94.png",
+        "page": 96
+      },
+      {
+        "text": "Figure 95 : Création bus TP",
+        "image_path": "images/manuel_parc_auto/creation_bus_tp_95.png",
+        "page": 97
+      },
+      {
+        "text": "Figure 96 : Page liste chauffeurs TP",
+        "image_path": "images/manuel_parc_auto/page_liste_chauffeurs_tp_96.png",
+        "page": 98
+      },
+      {
+        "text": "Figure 97 : Page détails chauffeur TP",
+        "image_path": "images/manuel_parc_auto/page_details_chauffeur_tp_97.png",
+        "page": 98
+      },
+      {
+        "text": "Figure 98 : Importer personnel TP",
+        "image_path": "images/manuel_parc_auto/importer_personnel_tp_98.png",
+        "page": 99
+      },
+      {
+        "text": "Figure 99 : Page liste personnels TP",
+        "image_path": "images/manuel_parc_auto/page_liste_personnels_tp_99.png",
+        "page": 100
+      },
+      {
+        "text": "Figure 100 : Page liste doléances TP",
+        "image_path": "images/manuel_parc_auto/page_liste_doleances_tp_100.png",
+        "page": 101
+      },
+      {
+        "text": "Figure 101 : Page liste demandes TP",
+        "image_path": "images/manuel_parc_auto/page_liste_demandes_tp_101.png",
+        "page": 103
+      },
+      {
+        "text": "Figure 102 : Page liste pannes TP",
+        "image_path": "images/manuel_parc_auto/page_liste_pannes_tp_102.png",
+        "page": 104
+      }
+    ],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00053",
+    "title": "Transport Crèches",
+    "global_title": "Gestion du Transport",
+    "parent": "Gestion du Transport",
+    "breadcrumb": "Gestion du Transport > Transport Crèches",
+    "level": 2,
+    "page": 105,
+    "content": "Le transport crèches comprend deux modules : gestion des enfants et gestion des bus des crèches.\n\nPage Liste des Enfants\nFonctionnalités principales :\n• Bouton \"Ajouter\" : Accès à la page de création d'un enfant\n•\nTableau récapitulatif avec les colonnes :\n  o Photo\n  o Nom\n  o Prénom\n  o Date de naissance\n  o Matricule\n  o Actions\n\nActions disponibles\nPour chaque enfant, trois actions sont proposées :\n• Consulter : Accès à la page de détails\n• Modifier : Accès à la page de modification\n•\nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"\n\nCréation et Modification d'un Enfant\nLe formulaire comprend les champs suivants :\n• Nom : Nom de famille\n• Prénom : Prénom de l'enfant\n• Date de naissance : Date de naissance\n• Photo : Photo de l'enfant\n• Matricule : Numéro d'identification\n• Déclaration : Informations déclaratives\n\nConsultation d'un Enfant\nLa page de consultation affiche toutes les informations détaillées de l'enfant.\n\nPage Liste des Bus Crèches\nFonctionnalités principales :\n• Bouton \"Ajouter\" : Accès à la page de création d'un bus\n•\nTableau récapitulatif avec les colonnes :\n  o Bus\n  o Immatriculation\n  o Numéro de châssis\n  o Date expiration du contrôle technique\n  o Date expiration de l'assurance\n  o Actions\n\nActions disponibles\nPour chaque bus, trois actions sont proposées :\n• Consulter : Accès à la page de détails\n• Modifier : Accès à la page de modification\n•\nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"\n\nCréation et Modification d'un Bus Crèche\nLe formulaire comprend les champs suivants :\n• Marque : Sélection + bouton orange avec icône \"+\" pour création à la volée\n• Modèle : Sélection + bouton orange avec icône \"+\" pour création à la volée\n• Immatriculation : Numéro d'immatriculation\n• Numéro châssis : Identifiant du châssis\n• Puissance : Puissance du véhicule\n• Nombre places : Capacité en passagers\n• Date d'expiration du contrôle technique : Échéance du contrôle\n• Date d'expiration de l'assurance : Échéance de l'assurance\n• Observations : Commentaires supplémentaires\n• Activé : Sélection Oui/Non\n\nConsultation d'un Bus Crèche\nLa page de consultation affiche toutes les informations détaillées du bus.\n\nPage Liste des Réservations Bus\nFonctionnalités principales :\n• Bouton \"Ajouter\" : Accès à la page de création d'une réservation\n•\nTableau récapitulatif avec les colonnes :\n  o Date de début\n  o Date de fin\n  o Nombre de bus\n  o Nombre de chauffeurs\n  o Montant\n  o Actions\n\nActions disponibles\nPour chaque réservation, trois actions sont proposées :\n• Consulter : Accès à la page de détails\n• Modifier : Accès à la page de modification\n•\nSupprimer : Pop-up de confirmation \"Êtes-vous sûr de vouloir supprimer cet élément ?\"\n\nCréation et Modification d'une Réservation\nLe formulaire comprend les champs suivants :\n• Contrat : Sélection du contrat de référence\n• Date de début : Date de début de réservation\n• Date de fin : Date de fin de réservation\n• Nombre de bus : Quantité de véhicules réservés\n• Nombre de chauffeurs : Quantité de chauffeurs requis\n• Montant : Coût de la réservation\n• Facture : Attachement du document de facturation\n• Facture payée ? : Statut de paiement\n\nConsultation d'une Réservation\nLa page de consultation affiche toutes les informations de la réservation avec deux sections de gestion :\n• La gestion des bus\n• Gestion des chauffeurs",
+    "captions": [
+      {
+        "text": "Figure 103 : page liste enfants TC",
+        "image_path": "images/manuel_parc_auto/page_liste_enfants_tc_103.png",
+        "page": 105
+      },
+      {
+        "text": "Figure 104 : Page liste buses crèches",
+        "image_path": "images/manuel_parc_auto/page_liste_buses_creches_104.png",
+        "page": 106
+      },
+      {
+        "text": "Figure 105 : Page liste réservations bus",
+        "image_path": "images/manuel_parc_auto/page_liste_reservations_bus_105.png",
+        "page": 108
+      },
+      {
+        "text": "Figure 106 : Gestion bus pour réservations",
+        "image_path": "images/manuel_parc_auto/gestion_bus_pour_reservations_106.png",
+        "page": 108
+      },
+      {
+        "text": "Figure 107 : Gestion chauffeurs pour réservations bus",
+        "image_path": "images/manuel_parc_auto/gestion_chauffeurs_pour_reservations_bus_107.png",
+        "page": 109
+      }
+    ],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00054",
+    "title": "Espace Utilisateur Non-Enregistré",
+    "global_title": "Espace Utilisateur Non-Enregistré",
+    "parent": "",
+    "breadcrumb": "Espace Utilisateur Non-Enregistré",
+    "level": 1,
+    "page": 109,
+    "content": "Cet espace est destiné aux utilisateurs qui ne sont pas enregistrés dans la plateforme PARC- AUTO mais qui ont accès au serveur LDAP de l'organisation. Ces utilisateurs, incluant le personnel de l'entreprise, peuvent accéder à certaines fonctionnalités via leur authentification Active Directory standard.",
+    "captions": [],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00055",
+    "title": "Accès et Authentification",
+    "global_title": "Espace Utilisateur Non-Enregistré",
+    "parent": "Espace Utilisateur Non-Enregistré",
+    "breadcrumb": "Espace Utilisateur Non-Enregistré > Accès et Authentification",
+    "level": 2,
+    "page": 109,
+    "content": "Méthode d'accès : Les utilisateurs se connectent via leurs identifiants LDAP/Active Directory habituels, même s'ils ne possèdent pas de rôles spécifiques dans l'application PARC-AUTO.\nPopulation concernée : Tous les employés de l'organisation ayant un compte Active Directory, qu'ils soient enregistrés ou non dans la base de données de l'application.",
+    "captions": [],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00056",
+    "title": "Dashboard Utilisateur",
+    "global_title": "Espace Utilisateur Non-Enregistré",
+    "parent": "Espace Utilisateur Non-Enregistré",
+    "breadcrumb": "Espace Utilisateur Non-Enregistré > Dashboard Utilisateur",
+    "level": 2,
+    "page": 109,
+    "content": "Après authentification, l'utilisateur est redirigé vers un tableau de bord personnalisé présentant différentes options sous forme de boutons.\n\nFonctionnalités Conditionnelles\nPour le personnel avec véhicule(s) affecté(s) : Des boutons supplémentaires apparaissent automatiquement :\n• Maintenance : Accès aux demandes de maintenance\n•\nDéclaration de sinistre : Accès à la déclaration d'incidents Ces options ne s'affichent que si l'utilisateur connecté a un ou plusieurs véhicules qui lui sont affectés dans le système.",
+    "captions": [
+      {
+        "text": "Figure 108 :Page dashboard utilisateur",
+        "image_path": "images/manuel_parc_auto/page_dashboard_utilisateur_108.png",
+        "page": 110
+      }
+    ],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00057",
+    "title": "Gestion des Réclamations",
+    "global_title": "Espace Utilisateur Non-Enregistré",
+    "parent": "Espace Utilisateur Non-Enregistré",
+    "breadcrumb": "Espace Utilisateur Non-Enregistré > Gestion des Réclamations",
+    "level": 2,
+    "page": 110,
+    "content": "Ce module permet aux utilisateurs de soumettre des doléances concernant les services de transport.\n\nPage Liste des Réclamations\nFonctionnalité : Affichage des doléances personnelles de l'utilisateur connecté\nColonnes du tableau :\n•  Date d'envoi\n•  Ligne concernée\n•  Date de l'incident\n•  Statut\n\nCréation d'une Réclamation\nAccès : Cliquer sur le bouton \"Ajouter\" pour accéder au formulaire\nFormulaire de création :\n• Ligne concernée : Sélection de la ligne de transport impliquée\n• Date de l'incident : Date à laquelle s'est produit le problème\n• Description : Descriptif détaillé de la doléance\n• Observations : Commentaires supplémentaires\nAprès remplissage, cliquer sur \"Enregistrer\" pour soumettre la réclamation.",
+    "captions": [
+      {
+        "text": "Figure 109 : Page Doléances utilisateur",
+        "image_path": "images/manuel_parc_auto/page_doleances_utilisateur_109.png",
+        "page": 110
+      },
+      {
+        "text": "Figure 110 : Page création doléance utilisateur",
+        "image_path": "images/manuel_parc_auto/page_creation_doleance_utilisateur_110.png",
+        "page": 111
+      }
+    ],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00058",
+    "title": "Demandes de Transport",
+    "global_title": "Espace Utilisateur Non-Enregistré",
+    "parent": "Espace Utilisateur Non-Enregistré",
+    "breadcrumb": "Espace Utilisateur Non-Enregistré > Demandes de Transport",
+    "level": 2,
+    "page": 111,
+    "content": "Ce module permet de faire des demandes d'inscription ou de modification des services de transport personnel.\n\nPage Liste des Demandes de Transport\nFonctionnalité : Consultation des demandes personnelles de l'utilisateur\nColonnes du tableau :\n•  Date de la demande\n•  Ligne de transport\n•  Description\n•  Statut\n\nCréation d'une Demande de Transport\nFormulaire de création comprenant :\n\nInformations personnelles\n• Nom : Nom de famille\n• Prénom : Prénom\n• Fonction : Poste occupé\n• Email : Adresse électronique\n• Numéro de téléphone : Contact téléphonique\n• Matricule : Numéro matricule\n• Entité : Structure de rattachement\n\nInformations de transport\n• Ligne utilisée : Ligne de transport souhaitée\n• Arrêt utilisé : Point d'arrêt souhaité\n• Description : Motif ou détails de la demande\n• Observations : Commentaires supplémentaires",
+    "captions": [
+      {
+        "text": "Figure 111 : Page demandes transport utilisateur",
+        "image_path": "images/manuel_parc_auto/page_demandes_transport_utilisateur_111.png",
+        "page": 112
+      },
+      {
+        "text": "Figure 112 : Page création demandes transport utilisateur",
+        "image_path": "images/manuel_parc_auto/page_creation_demandes_transport_utilisateur_112.png",
+        "page": 113
+      }
+    ],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00059",
+    "title": "Demandes de Déplacement",
+    "global_title": "Espace Utilisateur Non-Enregistré",
+    "parent": "Espace Utilisateur Non-Enregistré",
+    "breadcrumb": "Espace Utilisateur Non-Enregistré > Demandes de Déplacement",
+    "level": 2,
+    "page": 113,
+    "content": "Module permettant de solliciter des véhicules pour des missions ou déplacements professionnels.\n\nPage Liste des Demandes de Déplacement\nFonctionnalité : Visualisation des demandes personnelles\nColonnes du tableau :\n•  Date de la demande\n•  Date de départ\n•  Lieu de départ\n•  Lieu d'arrivée\n•  Avec chauffeur ?\n•  Statut\n\nCréation d'une Demande de Déplacement\nFormulaire de création :\n\nInformations du demandeur\n• Nom du demandeur : Nom et prénom du demandeur\n• Email du demandeur : Adresse électronique\n\nInformations du responsable\n• Nom du responsable : Nom du responsable hiérarchique\n• Email du responsable : Adresse du responsable\n\nDétails du déplacement\n• Lieu de départ : Point de départ\n• Lieu d'arrivée : Destination\n• Date de départ : Date et heure souhaitées\n• Nombre de personne(s) : Nombre de passagers\n• Observations : Informations complémentaires",
+    "captions": [
+      {
+        "text": "Figure 113 : Page demandes déplacement utilisateur",
+        "image_path": "images/manuel_parc_auto/page_demandes_deplacement_utilisateur_113.png",
+        "page": 114
+      },
+      {
+        "text": "Figure 114 : Page création demande déplacement utilisateur",
+        "image_path": "images/manuel_parc_auto/page_creation_demande_deplacement_utilisateur_114.png",
+        "page": 115
+      }
+    ],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00060",
+    "title": "Fonctionnalités pour Personnel avec Véhicule Affecté",
+    "global_title": "Espace Utilisateur Non-Enregistré",
+    "parent": "Espace Utilisateur Non-Enregistré",
+    "breadcrumb": "Espace Utilisateur Non-Enregistré > Fonctionnalités pour Personnel avec Véhicule Affecté",
+    "level": 2,
+    "page": 115,
+    "content": "Ces modules ne sont accessibles qu'aux utilisateurs ayant un ou plusieurs véhicules affectés dans le système.\n\nPage Liste des Déclarations de Sinistres\nColonnes du tableau :\n•  Date de la déclaration\n•  Immat-Véhicule\n•  Description\n•  Statut\n\nCréation d'une Déclaration de Sinistre\nFormulaire de déclaration :\n• Véhicule : Sélection parmi les véhicules affectés à l'utilisateur\n• Date de l'événement : Date et heure de l'incident\n• Description de l'événement : Circonstances de l'accident\n• Description des dommages : Détail des dégâts constatés\n• Kilométrage du véhicule : Relevé au moment de l'incident\n• Lieu : Localisation de l'accident\n• Avec adversaire ? : Présence d'un tiers impliqué (Oui/Non)\n• Observations : Commentaires supplémentaires\n\nPage Liste des Demandes de Maintenance\nColonnes du tableau :\n•  Date de la demande\n•  Nature\n•  Immat-Véhicule\n•  Description\n•  Statut\n\nCréation d'une Demande de Maintenance\nFormulaire de demande :\n• Véhicule : Sélection parmi les véhicules affectés à l'utilisateur\n• Nature de la demande : Type d'intervention souhaitée\n• Description : Descriptif détaillé du problème ou de la maintenance requise\nAprès remplissage, cliquer sur \"Enregistrer\" pour soumettre la demande.",
+    "captions": [
+      {
+        "text": "Figure 115 : Page sinistres utilisateur",
+        "image_path": "images/manuel_parc_auto/page_sinistres_utilisateur_115.png",
+        "page": 116
+      },
+      {
+        "text": "Figure 116 : Page création sinistre utilisateur",
+        "image_path": "images/manuel_parc_auto/page_creation_sinistre_utilisateur_116.png",
+        "page": 117
+      },
+      {
+        "text": "Figure 117 : Page demandes maintenance utilisateur",
+        "image_path": "images/manuel_parc_auto/page_demandes_maintenance_utilisateur_117.png",
+        "page": 117
+      },
+      {
+        "text": "Figure 118 : Page création demande utilisateur",
+        "image_path": "images/manuel_parc_auto/page_creation_demande_utilisateur_118.png",
+        "page": 118
+      }
+    ],
+    "source_pdf": "manuel_parc_auto.pdf",
+    "source_type": "manuel"
+  }
+]

@@ -132,7 +132,7 @@ class BGEEmbedder:
         model_cfg        = cfg.get("model", {})
         indexing_cfg     = cfg.get("indexing", {})
         self.device      = model_cfg.get("device", "cpu")
-        self.batch_size  = indexing_cfg.get("batch_size", 16)
+        self.batch_size  = indexing_cfg.get("batch_size", 32)
 
         self.needs_dense  = mode in {"dense", "hybrid", "finetuned_dense", "finetuned_hybrid"}
         self.needs_sparse = mode in {"sparse", "hybrid", "finetuned_hybrid"}
