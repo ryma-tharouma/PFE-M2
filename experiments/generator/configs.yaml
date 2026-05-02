@@ -63,20 +63,20 @@ configs:
   #     top_k: 20
   #     min_p: 0.0
   #     repeat_penalty: 1.1
-  - id: llama_8b_gguf_original_l2_prompt2
-    backend: gguf
-    prompt_file: prompts/prompt_2.txt
-    gguf_path: models/Llama-3.1-8B-Instruct-Q4_K_S.gguf
-    n_ctx: 16384
-    n_gpu_layers: 0 # partial GPU offload optional
-    enable_prefix_cache: true
-    generation_kwargs:
-      max_tokens: 2048
-      temperature: 0.1
-      top_p: 0.8
-      top_k: 20
-      min_p: 0.0
-      repeat_penalty: 1.1
+  # - id: llama_8b_gguf_original_l2_prompt2
+  #   backend: gguf
+  #   prompt_file: prompts/prompt_2.txt
+  #   gguf_path: models/Llama-3.1-8B-Instruct-Q4_K_S.gguf
+  #   n_ctx: 16384
+  #   n_gpu_layers: 0 # partial GPU offload optional
+  #   enable_prefix_cache: true
+  #   generation_kwargs:
+  #     max_tokens: 2048
+  #     temperature: 0.1
+  #     top_p: 0.8
+  #     top_k: 20
+  #     min_p: 0.0
+  #     repeat_penalty: 1.1
   # - id: qwen3.5_9b_gguf_original_l2_prompt2
   #   backend: gguf
   #   prompt_file: prompts/prompt_2.txt
@@ -84,6 +84,32 @@ configs:
   #   n_ctx: 16384
   #   n_gpu_layers: 0 # partial GPU offload optional
   #   enable_prefix_cache: true
+  #   generation_kwargs:
+  #     max_tokens: 2048
+  #     temperature: 0.1
+  #     top_p: 0.8
+  #     top_k: 20
+  #     min_p: 0.0
+  #     repeat_penalty: 1.1
+  - id: qwen3.5_4b_gguf_retrievedRk10k3_l2_prompt2
+    backend: gguf
+    prompt_file: prompts/prompt_2.txt
+    gguf_path: models/Qwen3.5-4B-Q4_K_S.gguf
+    n_ctx: 16384
+    n_gpu_layers: 0 # partial GPU offload optional
+    generation_kwargs:
+      max_tokens: 2048
+      temperature: 0.1
+      top_p: 0.8
+      top_k: 20
+      min_p: 0.0
+      repeat_penalty: 1.1
+  # - id: qwen3.5_4b_gguf_retrievedRk10k4_l2_prompt2
+  #   backend: gguf
+  #   prompt_file: prompts/prompt_2.txt
+  #   gguf_path: models/Qwen3.5-4B-Q4_K_S.gguf
+  #   n_ctx: 16384
+  #   n_gpu_layers: 0 # partial GPU offload optional
   #   generation_kwargs:
   #     max_tokens: 2048
   #     temperature: 0.1
