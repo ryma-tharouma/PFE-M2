@@ -1,0 +1,102 @@
+
+
+🟢 1. UPDATE SYSTEM
+-------------------
+sudo apt update && sudo apt upgrade -y
+
+
+🧠 2. BASIC TOOLS
+------------------
+sudo apt install git unzip curl -y
+
+
+🐘 3. PHP 8.2 + LARAVEL EXTENSIONS
+-----------------------------------
+sudo apt install php8.2 php8.2-cli php8.2-mbstring php8.2-xml php8.2-curl php8.2-zip php8.2-pgsql php8.2-sqlite3 -y
+
+
+📦 4. COMPOSER (Laravel dependency manager)
+------------------------------------------
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php composer-setup.php
+sudo mv composer.phar /usr/local/bin/composer
+
+
+🟢 5. NODEJS + NPM
+------------------
+sudo apt install nodejs npm -y
+
+
+🐳 6. DOCKER + COMPOSE
+----------------------
+sudo apt install docker.io docker-compose-plugin -y
+sudo systemctl enable docker
+sudo systemctl start docker
+sudo usermod -aG docker $USER
+
+
+🐘 7. POSTGRESQL
+----------------
+sudo apt install postgresql postgresql-contrib -y
+
+
+🗄️ 8. SQLITE
+------------
+sudo apt install sqlite3 -y
+
+
+🧩 9. QDRANT (Docker)
+---------------------
+docker run -d --name qdrant -p 6333:6333 qdrant/qdrant
+
+
+
+🧩 10. LDAP (Docker)
+--------------------
+docker run -d --name openldap -p 389:389 osixia/openldap:1.5.0
+
+
+=========================================
+⚙️ 11. PHP CONFIG (IMPORTANT SETTINGS)
+=========================================
+
+📍 Ouvrir php.ini :
+sudo nano /etc/php/8.2/apache2/php.ini
+
+
+🔧 Modifier ces valeurs :
+
+upload_max_filesize = 5G
+post_max_size = 5G
+memory_limit = 2G
+max_execution_time = 300
+max_input_time = 300
+
+
+💡 Pour CLI aussi :
+sudo nano /etc/php/8.2/cli/php.ini
+
+
+🔄 Redémarrer Apache :
+sudo systemctl restart apache2
+
+
+=========================================
+🧪 12. VERIFICATION
+=========================================
+
+php -v
+node -v
+npm -v
+docker --version
+psql --version
+sqlite3 --version
+composer -V
+
+
+=========================================
+🚀 13. FINAL DOCKER PERMISSION
+=========================================
+
+newgrp docker
+

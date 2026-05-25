@@ -1,0 +1,171 @@
+# =============================================================================
+# Configuration centrale du pipeline RAG
+# =============================================================================
+# MODES DISPONIBLES :
+#   • CPU  → petit modèle Qwen 4B via llama-cpp (.gguf)  ← fallback garanti
+#   • GPU  → petit modèle Qwen 4B OU grand 7B via HuggingFace Transformers
+#
+# Pour basculer de mode : changer uniquement "generator.device"
+#   device: "cpu"   → llama-cpp + gguf_path
+#   device: "cuda"  → HuggingFace + hf_model_name
+#
+# Tesla P40 · 24 Go VRAM · CUDA 12.2
+# Serveur : 10.109.16.79
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# Vector Database (Qdrant)
+# -----------------------------------------------------------------------------
+vector_db:
+  host: null                        # null = mode fichier local (path ci-dessous)
+  port: 6333
+  api_key: null
+  path: "qdrant_data/"
+
+
+# -----------------------------------------------------------------------------
+# Chunker — découpe les sections en chunks bornés en tokens
+# -----------------------------------------------------------------------------
+chunker:
+  max_tokens: 1024
+  overlap: 10
+  tokenizer_model: "BAAI/bge-m3"
+
+
+# -----------------------------------------------------------------------------
+# Aggregator — remonte les chunks vers les sections parentes
+# -----------------------------------------------------------------------------
+aggregator:
+  top_k: 3
+
+
+# -----------------------------------------------------------------------------
+# Embedder — encodage dense des chunks
+# -----------------------------------------------------------------------------
+embedder:
+  model_name: "BAAI/bge-m3"
+  # ⬇ sera automatiquement remplacé par "cuda" si le GPU est actif
+  # Laisser sur "cpu" ici ; le code peut le lire depuis generator.device
+  device: "cpu"                     # "cpu" | "cuda"
+  batch_size: 32                    # CPU : 32  /  GPU P40 : 64
+
+
+# -----------------------------------------------------------------------------
+# Retriever — recherche vectorielle
+# -----------------------------------------------------------------------------
+retriever:
+  search_top_k: 10                  # chunks remontés depuis Qdrant
+  sections_top_k: 3                 # sections finales après agrégation
+
+
+# -----------------------------------------------------------------------------
+# Reranker (cross-encoder, optionnel)
+# -----------------------------------------------------------------------------
+reranker:
+  enabled: false                    # true = active le reranking
+  model_name: "BAAI/bge-reranker-v2-m3"
+  batch_size: 32
+  top_k_rerank: 10
+
+
+# =============================================================================
+# Generator — LLM pour la génération de réponses
+# =============================================================================
+generator:
+
+  # --------------------------------------------------------------------------
+  # CHOIX DU MODE — changer UNIQUEMENT cette ligne pour basculer
+  # --------------------------------------------------------------------------
+  device: "cuda"                    # "cpu"  →  llama-cpp + gguf
+  # "cuda" →  HuggingFace Transformers
+
+  prompt_file: "prompt_1.txt"
+  generation_kwargs: {}             # surcharges libres (ex: temperature: 0.2)
+
+  # --------------------------------------------------------------------------
+  # MODE CPU — llama-cpp (.gguf)
+  # Utilisé quand device = "cpu"  OU  quand le GPU tombe en panne (fallback)
+  # --------------------------------------------------------------------------
+  cpu:
+    gguf_path: "../models/Qwen3.5-4B-Q4_K_S.gguf"
+    n_ctx: 4000
+    n_threads: 4
+    n_batch: 1024
+
+    # Paramètres de génération CPU
+    max_tokens: 1024
+    temperature: 0.1
+    top_p: 0.8
+    top_k: 20
+    min_p: 0.0
+    presence_penalty: 1.5
+    repeat_penalty: 1.1
+
+  # --------------------------------------------------------------------------
+  # MODE GPU — HuggingFace Transformers
+  # Utilisé quand device = "cuda"
+  # IMPORTANT : P40 (Pascal) → float16 uniquement, PAS bfloat16
+  # --------------------------------------------------------------------------
+  gpu:
+    torch_dtype: "float16"          # float16 obligatoire sur Tesla P40
+    do_sample: true
+
+    # ┌─────────────────────────────────────────────────────────────┐
+    # │  ÉTAPE 1 — Petit modèle 4B  (décommenter pour tester)      │
+    # │  VRAM estimée : ~8 Go  → très confortable sur 24 Go        │
+    # └─────────────────────────────────────────────────────────────┘
+    hf_model_name: "Qwen/Qwen2.5-3B-Instruct"
+
+    # ┌─────────────────────────────────────────────────────────────┐
+    # │  ÉTAPE 2 — Grand modèle 7B  (décommenter quand 4B validé)  │
+    # │  VRAM estimée : ~14 Go → confortable sur 24 Go             │
+    # └─────────────────────────────────────────────────────────────┘
+    # hf_model_name: "Qwen/Qwen2-7B-Instruct"
+
+    # Paramètres de génération GPU
+    max_tokens: 1024
+    temperature: 0.1
+    top_p: 0.8
+    top_k: 20
+
+  # --------------------------------------------------------------------------
+  # FALLBACK AUTOMATIQUE
+  # Si device = "cuda" mais que le GPU n'est plus disponible au runtime,
+  # le code doit attraper l'exception et relire la section cpu ci-dessus.
+  # --------------------------------------------------------------------------
+  fallback:
+    enabled: true                   # true = bascule auto CPU si GPU absent
+    log_warning: true               # affiche un warning dans les logs
+
+
+# -----------------------------------------------------------------------------
+# Pipeline RAG — seuil de routage FAQ vs documents
+# -----------------------------------------------------------------------------
+rag:
+  routing_threshold: 3.0            # le top score doit dépasser le 2e de cette marge
+
+
+# -----------------------------------------------------------------------------
+# Assistant — gestion de session & logs
+# -----------------------------------------------------------------------------
+assistant:
+  max_turns: 2                      # tours de conversation gardés en mémoire
+  verbose: true
+  log_dir: "logs"
+  server_host: "10.109.16.79"       # adresse du serveur de déploiement
+  server_port: 8000
+
+
+# =============================================================================
+# RÉSUMÉ DES COMBINAISONS VALIDES
+# =============================================================================
+#
+#  device  │ modèle utilisé           │ moteur          │ VRAM / RAM
+# ─────────┼──────────────────────────┼─────────────────┼─────────────
+#  cpu     │ Qwen3.5-4B (gguf Q4_K_S)│ llama-cpp       │ ~4 Go RAM
+#  cuda    │ Qwen2.5-3B-Instruct      │ HuggingFace     │ ~8 Go VRAM
+#  cuda    │ Qwen2-7B-Instruct        │ HuggingFace     │ ~14 Go VRAM
+#  cuda→cpu│ fallback auto si GPU KO  │ llama-cpp       │ ~4 Go RAM
+#
+# =============================================================================

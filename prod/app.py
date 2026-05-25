@@ -185,7 +185,7 @@ if "assistant" not in st.session_state:
     st.info("👈 Upload a JSON file and click 'Index & Start Chat' to begin.")
     st.stop()
 
-assistant: Assistant = st.session_state["assistant"]
+A: Assistant = st.session_state["assistant"]
 app_id: str = st.session_state["app_id"]
 
 st.header(f"💬 Chat with **{app_id}**")

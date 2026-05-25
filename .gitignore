@@ -13,3 +13,39 @@ experiments/build_data/data/
 experiments/rewriter/data/
 token.txt
 prod/qdrant_data/
+
+
+
+# Extract app data
+extract/app/faq/
+extract/app/json/
+extract/app/logs/
+extract/app/manuels/
+
+# Environments
+venv/
+venv311/
+extract/venv_docling/
+
+# Python
+__pycache__/
+*.pyc
+
+# IDE
+.idea/
+
+# Env files
+.env
+*/.env
+
+# Logs
+logs/
+*.log
+
+# Qdrant
+prod/qdrant_data/
+
+
+
+# Other manuals
+manuels/

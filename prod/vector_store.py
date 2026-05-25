@@ -18,7 +18,6 @@ class VectorDB:
     ):
         from qdrant_client import QdrantClient
         if host:
-            # Use remote Qdrant server
             if port is None:
                 raise ValueError("port must be specified when host is provided")
             self.client = QdrantClient(host=host, port=port, api_key=api_key)
@@ -42,6 +41,23 @@ class VectorDB:
 
     def collection_exists(self, name: str) -> bool:
         return self.client.collection_exists(name)
+
+    def list_collections(self) -> List[str]:
+        """
+        Retourne la liste des noms de toutes les collections Qdrant.
+        Appelée par main.py → get_available_collections() → /api/collections
+        et aussi par resolve_collection() pour valider le nom envoyé par Laravel.
+        Sans cette méthode, /api/collections retourne toujours [].
+        """
+        return [c.name for c in self.client.get_collections().collections]
+
+    def collection_point_count(self, name: str) -> int:
+        """Retourne le nombre réel de points stockés dans une collection."""
+        try:
+            result = self.client.count(collection_name=name, exact=True)
+            return int(getattr(result, "count", 0) or 0)
+        except Exception:
+            return 0
 
     def drop_collection(self, name: str) -> None:
         self.client.delete_collection(name)
@@ -89,7 +105,7 @@ class VectorDB:
         scores   = [p.score for p in results.points]
         payloads = [p.payload for p in results.points]
         return ids, scores, payloads
-    
+
     def close(self):
         self.client.close()
 
@@ -110,17 +126,18 @@ class VectorDB:
 
 def get_vector_db(cfg: Dict[str, Any]) -> VectorDB:
     """
-    Create a VectorDB instance from a configuration dictionary.
+    Crée une instance VectorDB depuis la configuration.
 
-    Expected config structure:
+    Structure attendue dans config.yaml :
         vector_db:
-            host: "localhost"       # optional, if omitted use local path
-            port: 6333              # required if host is given
-            api_key: "your-key"     # optional
-            path: "data/vector_db/" # used if host is not provided
+            host: "localhost"        # optionnel, si absent → mode local
+            port: 6333               # requis si host est fourni
+            api_key: "your-key"      # optionnel
+            path: "data/vector_db/"  # utilisé si host absent
     """
     vdb_cfg = cfg.get("vector_db", {})
-    host = vdb_cfg.get("host")
+    host    = vdb_cfg.get("host")
+
     if host:
         return VectorDB(
             host=host,

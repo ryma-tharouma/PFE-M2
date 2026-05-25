@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+
+  openldap:
+    image: osixia/openldap:1.5.0
+    container_name: openldap
+    environment:
+     LDAP_ORGANISATION: "Sonatrach"
+     LDAP_DOMAIN: "sonatrach.test"
+     LDAP_ADMIN_PASSWORD: "pfe@2026"
+    ports:
+      - "1389:389"
+      - "1636:636"
+
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    environment:
+      POSTGRES_DB: pfe_2026
+      POSTGRES_USER: pfe_user
+      POSTGRES_PASSWORD: secret
+    ports:
+      - "5432:5432"
+
+

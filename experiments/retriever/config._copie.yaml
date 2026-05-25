@@ -1,0 +1,42 @@
+
+# config.yaml adapté pour Milvus
+
+database:
+  type: "milvus"        # utilisation de Milvus à la place de Qdrant
+  host: "localhost"     # adresse du serveur Milvus
+  port: 19530           # port par défaut de Milvus
+  # path n'est plus nécessaire pour Milvus standalone
+
+phases:
+  build:
+    enabled: true
+    db_types: ["milvus"]   # on remplace qdrant par milvus
+    index_types: ["hnsw", "flat"]
+    modes: ["dense", "sparse", "hybrid"]
+    batch_size: 32
+    drop_existing: true
+
+  evaluate:
+    enabled: true
+    db_types: ["milvus"]   # idem
+    index_types: ["hnsw", "flat"]
+    modes: ["dense", "sparse", "hybrid"]
+    top_k: 50
+    alpha: 0.7
+    max_k: 50
+
+paths:
+  apps_dir: "data/apps/"
+  queries_path: "data/queries.jsonl"
+  results_dir: "data/results/"
+
+model:
+  base_name: "BAAI/bge-m3"
+  finetuned_path: "models/bge-m3-fr-finetuned"
+  use_fp16: true
+  device: "cuda"
+
+threshold_analysis:
+  enabled: true
+  target_recall: 0.90
+  min_precision: 0.70

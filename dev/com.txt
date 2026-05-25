@@ -1,0 +1,25 @@
+
+mkdir -p frontend/resources/views/auth
+mkdir -p frontend/resources/views/chat/components
+mkdir -p frontend/resources/views/admin
+mkdir -p frontend/resources/views/layouts
+mkdir -p frontend/resources/css
+mkdir -p frontend/resources/js
+mkdir -p frontend/app/Http/Controllers/Auth
+mkdir -p frontend/app/Http/Controllers/Chat
+mkdir -p frontend/app/Http/Controllers/Admin
+mkdir -p frontend/app/Http/Middleware
+mkdir -p frontend/app/Http/Requests
+mkdir -p frontend/app/Models
+mkdir -p frontend/app/Services
+mkdir -p frontend/database/migrations
+mkdir -p frontend/database/seeders
+mkdir -p frontend/routes
+mkdir -p frontend/config
+mkdir -p frontend/public/assets/images
+mkdir -p backend/app
+mkdir -p docker/nginx
+mkdir -p docker/postgres
+mkdir -p docker/openldap/ldif
+echo "✅ Structure créée"
+

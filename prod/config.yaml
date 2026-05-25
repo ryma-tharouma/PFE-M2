@@ -61,7 +61,7 @@ generator:
   generation_kwargs: {} # optional overrides for any generation param
 
   # CPU-specific (llama-cpp)
-  gguf_path: "models/Qwen3.5-4B-Q4_K_S.gguf" # required if device=cpu
+  gguf_path: "../models/Qwen3.5-4B-Q4_K_S.gguf" # required if device=cpu
   n_ctx: 4000
   n_threads: 4
   n_batch: 1024
@@ -92,7 +92,7 @@ rag:
 # Assistant (stateful session management)
 # -----------------------------------------------------------------------------
 assistant:
-  max_turns: 1 # number of conversation turns to keep in history
+  max_turns: 2 # number of conversation turns to keep in history
   verbose: true # enable detailed logging and timing output
   log_dir: "logs" # directory for rotating log files
   # Optional (for future scaling) – not yet implemented in code:

@@ -168,15 +168,23 @@ class Assistant:
         session.add_turn(query, full_answer)
 
         if self.verbose and sentinel:
+            # Log response metrics + a truncated version of the full answer to allow
+            # later admin inspection (avoid extremely large log lines).
+            try:
+                answer_preview = full_answer if len(full_answer) <= 4000 else full_answer[:4000] + "..."
+            except Exception:
+                answer_preview = ""
+
             self.logger.info(
                 "Response complete | session_id=%s | app_id=%s | tokens=%d | "
-                "embed=%.3fs | search=%.3fs | ttft=%.3fs | total=%.3fs | sources=%s",
+                "embed=%.3fs | search=%.3fs | ttft=%.3fs | total=%.3fs | sources=%s | answer=%s",
                 session_id, app_id, len(answer_tokens),
                 sentinel.get("embed_sec") or 0.0,
                 sentinel.get("search_sec") or 0.0,
                 sentinel.get("ttft_sec") or 0.0,
                 sentinel.get("total_sec") or 0.0,
                 json.dumps(sentinel.get("sources", [])),
+                answer_preview,
             )
 
         if sentinel:

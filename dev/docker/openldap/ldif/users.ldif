@@ -1,0 +1,2746 @@
+# ══════════════════════════════════════════════════════
+# LDIF — 200 utilisateurs + 1 superadmin Sonatrach (test)
+# OpenLDAP | dc=sonatrach,dc=test
+# Mot de passe universel : Sonatrach2026!
+# SuperAdmin : superadmin (son00000)
+# Admins     : amine.benali, thinhinane.ould.braham, liza.mezioug
+# Champ code : employeeNumber → format son00001 … son00200
+# ══════════════════════════════════════════════════════
+
+dn: ou=people,dc=sonatrach,dc=test
+objectClass: organizationalUnit
+ou: people
+
+dn: ou=groups,dc=sonatrach,dc=test
+objectClass: organizationalUnit
+ou: groups
+
+# ── Groupes métier ────────────────────────────────────
+
+dn: cn=informatique,ou=groups,dc=sonatrach,dc=test
+objectClass: groupOfNames
+cn: informatique
+member: uid=amine.benali,ou=people,dc=sonatrach,dc=test
+member: uid=riad.hamidou,ou=people,dc=sonatrach,dc=test
+member: uid=sara.khelifi,ou=people,dc=sonatrach,dc=test
+member: uid=karim.messaoud,ou=people,dc=sonatrach,dc=test
+member: uid=nadia.boudiaf,ou=people,dc=sonatrach,dc=test
+member: uid=sofiane.amrani,ou=people,dc=sonatrach,dc=test
+member: uid=lylia.aissaoui,ou=people,dc=sonatrach,dc=test
+member: uid=youcef.benmoussa,ou=people,dc=sonatrach,dc=test
+member: uid=meriem.tahir,ou=people,dc=sonatrach,dc=test
+member: uid=zakaria.belkacemi,ou=people,dc=sonatrach,dc=test
+member: uid=amar.zidane,ou=people,dc=sonatrach,dc=test
+member: uid=khalil.boubrit,ou=people,dc=sonatrach,dc=test
+member: uid=mira.benabdallah,ou=people,dc=sonatrach,dc=test
+member: uid=fella.boudoukha,ou=people,dc=sonatrach,dc=test
+member: uid=nora.boucherit,ou=people,dc=sonatrach,dc=test
+member: uid=anouar.bouchama,ou=people,dc=sonatrach,dc=test
+member: uid=thinhinane.ould.braham,ou=people,dc=sonatrach,dc=test
+member: uid=ilyes.zeroual,ou=people,dc=sonatrach,dc=test
+member: uid=liza.mezioug,ou=people,dc=sonatrach,dc=test
+member: uid=yacine.bensaad,ou=people,dc=sonatrach,dc=test
+member: uid=kamel.brahimi,ou=people,dc=sonatrach,dc=test
+member: uid=sabrina.khalfi,ou=people,dc=sonatrach,dc=test
+member: uid=billel.bensouici,ou=people,dc=sonatrach,dc=test
+member: uid=lina.belkacem,ou=people,dc=sonatrach,dc=test
+member: uid=hamid.berghout,ou=people,dc=sonatrach,dc=test
+member: uid=nadir.benseba,ou=people,dc=sonatrach,dc=test
+member: uid=radhia.benguerna,ou=people,dc=sonatrach,dc=test
+member: uid=adlene.benkherouf,ou=people,dc=sonatrach,dc=test
+member: uid=lynda.bouzida,ou=people,dc=sonatrach,dc=test
+member: uid=ibtissem.benterki,ou=people,dc=sonatrach,dc=test
+
+dn: cn=comptabilite,ou=groups,dc=sonatrach,dc=test
+objectClass: groupOfNames
+cn: comptabilite
+member: uid=farid.mekki,ou=people,dc=sonatrach,dc=test
+member: uid=samira.ouali,ou=people,dc=sonatrach,dc=test
+member: uid=omar.bensalem,ou=people,dc=sonatrach,dc=test
+member: uid=houria.zerrouki,ou=people,dc=sonatrach,dc=test
+member: uid=abdelkader.guemri,ou=people,dc=sonatrach,dc=test
+member: uid=assia.bouzid,ou=people,dc=sonatrach,dc=test
+member: uid=mahfoud.laroui,ou=people,dc=sonatrach,dc=test
+member: uid=rim.cherifi,ou=people,dc=sonatrach,dc=test
+member: uid=amira.benchikh,ou=people,dc=sonatrach,dc=test
+member: uid=leila.hamouche,ou=people,dc=sonatrach,dc=test
+member: uid=faycal.mokhtar,ou=people,dc=sonatrach,dc=test
+member: uid=djafer.mellah,ou=people,dc=sonatrach,dc=test
+member: uid=charaf.benmesbah,ou=people,dc=sonatrach,dc=test
+member: uid=karima.bensid,ou=people,dc=sonatrach,dc=test
+member: uid=moulay.bechiri,ou=people,dc=sonatrach,dc=test
+member: uid=hasna.benterki,ou=people,dc=sonatrach,dc=test
+member: uid=mourad.seddiki,ou=people,dc=sonatrach,dc=test
+
+dn: cn=juridique,ou=groups,dc=sonatrach,dc=test
+objectClass: groupOfNames
+cn: juridique
+member: uid=sihem.benmahmoud,ou=people,dc=sonatrach,dc=test
+member: uid=rachid.laib,ou=people,dc=sonatrach,dc=test
+member: uid=yasmine.gherbi,ou=people,dc=sonatrach,dc=test
+member: uid=toufik.benmansour,ou=people,dc=sonatrach,dc=test
+member: uid=ihab.menad,ou=people,dc=sonatrach,dc=test
+member: uid=ouarda.belaid,ou=people,dc=sonatrach,dc=test
+member: uid=farid.bensalah,ou=people,dc=sonatrach,dc=test
+member: uid=samia.benmehdi,ou=people,dc=sonatrach,dc=test
+member: uid=tewfik.bouziane,ou=people,dc=sonatrach,dc=test
+member: uid=siham.malek,ou=people,dc=sonatrach,dc=test
+member: uid=farouk.benmouhoub,ou=people,dc=sonatrach,dc=test
+
+dn: cn=rh,ou=groups,dc=sonatrach,dc=test
+objectClass: groupOfNames
+cn: rh
+member: uid=naima.chikhi,ou=people,dc=sonatrach,dc=test
+member: uid=djamel.ferhat,ou=people,dc=sonatrach,dc=test
+member: uid=wissam.sellami,ou=people,dc=sonatrach,dc=test
+member: uid=rania.belouizdad,ou=people,dc=sonatrach,dc=test
+member: uid=moussa.hadj,ou=people,dc=sonatrach,dc=test
+member: uid=samah.benflis,ou=people,dc=sonatrach,dc=test
+member: uid=lynda.sahnoune,ou=people,dc=sonatrach,dc=test
+member: uid=samya.derkaoui,ou=people,dc=sonatrach,dc=test
+member: uid=brahim.hamoudi,ou=people,dc=sonatrach,dc=test
+member: uid=assia.bendjama,ou=people,dc=sonatrach,dc=test
+member: uid=melissa.berber,ou=people,dc=sonatrach,dc=test
+member: uid=khalid.benamer,ou=people,dc=sonatrach,dc=test
+member: uid=rokia.adjel,ou=people,dc=sonatrach,dc=test
+member: uid=ahmed.korichi,ou=people,dc=sonatrach,dc=test
+
+dn: cn=technique,ou=groups,dc=sonatrach,dc=test
+objectClass: groupOfNames
+cn: technique
+member: uid=bilal.hadjadj,ou=people,dc=sonatrach,dc=test
+member: uid=hamza.belarbi,ou=people,dc=sonatrach,dc=test
+member: uid=imane.bouchenak,ou=people,dc=sonatrach,dc=test
+member: uid=tarek.mebarki,ou=people,dc=sonatrach,dc=test
+member: uid=faisal.benkhaled,ou=people,dc=sonatrach,dc=test
+member: uid=amina.boukhalfa,ou=people,dc=sonatrach,dc=test
+member: uid=malik.boudjenah,ou=people,dc=sonatrach,dc=test
+member: uid=lamia.benyoucef,ou=people,dc=sonatrach,dc=test
+member: uid=nordine.khettab,ou=people,dc=sonatrach,dc=test
+member: uid=safia.benmeddah,ou=people,dc=sonatrach,dc=test
+member: uid=ibrahim.hadjali,ou=people,dc=sonatrach,dc=test
+member: uid=lotfi.bousseba,ou=people,dc=sonatrach,dc=test
+member: uid=abbes.touati,ou=people,dc=sonatrach,dc=test
+member: uid=chaima.bouderbala,ou=people,dc=sonatrach,dc=test
+member: uid=yazid.nouri,ou=people,dc=sonatrach,dc=test
+member: uid=redouane.settou,ou=people,dc=sonatrach,dc=test
+member: uid=abdou.chibane,ou=people,dc=sonatrach,dc=test
+member: uid=massinissa.zekri,ou=people,dc=sonatrach,dc=test
+member: uid=salah.habibi,ou=people,dc=sonatrach,dc=test
+member: uid=youssef.amrouche,ou=people,dc=sonatrach,dc=test
+member: uid=soraya.belkacem,ou=people,dc=sonatrach,dc=test
+member: uid=nassim.touami,ou=people,dc=sonatrach,dc=test
+member: uid=manel.ferdjallah,ou=people,dc=sonatrach,dc=test
+member: uid=fethi.bouguerra,ou=people,dc=sonatrach,dc=test
+member: uid=samir.bensalem,ou=people,dc=sonatrach,dc=test
+member: uid=abdelmadjid.belabbes,ou=people,dc=sonatrach,dc=test
+member: uid=nadjia.ferhoune,ou=people,dc=sonatrach,dc=test
+member: uid=sami.bencherif,ou=people,dc=sonatrach,dc=test
+member: uid=bilel.ayad,ou=people,dc=sonatrach,dc=test
+member: uid=ramzi.bouregaa,ou=people,dc=sonatrach,dc=test
+member: uid=tahar.ziani,ou=people,dc=sonatrach,dc=test
+member: uid=wafa.bensaidi,ou=people,dc=sonatrach,dc=test
+
+dn: cn=hse,ou=groups,dc=sonatrach,dc=test
+objectClass: groupOfNames
+cn: hse
+member: uid=mustapha.bendjebbar,ou=people,dc=sonatrach,dc=test
+member: uid=souad.bengrina,ou=people,dc=sonatrach,dc=test
+member: uid=cherif.haddar,ou=people,dc=sonatrach,dc=test
+member: uid=hicham.bousekkine,ou=people,dc=sonatrach,dc=test
+member: uid=asma.benabid,ou=people,dc=sonatrach,dc=test
+member: uid=djillali.terki,ou=people,dc=sonatrach,dc=test
+member: uid=cyrine.boudjema,ou=people,dc=sonatrach,dc=test
+member: uid=amar.haddar,ou=people,dc=sonatrach,dc=test
+
+dn: cn=direction,ou=groups,dc=sonatrach,dc=test
+objectClass: groupOfNames
+cn: direction
+member: uid=khaled.mabrouk,ou=people,dc=sonatrach,dc=test
+member: uid=djamila.boussaid,ou=people,dc=sonatrach,dc=test
+member: uid=nabil.bencherif,ou=people,dc=sonatrach,dc=test
+member: uid=amel.tebboune,ou=people,dc=sonatrach,dc=test
+member: uid=soumia.hamdani,ou=people,dc=sonatrach,dc=test
+member: uid=samir.boudris,ou=people,dc=sonatrach,dc=test
+member: uid=feriel.benslimane,ou=people,dc=sonatrach,dc=test
+member: uid=yazid.benaissa,ou=people,dc=sonatrach,dc=test
+
+dn: cn=qualite,ou=groups,dc=sonatrach,dc=test
+objectClass: groupOfNames
+cn: qualite
+member: uid=walid.boussouf,ou=people,dc=sonatrach,dc=test
+member: uid=ferriel.henni,ou=people,dc=sonatrach,dc=test
+member: uid=zine.benbrahim,ou=people,dc=sonatrach,dc=test
+member: uid=karim.makhlouf,ou=people,dc=sonatrach,dc=test
+member: uid=loubna.bensaid,ou=people,dc=sonatrach,dc=test
+member: uid=anis.zergane,ou=people,dc=sonatrach,dc=test
+member: uid=mehdia.bounoua,ou=people,dc=sonatrach,dc=test
+member: uid=lotfi.bensaid,ou=people,dc=sonatrach,dc=test
+member: uid=nassim.berber,ou=people,dc=sonatrach,dc=test
+
+dn: cn=commercial,ou=groups,dc=sonatrach,dc=test
+objectClass: groupOfNames
+cn: commercial
+member: uid=ines.haouam,ou=people,dc=sonatrach,dc=test
+member: uid=mourad.dahmane,ou=people,dc=sonatrach,dc=test
+member: uid=sonia.necib,ou=people,dc=sonatrach,dc=test
+member: uid=raouf.benmahdi,ou=people,dc=sonatrach,dc=test
+member: uid=khadidja.bencherki,ou=people,dc=sonatrach,dc=test
+member: uid=nourredine.bensabeur,ou=people,dc=sonatrach,dc=test
+member: uid=rima.benmouhoub,ou=people,dc=sonatrach,dc=test
+member: uid=zhour.hamidane,ou=people,dc=sonatrach,dc=test
+member: uid=arezki.benali,ou=people,dc=sonatrach,dc=test
+member: uid=karim.ferhat,ou=people,dc=sonatrach,dc=test
+member: uid=samia.bouazza,ou=people,dc=sonatrach,dc=test
+
+dn: cn=maintenance,ou=groups,dc=sonatrach,dc=test
+objectClass: groupOfNames
+cn: maintenance
+member: uid=adel.benkara,ou=people,dc=sonatrach,dc=test
+member: uid=abd.elaziz.boughazi,ou=people,dc=sonatrach,dc=test
+member: uid=nassima.chaker,ou=people,dc=sonatrach,dc=test
+member: uid=said.guerroum,ou=people,dc=sonatrach,dc=test
+member: uid=billel.djaballah,ou=people,dc=sonatrach,dc=test
+member: uid=miloud.benzerari,ou=people,dc=sonatrach,dc=test
+member: uid=abdelhamid.meziane,ou=people,dc=sonatrach,dc=test
+member: uid=walid.benzerga,ou=people,dc=sonatrach,dc=test
+member: uid=abdelkrim.boudissa,ou=people,dc=sonatrach,dc=test
+member: uid=najla.bencherif,ou=people,dc=sonatrach,dc=test
+member: uid=fatiha.bensalem,ou=people,dc=sonatrach,dc=test
+
+dn: cn=environnement,ou=groups,dc=sonatrach,dc=test
+objectClass: groupOfNames
+cn: environnement
+member: uid=kahina.ait.ali,ou=people,dc=sonatrach,dc=test
+member: uid=fouad.guelmine,ou=people,dc=sonatrach,dc=test
+member: uid=slimane.djebbar,ou=people,dc=sonatrach,dc=test
+member: uid=malika.benguella,ou=people,dc=sonatrach,dc=test
+member: uid=hana.bouakaz,ou=people,dc=sonatrach,dc=test
+member: uid=rabah.boukhors,ou=people,dc=sonatrach,dc=test
+
+dn: cn=exploitation,ou=groups,dc=sonatrach,dc=test
+objectClass: groupOfNames
+cn: exploitation
+member: uid=mehdi.boucetta,ou=people,dc=sonatrach,dc=test
+member: uid=ghania.rezig,ou=people,dc=sonatrach,dc=test
+member: uid=salim.mezrag,ou=people,dc=sonatrach,dc=test
+member: uid=lila.benzerga,ou=people,dc=sonatrach,dc=test
+member: uid=wassim.bouchaala,ou=people,dc=sonatrach,dc=test
+member: uid=noureddine.hamzaoui,ou=people,dc=sonatrach,dc=test
+member: uid=souhila.bensaada,ou=people,dc=sonatrach,dc=test
+member: uid=tarek.benbrahim,ou=people,dc=sonatrach,dc=test
+member: uid=yassine.benzerroug,ou=people,dc=sonatrach,dc=test
+member: uid=karima.mebarki,ou=people,dc=sonatrach,dc=test
+member: uid=djelloul.amokrane,ou=people,dc=sonatrach,dc=test
+
+dn: cn=achats,ou=groups,dc=sonatrach,dc=test
+objectClass: groupOfNames
+cn: achats
+member: uid=abderrahmane.kaci,ou=people,dc=sonatrach,dc=test
+member: uid=hanane.belhadj,ou=people,dc=sonatrach,dc=test
+member: uid=sami.benseghir,ou=people,dc=sonatrach,dc=test
+member: uid=fatima.medjdoub,ou=people,dc=sonatrach,dc=test
+member: uid=dalila.benbouzid,ou=people,dc=sonatrach,dc=test
+member: uid=aziz.benhamouda,ou=people,dc=sonatrach,dc=test
+member: uid=naziha.benbella,ou=people,dc=sonatrach,dc=test
+member: uid=sofiane.tahiri,ou=people,dc=sonatrach,dc=test
+member: uid=ahmed.bendjeddou,ou=people,dc=sonatrach,dc=test
+member: uid=sarah.guermat,ou=people,dc=sonatrach,dc=test
+member: uid=nadia.benkhaled,ou=people,dc=sonatrach,dc=test
+member: uid=amar.benchikh,ou=people,dc=sonatrach,dc=test
+
+dn: cn=communication,ou=groups,dc=sonatrach,dc=test
+objectClass: groupOfNames
+cn: communication
+member: uid=linda.meziani,ou=people,dc=sonatrach,dc=test
+member: uid=hocine.djaballah,ou=people,dc=sonatrach,dc=test
+member: uid=zineb.aouadi,ou=people,dc=sonatrach,dc=test
+member: uid=selma.bezirki,ou=people,dc=sonatrach,dc=test
+member: uid=hamza.benmansour,ou=people,dc=sonatrach,dc=test
+member: uid=imene.bensoussan,ou=people,dc=sonatrach,dc=test
+member: uid=mehdi.boufelja,ou=people,dc=sonatrach,dc=test
+member: uid=nawal.bouazza,ou=people,dc=sonatrach,dc=test
+member: uid=yacine.boudissa,ou=people,dc=sonatrach,dc=test
+
+dn: cn=administration,ou=groups,dc=sonatrach,dc=test
+objectClass: groupOfNames
+cn: administration
+member: uid=nabila.bettache,ou=people,dc=sonatrach,dc=test
+member: uid=kheireddine.moufok,ou=people,dc=sonatrach,dc=test
+member: uid=hadjer.boualem,ou=people,dc=sonatrach,dc=test
+member: uid=rafik.belmahi,ou=people,dc=sonatrach,dc=test
+member: uid=cylia.saadi,ou=people,dc=sonatrach,dc=test
+member: uid=abdelaziz.belhadj,ou=people,dc=sonatrach,dc=test
+member: uid=hanifa.bencheikh,ou=people,dc=sonatrach,dc=test
+member: uid=rachida.bendjelloul,ou=people,dc=sonatrach,dc=test
+member: uid=bouchra.benali,ou=people,dc=sonatrach,dc=test
+member: uid=randa.ferhat,ou=people,dc=sonatrach,dc=test
+member: uid=murad.bensalah,ou=people,dc=sonatrach,dc=test
+
+# ── Groupe admins (gérés par superadmin) ──────────────
+
+dn: cn=admins,ou=groups,dc=sonatrach,dc=test
+objectClass: groupOfNames
+cn: admins
+member: uid=amine.benali,ou=people,dc=sonatrach,dc=test
+member: uid=thinhinane.ould.braham,ou=people,dc=sonatrach,dc=test
+member: uid=liza.mezioug,ou=people,dc=sonatrach,dc=test
+
+# ── Groupe superadmins ────────────────────────────────
+
+dn: cn=superadmins,ou=groups,dc=sonatrach,dc=test
+objectClass: groupOfNames
+cn: superadmins
+member: uid=superadmin,ou=people,dc=sonatrach,dc=test
+
+# ══════════════════════════════════════════════════════
+# SUPER ADMIN — compte unique, rang au-dessus des admins
+# ══════════════════════════════════════════════════════
+
+dn: uid=superadmin,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: superadmin
+cn: Super Administrateur
+sn: Administrateur
+givenName: Super
+mail: superadmin@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Super Administrateur Systeme
+ou: informatique
+description: superadmin
+employeeNumber: son00000
+
+# ══════════════════════════════════════════════════════
+# UTILISATEURS — département Informatique (son00001–son00030)
+# ══════════════════════════════════════════════════════
+
+dn: uid=amine.benali,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: amine.benali
+cn: Amine Benali
+sn: Benali
+givenName: Amine
+mail: amine.benali@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieur Informatique Senior
+ou: informatique
+description: admin
+employeeNumber: son00001
+
+dn: uid=riad.hamidou,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: riad.hamidou
+cn: Riad Hamidou
+sn: Hamidou
+givenName: Riad
+mail: riad.hamidou@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Développeur Full Stack
+ou: informatique
+employeeNumber: son00002
+
+dn: uid=sara.khelifi,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: sara.khelifi
+cn: Sara Khelifi
+sn: Khelifi
+givenName: Sara
+mail: sara.khelifi@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieure Systèmes et Réseaux
+ou: informatique
+employeeNumber: son00003
+
+dn: uid=karim.messaoud,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: karim.messaoud
+cn: Karim Messaoud
+sn: Messaoud
+givenName: Karim
+mail: karim.messaoud@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Administrateur Base de Données
+ou: informatique
+employeeNumber: son00004
+
+dn: uid=nadia.boudiaf,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: nadia.boudiaf
+cn: Nadia Boudiaf
+sn: Boudiaf
+givenName: Nadia
+mail: nadia.boudiaf@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Chef de Projet Informatique
+ou: informatique
+employeeNumber: son00005
+
+dn: uid=sofiane.amrani,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: sofiane.amrani
+cn: Sofiane Amrani
+sn: Amrani
+givenName: Sofiane
+mail: sofiane.amrani@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Technicien Support Informatique
+ou: informatique
+employeeNumber: son00006
+
+dn: uid=lylia.aissaoui,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: lylia.aissaoui
+cn: Lylia Aissaoui
+sn: Aissaoui
+givenName: Lylia
+mail: lylia.aissaoui@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Analyste Cybersécurité
+ou: informatique
+employeeNumber: son00007
+
+dn: uid=youcef.benmoussa,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: youcef.benmoussa
+cn: Youcef Benmoussa
+sn: Benmoussa
+givenName: Youcef
+mail: youcef.benmoussa@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieur DevOps
+ou: informatique
+employeeNumber: son00008
+
+dn: uid=meriem.tahir,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: meriem.tahir
+cn: Meriem Tahir
+sn: Tahir
+givenName: Meriem
+mail: meriem.tahir@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieure Data et IA
+ou: informatique
+employeeNumber: son00009
+
+dn: uid=zakaria.belkacemi,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: zakaria.belkacemi
+cn: Zakaria Belkacemi
+sn: Belkacemi
+givenName: Zakaria
+mail: zakaria.belkacemi@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Technicien Helpdesk
+ou: informatique
+employeeNumber: son00010
+
+dn: uid=amar.zidane,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: amar.zidane
+cn: Amar Zidane
+sn: Zidane
+givenName: Amar
+mail: amar.zidane@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Géomaticien
+ou: informatique
+employeeNumber: son00011
+
+dn: uid=khalil.boubrit,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: khalil.boubrit
+cn: Khalil Boubrit
+sn: Boubrit
+givenName: Khalil
+mail: khalil.boubrit@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieur Télécommunications
+ou: informatique
+employeeNumber: son00012
+
+dn: uid=mira.benabdallah,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: mira.benabdallah
+cn: Mira Benabdallah
+sn: Benabdallah
+givenName: Mira
+mail: mira.benabdallah@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieure Sécurité Informatique
+ou: informatique
+employeeNumber: son00013
+
+dn: uid=fella.boudoukha,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: fella.boudoukha
+cn: Fella Boudoukha
+sn: Boudoukha
+givenName: Fella
+mail: fella.boudoukha@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Responsable Système d Information
+ou: informatique
+employeeNumber: son00014
+
+dn: uid=nora.boucherit,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: nora.boucherit
+cn: Nora Boucherit
+sn: Boucherit
+givenName: Nora
+mail: nora.boucherit@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieure Qualité Logiciel
+ou: informatique
+employeeNumber: son00015
+
+dn: uid=anouar.bouchama,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: anouar.bouchama
+cn: Anouar Bouchama
+sn: Bouchama
+givenName: Anouar
+mail: anouar.bouchama@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Administrateur Réseau
+ou: informatique
+employeeNumber: son00016
+
+dn: uid=thinhinane.ould.braham,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: thinhinane.ould.braham
+cn: Thinhinane Ould Braham
+sn: Ould Braham
+givenName: Thinhinane
+mail: thinhinane.ould.braham@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieure BI et Reporting
+ou: informatique
+description: admin
+employeeNumber: son00017
+
+dn: uid=ilyes.zeroual,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: ilyes.zeroual
+cn: Ilyes Zeroual
+sn: Zeroual
+givenName: Ilyes
+mail: ilyes.zeroual@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Développeur Backend
+ou: informatique
+employeeNumber: son00018
+
+dn: uid=liza.mezioug,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: liza.mezioug
+cn: Liza Mezioug
+sn: Mezioug
+givenName: Liza
+mail: liza.mezioug@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Administratrice Systèmes
+ou: informatique
+description: admin
+employeeNumber: son00019
+
+dn: uid=yacine.bensaad,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: yacine.bensaad
+cn: Yacine Bensaad
+sn: Bensaad
+givenName: Yacine
+mail: yacine.bensaad@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Développeur Backend
+ou: informatique
+employeeNumber: son00020
+
+dn: uid=kamel.brahimi,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: kamel.brahimi
+cn: Kamel Brahimi
+sn: Brahimi
+givenName: Kamel
+mail: kamel.brahimi@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieur Sécurité Réseau
+ou: informatique
+employeeNumber: son00021
+
+dn: uid=sabrina.khalfi,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: sabrina.khalfi
+cn: Sabrina Khalfi
+sn: Khalfi
+givenName: Sabrina
+mail: sabrina.khalfi@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Analyste SI
+ou: informatique
+employeeNumber: son00022
+
+dn: uid=billel.bensouici,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: billel.bensouici
+cn: Billel Bensouici
+sn: Bensouici
+givenName: Billel
+mail: billel.bensouici@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieur BI
+ou: informatique
+employeeNumber: son00023
+
+dn: uid=lina.belkacem,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: lina.belkacem
+cn: Lina Belkacem
+sn: Belkacem
+givenName: Lina
+mail: lina.belkacem@sonatrach.dz
+userPassword: Sonatrach2026!
+title: UX Designer
+ou: informatique
+employeeNumber: son00024
+
+dn: uid=hamid.berghout,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: hamid.berghout
+cn: Hamid Berghout
+sn: Berghout
+givenName: Hamid
+mail: hamid.berghout@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Administrateur Systèmes
+ou: informatique
+employeeNumber: son00025
+
+dn: uid=nadir.benseba,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: nadir.benseba
+cn: Nadir Benseba
+sn: Benseba
+givenName: Nadir
+mail: nadir.benseba@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Développeur ERP
+ou: informatique
+employeeNumber: son00026
+
+dn: uid=radhia.benguerna,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: radhia.benguerna
+cn: Radhia Benguerna
+sn: Benguerna
+givenName: Radhia
+mail: radhia.benguerna@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieure Système
+ou: informatique
+employeeNumber: son00027
+
+dn: uid=adlene.benkherouf,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: adlene.benkherouf
+cn: Adlene Benkherouf
+sn: Benkherouf
+givenName: Adlene
+mail: adlene.benkherouf@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Développeur Mobile
+ou: informatique
+employeeNumber: son00028
+
+dn: uid=lynda.bouzida,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: lynda.bouzida
+cn: Lynda Bouzida
+sn: Bouzida
+givenName: Lynda
+mail: lynda.bouzida@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Architecte Logiciel
+ou: informatique
+employeeNumber: son00029
+
+dn: uid=ibtissem.benterki,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: ibtissem.benterki
+cn: Ibtissem Benterki
+sn: Benterki
+givenName: Ibtissem
+mail: ibtissem.benterki@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieure Cloud
+ou: informatique
+employeeNumber: son00030
+
+# ── Comptabilité (son00031–son00047) ──────────────────
+
+dn: uid=farid.mekki,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: farid.mekki
+cn: Farid Mekki
+sn: Mekki
+givenName: Farid
+mail: farid.mekki@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Chef Comptable
+ou: comptabilite
+employeeNumber: son00031
+
+dn: uid=samira.ouali,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: samira.ouali
+cn: Samira Ouali
+sn: Ouali
+givenName: Samira
+mail: samira.ouali@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Comptable Principale
+ou: comptabilite
+employeeNumber: son00032
+
+dn: uid=omar.bensalem,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: omar.bensalem
+cn: Omar Bensalem
+sn: Bensalem
+givenName: Omar
+mail: omar.bensalem@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Contrôleur de Gestion
+ou: comptabilite
+employeeNumber: son00033
+
+dn: uid=houria.zerrouki,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: houria.zerrouki
+cn: Houria Zerrouki
+sn: Zerrouki
+givenName: Houria
+mail: houria.zerrouki@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Analyste Financière
+ou: comptabilite
+employeeNumber: son00034
+
+dn: uid=abdelkader.guemri,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: abdelkader.guemri
+cn: Abdelkader Guemri
+sn: Guemri
+givenName: Abdelkader
+mail: abdelkader.guemri@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Auditeur Interne
+ou: comptabilite
+employeeNumber: son00035
+
+dn: uid=assia.bouzid,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: assia.bouzid
+cn: Assia Bouzid
+sn: Bouzid
+givenName: Assia
+mail: assia.bouzid@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Responsable Budget
+ou: comptabilite
+employeeNumber: son00036
+
+dn: uid=mahfoud.laroui,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: mahfoud.laroui
+cn: Mahfoud Laroui
+sn: Laroui
+givenName: Mahfoud
+mail: mahfoud.laroui@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Trésorier
+ou: comptabilite
+employeeNumber: son00037
+
+dn: uid=rim.cherifi,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: rim.cherifi
+cn: Rim Cherifi
+sn: Cherifi
+givenName: Rim
+mail: rim.cherifi@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Statisticienne
+ou: comptabilite
+employeeNumber: son00038
+
+dn: uid=amira.benchikh,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: amira.benchikh
+cn: Amira Benchikh
+sn: Benchikh
+givenName: Amira
+mail: amira.benchikh@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Économiste
+ou: comptabilite
+employeeNumber: son00039
+
+dn: uid=leila.hamouche,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: leila.hamouche
+cn: Leila Hamouche
+sn: Hamouche
+givenName: Leila
+mail: leila.hamouche@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Comptable
+ou: comptabilite
+employeeNumber: son00040
+
+dn: uid=faycal.mokhtar,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: faycal.mokhtar
+cn: Faycal Mokhtar
+sn: Mokhtar
+givenName: Faycal
+mail: faycal.mokhtar@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Analyste Budgétaire
+ou: comptabilite
+employeeNumber: son00041
+
+dn: uid=djafer.mellah,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: djafer.mellah
+cn: Djafer Mellah
+sn: Mellah
+givenName: Djafer
+mail: djafer.mellah@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Contrôleur Financier
+ou: comptabilite
+employeeNumber: son00042
+
+dn: uid=charaf.benmesbah,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: charaf.benmesbah
+cn: Charaf Benmesbah
+sn: Benmesbah
+givenName: Charaf
+mail: charaf.benmesbah@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Contrôleur de Gestion
+ou: comptabilite
+employeeNumber: son00043
+
+dn: uid=karima.bensid,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: karima.bensid
+cn: Karima Bensid
+sn: Bensid
+givenName: Karima
+mail: karima.bensid@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Assistante Comptable
+ou: comptabilite
+employeeNumber: son00044
+
+dn: uid=moulay.bechiri,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: moulay.bechiri
+cn: Moulay Bechiri
+sn: Bechiri
+givenName: Moulay
+mail: moulay.bechiri@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Analyste Risques
+ou: comptabilite
+employeeNumber: son00045
+
+dn: uid=hasna.benterki,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: hasna.benterki
+cn: Hasna Benterki
+sn: Benterki
+givenName: Hasna
+mail: hasna.benterki@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Gestionnaire Trésorerie
+ou: comptabilite
+employeeNumber: son00046
+
+dn: uid=mourad.seddiki,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: mourad.seddiki
+cn: Mourad Seddiki
+sn: Seddiki
+givenName: Mourad
+mail: mourad.seddiki@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Analyste Coûts
+ou: comptabilite
+employeeNumber: son00047
+
+# ── Juridique (son00048–son00058) ─────────────────────
+
+dn: uid=sihem.benmahmoud,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: sihem.benmahmoud
+cn: Sihem Benmahmoud
+sn: Benmahmoud
+givenName: Sihem
+mail: sihem.benmahmoud@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Juriste d Entreprise
+ou: juridique
+employeeNumber: son00048
+
+dn: uid=rachid.laib,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: rachid.laib
+cn: Rachid Laib
+sn: Laib
+givenName: Rachid
+mail: rachid.laib@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Avocat Conseiller
+ou: juridique
+employeeNumber: son00049
+
+dn: uid=yasmine.gherbi,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: yasmine.gherbi
+cn: Yasmine Gherbi
+sn: Gherbi
+givenName: Yasmine
+mail: yasmine.gherbi@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Responsable Contrats
+ou: juridique
+employeeNumber: son00050
+
+dn: uid=toufik.benmansour,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: toufik.benmansour
+cn: Toufik Benmansour
+sn: Benmansour
+givenName: Toufik
+mail: toufik.benmansour@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Juriste Droit des Hydrocarbures
+ou: juridique
+employeeNumber: son00051
+
+dn: uid=ihab.menad,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: ihab.menad
+cn: Ihab Menad
+sn: Menad
+givenName: Ihab
+mail: ihab.menad@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Gestionnaire de Contrats
+ou: juridique
+employeeNumber: son00052
+
+dn: uid=ouarda.belaid,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: ouarda.belaid
+cn: Ouarda Belaid
+sn: Belaid
+givenName: Ouarda
+mail: ouarda.belaid@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Secrétaire Juridique
+ou: juridique
+employeeNumber: son00053
+
+dn: uid=farid.bensalah,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: farid.bensalah
+cn: Farid Bensalah
+sn: Bensalah
+givenName: Farid
+mail: farid.bensalah@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Juriste Contentieux
+ou: juridique
+employeeNumber: son00054
+
+dn: uid=samia.benmehdi,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: samia.benmehdi
+cn: Samia Benmehdi
+sn: Benmehdi
+givenName: Samia
+mail: samia.benmehdi@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Responsable Propriété Industrielle
+ou: juridique
+employeeNumber: son00055
+
+dn: uid=tewfik.bouziane,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: tewfik.bouziane
+cn: Tewfik Bouziane
+sn: Bouziane
+givenName: Tewfik
+mail: tewfik.bouziane@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Juriste en Droit Commercial
+ou: juridique
+employeeNumber: son00056
+
+dn: uid=siham.malek,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: siham.malek
+cn: Siham Malek
+sn: Malek
+givenName: Siham
+mail: siham.malek@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Assistante Juridique
+ou: juridique
+employeeNumber: son00057
+
+dn: uid=farouk.benmouhoub,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: farouk.benmouhoub
+cn: Farouk Benmouhoub
+sn: Benmouhoub
+givenName: Farouk
+mail: farouk.benmouhoub@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Juriste Marchés Publics
+ou: juridique
+employeeNumber: son00058
+
+# ── RH (son00059–son00072) ────────────────────────────
+
+dn: uid=naima.chikhi,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: naima.chikhi
+cn: Naima Chikhi
+sn: Chikhi
+givenName: Naima
+mail: naima.chikhi@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Responsable RH
+ou: rh
+employeeNumber: son00059
+
+dn: uid=djamel.ferhat,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: djamel.ferhat
+cn: Djamel Ferhat
+sn: Ferhat
+givenName: Djamel
+mail: djamel.ferhat@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Chargé de Recrutement
+ou: rh
+employeeNumber: son00060
+
+dn: uid=wissam.sellami,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: wissam.sellami
+cn: Wissam Sellami
+sn: Sellami
+givenName: Wissam
+mail: wissam.sellami@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Gestionnaire de Paie
+ou: rh
+employeeNumber: son00061
+
+dn: uid=rania.belouizdad,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: rania.belouizdad
+cn: Rania Belouizdad
+sn: Belouizdad
+givenName: Rania
+mail: rania.belouizdad@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Chargée de Formation
+ou: rh
+employeeNumber: son00062
+
+dn: uid=moussa.hadj,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: moussa.hadj
+cn: Moussa Hadj
+sn: Hadj
+givenName: Moussa
+mail: moussa.hadj@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Responsable Médecine du Travail
+ou: rh
+employeeNumber: son00063
+
+dn: uid=samah.benflis,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: samah.benflis
+cn: Samah Benflis
+sn: Benflis
+givenName: Samah
+mail: samah.benflis@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Psychologue du Travail
+ou: rh
+employeeNumber: son00064
+
+dn: uid=lynda.sahnoune,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: lynda.sahnoune
+cn: Lynda Sahnoune
+sn: Sahnoune
+givenName: Lynda
+mail: lynda.sahnoune@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Responsable Affaires Sociales
+ou: rh
+employeeNumber: son00065
+
+dn: uid=samya.derkaoui,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: samya.derkaoui
+cn: Samya Derkaoui
+sn: Derkaoui
+givenName: Samya
+mail: samya.derkaoui@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Gestionnaire Carrières
+ou: rh
+employeeNumber: son00066
+
+dn: uid=brahim.hamoudi,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: brahim.hamoudi
+cn: Brahim Hamoudi
+sn: Hamoudi
+givenName: Brahim
+mail: brahim.hamoudi@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Chargé Relations Sociales
+ou: rh
+employeeNumber: son00067
+
+dn: uid=assia.bendjama,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: assia.bendjama
+cn: Assia Bendjama
+sn: Bendjama
+givenName: Assia
+mail: assia.bendjama@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Coordinatrice RH
+ou: rh
+employeeNumber: son00068
+
+dn: uid=melissa.berber,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: melissa.berber
+cn: Melissa Berber
+sn: Berber
+givenName: Melissa
+mail: melissa.berber@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Chargée Développement RH
+ou: rh
+employeeNumber: son00069
+
+dn: uid=khalid.benamer,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: khalid.benamer
+cn: Khalid Benamer
+sn: Benamer
+givenName: Khalid
+mail: khalid.benamer@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Responsable Formation
+ou: rh
+employeeNumber: son00070
+
+dn: uid=rokia.adjel,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: rokia.adjel
+cn: Rokia Adjel
+sn: Adjel
+givenName: Rokia
+mail: rokia.adjel@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Assistante RH
+ou: rh
+employeeNumber: son00071
+
+dn: uid=ahmed.korichi,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: ahmed.korichi
+cn: Ahmed Korichi
+sn: Korichi
+givenName: Ahmed
+mail: ahmed.korichi@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Chargé Relations Sociales
+ou: rh
+employeeNumber: son00072
+
+# ── Technique (son00073–son00104) ─────────────────────
+
+dn: uid=bilal.hadjadj,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: bilal.hadjadj
+cn: Bilal Hadjadj
+sn: Hadjadj
+givenName: Bilal
+mail: bilal.hadjadj@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieur Forage
+ou: technique
+employeeNumber: son00073
+
+dn: uid=hamza.belarbi,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: hamza.belarbi
+cn: Hamza Belarbi
+sn: Belarbi
+givenName: Hamza
+mail: hamza.belarbi@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieur Réservoirs
+ou: technique
+employeeNumber: son00074
+
+dn: uid=imane.bouchenak,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: imane.bouchenak
+cn: Imane Bouchenak
+sn: Bouchenak
+givenName: Imane
+mail: imane.bouchenak@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieure Géologue
+ou: technique
+employeeNumber: son00075
+
+dn: uid=tarek.mebarki,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: tarek.mebarki
+cn: Tarek Mebarki
+sn: Mebarki
+givenName: Tarek
+mail: tarek.mebarki@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Technicien de Production
+ou: technique
+employeeNumber: son00076
+
+dn: uid=faisal.benkhaled,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: faisal.benkhaled
+cn: Faisal Benkhaled
+sn: Benkhaled
+givenName: Faisal
+mail: faisal.benkhaled@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieur Pipeline
+ou: technique
+employeeNumber: son00077
+
+dn: uid=amina.boukhalfa,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: amina.boukhalfa
+cn: Amina Boukhalfa
+sn: Boukhalfa
+givenName: Amina
+mail: amina.boukhalfa@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieure Chimiste
+ou: technique
+employeeNumber: son00078
+
+dn: uid=malik.boudjenah,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: malik.boudjenah
+cn: Malik Boudjenah
+sn: Boudjenah
+givenName: Malik
+mail: malik.boudjenah@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieur HSE
+ou: technique
+employeeNumber: son00079
+
+dn: uid=lamia.benyoucef,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: lamia.benyoucef
+cn: Lamia Benyoucef
+sn: Benyoucef
+givenName: Lamia
+mail: lamia.benyoucef@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Technicienne Laboratoire
+ou: technique
+employeeNumber: son00080
+
+dn: uid=nordine.khettab,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: nordine.khettab
+cn: Nordine Khettab
+sn: Khettab
+givenName: Nordine
+mail: nordine.khettab@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieur Électrique
+ou: technique
+employeeNumber: son00081
+
+dn: uid=safia.benmeddah,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: safia.benmeddah
+cn: Safia Benmeddah
+sn: Benmeddah
+givenName: Safia
+mail: safia.benmeddah@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieure Mécanique
+ou: technique
+employeeNumber: son00082
+
+dn: uid=ibrahim.hadjali,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: ibrahim.hadjali
+cn: Ibrahim Hadjali
+sn: Hadjali
+givenName: Ibrahim
+mail: ibrahim.hadjali@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieur Automatisme
+ou: technique
+employeeNumber: son00083
+
+dn: uid=lotfi.bousseba,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: lotfi.bousseba
+cn: Lotfi Bousseba
+sn: Bousseba
+givenName: Lotfi
+mail: lotfi.bousseba@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieur Procédés
+ou: technique
+employeeNumber: son00084
+
+dn: uid=abbes.touati,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: abbes.touati
+cn: Abbes Touati
+sn: Touati
+givenName: Abbes
+mail: abbes.touati@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieur Géophysicien
+ou: technique
+employeeNumber: son00085
+
+dn: uid=chaima.bouderbala,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: chaima.bouderbala
+cn: Chaima Bouderbala
+sn: Bouderbala
+givenName: Chaima
+mail: chaima.bouderbala@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieure Matériaux
+ou: technique
+employeeNumber: son00086
+
+dn: uid=yazid.nouri,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: yazid.nouri
+cn: Yazid Nouri
+sn: Nouri
+givenName: Yazid
+mail: yazid.nouri@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Technicien Topographe
+ou: technique
+employeeNumber: son00087
+
+dn: uid=redouane.settou,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: redouane.settou
+cn: Redouane Settou
+sn: Settou
+givenName: Redouane
+mail: redouane.settou@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieur Énergies Renouvelables
+ou: technique
+employeeNumber: son00088
+
+dn: uid=abdou.chibane,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: abdou.chibane
+cn: Abdou Chibane
+sn: Chibane
+givenName: Abdou
+mail: abdou.chibane@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieur Instrumentation
+ou: technique
+employeeNumber: son00089
+
+dn: uid=massinissa.zekri,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: massinissa.zekri
+cn: Massinissa Zekri
+sn: Zekri
+givenName: Massinissa
+mail: massinissa.zekri@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieur R et D
+ou: technique
+employeeNumber: son00090
+
+dn: uid=salah.habibi,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: salah.habibi
+cn: Salah Habibi
+sn: Habibi
+givenName: Salah
+mail: salah.habibi@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Chef de Chantier
+ou: technique
+employeeNumber: son00091
+
+dn: uid=youssef.amrouche,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: youssef.amrouche
+cn: Youssef Amrouche
+sn: Amrouche
+givenName: Youssef
+mail: youssef.amrouche@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieur Structures
+ou: technique
+employeeNumber: son00092
+
+dn: uid=soraya.belkacem,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: soraya.belkacem
+cn: Soraya Belkacem
+sn: Belkacem
+givenName: Soraya
+mail: soraya.belkacem@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieure Corrosion
+ou: technique
+employeeNumber: son00093
+
+dn: uid=nassim.touami,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: nassim.touami
+cn: Nassim Touami
+sn: Touami
+givenName: Nassim
+mail: nassim.touami@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieur Mécanique des Fluides
+ou: technique
+employeeNumber: son00094
+
+dn: uid=manel.ferdjallah,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: manel.ferdjallah
+cn: Manel Ferdjallah
+sn: Ferdjallah
+givenName: Manel
+mail: manel.ferdjallah@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieure Thermique
+ou: technique
+employeeNumber: son00095
+
+dn: uid=fethi.bouguerra,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: fethi.bouguerra
+cn: Fethi Bouguerra
+sn: Bouguerra
+givenName: Fethi
+mail: fethi.bouguerra@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieur Réservoirs
+ou: technique
+employeeNumber: son00096
+
+dn: uid=samir.bensalem,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: samir.bensalem
+cn: Samir Bensalem
+sn: Bensalem
+givenName: Samir
+mail: samir.bensalem@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieur Forage
+ou: technique
+employeeNumber: son00097
+
+dn: uid=abdelmadjid.belabbes,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: abdelmadjid.belabbes
+cn: Abdelmadjid Belabbes
+sn: Belabbes
+givenName: Abdelmadjid
+mail: abdelmadjid.belabbes@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieur Production Pétrolière
+ou: technique
+employeeNumber: son00098
+
+dn: uid=nadjia.ferhoune,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: nadjia.ferhoune
+cn: Nadjia Ferhoune
+sn: Ferhoune
+givenName: Nadjia
+mail: nadjia.ferhoune@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Technicienne Géologie
+ou: technique
+employeeNumber: son00099
+
+dn: uid=sami.bencherif,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: sami.bencherif
+cn: Sami Bencherif
+sn: Bencherif
+givenName: Sami
+mail: sami.bencherif@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieur Méthodes
+ou: technique
+employeeNumber: son00100
+
+dn: uid=bilel.ayad,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: bilel.ayad
+cn: Bilel Ayad
+sn: Ayad
+givenName: Bilel
+mail: bilel.ayad@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Technicien Soudage
+ou: technique
+employeeNumber: son00101
+
+dn: uid=ramzi.bouregaa,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: ramzi.bouregaa
+cn: Ramzi Bouregaa
+sn: Bouregaa
+givenName: Ramzi
+mail: ramzi.bouregaa@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Technicien Électromécanique
+ou: technique
+employeeNumber: son00102
+
+dn: uid=tahar.ziani,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: tahar.ziani
+cn: Tahar Ziani
+sn: Ziani
+givenName: Tahar
+mail: tahar.ziani@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieur Génie Civil
+ou: technique
+employeeNumber: son00103
+
+dn: uid=wafa.bensaidi,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: wafa.bensaidi
+cn: Wafa Bensaidi
+sn: Bensaidi
+givenName: Wafa
+mail: wafa.bensaidi@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Technicienne Laboratoire
+ou: technique
+employeeNumber: son00104
+
+# ── HSE (son00105–son00112) ───────────────────────────
+
+dn: uid=mustapha.bendjebbar,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: mustapha.bendjebbar
+cn: Mustapha Bendjebbar
+sn: Bendjebbar
+givenName: Mustapha
+mail: mustapha.bendjebbar@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Responsable HSE
+ou: hse
+employeeNumber: son00105
+
+dn: uid=souad.bengrina,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: souad.bengrina
+cn: Souad Bengrina
+sn: Bengrina
+givenName: Souad
+mail: souad.bengrina@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Inspectrice Sécurité
+ou: hse
+employeeNumber: son00106
+
+dn: uid=cherif.haddar,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: cherif.haddar
+cn: Cherif Haddar
+sn: Haddar
+givenName: Cherif
+mail: cherif.haddar@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Agent de Sécurité Industrielle
+ou: hse
+employeeNumber: son00107
+
+dn: uid=hicham.bousekkine,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: hicham.bousekkine
+cn: Hicham Bousekkine
+sn: Bousekkine
+givenName: Hicham
+mail: hicham.bousekkine@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Technicien HSE
+ou: hse
+employeeNumber: son00108
+
+dn: uid=asma.benabid,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: asma.benabid
+cn: Asma Benabid
+sn: Benabid
+givenName: Asma
+mail: asma.benabid@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Technicienne HSE
+ou: hse
+employeeNumber: son00109
+
+dn: uid=djillali.terki,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: djillali.terki
+cn: Djillali Terki
+sn: Terki
+givenName: Djillali
+mail: djillali.terki@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Inspecteur HSE
+ou: hse
+employeeNumber: son00110
+
+dn: uid=cyrine.boudjema,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: cyrine.boudjema
+cn: Cyrine Boudjema
+sn: Boudjema
+givenName: Cyrine
+mail: cyrine.boudjema@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieure HSE
+ou: hse
+employeeNumber: son00111
+
+dn: uid=amar.haddar,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: amar.haddar
+cn: Amar Haddar
+sn: Haddar
+givenName: Amar
+mail: amar.haddar@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Technicien Prévention
+ou: hse
+employeeNumber: son00112
+
+# ── Direction (son00113–son00120) ─────────────────────
+
+dn: uid=khaled.mabrouk,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: khaled.mabrouk
+cn: Khaled Mabrouk
+sn: Mabrouk
+givenName: Khaled
+mail: khaled.mabrouk@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Directeur de Division
+ou: direction
+employeeNumber: son00113
+
+dn: uid=djamila.boussaid,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: djamila.boussaid
+cn: Djamila Boussaid
+sn: Boussaid
+givenName: Djamila
+mail: djamila.boussaid@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Secrétaire de Direction
+ou: direction
+employeeNumber: son00114
+
+dn: uid=nabil.bencherif,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: nabil.bencherif
+cn: Nabil Bencherif
+sn: Bencherif
+givenName: Nabil
+mail: nabil.bencherif@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Chef de Cabinet
+ou: direction
+employeeNumber: son00115
+
+dn: uid=amel.tebboune,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: amel.tebboune
+cn: Amel Tebboune
+sn: Tebboune
+givenName: Amel
+mail: amel.tebboune@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Assistante de Direction
+ou: direction
+employeeNumber: son00116
+
+dn: uid=soumia.hamdani,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: soumia.hamdani
+cn: Soumia Hamdani
+sn: Hamdani
+givenName: Soumia
+mail: soumia.hamdani@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Responsable Projets
+ou: direction
+employeeNumber: son00117
+
+dn: uid=samir.boudris,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: samir.boudris
+cn: Samir Boudris
+sn: Boudris
+givenName: Samir
+mail: samir.boudris@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Conseiller de Direction
+ou: direction
+employeeNumber: son00118
+
+dn: uid=feriel.benslimane,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: feriel.benslimane
+cn: Feriel Benslimane
+sn: Benslimane
+givenName: Feriel
+mail: feriel.benslimane@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Chargée de Mission
+ou: direction
+employeeNumber: son00119
+
+dn: uid=yazid.benaissa,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: yazid.benaissa
+cn: Yazid Benaissa
+sn: Benaissa
+givenName: Yazid
+mail: yazid.benaissa@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Directeur Adjoint
+ou: direction
+employeeNumber: son00120
+
+# ── Qualité (son00121–son00129) ───────────────────────
+
+dn: uid=walid.boussouf,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: walid.boussouf
+cn: Walid Boussouf
+sn: Boussouf
+givenName: Walid
+mail: walid.boussouf@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Responsable Qualité
+ou: qualite
+employeeNumber: son00121
+
+dn: uid=ferriel.henni,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: ferriel.henni
+cn: Ferriel Henni
+sn: Henni
+givenName: Ferriel
+mail: ferriel.henni@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Auditrice Qualité
+ou: qualite
+employeeNumber: son00122
+
+dn: uid=zine.benbrahim,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: zine.benbrahim
+cn: Zine Benbrahim
+sn: Benbrahim
+givenName: Zine
+mail: zine.benbrahim@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Technicien Contrôle Qualité
+ou: qualite
+employeeNumber: son00123
+
+dn: uid=karim.makhlouf,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: karim.makhlouf
+cn: Karim Makhlouf
+sn: Makhlouf
+givenName: Karim
+mail: karim.makhlouf@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Technicien Métrologie
+ou: qualite
+employeeNumber: son00124
+
+dn: uid=loubna.bensaid,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: loubna.bensaid
+cn: Loubna Bensaid
+sn: Bensaid
+givenName: Loubna
+mail: loubna.bensaid@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieure Qualité
+ou: qualite
+employeeNumber: son00125
+
+dn: uid=anis.zergane,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: anis.zergane
+cn: Anis Zergane
+sn: Zergane
+givenName: Anis
+mail: anis.zergane@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Auditeur Qualité
+ou: qualite
+employeeNumber: son00126
+
+dn: uid=mehdia.bounoua,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: mehdia.bounoua
+cn: Mehdia Bounoua
+sn: Bounoua
+givenName: Mehdia
+mail: mehdia.bounoua@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieure Processus
+ou: qualite
+employeeNumber: son00127
+
+dn: uid=lotfi.bensaid,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: lotfi.bensaid
+cn: Lotfi Bensaid
+sn: Bensaid
+givenName: Lotfi
+mail: lotfi.bensaid@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Technicien Qualité
+ou: qualite
+employeeNumber: son00128
+
+dn: uid=nassim.berber,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: nassim.berber
+cn: Nassim Berber
+sn: Berber
+givenName: Nassim
+mail: nassim.berber@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Technicien Conformité
+ou: qualite
+employeeNumber: son00129
+
+# ── Commercial (son00130–son00140) ────────────────────
+
+dn: uid=ines.haouam,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: ines.haouam
+cn: Ines Haouam
+sn: Haouam
+givenName: Ines
+mail: ines.haouam@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Chargée d Affaires Commerciales
+ou: commercial
+employeeNumber: son00130
+
+dn: uid=mourad.dahmane,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: mourad.dahmane
+cn: Mourad Dahmane
+sn: Dahmane
+givenName: Mourad
+mail: mourad.dahmane@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Responsable Export
+ou: commercial
+employeeNumber: son00131
+
+dn: uid=sonia.necib,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: sonia.necib
+cn: Sonia Necib
+sn: Necib
+givenName: Sonia
+mail: sonia.necib@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Analyste Marché
+ou: commercial
+employeeNumber: son00132
+
+dn: uid=raouf.benmahdi,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: raouf.benmahdi
+cn: Raouf Benmahdi
+sn: Benmahdi
+givenName: Raouf
+mail: raouf.benmahdi@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Commercial Terrain
+ou: commercial
+employeeNumber: son00133
+
+dn: uid=khadidja.bencherki,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: khadidja.bencherki
+cn: Khadidja Bencherki
+sn: Bencherki
+givenName: Khadidja
+mail: khadidja.bencherki@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Analyste CRM
+ou: commercial
+employeeNumber: son00134
+
+dn: uid=nourredine.bensabeur,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: nourredine.bensabeur
+cn: Nourredine Bensabeur
+sn: Bensabeur
+givenName: Nourredine
+mail: nourredine.bensabeur@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Responsable Contrats Commerciaux
+ou: commercial
+employeeNumber: son00135
+
+dn: uid=rima.benmouhoub,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: rima.benmouhoub
+cn: Rima Benmouhoub
+sn: Benmouhoub
+givenName: Rima
+mail: rima.benmouhoub@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Commerciale
+ou: commercial
+employeeNumber: son00136
+
+dn: uid=zhour.hamidane,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: zhour.hamidane
+cn: Zhour Hamidane
+sn: Hamidane
+givenName: Zhour
+mail: zhour.hamidane@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Chargée Marketing
+ou: commercial
+employeeNumber: son00137
+
+dn: uid=arezki.benali,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: arezki.benali
+cn: Arezki Benali
+sn: Benali
+givenName: Arezki
+mail: arezki.benali@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Chargé Partenariats
+ou: commercial
+employeeNumber: son00138
+
+dn: uid=karim.ferhat,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: karim.ferhat
+cn: Karim Ferhat
+sn: Ferhat
+givenName: Karim
+mail: karim.ferhat@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Chargé Développement Commercial
+ou: commercial
+employeeNumber: son00139
+
+dn: uid=samia.bouazza,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: samia.bouazza
+cn: Samia Bouazza
+sn: Bouazza
+givenName: Samia
+mail: samia.bouazza@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Analyste Contrats
+ou: commercial
+employeeNumber: son00140
+
+# ── Maintenance (son00141–son00151) ───────────────────
+
+dn: uid=adel.benkara,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: adel.benkara
+cn: Adel Benkara
+sn: Benkara
+givenName: Adel
+mail: adel.benkara@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Chef de Maintenance
+ou: maintenance
+employeeNumber: son00141
+
+dn: uid=abd.elaziz.boughazi,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: abd.elaziz.boughazi
+cn: Abd Elaziz Boughazi
+sn: Boughazi
+givenName: Abd Elaziz
+mail: abd.elaziz.boughazi@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Technicien Maintenance Électrique
+ou: maintenance
+employeeNumber: son00142
+
+dn: uid=nassima.chaker,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: nassima.chaker
+cn: Nassima Chaker
+sn: Chaker
+givenName: Nassima
+mail: nassima.chaker@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Planificatrice Maintenance
+ou: maintenance
+employeeNumber: son00143
+
+dn: uid=said.guerroum,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: said.guerroum
+cn: Said Guerroum
+sn: Guerroum
+givenName: Said
+mail: said.guerroum@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Technicien Instrumentation
+ou: maintenance
+employeeNumber: son00144
+
+dn: uid=billel.djaballah,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: billel.djaballah
+cn: Billel Djaballah
+sn: Djaballah
+givenName: Billel
+mail: billel.djaballah@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Technicien Mécanique
+ou: maintenance
+employeeNumber: son00145
+
+dn: uid=miloud.benzerari,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: miloud.benzerari
+cn: Miloud Benzerari
+sn: Benzerari
+givenName: Miloud
+mail: miloud.benzerari@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Technicien Hydraulique
+ou: maintenance
+employeeNumber: son00146
+
+dn: uid=abdelhamid.meziane,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: abdelhamid.meziane
+cn: Abdelhamid Meziane
+sn: Meziane
+givenName: Abdelhamid
+mail: abdelhamid.meziane@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Chef Équipe Maintenance
+ou: maintenance
+employeeNumber: son00147
+
+dn: uid=walid.benzerga,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: walid.benzerga
+cn: Walid Benzerga
+sn: Benzerga
+givenName: Walid
+mail: walid.benzerga@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Agent Maintenance
+ou: maintenance
+employeeNumber: son00148
+
+dn: uid=abdelkrim.boudissa,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: abdelkrim.boudissa
+cn: Abdelkrim Boudissa
+sn: Boudissa
+givenName: Abdelkrim
+mail: abdelkrim.boudissa@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Technicien Soudage
+ou: maintenance
+employeeNumber: son00149
+
+dn: uid=najla.bencherif,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: najla.bencherif
+cn: Najla Bencherif
+sn: Bencherif
+givenName: Najla
+mail: najla.bencherif@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Assistante Maintenance
+ou: maintenance
+employeeNumber: son00150
+
+dn: uid=fatiha.bensalem,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: fatiha.bensalem
+cn: Fatiha Bensalem
+sn: Bensalem
+givenName: Fatiha
+mail: fatiha.bensalem@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Planificatrice Travaux
+ou: maintenance
+employeeNumber: son00151
+
+# ── Environnement (son00152–son00157) ─────────────────
+
+dn: uid=kahina.ait.ali,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: kahina.ait.ali
+cn: Kahina Ait Ali
+sn: Ait Ali
+givenName: Kahina
+mail: kahina.ait.ali@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieure Environnement
+ou: environnement
+employeeNumber: son00152
+
+dn: uid=fouad.guelmine,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: fouad.guelmine
+cn: Fouad Guelmine
+sn: Guelmine
+givenName: Fouad
+mail: fouad.guelmine@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Chargé Études Environnementales
+ou: environnement
+employeeNumber: son00153
+
+dn: uid=slimane.djebbar,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: slimane.djebbar
+cn: Slimane Djebbar
+sn: Djebbar
+givenName: Slimane
+mail: slimane.djebbar@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieur Traitement des Eaux
+ou: environnement
+employeeNumber: son00154
+
+dn: uid=malika.benguella,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: malika.benguella
+cn: Malika Benguella
+sn: Benguella
+givenName: Malika
+mail: malika.benguella@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Technicienne Environnement
+ou: environnement
+employeeNumber: son00155
+
+dn: uid=hana.bouakaz,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: hana.bouakaz
+cn: Hana Bouakaz
+sn: Bouakaz
+givenName: Hana
+mail: hana.bouakaz@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Technicienne Environnement
+ou: environnement
+employeeNumber: son00156
+
+dn: uid=rabah.boukhors,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: rabah.boukhors
+cn: Rabah Boukhors
+sn: Boukhors
+givenName: Rabah
+mail: rabah.boukhors@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Expert Impact Environnemental
+ou: environnement
+employeeNumber: son00157
+
+# ── Exploitation (son00158–son00168) ──────────────────
+
+dn: uid=mehdi.boucetta,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: mehdi.boucetta
+cn: Mehdi Boucetta
+sn: Boucetta
+givenName: Mehdi
+mail: mehdi.boucetta@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Superviseur de Production
+ou: exploitation
+employeeNumber: son00158
+
+dn: uid=ghania.rezig,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: ghania.rezig
+cn: Ghania Rezig
+sn: Rezig
+givenName: Ghania
+mail: ghania.rezig@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Opératrice de Contrôle
+ou: exploitation
+employeeNumber: son00159
+
+dn: uid=salim.mezrag,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: salim.mezrag
+cn: Salim Mezrag
+sn: Mezrag
+givenName: Salim
+mail: salim.mezrag@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Technicien de Conduite
+ou: exploitation
+employeeNumber: son00160
+
+dn: uid=lila.benzerga,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: lila.benzerga
+cn: Lila Benzerga
+sn: Benzerga
+givenName: Lila
+mail: lila.benzerga@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Ingénieure Production
+ou: exploitation
+employeeNumber: son00161
+
+dn: uid=wassim.bouchaala,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: wassim.bouchaala
+cn: Wassim Bouchaala
+sn: Bouchaala
+givenName: Wassim
+mail: wassim.bouchaala@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Opérateur Salle de Contrôle
+ou: exploitation
+employeeNumber: son00162
+
+dn: uid=noureddine.hamzaoui,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: noureddine.hamzaoui
+cn: Noureddine Hamzaoui
+sn: Hamzaoui
+givenName: Noureddine
+mail: noureddine.hamzaoui@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Opérateur Production
+ou: exploitation
+employeeNumber: son00163
+
+dn: uid=souhila.bensaada,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: souhila.bensaada
+cn: Souhila Bensaada
+sn: Bensaada
+givenName: Souhila
+mail: souhila.bensaada@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Technicienne de Conduite
+ou: exploitation
+employeeNumber: son00164
+
+dn: uid=tarek.benbrahim,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: tarek.benbrahim
+cn: Tarek Benbrahim
+sn: Benbrahim
+givenName: Tarek
+mail: tarek.benbrahim@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Technicien Exploitation
+ou: exploitation
+employeeNumber: son00165
+
+dn: uid=yassine.benzerroug,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: yassine.benzerroug
+cn: Yassine Benzerroug
+sn: Benzerroug
+givenName: Yassine
+mail: yassine.benzerroug@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Technicien Mesures
+ou: exploitation
+employeeNumber: son00166
+
+dn: uid=karima.mebarki,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: karima.mebarki
+cn: Karima Mebarki
+sn: Mebarki
+givenName: Karima
+mail: karima.mebarki@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Opératrice Terrain
+ou: exploitation
+employeeNumber: son00167
+
+dn: uid=djelloul.amokrane,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: djelloul.amokrane
+cn: Djelloul Amokrane
+sn: Amokrane
+givenName: Djelloul
+mail: djelloul.amokrane@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Superviseur de Nuit
+ou: exploitation
+employeeNumber: son00168
+
+# ── Achats (son00169–son00180) ────────────────────────
+
+dn: uid=abderrahmane.kaci,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: abderrahmane.kaci
+cn: Abderrahmane Kaci
+sn: Kaci
+givenName: Abderrahmane
+mail: abderrahmane.kaci@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Responsable Achats
+ou: achats
+employeeNumber: son00169
+
+dn: uid=hanane.belhadj,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: hanane.belhadj
+cn: Hanane Belhadj
+sn: Belhadj
+givenName: Hanane
+mail: hanane.belhadj@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Acheteur Senior
+ou: achats
+employeeNumber: son00170
+
+dn: uid=sami.benseghir,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: sami.benseghir
+cn: Sami Benseghir
+sn: Benseghir
+givenName: Sami
+mail: sami.benseghir@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Gestionnaire Stocks
+ou: achats
+employeeNumber: son00171
+
+dn: uid=fatima.medjdoub,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: fatima.medjdoub
+cn: Fatima Medjdoub
+sn: Medjdoub
+givenName: Fatima
+mail: fatima.medjdoub@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Responsable Logistique
+ou: achats
+employeeNumber: son00172
+
+dn: uid=dalila.benbouzid,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: dalila.benbouzid
+cn: Dalila Benbouzid
+sn: Benbouzid
+givenName: Dalila
+mail: dalila.benbouzid@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Chargée des Marchés Publics
+ou: achats
+employeeNumber: son00173
+
+dn: uid=aziz.benhamouda,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: aziz.benhamouda
+cn: Aziz Benhamouda
+sn: Benhamouda
+givenName: Aziz
+mail: aziz.benhamouda@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Acheteur Équipements
+ou: achats
+employeeNumber: son00174
+
+dn: uid=naziha.benbella,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: naziha.benbella
+cn: Naziha Benbella
+sn: Benbella
+givenName: Naziha
+mail: naziha.benbella@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Gestionnaire Fournisseurs
+ou: achats
+employeeNumber: son00175
+
+dn: uid=sofiane.tahiri,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: sofiane.tahiri
+cn: Sofiane Tahiri
+sn: Tahiri
+givenName: Sofiane
+mail: sofiane.tahiri@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Responsable Contrats Achats
+ou: achats
+employeeNumber: son00176
+
+dn: uid=ahmed.bendjeddou,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: ahmed.bendjeddou
+cn: Ahmed Bendjeddou
+sn: Bendjeddou
+givenName: Ahmed
+mail: ahmed.bendjeddou@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Agent Approvisionnement
+ou: achats
+employeeNumber: son00177
+
+dn: uid=sarah.guermat,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: sarah.guermat
+cn: Sarah Guermat
+sn: Guermat
+givenName: Sarah
+mail: sarah.guermat@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Technicienne Achats
+ou: achats
+employeeNumber: son00178
+
+dn: uid=nadia.benkhaled,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: nadia.benkhaled
+cn: Nadia Benkhaled
+sn: Benkhaled
+givenName: Nadia
+mail: nadia.benkhaled@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Acheteuse Junior
+ou: achats
+employeeNumber: son00179
+
+dn: uid=amar.benchikh,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: amar.benchikh
+cn: Amar Benchikh
+sn: Benchikh
+givenName: Amar
+mail: amar.benchikh@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Agent Approvisionnement
+ou: achats
+employeeNumber: son00180
+
+# ── Communication (son00181–son00189) ─────────────────
+
+dn: uid=linda.meziani,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: linda.meziani
+cn: Linda Meziani
+sn: Meziani
+givenName: Linda
+mail: linda.meziani@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Chargée de Communication
+ou: communication
+employeeNumber: son00181
+
+dn: uid=hocine.djaballah,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: hocine.djaballah
+cn: Hocine Djaballah
+sn: Djaballah
+givenName: Hocine
+mail: hocine.djaballah@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Responsable Relations Publiques
+ou: communication
+employeeNumber: son00182
+
+dn: uid=zineb.aouadi,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: zineb.aouadi
+cn: Zineb Aouadi
+sn: Aouadi
+givenName: Zineb
+mail: zineb.aouadi@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Traductrice
+ou: communication
+employeeNumber: son00183
+
+dn: uid=selma.bezirki,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: selma.bezirki
+cn: Selma Bezirki
+sn: Bezirki
+givenName: Selma
+mail: selma.bezirki@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Chargée Réseaux Sociaux
+ou: communication
+employeeNumber: son00184
+
+dn: uid=hamza.benmansour,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: hamza.benmansour
+cn: Hamza Benmansour
+sn: Benmansour
+givenName: Hamza
+mail: hamza.benmansour@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Chargé Médias
+ou: communication
+employeeNumber: son00185
+
+dn: uid=imene.bensoussan,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: imene.bensoussan
+cn: Imene Bensoussan
+sn: Bensoussan
+givenName: Imene
+mail: imene.bensoussan@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Webmaster
+ou: communication
+employeeNumber: son00186
+
+dn: uid=mehdi.boufelja,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: mehdi.boufelja
+cn: Mehdi Boufelja
+sn: Boufelja
+givenName: Mehdi
+mail: mehdi.boufelja@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Chargé Communication Interne
+ou: communication
+employeeNumber: son00187
+
+dn: uid=nawal.bouazza,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: nawal.bouazza
+cn: Nawal Bouazza
+sn: Bouazza
+givenName: Nawal
+mail: nawal.bouazza@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Chargée Relations Institutionnelles
+ou: communication
+employeeNumber: son00188
+
+dn: uid=yacine.boudissa,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: yacine.boudissa
+cn: Yacine Boudissa
+sn: Boudissa
+givenName: Yacine
+mail: yacine.boudissa@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Agent Communication
+ou: communication
+employeeNumber: son00189
+
+# ── Administration (son00190–son00200) ────────────────
+
+dn: uid=nabila.bettache,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: nabila.bettache
+cn: Nabila Bettache
+sn: Bettache
+givenName: Nabila
+mail: nabila.bettache@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Archiviste
+ou: administration
+employeeNumber: son00190
+
+dn: uid=kheireddine.moufok,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: kheireddine.moufok
+cn: Kheireddine Moufok
+sn: Moufok
+givenName: Kheireddine
+mail: kheireddine.moufok@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Chargé des Moyens Généraux
+ou: administration
+employeeNumber: son00191
+
+dn: uid=hadjer.boualem,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: hadjer.boualem
+cn: Hadjer Boualem
+sn: Boualem
+givenName: Hadjer
+mail: hadjer.boualem@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Documentaliste
+ou: administration
+employeeNumber: son00192
+
+dn: uid=rafik.belmahi,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: rafik.belmahi
+cn: Rafik Belmahi
+sn: Belmahi
+givenName: Rafik
+mail: rafik.belmahi@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Planificateur Stratégique
+ou: administration
+employeeNumber: son00193
+
+dn: uid=cylia.saadi,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: cylia.saadi
+cn: Cylia Saadi
+sn: Saadi
+givenName: Cylia
+mail: cylia.saadi@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Assistante Administrative
+ou: administration
+employeeNumber: son00194
+
+dn: uid=abdelaziz.belhadj,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: abdelaziz.belhadj
+cn: Abdelaziz Belhadj
+sn: Belhadj
+givenName: Abdelaziz
+mail: abdelaziz.belhadj@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Responsable Courrier
+ou: administration
+employeeNumber: son00195
+
+dn: uid=hanifa.bencheikh,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: hanifa.bencheikh
+cn: Hanifa Bencheikh
+sn: Bencheikh
+givenName: Hanifa
+mail: hanifa.bencheikh@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Secrétaire Administrative
+ou: administration
+employeeNumber: son00196
+
+dn: uid=rachida.bendjelloul,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: rachida.bendjelloul
+cn: Rachida Bendjelloul
+sn: Bendjelloul
+givenName: Rachida
+mail: rachida.bendjelloul@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Chargée Protocole
+ou: administration
+employeeNumber: son00197
+
+dn: uid=bouchra.benali,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: bouchra.benali
+cn: Bouchra Benali
+sn: Benali
+givenName: Bouchra
+mail: bouchra.benali@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Assistante de Gestion
+ou: administration
+employeeNumber: son00198
+
+dn: uid=randa.ferhat,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: randa.ferhat
+cn: Randa Ferhat
+sn: Ferhat
+givenName: Randa
+mail: randa.ferhat@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Documentaliste
+ou: administration
+employeeNumber: son00199
+
+dn: uid=murad.bensalah,ou=people,dc=sonatrach,dc=test
+objectClass: inetOrgPerson
+uid: murad.bensalah
+cn: Murad Bensalah
+sn: Bensalah
+givenName: Murad
+mail: murad.bensalah@sonatrach.dz
+userPassword: Sonatrach2026!
+title: Chargé Sécurité Bâtiments
+ou: administration
+employeeNumber: son00200
