@@ -76,62 +76,97 @@ class RAGManager:
 
     def _load_json_collections(self):
         """
-        Charge UNIQUEMENT les fichiers *_2levels_cleaned.json depuis extract/app/json/.
-        Chaque fichier = une collection Qdrant. Pas de doublons.
-        Naming convention :
-            extract        →  {slug}_2level.json
-            après cleaning →  {slug}_2levels_cleaned.json   ← seul fichier indexé
-            collection     →  {slug}_2levels_cleaned
+        Au démarrage :
+          1. Indexe les manuels  → *_2levels_cleaned.json dans extract/app/json/
+          2. Indexe les FAQ      → *.json dans extract/app/faq/
+             Résolution de collection par priorité :
+               a. {slug}_2levels_cleaned existe → merge dans la collection manuel
+               b. {slug} existe                 → réutilise
+               c. Sinon                         → crée {slug} directement dans qdrant_data
         """
-        if not EXTRACT_JSON_DIR.exists():
-            print(f"   ⚠️  Dossier JSON introuvable: {EXTRACT_JSON_DIR}")
-            return
+        # ── Manuels ───────────────────────────────────────────────────
+        if EXTRACT_JSON_DIR.exists():
+            json_files = sorted(
+                glob.glob(os.path.join(str(EXTRACT_JSON_DIR), "*_2levels_cleaned.json"))
+            )
+            if json_files:
+                print(f"   📂 {len(json_files)} manuel(s) _2levels_cleaned.json trouvé(s)")
+            for jf in json_files:
+                try:
+                    cname = Path(jf).stem.replace(" ", "_").replace("-", "_")
+                    with open(jf, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                    sections = data["sections"] if isinstance(data, dict) and "sections" in data else data
+                    if not isinstance(sections, list):
+                        print(f"   ⚠️  {cname}: format inattendu")
+                        continue
+                    existing    = self.vector_db.collection_exists(cname)
+                    point_count = self.vector_db.collection_point_count(cname) if existing else 0
+                    if existing and point_count > 0:
+                        print(f"   ✅ Manuel {cname} (déjà indexé: {point_count} points)")
+                    else:
+                        if existing and point_count == 0:
+                            try: self.vector_db.drop_collection(cname)
+                            except Exception: pass
+                        print(f"   🔄 Indexation manuel {cname}...")
+                        self._index_collection(cname, sections)
+                        print(f"   ✅ Manuel {cname} indexé")
+                except Exception as e:
+                    print(f"   ❌ Erreur manuel {jf}: {e}")
+        else:
+            print(f"   ⚠️  Dossier JSON manuels introuvable: {EXTRACT_JSON_DIR}")
 
-        # ✅ Uniquement les fichiers *_2levels_cleaned.json
-        json_files = sorted(
-            glob.glob(os.path.join(str(EXTRACT_JSON_DIR), "*_2levels_cleaned.json"))
-        )
+        # ── FAQ ───────────────────────────────────────────────────────
+        if EXTRACT_FAQ_DIR.exists():
+            faq_files = sorted(EXTRACT_FAQ_DIR.glob("*.json"))
+            if faq_files:
+                print(f"   📂 {len(faq_files)} FAQ trouvée(s)")
+            for faq_file in faq_files:
+                try:
+                    app_slug = faq_file.stem  # ex: "parc_auto", "excel"
 
-        if not json_files:
-            print(f"   ⚠️  Aucun fichier *_2levels_cleaned.json trouvé dans {EXTRACT_JSON_DIR}")
-            return
+                    with open(faq_file, "r", encoding="utf-8") as f:
+                        data = json.load(f)
 
-        print(f"   📂 {len(json_files)} fichier(s) _2levels_cleaned.json trouvé(s)")
+                    items = data.get("items") if isinstance(data, dict) else data
+                    items = items if isinstance(items, list) else []
 
-        for jf in json_files:
-            try:
-                # Nom de collection = stem du fichier, espaces/tirets → _
-                # ex: mon_app_2levels_cleaned.json → collection "mon_app_2levels_cleaned"
-                cname = Path(jf).stem.replace(" ", "_").replace("-", "_")
+                    if not items:
+                        print(f"   ⚠️  FAQ {app_slug}: aucun item")
+                        continue
 
-                with open(jf, "r", encoding="utf-8") as f:
-                    data = json.load(f)
+                    # Résolution de la collection cible
+                    collection_name = _resolve_faq_collection(app_slug, self.vector_db)
+                    merged = collection_name.endswith("_2levels_cleaned")
 
-                sections = data["sections"] if isinstance(data, dict) and "sections" in data else data
-                if not isinstance(sections, list):
-                    print(f"   ⚠️  {cname}: format inattendu (pas une liste)")
-                    continue
+                    sections = _faq_items_to_sections(app_slug, items)
 
-                existing = self.vector_db.collection_exists(cname)
-                point_count = self.vector_db.collection_point_count(cname) if existing else 0
+                    if merged:
+                        # Vérifier si les items FAQ sont déjà présents (par source_type)
+                        # On ne peut pas facilement compter par type, donc on upsert toujours
+                        print(f"   🔗 FAQ {app_slug} → merge dans '{collection_name}'")
+                        self._upsert_faq_into_collection(collection_name, sections)
+                        print(f"   ✅ FAQ {app_slug} mergée dans '{collection_name}'")
+                    else:
+                        existing    = self.vector_db.collection_exists(collection_name)
+                        point_count = self.vector_db.collection_point_count(collection_name) if existing else 0
+                        if existing and point_count > 0:
+                            print(f"   ✅ FAQ {app_slug} (déjà indexée: {point_count} points dans '{collection_name}')")
+                        else:
+                            if existing and point_count == 0:
+                                try: self.vector_db.drop_collection(collection_name)
+                                except Exception: pass
+                            print(f"   🔄 Indexation FAQ {app_slug} → '{collection_name}'...")
+                            self._index_collection(collection_name, sections)
+                            print(f"   ✅ FAQ {app_slug} indexée dans '{collection_name}' ({len(sections)} items)")
 
-                if existing and point_count > 0:
-                    print(f"   ✅ {cname} (déjà indexé: {point_count} point(s))")
-                else:
-                    if existing and point_count == 0:
-                        print(f"   ⚠️  {cname} existe mais est vide → réindexation")
-                        try:
-                            self.vector_db.drop_collection(cname)
-                        except Exception:
-                            pass
-                    print(f"   🔄 Indexation de {cname}...")
-                    self._index_collection(cname, sections)
-                    print(f"   ✅ {cname} indexé")
-
-            except Exception as e:
-                print(f"   ❌ Erreur sur {jf}: {e}")
+                except Exception as e:
+                    print(f"   ❌ Erreur FAQ {faq_file}: {e}")
+        else:
+            print(f"   ℹ️  Dossier FAQ introuvable: {EXTRACT_FAQ_DIR}")
 
     def _index_collection(self, name: str, sections: list):
+        """Crée et indexe une collection Qdrant depuis zéro."""
         chunker    = Chunker(self.config)
         chunks     = chunker.process_sections(sections)
         if not chunks:
@@ -140,12 +175,25 @@ class RAGManager:
         embeddings = self.embedder.encode(texts)
         records    = [{"id": c["id"], "dense": vec, "payload": c.copy()} for c, vec in zip(chunks, embeddings)]
         if not self.vector_db.collection_exists(name):
-            # Stocké dans : qdrant_data/collection/{name}
             self.vector_db.create_collection(name=name, dim=1024)
         self.vector_db.upsert(name=name, records=records)
 
+    def _upsert_faq_into_collection(self, collection_name: str, sections: list):
+        """
+        Ajoute/met à jour les items FAQ dans une collection existante (manuel)
+        sans vider son contenu.
+        """
+        chunker    = Chunker(self.config)
+        chunks     = chunker.process_sections(sections)
+        if not chunks:
+            raise ValueError(f"Aucun chunk FAQ généré pour '{collection_name}'")
+        texts      = [c["embed_text"] for c in chunks]
+        embeddings = self.embedder.encode(texts)
+        records    = [{"id": c["id"], "dense": vec, "payload": c.copy()} for c, vec in zip(chunks, embeddings)]
+        # La collection existe déjà, on upsert sans drop
+        self.vector_db.upsert(name=collection_name, records=records)
+
     def get_available_collections(self) -> list:
-        """Retourne la liste des collections disponibles dans Qdrant."""
         if not self.initialized or not self.vector_db:
             return []
         try:
@@ -155,24 +203,24 @@ class RAGManager:
 
     def resolve_collection(self, requested: str) -> str | None:
         """
-        Résout le nom de collection demandé.
-        Retourne le nom exact si trouvé, sinon None.
+        Résout le nom de collection :
+          1. Correspondance exacte
+          2. Insensible à la casse + normalisation
+          3. Fallback : préfixe d'une collection _2levels_cleaned (manuels)
         """
         available = self.get_available_collections()
         if not available:
             return None
 
-        # Correspondance exacte
         if requested in available:
             return requested
 
-        # Correspondance insensible à la casse + normalisation
         req_norm = requested.lower().replace("-", "_").replace(" ", "_")
         for col in available:
             if col.lower().replace("-", "_") == req_norm:
                 return col
 
-        # Fallback : cherche si le nom demandé est un préfixe d'une collection _2levels_cleaned
+        # Fallback manuels : "excel" peut résoudre "excel_2levels_cleaned"
         for col in available:
             if col.endswith("_2levels_cleaned") and col.startswith(req_norm):
                 return col
@@ -180,13 +228,99 @@ class RAGManager:
         return None
 
 
+# ─────────────────────────────────────────────────────────────────────
+# Helpers globaux
+# ─────────────────────────────────────────────────────────────────────
+
+def _resolve_faq_collection(app_slug: str, vector_db) -> str:
+    """
+    Résout la collection Qdrant cible pour une FAQ (utilisé au démarrage
+    et dans les routes FAQ).
+
+    Priorité :
+      1. {slug}_2levels_cleaned existe  → merge dans le manuel
+      2. {slug} existe déjà             → réutilise
+      3. Sinon                          → nouvelle collection {slug}
+         (créée directement dans qdrant_data, PAS de sous-dossier)
+    """
+    try:
+        available = vector_db.list_collections()
+    except Exception:
+        return app_slug
+
+    # Priorité 1 : collection manuel correspondante
+    manual_coll = f"{app_slug}_2levels_cleaned"
+    if manual_coll in available:
+        return manual_coll
+
+    # Priorité 2 : collection FAQ déjà existante
+    if app_slug in available:
+        return app_slug
+
+    # Priorité 3 : nouvelle collection
+    return app_slug
+
+
+def _faq_items_to_sections(app_slug: str, items: list) -> list:
+    """
+    Convertit une liste d'items FAQ en sections pour le Chunker.
+    """
+    sections = []
+    for i, item in enumerate(items):
+        if not isinstance(item, dict):
+            continue
+
+        problem = (
+            item.get("problem")
+            or item.get("question")
+            or item.get("q")
+            or ""
+        )
+        answer = (
+            item.get("answer")
+            or item.get("a")
+            or item.get("content")
+            or ""
+        )
+
+        if not problem or not answer:
+            continue
+
+        section_id = (
+            item.get("section_id")
+            or item.get("id")
+            or f"faq_{app_slug}_{i}"
+        )
+
+        full_text = item.get("full_text") or f"problem: {problem}\nanswer: {answer}"
+
+        sections.append({
+            "id":          section_id,
+            "section_id":  section_id,
+            "problem":     problem,
+            "content":     answer,
+            "full_text":   full_text,
+            "embed_text":  full_text,
+            "source_type": "faq",
+            "source":      item.get("source") or "",
+            "title":       item.get("title") or "",
+            "applies_to":  item.get("applies_to") or "",
+            "app":         app_slug,
+        })
+    return sections
+
+
+# ─────────────────────────────────────────────────────────────────────
+# Initialisation
+# ─────────────────────────────────────────────────────────────────────
+
 rag_manager = RAGManager()
 
-# FAQ manager (lazy import to avoid circular imports)
 try:
     from faq_manager import FAQManager
     faq_manager = FAQManager(PROJECT_ROOT, rag_manager)
-except Exception:
+except Exception as e:
+    print(f"⚠️  FAQManager non disponible: {e}")
     faq_manager = None
 
 
@@ -237,13 +371,12 @@ async def websocket_chat(websocket: WebSocket):
         await websocket.close()
         return
 
-    # ── Résolution de la collection ───────────────────────────────────
     collection = rag_manager.resolve_collection(requested_collection)
     if collection is None:
         available = rag_manager.get_available_collections()
         await websocket.send_json({
-            "type": "error",
-            "error": f"Collection '{requested_collection}' introuvable. Disponibles: {available}"
+            "type":  "error",
+            "error": f"Collection '{requested_collection}' introuvable. Disponibles: {available}",
         })
         await websocket.close()
         return
@@ -260,16 +393,13 @@ async def websocket_chat(websocket: WebSocket):
         try:
             session_id = f"{user_id}:{collection}:session"
             rag_manager.assistant.config.setdefault("assistant", {})["max_turns"] = max_turns
-
             for item in rag_manager.assistant.chat(
                 session_id=session_id,
                 query=message,
                 app_id=collection,
             ):
                 asyncio.run_coroutine_threadsafe(queue.put(item), loop)
-
             asyncio.run_coroutine_threadsafe(queue.put(None), loop)
-
         except Exception as e:
             asyncio.run_coroutine_threadsafe(queue.put({"__error__": str(e)}), loop)
 
@@ -278,23 +408,18 @@ async def websocket_chat(websocket: WebSocket):
     try:
         while True:
             item = await queue.get()
-
             if item is None:
                 await websocket.send_json({"type": "done", "sources": []})
                 break
-
             if isinstance(item, dict) and "__error__" in item:
                 await websocket.send_json({"type": "error", "error": item["__error__"]})
                 break
-
             if isinstance(item, dict) and item.get("done"):
                 await websocket.send_json({"type": "done", "sources": item.get("sources", [])})
                 break
-
             token = item if isinstance(item, str) else str(item)
             if token:
                 await websocket.send_json({"type": "token", "text": token})
-
     except WebSocketDisconnect:
         return
     except Exception as e:
@@ -308,7 +433,7 @@ async def websocket_chat(websocket: WebSocket):
 
 
 # ─────────────────────────────────────────────────────────────────────
-# REST endpoints
+# REST — Health & Collections
 # ─────────────────────────────────────────────────────────────────────
 
 @app.get("/health")
@@ -320,16 +445,135 @@ def health():
     }
 
 
-@app.post("/api/admin/faq/upload")
-async def api_admin_faq_upload(request: Request):
-    """Upload d'un JSON FAQ pour une application puis indexation automatique.
-    Body JSON: { "app": "app_slug", "items": [ {"question":"...","answer":"..."}, ... ] }
+@app.get("/api/collections")
+def api_collections():
+    return {"collections": rag_manager.get_available_collections()}
+
+
+# ─────────────────────────────────────────────────────────────────────
+# REST — Indexation manuels
+# ─────────────────────────────────────────────────────────────────────
+
+@app.post("/api/index")
+async def api_index(request: Request):
+    """
+    Indexation d'un manuel nettoyé.
+    Body : { "json_path": "…_2levels_cleaned.json", "collection": "…_2levels_cleaned" }
+    """
+    if not rag_manager.initialized:
+        return JSONResponse(status_code=503, content={"error": "RAG non prêt"})
+    try:
+        data = await request.json()
+    except Exception:
+        return JSONResponse(status_code=400, content={"error": "JSON requis"})
+
+    json_path  = (data.get("json_path")  or "").strip()
+    collection = (data.get("collection") or "").strip()
+
+    if not json_path or not collection:
+        return JSONResponse(status_code=400, content={"error": "json_path et collection requis"})
+
+    p = Path(json_path)
+    if not p.name.endswith("_2levels_cleaned.json"):
+        return JSONResponse(status_code=422, content={
+            "error": f"Nom de fichier invalide : '{p.name}'. Doit se terminer par '_2levels_cleaned.json'."
+        })
+
+    expected_collection = p.stem.replace(" ", "_").replace("-", "_")
+    if collection != expected_collection:
+        return JSONResponse(status_code=422, content={
+            "error": f"Collection incohérente : reçu '{collection}', attendu '{expected_collection}'."
+        })
+
+    if not p.is_file():
+        return JSONResponse(status_code=404, content={"error": f"Fichier introuvable : {json_path}"})
+
+    try:
+        with open(json_path, "r", encoding="utf-8") as f:
+            raw = json.load(f)
+
+        sections = raw["sections"] if isinstance(raw, dict) and "sections" in raw else raw
+        if not isinstance(sections, list):
+            return JSONResponse(status_code=422, content={"error": "Format JSON inattendu (pas une liste)"})
+
+        if rag_manager.vector_db.collection_exists(collection):
+            return {"success": True, "collection": collection, "status": "already_exists"}
+
+        loop = asyncio.get_event_loop()
+        await loop.run_in_executor(None, rag_manager._index_collection, collection, sections)
+
+        return {"success": True, "collection": collection, "status": "indexed"}
+
+    except Exception as e:
+        import traceback; traceback.print_exc()
+        return JSONResponse(status_code=500, content={"error": str(e)})
+
+
+# ─────────────────────────────────────────────────────────────────────
+# REST — FAQ
+# ─────────────────────────────────────────────────────────────────────
+
+@app.post("/api/admin/faq/sync")
+async def api_admin_faq_sync():
+    """
+    Réindexe toutes les FAQ.
+    Chaque FAQ est indexée dans la collection résolue par priorité
+    (manuel existant ou nouvelle collection dédiée).
     """
     if not rag_manager.initialized:
         return JSONResponse(status_code=503, content={"error": "RAG non prêt"})
     if faq_manager is None:
         return JSONResponse(status_code=500, content={"error": "FAQ manager non disponible"})
+    try:
+        return faq_manager.reindex_all_faqs()
+    except Exception as e:
+        return JSONResponse(status_code=500, content={"error": str(e)})
 
+
+@app.post("/api/faq/index")
+async def api_faq_index(request: Request):
+    """
+    Indexe une FAQ depuis les items fournis directement.
+    Body : { "collection": "parc_auto", "items": [...] }
+
+    La collection réelle où les items seront stockés peut différer du
+    champ "collection" reçu si une collection manuel correspondante existe
+    (ex: "parc_auto" → "parc_auto_2levels_cleaned").
+    """
+    if not rag_manager.initialized:
+        return JSONResponse(status_code=503, content={"error": "RAG non prêt"})
+    if faq_manager is None:
+        return JSONResponse(status_code=500, content={"error": "FAQ manager non disponible"})
+    try:
+        data = await request.json()
+    except Exception:
+        return JSONResponse(status_code=400, content={"error": "JSON requis"})
+
+    collection = (data.get("collection") or "").strip()
+    items      = data.get("items") or []
+
+    if not collection:
+        return JSONResponse(status_code=400, content={"error": "Champ 'collection' requis"})
+    if not items:
+        return JSONResponse(status_code=400, content={"error": "Champ 'items' vide"})
+
+    # Sauvegarder sur disque avec le slug reçu
+    faq_manager.save_faq_json(collection, {"items": items})
+    loop   = asyncio.get_event_loop()
+    result = await loop.run_in_executor(None, faq_manager.index_faq, collection)
+    return result
+
+
+@app.post("/api/admin/faq/upload")
+async def api_admin_faq_upload(request: Request):
+    """
+    Upload + indexation d'une FAQ.
+    Body : { "app": "parc_auto", "items": [...] }
+    """
+    if not rag_manager.initialized:
+        return JSONResponse(status_code=503, content={"error": "RAG non prêt"})
+    if faq_manager is None:
+        return JSONResponse(status_code=500, content={"error": "FAQ manager non disponible"})
     try:
         data = await request.json()
     except Exception:
@@ -339,30 +583,14 @@ async def api_admin_faq_upload(request: Request):
     if not app_slug:
         return JSONResponse(status_code=400, content={"error": "Champ 'app' requis"})
 
-    # Sauvegarde
     try:
-        faq_path = faq_manager.save_faq_json(app_slug, data.get("items") or data.get("faq") or data)
+        faq_manager.save_faq_json(app_slug, data.get("items") or data.get("faq") or data)
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": str(e)})
 
-    # Indexation en arrière-plan
-    loop = asyncio.get_event_loop()
-    await loop.run_in_executor(None, faq_manager.index_faq, app_slug)
-
-    return {"success": True, "path": str(faq_path)}
-
-
-@app.post("/api/admin/faq/sync")
-async def api_admin_faq_sync():
-    if not rag_manager.initialized:
-        return JSONResponse(status_code=503, content={"error": "RAG non prêt"})
-    if faq_manager is None:
-        return JSONResponse(status_code=500, content={"error": "FAQ manager non disponible"})
-
-    try:
-        return faq_manager.reindex_all_faqs()
-    except Exception as e:
-        return JSONResponse(status_code=500, content={"error": str(e)})
+    loop   = asyncio.get_event_loop()
+    result = await loop.run_in_executor(None, faq_manager.index_faq, app_slug)
+    return result
 
 
 @app.get("/api/admin/faq/{app_slug}")
@@ -377,77 +605,101 @@ def api_admin_faq_get(app_slug: str):
 
 @app.put("/api/admin/faq/{app_slug}")
 async def api_admin_faq_put(app_slug: str, request: Request):
+    """
+    Met à jour les items FAQ d'une application et réindexe dans la collection résolue.
+    """
     if faq_manager is None:
         return JSONResponse(status_code=500, content={"error": "FAQ manager non disponible"})
     try:
         data = await request.json()
     except Exception:
         return JSONResponse(status_code=400, content={"error": "JSON requis"})
+
+    items = data.get("items") or data.get("faq") or data
     try:
-        faq_manager.save_faq_json(app_slug, data.get("items") or data.get("faq") or data)
+        faq_manager.save_faq_json(app_slug, items)
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": str(e)})
+
+    if rag_manager.initialized:
+        loop   = asyncio.get_event_loop()
+        result = await loop.run_in_executor(None, faq_manager.index_faq, app_slug)
+        return result
+
+    return {"success": True, "collection": app_slug, "reindexed": False}
 
 
 @app.delete("/api/admin/faq/{app_slug}")
 async def api_admin_faq_delete(app_slug: str):
+    """
+    Supprime le fichier JSON FAQ.
+    Si la FAQ était mergée dans une collection manuel, on NE supprime PAS
+    la collection (elle contient aussi le manuel) — on retire juste les points FAQ.
+    Si c'était une collection FAQ dédiée, on la supprime entièrement.
+    """
     if faq_manager is None:
         return JSONResponse(status_code=500, content={"error": "FAQ manager non disponible"})
-
     try:
         deleted = faq_manager.delete_faq_json(app_slug)
         if not deleted:
             return JSONResponse(status_code=404, content={"error": "FAQ introuvable"})
 
-        sync_result = faq_manager.reindex_all_faqs() if rag_manager.initialized else {"success": True}
-        return {"success": True, "deleted": True, "sync": sync_result}
+        if rag_manager.initialized:
+            try:
+                collection_name = _resolve_faq_collection(app_slug, rag_manager.vector_db)
+                merged = collection_name.endswith("_2levels_cleaned")
+
+                if merged:
+                    # La collection appartient aussi au manuel → ne pas la supprimer
+                    # Idéalement on filtrerait les points FAQ, mais Qdrant
+                    # ne supporte pas le delete par payload nativement sans scroll.
+                    # On log un avertissement et on laisse le manuel intact.
+                    print(f"[FAQ] ⚠️  FAQ '{app_slug}' mergée dans '{collection_name}' "
+                          f"(manuel) — collection conservée, points FAQ orphelins.")
+                else:
+                    if rag_manager.vector_db.collection_exists(collection_name):
+                        rag_manager.vector_db.drop_collection(collection_name)
+                        print(f"[FAQ] Collection dédiée '{collection_name}' supprimée de Qdrant")
+            except Exception as e:
+                print(f"[FAQ] Warning suppression collection '{app_slug}': {e}")
+
+        return {"success": True, "deleted": True, "collection": app_slug}
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": str(e)})
-
-    # Optionnel: relancer l'indexation
-    qs = dict(request.query_params)
-    if qs.get("reindex", "false").lower() in ("1", "true", "yes"):
-        loop = asyncio.get_event_loop()
-        await loop.run_in_executor(None, faq_manager.index_faq, app_slug)
-
-    return {"success": True}
 
 
 @app.post("/api/admin/faq/{app_slug}/index")
 async def api_admin_faq_index(app_slug: str):
+    """Réindexe une FAQ spécifique dans la collection résolue."""
     if faq_manager is None:
         return JSONResponse(status_code=500, content={"error": "FAQ manager non disponible"})
     loop = asyncio.get_event_loop()
     try:
-        res = await loop.run_in_executor(None, faq_manager.index_faq, app_slug)
-        return res
+        result = await loop.run_in_executor(None, faq_manager.index_faq, app_slug)
+        return result
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": str(e)})
 
 
+# ─────────────────────────────────────────────────────────────────────
+# REST — Chats anonymisés
+# ─────────────────────────────────────────────────────────────────────
+
 @app.get("/api/admin/chats/{app_slug}")
 def api_admin_chats(app_slug: str, limit: int = 50):
-    """Retourne les derniers chats anonymisés pour une application.
-    Lit les fichiers de logs 'assistant.log*' dans dev/backend/logs/.
-    """
-    # Recherche des fichiers de logs (rotated)
     logs_dir = Path(__file__).resolve().parent / "logs"
-    pattern = str(logs_dir / "assistant.log*")
-    files = sorted(glob.glob(pattern))
+    pattern  = str(logs_dir / "assistant.log*")
+    files    = sorted(glob.glob(pattern))
     if not files:
         return {"chats": []}
 
-    entries = []
     import re
-
-    # Simple parser: collecte Query received et Response complete et les associe par session_id
-    queries = {}
+    queries   = {}
     responses = {}
 
     q_re = re.compile(r"Query received \| session_id=(?P<session>[^|]+) \| app_id=(?P<app>[^|]+) .* \| query=(?P<query>.*)$")
     r_re = re.compile(r"Response complete \| session_id=(?P<session>[^|]+) \| app_id=(?P<app>[^|]+) .* \| sources=(?P<sources>\[.*\]) \| answer=(?P<answer>.*)$")
 
-    # Read files newest first
     for fp in reversed(files):
         try:
             with open(fp, "r", encoding="utf-8", errors="ignore") as f:
@@ -455,46 +707,45 @@ def api_admin_chats(app_slug: str, limit: int = 50):
                     line = line.strip()
                     if "Query received" in line:
                         m = q_re.search(line)
-                        if not m:
-                            continue
-                        if m.group("app") != app_slug:
+                        if not m or m.group("app") != app_slug:
                             continue
                         session = m.group("session")
-                        query = m.group("query").strip()
-                        queries[session] = {"query": query, "ts": line.split(" | ")[0]}
+                        queries[session] = {"query": m.group("query").strip(), "ts": line.split(" | ")[0]}
                     elif "Response complete" in line:
                         m = r_re.search(line)
-                        if not m:
-                            continue
-                        if m.group("app") != app_slug:
+                        if not m or m.group("app") != app_slug:
                             continue
                         session = m.group("session")
                         sources = []
-                        try:
-                            sources = json.loads(m.group("sources"))
-                        except Exception:
-                            sources = []
-                        answer = m.group("answer").strip()
-                        responses[session] = {"answer": answer, "sources": sources, "ts": line.split(" | ")[0]}
+                        try: sources = json.loads(m.group("sources"))
+                        except Exception: pass
+                        responses[session] = {
+                            "answer":  m.group("answer").strip(),
+                            "sources": sources,
+                            "ts":      line.split(" | ")[0],
+                        }
         except Exception:
             continue
 
-    # Build anonymized pairs
     pairs = []
     for session, q in queries.items():
         if session in responses:
             r = responses[session]
             pairs.append({
-                "ts": q.get("ts") or r.get("ts"),
+                "ts":       q.get("ts") or r.get("ts"),
                 "question": q.get("query"),
-                "answer": r.get("answer"),
-                "sources": r.get("sources", []),
+                "answer":   r.get("answer"),
+                "sources":  r.get("sources", []),
             })
             if len(pairs) >= limit:
                 break
 
     return {"chats": pairs}
 
+
+# ─────────────────────────────────────────────────────────────────────
+# REST — Chat HTTP classique
+# ─────────────────────────────────────────────────────────────────────
 
 @app.post("/api/chat")
 async def api_chat(request: Request):
@@ -516,7 +767,7 @@ async def api_chat(request: Request):
     collection = rag_manager.resolve_collection(requested_collection)
     if collection is None:
         return JSONResponse(status_code=404, content={
-            "error": f"Collection '{requested_collection}' introuvable.",
+            "error":     f"Collection '{requested_collection}' introuvable.",
             "available": rag_manager.get_available_collections(),
         })
 
@@ -538,126 +789,43 @@ async def api_chat(request: Request):
     }
 
 
-@app.get("/api/collections")
-def api_collections():
-    return {"collections": rag_manager.get_available_collections()}
-
-
-@app.post("/api/index")
-async def api_index(request: Request):
-    """
-    Appelé par ProcessManualPipeline (Laravel) après le cleaning.
-    Body JSON : {
-        "json_path":   "/chemin/absolu/xxx_2levels_cleaned.json",
-        "collection":  "xxx_2levels_cleaned"
-    }
-    Convention de nommage obligatoire :
-        - fichier extrait  →  {slug}_2level.json
-        - fichier nettoyé  →  {slug}_2levels_cleaned.json   ← c'est ce fichier qui est indexé
-        - collection Qdrant →  {slug}_2levels_cleaned        (= stem du fichier nettoyé)
-    """
-    if not rag_manager.initialized:
-        return JSONResponse(status_code=503, content={"error": "RAG non prêt"})
-
-    try:
-        data = await request.json()
-    except Exception:
-        return JSONResponse(status_code=400, content={"error": "JSON requis"})
-
-    json_path  = (data.get("json_path") or "").strip()
-    collection = (data.get("collection") or "").strip()
-
-    if not json_path or not collection:
-        return JSONResponse(status_code=400, content={"error": "json_path et collection requis"})
-
-    # ── Validation de la convention de nommage ────────────────────────
-    p = Path(json_path)
-    if not p.name.endswith("_2levels_cleaned.json"):
-        return JSONResponse(status_code=422, content={
-            "error": (
-                f"Nom de fichier invalide : '{p.name}'. "
-                "Le fichier nettoyé doit se terminer par '_2levels_cleaned.json'."
-            )
-        })
-
-    expected_collection = p.stem.replace(" ", "_").replace("-", "_")
-    if collection != expected_collection:
-        return JSONResponse(status_code=422, content={
-            "error": (
-                f"Nom de collection incohérent : reçu '{collection}', "
-                f"attendu '{expected_collection}' (déduit du nom de fichier)."
-            )
-        })
-
-    if not p.is_file():
-        return JSONResponse(status_code=404, content={"error": f"Fichier introuvable : {json_path}"})
-
-    try:
-        with open(json_path, "r", encoding="utf-8") as f:
-            raw = json.load(f)
-
-        sections = raw["sections"] if isinstance(raw, dict) and "sections" in raw else raw
-
-        if not isinstance(sections, list):
-            return JSONResponse(status_code=422, content={"error": "Format JSON inattendu (pas une liste)"})
-
-        if rag_manager.vector_db.collection_exists(collection):
-            return {"success": True, "collection": collection, "status": "already_exists"}
-
-        loop = asyncio.get_event_loop()
-        await loop.run_in_executor(
-            None,
-            rag_manager._index_collection,
-            collection,
-            sections,
-        )
-
-        return {"success": True, "collection": collection, "status": "indexed"}
-
-    except Exception as e:
-        import traceback
-        traceback.print_exc()
-        return JSONResponse(status_code=500, content={"error": str(e)})
-
+# ─────────────────────────────────────────────────────────────────────
+# REST — Suppression de collection manuelle
+# ─────────────────────────────────────────────────────────────────────
 
 @app.delete("/api/collections/{collection_name}")
 async def api_delete_collection(collection_name: str):
     """
-    Supprime une collection Qdrant (qdrant_data/collection/{collection_name}).
-    Le nom doit respecter la convention : se terminer par '_2levels_cleaned'.
+    Supprime une collection Qdrant de manuel (_2levels_cleaned uniquement).
+    Pour les FAQ, utiliser DELETE /api/admin/faq/{app_slug}.
     """
     if not rag_manager.initialized:
         return JSONResponse(status_code=503, content={"error": "RAG non prêt"})
 
     if not collection_name.endswith("_2levels_cleaned"):
         return JSONResponse(status_code=422, content={
-            "error": (
-                f"Nom de collection invalide : '{collection_name}'. "
-                "Doit se terminer par '_2levels_cleaned'."
-            )
+            "error": f"Nom de collection invalide : '{collection_name}'. Doit se terminer par '_2levels_cleaned'."
         })
 
     available = rag_manager.get_available_collections()
     if collection_name not in available:
         return JSONResponse(status_code=404, content={
-            "error": f"Collection '{collection_name}' introuvable.",
+            "error":     f"Collection '{collection_name}' introuvable.",
             "available": available,
         })
 
     try:
         loop = asyncio.get_event_loop()
-        await loop.run_in_executor(
-            None,
-            rag_manager.vector_db.delete_collection,
-            collection_name,
-        )
+        await loop.run_in_executor(None, rag_manager.vector_db.delete_collection, collection_name)
         return {"success": True, "collection": collection_name, "status": "deleted"}
-
     except Exception as e:
-        import traceback
-        traceback.print_exc()
+        import traceback; traceback.print_exc()
         return JSONResponse(status_code=500, content={"error": str(e)})
 
+
+# ─────────────────────────────────────────────────────────────────────
+# Gestionnaires d'erreurs
+# ─────────────────────────────────────────────────────────────────────
 
 @app.exception_handler(StarletteHTTPException)
 async def http_exc(request, exc):

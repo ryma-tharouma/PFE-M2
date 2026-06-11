@@ -12,10 +12,9 @@ class Application extends Model
 
     protected $fillable = [
         'name',
-        'is_faq',
         'color',
         'icon',
-        'qdrant_collection',   // ← rempli automatiquement par le pipeline
+        'qdrant_collection',
     ];
 
     public function conversations(): HasMany
@@ -26,5 +25,10 @@ class Application extends Model
     public function manuals(): HasMany
     {
         return $this->hasMany(Manual::class);
+    }
+
+    public function faqItems(): HasMany
+    {
+        return $this->hasMany(Faq::class);
     }
 }

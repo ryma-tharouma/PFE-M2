@@ -4,11 +4,11 @@
 @push('styles')
     <style>
         html,body{height:100%;overflow:hidden}
-        .nav-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;width:100%;text-align:left;transition:all .15s;color:rgba(255,255,255,.65);font-size:.875rem;font-weight:500;cursor:pointer;border:none;background:none}
-        .nav-item:hover{background:rgba(255,255,255,.08);color:#fff}
+        .nav-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;width:100%;text-align:left;transition:all .15s;color:#4B5563;font-size:.875rem;font-weight:500;cursor:pointer;border:none;background:none}
+        .nav-item:hover{background:#F9FAFB;color:#111827}
         .nav-item.active{background:#F26522;color:#fff}
         .nav-badge{margin-left:auto;min-width:22px;height:22px;padding:0 5px;border-radius:11px;font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center}
-        .nav-badge-inactive{background:#F26522;color:#fff}
+        .nav-badge-inactive{background:#E5E7EB;color:#6B7280}
         .nav-badge-active{background:#fff;color:#F26522}
         .kpi-ring{transform:rotate(-90deg)}
         .kpi-track{stroke:#e8ddd4}
@@ -21,7 +21,7 @@
         .badge-pending{background:#F3F4F6;color:#374151}
         .hour-bar{background:#F26522;border-radius:3px 3px 0 0;min-height:3px;transition:height .4s}
         .sidebar-scroll::-webkit-scrollbar{width:4px}
-        .sidebar-scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:2px}
+        .sidebar-scroll::-webkit-scrollbar-thumb{background:rgba(17,24,39,.15);border-radius:2px}
         .main-scroll::-webkit-scrollbar{width:6px}
         .main-scroll::-webkit-scrollbar-thumb{background:#E8DDD4;border-radius:3px}
         .line-clamp-2{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
@@ -50,15 +50,12 @@
     <div class="flex h-screen overflow-hidden" x-data="adminApp()" x-init="init()">
 
         {{-- ════════════════════ SIDEBAR ════════════════════ --}}
-        <aside class="w-72 bg-sonatrach-noir flex flex-col h-screen flex-shrink-0 sidebar-scroll overflow-y-auto">
-            <div class="px-5 py-5 border-b border-white/10 flex items-center gap-3">
-                <svg viewBox="0 0 120 120" width="32" height="32" class="flex-shrink-0">
-                    <path d="M60 20C60 20 35 50 35 75C35 90 46 100 60 100C74 100 85 90 85 75C85 50 60 20 60 20Z" fill="#F26522"/>
-                    <path d="M60 45C60 45 47 62 47 75C47 83 53 88 60 88C67 88 73 83 73 75C73 62 60 45 60 45Z" fill="#C94F1A"/>
-                </svg>
+        <aside class="w-72 bg-white border-r border-sonatrach-gris-bord flex flex-col h-screen flex-shrink-0 sidebar-scroll overflow-y-auto">
+            <div class="px-5 py-5 border-b border-sonatrach-gris-bord flex items-center gap-1 bg-white">
+                <img src="{{ asset('assets/images/logo.png') }}" alt="Sonatrach" class="w-24 h-24 object-contain flex-shrink-0">
                 <div>
-                    <p class="text-white font-semibold text-sm leading-tight">Sonatrach</p>
-                    <p class="text-white/40 text-xs">Administration IA</p>
+                    <p class="text-sonatrach-noir font-semibold text-sm leading-tight">Sonatrach Assistant</p>
+                    <p class="text-gray-500 text-xs">Administration IA</p>
                 </div>
             </div>
             <nav class="flex-1 px-3 py-4 space-y-1">
@@ -84,21 +81,21 @@
                         @endif
                     </button>
                 @endforeach
-                <div class="pt-4 border-t border-white/10 mt-4 space-y-2 px-1">
-                    <p class="text-white/30 text-xs font-medium uppercase tracking-wider px-3 mb-3">Vue rapide</p>
-                    <div class="flex items-center justify-between px-3 py-2 rounded-lg bg-white/5"><span class="text-white/50 text-xs">Requêtes totales</span><span class="text-white text-xs font-semibold">{{ number_format($s['requests_total']) }}</span></div>
-                    <div class="flex items-center justify-between px-3 py-2 rounded-lg bg-white/5"><span class="text-white/50 text-xs">Actifs cette semaine</span><span class="text-white text-xs font-semibold">{{ $s['active_users'] }}</span></div>
-                    <div class="flex items-center justify-between px-3 py-2 rounded-lg bg-white/5"><span class="text-white/50 text-xs">Manuels indexés</span><span class="text-sonatrach-orange text-xs font-semibold">{{ $s['manuals_indexed'] }}/{{ $s['manuals_count'] }}</span></div>
+                <div class="pt-4 border-t border-sonatrach-gris-bord mt-4 space-y-2 px-1">
+                    <p class="text-gray-400 text-xs font-medium uppercase tracking-wider px-3 mb-3">Vue rapide</p>
+                    <div class="flex items-center justify-between px-3 py-2 rounded-lg bg-sonatrach-gris-fond"><span class="text-gray-500 text-xs">Requêtes totales</span><span class="text-sonatrach-noir text-xs font-semibold">{{ number_format($s['requests_total']) }}</span></div>
+                    <div class="flex items-center justify-between px-3 py-2 rounded-lg bg-sonatrach-gris-fond"><span class="text-gray-500 text-xs">Actifs cette semaine</span><span class="text-sonatrach-noir text-xs font-semibold">{{ $s['active_users'] }}</span></div>
+                    <div class="flex items-center justify-between px-3 py-2 rounded-lg bg-sonatrach-gris-fond"><span class="text-gray-500 text-xs">Manuels indexés</span><span class="text-sonatrach-orange text-xs font-semibold">{{ $s['manuals_indexed'] }}/{{ $s['manuals_count'] }}</span></div>
                 </div>
             </nav>
-            <div class="border-t border-white/10 p-4 flex items-center gap-3">
+            <div class="border-t border-sonatrach-gris-bord p-4 flex items-center gap-3 bg-white">
                 <div class="w-9 h-9 rounded-full bg-sonatrach-orange flex items-center justify-center text-white text-xs font-bold flex-shrink-0">{{ strtoupper(substr(session('user_name','A'),0,2)) }}</div>
                 <div class="flex-1 min-w-0">
-                    <p class="text-white text-xs font-semibold truncate">{{ session('user_name','Administrateur') }}</p>
-                    <p class="text-white/40 text-xs">{{ session('is_admin')?'Super administrateur':'Utilisateur' }}</p>
+                    <p class="text-sonatrach-noir text-xs font-semibold truncate">{{ session('user_name','Administrateur') }}</p>
+                    <p class="text-gray-500 text-xs">{{ session('is_admin')?'Super administrateur':'Utilisateur' }}</p>
                 </div>
                 <form method="POST" action="{{ route('auth.logout') }}">@csrf
-                    <button type="submit" class="w-7 h-7 rounded-lg flex items-center justify-center text-white/40 hover:text-red-400 hover:bg-red-500/10 transition-colors">
+                    <button type="submit" class="w-7 h-7 rounded-lg flex items-center justify-center text-gray-400 hover:text-red-400 hover:bg-red-500/10 transition-colors">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1"/></svg>
                     </button>
                 </form>
@@ -116,7 +113,7 @@
                 </div>
                 <div class="flex items-center gap-3">
                     <div class="text-right">
-                        <p class="text-xs text-gray-400">{{ now()->isoFormat('dddd D MMMM YYYY') }}</p>
+                        <p class="text-xs text-gray-400">{{ now()->locale('fr')->isoFormat('dddd D MMMM YYYY') }}</p>
                         <p class="text-xs font-medium text-sonatrach-noir">{{ now()->format('H:i') }}</p>
                     </div>
                     <template x-if="activeSection==='manuals'">
@@ -158,7 +155,7 @@
                         @endforeach
                     </div>
                     <div class="bg-white rounded-2xl border border-sonatrach-gris-bord p-5">
-                        <div class="flex items-center justify-between mb-5"><div><h3 class="text-sm font-semibold text-sonatrach-noir">Activité aujourd'hui</h3><p class="text-xs text-gray-400">{{ today()->format('d/m/Y') }}</p></div><span class="px-3 py-1 rounded-full bg-sonatrach-orange/10 text-sonatrach-orange text-xs font-semibold">{{ $s['requests_today'] }} requêtes</span></div>
+                        <div class="flex items-center justify-between mb-5"><div><h3 class="text-sm font-semibold text-sonatrach-noir">Activité aujourd’hui</h3><p class="text-xs text-gray-400">{{ today()->locale('fr')->isoFormat('D MMMM YYYY') }}</p></div><span class="px-3 py-1 rounded-full bg-sonatrach-orange/10 text-sonatrach-orange text-xs font-semibold">{{ $s['requests_today'] }} requêtes</span></div>
                         <div class="flex items-end gap-1 h-28">
                             @for($h=0;$h<24;$h++)@php $c=$s['requests_by_hour'][$h]??0;$hp=$s['hour_max']>0?round(($c/$s['hour_max'])*100):0;@endphp
                             <div class="flex-1 flex flex-col items-center gap-1" title="{{ $h }}h : {{ $c }}"><div class="w-full flex items-end justify-center" style="height:100px"><div class="hour-bar w-full" style="height:{{ max(3,$hp) }}px;opacity:{{ $c>0?1:0.15 }}"></div></div>@if($h%4===0)<span class="text-gray-300 text-[9px]">{{ str_pad($h,2,'0',STR_PAD_LEFT) }}</span>@else<span class="text-transparent text-[9px]">·</span>@endif</div>
@@ -192,7 +189,7 @@
                                         <td class="px-5 py-3"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-sonatrach-orange flex items-center justify-center text-white text-xs font-bold flex-shrink-0">{{ strtoupper(substr($u->name,0,2)) }}</div><div class="min-w-0"><p class="text-xs font-semibold text-sonatrach-noir truncate">{{ $u->name }}</p><p class="text-xs text-gray-400 truncate">{{ $u->email }}</p></div></div></td>
                                         <td class="px-5 py-3 text-xs text-gray-600">{{ $u->department??'—' }}</td><td class="px-5 py-3 text-xs text-gray-600">{{ $u->title??'—' }}</td>
                                         <td class="px-5 py-3 text-center"><span class="inline-flex items-center justify-center min-w-[2rem] px-2 py-0.5 rounded-full text-xs font-bold {{ ($u->requests_count??0)>0?'bg-sonatrach-orange/10 text-sonatrach-orange':'bg-gray-100 text-gray-400' }}">{{ number_format($u->requests_count??0) }}</span></td>
-                                        <td class="px-5 py-3 text-xs text-gray-500">{{ $u->last_login_at?$u->last_login_at->diffForHumans():'Jamais' }}</td>
+                                        <td class="px-5 py-3 text-xs text-gray-500">{{ $u->last_login_at?$u->last_login_at->locale('fr')->diffForHumans():'Jamais' }}</td>
                                         <td class="px-5 py-3"><div class="flex items-center justify-center gap-1.5"><span class="w-2 h-2 rounded-full {{ $dc }}"></span><span class="text-xs text-gray-500">{{ $sl }}</span></div></td>
                                         <td class="px-5 py-3 text-center">@if($u->is_admin)<span class="inline-flex px-2 py-0.5 rounded-full text-xs font-medium bg-sonatrach-orange/10 text-sonatrach-orange">Admin</span>@else<span class="text-gray-300 text-xs">—</span>@endif</td>
                                     </tr>
@@ -230,7 +227,7 @@
                                     <td class="px-5 py-3 text-xs text-gray-600">{{ $manual->application->name??'—' }}</td>
                                     <td class="px-5 py-3 text-xs text-gray-600">{{ $manual->version??'1.0' }}</td>
                                     <td class="px-5 py-3">@if($manual->status==='indexed')<span class="badge-indexed inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium"><span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>Indexé</span>@elseif($manual->status==='processing')<span class="badge-processing inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium"><span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>En traitement</span>@elseif($manual->status==='failed')<span class="badge-failed inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium" title="{{ $manual->processing_error }}"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>Échoué</span>@else<span class="badge-pending inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium"><span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>En attente</span>@endif</td>
-                                    <td class="px-5 py-3 text-xs text-gray-500">{{ $manual->created_at->format('d/m/Y') }}</td>
+                                    <td class="px-5 py-3 text-xs text-gray-500">{{ $manual->created_at->locale('fr')->isoFormat('D MMMM YYYY') }}</td>
                                     <td class="px-5 py-3 text-right"><div class="flex items-center justify-end gap-1">
                                             <button @click="editManual({{ $manual->id }})" class="icon-btn icon-btn-edit" title="Modifier"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
                                             <button @click="confirmAction('Supprimer le manuel &quot;{{ addslashes($manual->name) }}&quot; ? Cette action est irréversible.', ()=>deleteManual({{ $manual->id }},{{ json_encode($manual->name) }}))" class="icon-btn icon-btn-del" title="Supprimer"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
@@ -451,7 +448,7 @@
                         <table class="w-full text-sm"><thead><tr class="bg-sonatrach-gris-fond border-b border-sonatrach-gris-bord"><th class="text-left px-5 py-3 text-xs font-medium text-gray-500">#GLPI</th><th class="text-left px-5 py-3 text-xs font-medium text-gray-500">Titre</th><th class="text-left px-5 py-3 text-xs font-medium text-gray-500">Demandeur</th><th class="text-left px-5 py-3 text-xs font-medium text-gray-500">Priorité</th><th class="text-left px-5 py-3 text-xs font-medium text-gray-500">Statut</th><th class="text-left px-5 py-3 text-xs font-medium text-gray-500">Date</th></tr></thead>
                             <tbody class="divide-y divide-sonatrach-gris-bord">
                             @forelse($tickets as $t)@php $pc2=['Basse'=>'bg-blue-50 text-blue-700','Moyenne'=>'bg-amber-50 text-amber-700','Haute'=>'bg-orange-50 text-orange-700','Critique'=>'bg-red-50 text-red-700'][$t->priority]??'bg-gray-100 text-gray-600';@endphp
-                            <tr class="hover:bg-sonatrach-gris-fond/50 transition-colors"><td class="px-5 py-3 text-xs text-gray-500 font-mono">#{{ $t->glpi_ticket_id??$t->id }}</td><td class="px-5 py-3 text-xs font-medium text-sonatrach-noir max-w-xs truncate">{{ $t->title }}</td><td class="px-5 py-3"><div class="flex items-center gap-2"><div class="w-6 h-6 rounded-full bg-sonatrach-gris-bord flex items-center justify-center text-[10px] font-bold">{{ strtoupper(substr($t->user->name??'U',0,2)) }}</div><span class="text-xs text-gray-600">{{ $t->user->name??'—' }}</span></div></td><td class="px-5 py-3"><span class="px-2 py-0.5 rounded-full text-xs font-medium {{ $pc2 }}">{{ $t->priority }}</span></td><td class="px-5 py-3 text-xs text-gray-500">{{ $t->glpi_status??'Envoyé' }}</td><td class="px-5 py-3 text-xs text-gray-400">{{ $t->created_at->format('d/m/Y H:i') }}</td></tr>
+                            <tr class="hover:bg-sonatrach-gris-fond/50 transition-colors"><td class="px-5 py-3 text-xs text-gray-500 font-mono">#{{ $t->glpi_ticket_id??$t->id }}</td><td class="px-5 py-3 text-xs font-medium text-sonatrach-noir max-w-xs truncate">{{ $t->title }}</td><td class="px-5 py-3"><div class="flex items-center gap-2"><div class="w-6 h-6 rounded-full bg-sonatrach-gris-bord flex items-center justify-center text-[10px] font-bold">{{ strtoupper(substr($t->user->name??'U',0,2)) }}</div><span class="text-xs text-gray-600">{{ $t->user->name??'—' }}</span></div></td><td class="px-5 py-3"><span class="px-2 py-0.5 rounded-full text-xs font-medium {{ $pc2 }}">{{ $t->priority }}</span></td><td class="px-5 py-3 text-xs text-gray-500">{{ $t->glpi_status??'Envoyé' }}</td><td class="px-5 py-3 text-xs text-gray-400">{{ $t->created_at->locale('fr')->isoFormat('D MMMM YYYY HH:mm') }}</td></tr>
                             @empty
                                 <tr><td colspan="6" class="text-center py-12 text-gray-400 text-sm">Aucun ticket.</td></tr>
                             @endforelse
@@ -498,6 +495,14 @@
                                 <p class="text-[10px] text-gray-400 mt-1">Nom exact et unique .</p>
                             </div>
                             <div><label class="block text-xs font-semibold text-gray-700 mb-1.5">Version du document</label><input type="text" x-model="manualForm.version" placeholder="1.0" class="w-full px-3 py-2.5 text-sm border border-sonatrach-gris-bord rounded-xl focus:outline-none focus:ring-2 focus:ring-sonatrach-orange"></div>
+                        </div>
+                        <div class="rounded-xl border border-sonatrach-gris-bord p-3 bg-sonatrach-gris-fond/40">
+                            <label class="inline-flex items-start gap-3 cursor-pointer">
+                                <input type="checkbox" x-model="manualForm.follows_internal_template" class="mt-0.5 w-4 h-4 text-sonatrach-orange border-gray-300 rounded focus:ring-sonatrach-orange">
+                                <span>
+                                    <span class="block text-xs font-semibold text-gray-700">Le manuel suit la template interne *</span>
+                                </span>
+                            </label>
                         </div>
                         <div><label class="block text-xs font-semibold text-gray-700 mb-1.5">Fichier PDF <span x-text="editingManualId?'(laisser vide pour conserver)':'*'" class="font-normal text-gray-400"></span></label>
                             <label for="manualFile" class="flex flex-col items-center justify-center gap-2 p-5 border-2 border-dashed border-sonatrach-gris-bord rounded-xl cursor-pointer hover:border-sonatrach-orange transition-colors group">
@@ -703,6 +708,23 @@
         const PHP_FAQ_LIST = @json($faqList ?? []);
         const CSRF = document.querySelector('meta[name="csrf-token"]')?.content || '';
 
+        function formatFrenchDate(value) {
+            if (!value) return '—';
+            let date = value instanceof Date ? value : null;
+            if (!date) {
+                const raw = String(value).trim();
+                const dmY = raw.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})(?:\s+(\d{1,2}):(\d{2}))?$/);
+                if (dmY) {
+                    const [, d, m, y, hh = '0', mm = '0'] = dmY;
+                    date = new Date(Number(y), Number(m) - 1, Number(d), Number(hh), Number(mm));
+                } else {
+                    date = new Date(raw);
+                }
+            }
+            if (Number.isNaN(date.getTime())) return value;
+            return new Intl.DateTimeFormat('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' }).format(date);
+        }
+
         function adminApp() {
             return {
                 activeSection: 'dashboard',
@@ -716,11 +738,11 @@
 
                 // Manuel
                 manualModalOpen: false, editingManualId: null, manualSaving: false,
-                manualForm: { name: '', app_name: '', version: '1.0', fileName: '' },
+                manualForm: { name: '', app_name: '', version: '1.0', follows_internal_template: true, fileName: '' },
                 uploadError: '',
 
                 // FAQ list (depuis PHP)
-                faqList: PHP_FAQ_LIST.map(f => ({ ...f })),
+                faqList: PHP_FAQ_LIST.map(f => ({ ...f, updated_at: formatFrenchDate(f.updated_at) })),
 
                 // FAQ upload
                 faqModalOpen: false, faqUploading: false, faqFormError: '',
@@ -881,7 +903,7 @@
                                 const idx = this.faqList.findIndex(f => f.slug === this.faqEditFaq.slug);
                                 if (idx >= 0) {
                                     this.faqList[idx].item_count = d.item_count || parsed.length;
-                                    this.faqList[idx].updated_at = new Date().toLocaleDateString('fr-FR');
+                                    this.faqList[idx].updated_at = formatFrenchDate(new Date());
                                 }
                                 this.faqEditOpen = false;
                                 this.toast('FAQ "' + this.faqEditFaq.slug + '.json" mise à jour (' + parsed.length + ' entrées) — réindexation lancée');
@@ -1047,12 +1069,12 @@
                         const existing = this.faqList.findIndex(f => f.slug === slug);
                         if (existing >= 0) {
                             this.faqList[existing].item_count = d.item_count;
-                            this.faqList[existing].updated_at = new Date().toLocaleDateString('fr-FR');
+                            this.faqList[existing].updated_at = formatFrenchDate(new Date());
                         } else {
                             this.faqList.unshift({
                                 slug, app_name: d.app_name, app_id: d.app_id || this.chatsAppId,
                                 version: d.version || '—', item_count: d.item_count,
-                                updated_at: new Date().toLocaleDateString('fr-FR')
+                                updated_at: formatFrenchDate(new Date())
                             });
                         }
 
@@ -1072,7 +1094,13 @@
                 openManualModal(manual = null) {
                     this.editingManualId = manual?.id ?? null;
                     this.uploadError     = '';
-                    this.manualForm      = { name: manual?.name ?? '', app_name: manual?.app_name ?? '', version: manual?.version ?? '1.0', fileName: '' };
+                    this.manualForm      = {
+                        name: manual?.name ?? '',
+                        app_name: manual?.app_name ?? '',
+                        version: manual?.version ?? '1.0',
+                        follows_internal_template: manual?.follows_internal_template ?? true,
+                        fileName: ''
+                    };
                     const fi = document.getElementById('manualFile');
                     if (fi) fi.value = '';
                     this.manualModalOpen = true;
@@ -1197,6 +1225,7 @@
                     fd.append('name',     this.manualForm.name);
                     fd.append('app_name', this.manualForm.app_name);
                     fd.append('version',  this.manualForm.version || '1.0');
+                    fd.append('follows_internal_template', this.manualForm.follows_internal_template ? '1' : '0');
                     if (hf) fd.append('file', hf);
                     if (resolution) {
                         fd.append('conflict_resolution', resolution);

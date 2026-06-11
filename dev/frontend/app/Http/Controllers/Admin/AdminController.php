@@ -7,6 +7,7 @@ use App\Jobs\ProcessFaqPipeline;
 use App\Jobs\ProcessManualPipeline;
 use App\Models\Application;
 use App\Models\Conversation;
+use App\Models\Faq;
 use App\Models\Manual;
 use App\Models\Message;
 use App\Models\Ticket;
@@ -15,7 +16,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
 class AdminController extends Controller
@@ -23,6 +23,7 @@ class AdminController extends Controller
     // ──────────────────────────────────────────────────────────────────
     // DASHBOARD
     // ──────────────────────────────────────────────────────────────────
+
     public function index()
     {
         $totalRequests   = Message::where('role', 'user')->count();
@@ -144,16 +145,19 @@ class AdminController extends Controller
             'users_by_dept'       => $usersByDept,
         ];
 
-        $manuals      = Manual::with('application')->orderByDesc('created_at')->paginate(20);
-        $tickets      = Ticket::with('user')->orderByDesc('created_at')->paginate(20);
+        $manuals = Manual::with('application')->orderByDesc('created_at')->paginate(20);
+        $tickets = Ticket::with('user')->orderByDesc('created_at')->paginate(20);
 
-        // Applications manuels (is_faq = false)
-        $applications = Application::where('is_faq', false)
-            ->orderBy('name')
-            ->get();
+        // Applications pour le select "Ajouter un manuel"
+        $applications = Application::orderBy('name')->get();
 
-        // Applications avec collection Qdrant pour les chats
-        $chatApplications = Application::whereNotNull('qdrant_collection')
+        // Applications visibles dans le select du chat (celles qui ont une collection Qdrant)
+        // Une application n'apparaît dans le select que si elle a au moins un manuel indexé OU une FAQ
+        $chatApplications = Application::where(function ($q) {
+            $q->whereNotNull('qdrant_collection')
+                ->orWhereHas('manuals', fn($mq) => $mq->where('status', 'indexed'))
+                ->orWhereHas('faqItems');
+        })
             ->orderBy('name')
             ->get();
 
@@ -176,9 +180,7 @@ class AdminController extends Controller
 
     /**
      * Convertit un nom d'application en slug de fichier FAQ.
-     * Le slug est le nom exact, en minuscules, espaces → underscores.
      * "Parc Auto v2" → "parc_auto_v2"
-     * Les noms sont uniques en BDD donc les slugs le sont aussi.
      */
     private function appNameToFaqSlug(string $appName): string
     {
@@ -190,10 +192,8 @@ class AdminController extends Controller
             } elseif (in_array($ch, [' ', '-', '.', '_'], true)) {
                 $out .= '_';
             }
-            // les autres caractères sont ignorés
         }
         $slug = trim($out, '_');
-        // collapse double underscores
         while (str_contains($slug, '__')) {
             $slug = str_replace('__', '_', $slug);
         }
@@ -202,7 +202,6 @@ class AdminController extends Controller
 
     /**
      * Retourne le chemin absolu du fichier FAQ JSON pour une application.
-     * Convention: {faq_dir}/{slug}.json
      */
     private function getFaqFilePath(string $appIdentifier): string
     {
@@ -213,6 +212,75 @@ class AdminController extends Controller
             $slug = $this->appNameToFaqSlug($appIdentifier);
         }
         return $this->getFaqDir() . '/' . $slug . '.json';
+    }
+
+    /**
+     * Écriture robuste d'un fichier JSON FAQ.
+     */
+    private function writeFaqFile(string $faqFile, array $items): void
+    {
+        $faqDir = dirname($faqFile);
+
+        if (!is_dir($faqDir)) {
+            mkdir($faqDir, 0775, true);
+        }
+
+        if (file_exists($faqFile) && !is_writable($faqFile)) {
+            @chmod($faqFile, 0664);
+        }
+
+        $result = file_put_contents(
+            $faqFile,
+            json_encode(['items' => $items], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)
+        );
+
+        if ($result === false) {
+            Log::error('[AdminController] Impossible d\'écrire le fichier FAQ', ['file' => $faqFile]);
+            throw new \RuntimeException("Impossible d'écrire dans {$faqFile}. Vérifiez les permissions.");
+        }
+    }
+
+    /**
+     * Résout la collection Qdrant pour une application en interrogeant
+     * le backend Python — source de vérité sur l'état réel de Qdrant.
+     *
+     * Règle unifiée : une app = une collection.
+     * Priorité : collection manuel existante > collection FAQ existante > slug
+     */
+    private function resolveQdrantCollection(Application $app): string
+    {
+        $slug       = $this->appNameToFaqSlug($app->name);
+        $backendUrl = rtrim((string) config('services.backend.url', 'http://127.0.0.1:8000'), '/');
+
+        try {
+            $client    = new \GuzzleHttp\Client(['timeout' => 10]);
+            $response  = $client->get($backendUrl . '/api/collections');
+            $data      = json_decode((string) $response->getBody(), true);
+            $available = $data['collections'] ?? [];
+
+            // Priorité 1 : collection manuel {slug}_2levels_cleaned
+            $manualColl = $slug . '_2levels_cleaned';
+            if (in_array($manualColl, $available, true)) {
+                return $manualColl;
+            }
+
+            // Priorité 2 : collection FAQ déjà existante {slug}
+            if (in_array($slug, $available, true)) {
+                return $slug;
+            }
+
+            // Priorité 3 : nouvelle collection = slug
+            return $slug;
+
+        } catch (\Throwable) {
+            // Fallback base de données
+        }
+
+        if (!empty($app->qdrant_collection)) {
+            return $app->qdrant_collection;
+        }
+
+        return $slug;
     }
 
     /**
@@ -228,33 +296,25 @@ class AdminController extends Controller
 
         foreach ($files as $file) {
             try {
-                $raw   = file_get_contents($file);
-                $data  = json_decode($raw, true) ?: [];
-                $items = $data['items'] ?? $data;
-                $items = is_array($items) ? $items : [];
-
                 $slug    = pathinfo($file, PATHINFO_FILENAME);
                 $appName = str_replace('_', ' ', $slug);
 
-                // Retrouver l'application FAQ en BDD (is_faq = true, nom exact via slug)
-                $application = Application::where('is_faq', true)
-                    ->whereRaw('LOWER(REPLACE(REPLACE(name, \' \', \'_\'), \'-\', \'_\')) = ?', [strtolower($slug)])
-                    ->first();
+                $application = Application::whereRaw(
+                    'LOWER(REPLACE(REPLACE(name, \' \', \'_\'), \'-\', \'_\')) = ?',
+                    [strtolower($slug)]
+                )->first();
 
-                // Récupérer la version du dernier manuel indexé pour cette application (si elle existe aussi en tant que manuel)
+                $itemCount = $application
+                    ? Faq::where('application_id', $application->id)->count()
+                    : $this->countItemsInFaqFile($file);
+
                 $manualVersion = null;
                 if ($application) {
-                    // Chercher une application manuel du même nom de base
-                    $manualApp = Application::where('is_faq', false)
-                        ->whereRaw('LOWER(name) = ?', [strtolower($application->name)])
+                    $latestManual = Manual::where('application_id', $application->id)
+                        ->where('status', 'indexed')
+                        ->latest('created_at')
                         ->first();
-                    if ($manualApp) {
-                        $latestManual = Manual::where('application_id', $manualApp->id)
-                            ->where('status', 'indexed')
-                            ->latest('created_at')
-                            ->first();
-                        $manualVersion = $latestManual?->version;
-                    }
+                    $manualVersion = $latestManual?->version;
                 }
 
                 $result[] = [
@@ -263,11 +323,14 @@ class AdminController extends Controller
                     'app_name'   => $application ? $application->name : ucwords($appName),
                     'app_id'     => $application?->id,
                     'version'    => $manualVersion ?? null,
-                    'item_count' => count($items),
+                    'item_count' => $itemCount,
                     'updated_at' => date('d/m/Y', filemtime($file)),
                 ];
             } catch (\Throwable $e) {
-                Log::warning('[AdminController] Erreur lecture FAQ', ['file' => $file, 'error' => $e->getMessage()]);
+                Log::warning('[AdminController] Erreur lecture FAQ', [
+                    'file'  => $file,
+                    'error' => $e->getMessage(),
+                ]);
             }
         }
 
@@ -275,15 +338,21 @@ class AdminController extends Controller
         return $result;
     }
 
+    private function countItemsInFaqFile(string $file): int
+    {
+        try {
+            $data  = json_decode(file_get_contents($file), true) ?: [];
+            $items = $data['items'] ?? $data;
+            return is_array($items) ? count($items) : 0;
+        } catch (\Throwable) {
+            return 0;
+        }
+    }
+
     // ──────────────────────────────────────────────────────────────────
     // CRUD MANUELS
     // ──────────────────────────────────────────────────────────────────
 
-    /**
-     * Vérifie si une application/version existe déjà.
-     * Règle : le nom est strictement unique (is_faq=false).
-     * La version est portée par le nom saisi par l'admin (ex: "SAP v2").
-     */
     public function checkAppVersion(Request $request): JsonResponse
     {
         $appName = trim($request->input('app_name', ''));
@@ -293,16 +362,12 @@ class AdminController extends Controller
             return response()->json(['exists' => false]);
         }
 
-        // Recherche exacte (insensible à la casse)
-        $application = Application::where('is_faq', false)
-            ->whereRaw('LOWER(name) = ?', [strtolower($appName)])
-            ->first();
+        $application = Application::whereRaw('LOWER(name) = ?', [strtolower($appName)])->first();
 
         if (!$application) {
             return response()->json(['exists' => false]);
         }
 
-        // L'application existe → vérifier la version
         $existingManual = Manual::where('application_id', $application->id)
             ->whereRaw("LOWER(COALESCE(version, '1.0')) = ?", [strtolower($version)])
             ->first();
@@ -344,40 +409,37 @@ class AdminController extends Controller
         }
 
         $request->validate([
-            'name'                => ['required', 'string', 'max:255'],
-            'app_name'            => ['required', 'string', 'max:255'],
-            'version'             => ['nullable', 'string', 'max:20'],
-            'file'                => ['required', 'file', 'mimes:pdf', "max:{$maxKb}"],
-            'conflict_resolution' => ['nullable', 'in:complementary,contradictory'],
-            'existing_manual_id'  => ['nullable', 'integer', 'exists:manuals,id'],
+            'name'                      => ['required', 'string', 'max:255'],
+            'app_name'                  => ['required', 'string', 'max:255'],
+            'version'                   => ['nullable', 'string', 'max:20'],
+            'follows_internal_template' => ['required', 'boolean'],
+            'file'                      => ['required', 'file', 'mimes:pdf', "max:{$maxKb}"],
+            'conflict_resolution'       => ['nullable', 'in:complementary,contradictory'],
+            'existing_manual_id'        => ['nullable', 'integer', 'exists:manuals,id'],
         ]);
 
-        $appName    = trim($request->input('app_name'));
-        $version    = $this->normalizeManualVersion($request->input('version', '1.0'));
-        $resolution = $request->input('conflict_resolution');
+        $appName                 = trim($request->input('app_name'));
+        $version                 = $this->normalizeManualVersion($request->input('version', '1.0'));
+        $followsInternalTemplate = $request->boolean('follows_internal_template');
+        $resolution              = $request->input('conflict_resolution');
 
-        // Recherche exacte (is_faq = false)
-        $application = Application::where('is_faq', false)
-            ->whereRaw('LOWER(name) = ?', [strtolower($appName)])
-            ->first();
+        $application = Application::whereRaw('LOWER(name) = ?', [strtolower($appName)])->first();
 
         if ($application) {
-            // Vérifier doublon même version
             $sameVersionManual = Manual::where('application_id', $application->id)
                 ->whereRaw("LOWER(COALESCE(version, '1.0')) = ?", [strtolower($version)])
                 ->first();
 
             if ($sameVersionManual) {
                 return response()->json([
-                    'success'            => false,
-                    'conflict'           => 'same_version',
-                    'app_name'           => $application->name,
-                    'version'            => $version,
-                    'message'            => "L'application '{$application->name}' avec la version '{$version}' existe déjà.",
+                    'success'  => false,
+                    'conflict' => 'same_version',
+                    'app_name' => $application->name,
+                    'version'  => $version,
+                    'message'  => "L'application '{$application->name}' avec la version '{$version}' existe déjà.",
                 ], 409);
             }
 
-            // Version différente sans résolution choisie
             $otherVersionManual = Manual::where('application_id', $application->id)
                 ->whereRaw("LOWER(COALESCE(version, '1.0')) <> ?", [strtolower($version)])
                 ->orderByDesc('created_at')
@@ -396,50 +458,24 @@ class AdminController extends Controller
             }
         }
 
-        // RESOLUTION 1 : Complémentaire — fusionner les PDFs
         if ($resolution === 'complementary' && $application) {
             return $this->handleComplementaryManual($request, $appName, $application, $version);
         }
 
-        // RESOLUTION 2 : Contradictoire — le nom fourni par l'admin EST le nouveau nom
-        // L'admin doit avoir saisi un nom différent (ex: "SAP v2") dans le champ app_name
-        // On refuse si ce nom existe déjà (is_faq=false)
-        if ($resolution === 'contradictory') {
-            // Le nom contradictoire = appName (déjà saisi par l'admin, potentiellement différent)
-            // On crée simplement une nouvelle application avec ce nom exact
-            $existingNew = Application::where('is_faq', false)
-                ->whereRaw('LOWER(name) = ?', [strtolower($appName)])
-                ->first();
-
-            if ($existingNew && $existingNew->id !== $application?->id) {
-                return response()->json([
-                    'success'  => false,
-                    'conflict' => 'same_version',
-                    'app_name' => $appName,
-                    'version'  => $version,
-                    'message'  => "Le nom d'application '{$appName}' existe déjà.",
-                ], 409);
-            }
-
-            // Si même application, on crée quand même un manuel dessus
-            // (cas où l'admin a changé d'avis et veut juste un nouveau manuel)
-            $application = $application ?? Application::create(['name' => $appName, 'is_faq' => false]);
-        }
-
-        // Cas normal : créer ou récupérer l'application et créer le manuel
         if (!$application) {
-            $application = Application::create(['name' => $appName, 'is_faq' => false]);
+            $application = Application::create(['name' => $appName]);
         }
 
         $fileName = $this->buildPdfFileName($request->input('name'));
         $this->storeManualPdf($request, $fileName);
 
         $manual = Manual::create([
-            'name'           => $request->input('name'),
-            'application_id' => $application->id,
-            'version'        => $version,
-            'file_path'      => $fileName,
-            'status'         => 'processing',
+            'name'                      => $request->input('name'),
+            'application_id'            => $application->id,
+            'version'                   => $version,
+            'file_path'                 => $fileName,
+            'follows_internal_template' => $followsInternalTemplate,
+            'status'                    => 'processing',
         ]);
 
         ProcessManualPipeline::dispatch($manual->id);
@@ -469,13 +505,11 @@ class AdminController extends Controller
             return response()->json(['success' => false, 'message' => 'Fichier manuel existant introuvable.'], 404);
         }
 
-        // Stocker le nouveau PDF temporairement
-        $tempDir      = sys_get_temp_dir();
-        $tempFileName = 'new_pdf_' . uniqid() . '.pdf';
+        $tempDir        = sys_get_temp_dir();
+        $tempFileName   = 'new_pdf_' . uniqid() . '.pdf';
         $request->file('file')->move($tempDir, $tempFileName);
         $tempNewPdfPath = $tempDir . '/' . $tempFileName;
 
-        // Fusionner
         $mergedFileName = $this->buildMergedPdfFileName($existingManual->file_path);
         $mergedPath     = $manualsDir . '/' . $mergedFileName;
 
@@ -489,21 +523,21 @@ class AdminController extends Controller
 
         if (file_exists($tempNewPdfPath)) @unlink($tempNewPdfPath);
 
-        $oldCleanedJsonPath = $existingManual->cleaned_json_path;
+        $oldCleanedJsonPath      = $existingManual->cleaned_json_path;
+        $followsInternalTemplate = $request->boolean('follows_internal_template');
 
-        DB::transaction(function () use ($existingManual, $mergedFileName, $newVersion) {
+        DB::transaction(function () use ($existingManual, $mergedFileName, $newVersion, $followsInternalTemplate) {
             $this->deleteManualPdf($existingManual->file_path);
             $existingManual->update([
-                'file_path'         => $mergedFileName,
-                'status'            => 'processing',
-                'processing_error'  => null,
-                'cleaned_json_path' => null,
-                'version'           => $newVersion,
+                'file_path'                 => $mergedFileName,
+                'status'                    => 'processing',
+                'processing_error'          => null,
+                'cleaned_json_path'         => null,
+                'version'                   => $newVersion,
+                'follows_internal_template' => $followsInternalTemplate,
             ]);
-            // Le nom de l'application ne change PAS dans le cas complémentaire
         });
 
-        // Supprimer les données Qdrant et les fichiers JSON de l'ancien index
         if ($oldCleanedJsonPath) {
             $oldCollection = $this->collectionNameFromCleanedPath($oldCleanedJsonPath);
             if ($oldCollection) {
@@ -513,12 +547,6 @@ class AdminController extends Controller
         }
 
         ProcessManualPipeline::dispatch($existingManual->id)->afterCommit();
-
-        Log::info('[AdminController] PDF fusionné avec succès', [
-            'manual_id'     => $existingManual->id,
-            'merged_file'   => $mergedFileName,
-            'new_version'   => $newVersion,
-        ]);
 
         return response()->json([
             'success' => true,
@@ -541,19 +569,21 @@ class AdminController extends Controller
         $maxKb  = (int) config('services.extract.max_upload_kb', 512000);
 
         $request->validate([
-            'name'     => ['required', 'string', 'max:255'],
-            'app_name' => ['required', 'string', 'max:255'],
-            'version'  => ['nullable', 'string', 'max:20'],
-            'file'     => ['nullable', 'file', 'mimes:pdf', "max:{$maxKb}"],
+            'name'                      => ['required', 'string', 'max:255'],
+            'app_name'                  => ['required', 'string', 'max:255'],
+            'version'                   => ['nullable', 'string', 'max:20'],
+            'follows_internal_template' => ['required', 'boolean'],
+            'file'                      => ['nullable', 'file', 'mimes:pdf', "max:{$maxKb}"],
         ]);
 
         $appName     = trim($request->input('app_name'));
-        $application = $this->findOrCreateManualApplication($appName);
+        $application = $this->findOrCreateApplication($appName);
 
         $updateData = [
-            'name'           => $request->input('name'),
-            'application_id' => $application->id,
-            'version'        => $request->input('version', $manual->version),
+            'name'                      => $request->input('name'),
+            'application_id'            => $application->id,
+            'version'                   => $request->input('version', $manual->version),
+            'follows_internal_template' => $request->boolean('follows_internal_template'),
         ];
 
         if ($request->hasFile('file')) {
@@ -582,96 +612,60 @@ class AdminController extends Controller
         return response()->json(['success' => true]);
     }
 
+    /**
+     * Supprime un manuel ET, si l'application n'a plus aucun manuel ni FAQ,
+     * supprime aussi l'application → elle disparaît des selects utilisateur.
+     */
     public function destroyManual(int $id): JsonResponse
     {
         $manual = Manual::with('application')->findOrFail($id);
 
-        Log::info('[AdminController] Suppression du manuel', [
-            'manual_id'         => $manual->id,
-            'name'              => $manual->name,
-            'file_path'         => $manual->file_path,
-            'cleaned_json_path' => $manual->cleaned_json_path,
-        ]);
-
         $extractDir = rtrim((string) config('services.extract.extract_dir', base_path('../../extract/app')), '/');
         $jsonDir    = rtrim((string) config('services.extract.json_dir', $extractDir . '/json'), '/');
 
+        // Le nom du dossier images = nom du fichier PDF sans extension (source de vérité)
+        $pdfBaseName = pathinfo($manual->file_path, PATHINFO_FILENAME);
+
+        // 1. Supprimer collection Qdrant + fichiers JSON + dossier images
         if ($manual->cleaned_json_path) {
             $collection = $this->collectionNameFromCleanedPath($manual->cleaned_json_path);
             if ($collection) {
                 $this->deleteQdrantCollection($collection);
-
-                $qdrantDataDir       = rtrim((string) config('services.qdrant.data_dir', base_path('../../prod/qdrant_data')), '/');
-                $qdrantCollectionDir = $qdrantDataDir . '/collection/' . $collection;
-                $this->deleteDirectory($qdrantCollectionDir);
-
-                $metaPath = $qdrantDataDir . '/meta.json';
-                if (is_file($metaPath)) {
-                    try {
-                        $meta = json_decode(file_get_contents($metaPath), true) ?: [];
-                        if (isset($meta['collections']) && is_array($meta['collections'])) {
-                            $changed = false;
-                            foreach ($meta['collections'] as $k => $c) {
-                                if (is_array($c) && ($c['name'] ?? '') === $collection) {
-                                    unset($meta['collections'][$k]);
-                                    $changed = true;
-                                }
-                            }
-                            if ($changed) {
-                                $meta['collections'] = array_values($meta['collections']);
-                                @file_put_contents($metaPath, json_encode($meta, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
-                            }
-                        }
-                    } catch (\Throwable $e) {
-                        Log::warning('[AdminController] Impossible de mettre à jour meta.json', ['error' => $e->getMessage()]);
-                    }
-                }
+                $this->deleteQdrantCollectionData($collection);
             }
-
             $this->deleteJsonFiles($manual->cleaned_json_path);
-
-            $cleanedFilename = basename($manual->cleaned_json_path);
-            $baseName        = preg_replace('/_2levels_cleaned\.json$/', '', $cleanedFilename);
-            if ($baseName) {
-                $imagesDir = $jsonDir . '/images/' . $baseName;
-                $this->deleteDirectory($imagesDir);
-
-                $extractLogsDir = rtrim($extractDir . '/logs/extractor', '/');
-                if (is_dir($extractLogsDir)) {
-                    foreach (glob($extractLogsDir . '/' . $baseName . '*.log') as $f) {
-                        $this->deleteFile($f);
-                    }
-                }
-            }
         } else {
             $this->deleteJsonFilesByPdfName($manual->file_path);
-
-            $baseName = pathinfo($manual->file_path, PATHINFO_FILENAME);
-            if ($baseName) {
-                $imagesDir = $jsonDir . '/images/' . $baseName;
-                $this->deleteDirectory($imagesDir);
-
-                $extractLogsDir = rtrim($extractDir . '/logs/extractor', '/');
-                if (is_dir($extractLogsDir)) {
-                    foreach (glob($extractLogsDir . '/' . $baseName . '*.log') as $f) {
-                        $this->deleteFile($f);
-                    }
-                }
-            }
         }
 
+        // Supprimer le dossier images basé sur le nom du PDF (toujours)
+        if ($pdfBaseName) {
+            $this->deleteDirectory($jsonDir . '/images/' . $pdfBaseName);
+            $this->deleteExtractLogs($extractDir, $pdfBaseName);
+        }
+
+        // 2. Supprimer le PDF
         $this->deleteManualPdf($manual->file_path);
 
+        // 3. Supprimer les messages liés
         $deletedMessages = Message::where('manual_id', $manual->id)->delete();
         if ($deletedMessages > 0) {
-            Log::info('[AdminController] Messages supprimés', ['manual_id' => $manual->id, 'deleted_count' => $deletedMessages]);
+            Log::info('[AdminController] Messages supprimés', [
+                'manual_id'     => $manual->id,
+                'deleted_count' => $deletedMessages,
+            ]);
         }
 
+        // 4. Supprimer les conversations vides
         Conversation::where('application_id', $manual->application_id)
             ->whereDoesntHave('messages')
             ->delete();
 
+        $applicationId = $manual->application_id;
         $manual->delete();
+
+        // 5. Supprimer l'application si elle n'a plus ni manuel ni FAQ
+        $this->cleanupApplicationIfEmpty($applicationId);
 
         return response()->json(['success' => true]);
     }
@@ -686,10 +680,10 @@ class AdminController extends Controller
     }
 
     /**
-     * Upload une FAQ JSON pour une application.
-     * - Crée ou retrouve une Application avec is_faq = true et le nom exact fourni.
-     * - Le nom doit être unique parmi les applications FAQ.
-     * - Stockage local dans {faq_dir}/{slug}.json puis envoi au pipeline.
+     * Upload d'un fichier JSON FAQ.
+     *
+     * Une app = une seule collection Qdrant.
+     * Si l'app a déjà une collection (manuel), la FAQ est indexée dedans.
      */
     public function faqUpload(Request $request): JsonResponse
     {
@@ -699,8 +693,7 @@ class AdminController extends Controller
             'file'     => ['required', 'file', 'mimes:json,txt'],
         ]);
 
-        // Résoudre app_id XOR app_name
-        $appId       = trim((string) $request->input('app_id', ''));
+        $appId        = trim((string) $request->input('app_id', ''));
         $appNameInput = trim((string) $request->input('app_name', ''));
 
         if ($appId !== '' && $appNameInput !== '') {
@@ -715,20 +708,23 @@ class AdminController extends Controller
             if (!$application) {
                 return response()->json(['success' => false, 'error' => 'Application introuvable.'], 422);
             }
-            // Si cette application est is_faq=false, on crée/récupère son pendant FAQ
-            if (!$application->is_faq) {
-                $application = $this->findOrCreateFaqApplication($application->name);
-            }
             $appName = $application->name;
         } else {
-            // Vérifier unicité du nom parmi les applications FAQ
-            $application = $this->findOrCreateFaqApplication($appNameInput);
-            $appName     = $application->name;
+            $appName = $appNameInput;
         }
 
-        $slug = $this->appNameToFaqSlug($appName);
+        // Une seule application par nom
+        $application    = $this->findOrCreateApplication($appName);
+        $slug           = $this->appNameToFaqSlug($appName);
 
-        // Lecture et validation JSON
+        // Résoudre la collection : si l'app a déjà une collection (ex: manuel), on réutilise
+        $collectionName = $this->resolveQdrantCollection($application);
+
+        if ($application->qdrant_collection !== $collectionName) {
+            $application->update(['qdrant_collection' => $collectionName]);
+        }
+
+        // Lire et valider le JSON
         try {
             $raw     = file_get_contents($request->file('file')->getRealPath());
             $decoded = json_decode($raw, true, 512, JSON_THROW_ON_ERROR);
@@ -741,30 +737,59 @@ class AdminController extends Controller
             return response()->json(['success' => false, 'error' => "Le JSON doit contenir un tableau d'entrées FAQ."], 422);
         }
 
-        // Sauvegarder localement
-        $faqDir = $this->getFaqDir();
-        if (!is_dir($faqDir)) mkdir($faqDir, 0775, true);
-        $faqFile = $faqDir . '/' . $slug . '.json';
-        file_put_contents($faqFile, json_encode(['items' => $items], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        // Persistance en base
+        $imported = Faq::syncFromJson($application->id, $items, 'admin');
 
-        Log::info('[FAQ Upload] Fichier sauvegardé localement', ['file' => $faqFile, 'item_count' => count($items)]);
+        // Régénération du fichier JSON depuis la base
+        $faqFile = $this->getFaqDir() . '/' . $slug . '.json';
+        $dbItems = Faq::where('application_id', $application->id)
+            ->get()
+            ->map(fn($i) => $i->toFaqArray())
+            ->values()
+            ->all();
 
-        ProcessFaqPipeline::dispatch('sync');
+        $this->writeFaqFile($faqFile, $dbItems);
+
+        Log::info('[FAQ Upload] Fichier sauvegardé + DB mise à jour', [
+            'file'       => $faqFile,
+            'imported'   => $imported,
+            'app_id'     => $application->id,
+            'collection' => $collectionName,
+        ]);
+
+        // Indexer directement dans la collection de l'app (existante ou nouvelle)
+        $backendUrl = rtrim((string) config('services.backend.url', 'http://127.0.0.1:8000'), '/');
+        try {
+            $client   = new \GuzzleHttp\Client(['timeout' => 120]);
+            $response = $client->post(
+                $backendUrl . '/api/faq/index',
+                ['json' => ['collection' => $collectionName, 'items' => $dbItems]]
+            );
+            $data           = json_decode((string) $response->getBody(), true);
+            $realCollection = $data['collection'] ?? $collectionName;
+            if ($application->qdrant_collection !== $realCollection) {
+                $application->update(['qdrant_collection' => $realCollection]);
+                $collectionName = $realCollection;
+            }
+        } catch (\Throwable $e) {
+            Log::warning('[FAQ Upload] Backend inaccessible, dispatch job sync', ['error' => $e->getMessage()]);
+            ProcessFaqPipeline::dispatch('sync');
+        }
 
         return response()->json([
             'success'    => true,
             'app_id'     => $application->id,
             'app_name'   => $appName,
             'slug'       => $slug,
-            'collection' => 'faq',
+            'collection' => $collectionName,
             'file'       => $faqFile,
-            'item_count' => count($items),
+            'item_count' => $imported,
             'updated_at' => date('d/m/Y', filemtime($faqFile)),
         ]);
     }
 
     /**
-     * Retourne les entrées FAQ d'une application (lecture locale prioritaire, fallback backend).
+     * Retourne les entrées FAQ d'une application.
      */
     public function faqShow(string $app): JsonResponse
     {
@@ -772,7 +797,6 @@ class AdminController extends Controller
 
         $faqFile = $this->getFaqDir() . '/' . $slug . '.json';
 
-        // Priorité 1 : fichier local
         if (file_exists($faqFile)) {
             try {
                 $data  = json_decode(file_get_contents($faqFile), true) ?: [];
@@ -783,7 +807,7 @@ class AdminController extends Controller
                     'app_id'     => $application?->id ?? $app,
                     'app_name'   => $appName,
                     'slug'       => $slug,
-                    'collection' => 'faq',
+                    'collection' => $application?->qdrant_collection ?? $slug,
                     'faq'        => $items,
                     'item_count' => count($items),
                     'source'     => 'local',
@@ -793,7 +817,6 @@ class AdminController extends Controller
             }
         }
 
-        // Priorité 2 : backend FastAPI
         $collection = $application?->qdrant_collection ?? $slug;
         $backendUrl = rtrim((string) config('services.backend.url', 'http://127.0.0.1:8000'), '/');
         $url        = $backendUrl . '/api/admin/faq/' . urlencode($collection);
@@ -805,27 +828,25 @@ class AdminController extends Controller
             $items    = $data['faq'] ?? $data['items'] ?? [];
 
             if (is_array($items) && count($items) > 0) {
-                $faqDir = $this->getFaqDir();
-                if (!is_dir($faqDir)) mkdir($faqDir, 0775, true);
-                file_put_contents($faqFile, json_encode(['items' => $items], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+                $this->writeFaqFile($faqFile, $items);
             }
 
             return response()->json([
                 'app_id'     => $application?->id ?? $app,
                 'app_name'   => $appName,
                 'slug'       => $slug,
-                'collection' => 'faq',
+                'collection' => $collection,
                 'faq'        => is_array($items) ? $items : [],
                 'item_count' => is_array($items) ? count($items) : 0,
                 'source'     => 'backend',
             ]);
         } catch (\Exception $e) {
-            Log::info('[FAQ Show] Aucune FAQ trouvée', ['app' => $app, 'slug' => $slug, 'error' => $e->getMessage()]);
+            Log::info('[FAQ Show] Aucune FAQ trouvée', ['app' => $app, 'error' => $e->getMessage()]);
             return response()->json([
                 'app_id'     => $application?->id ?? $app,
                 'app_name'   => $appName,
                 'slug'       => $slug,
-                'collection' => 'faq',
+                'collection' => $collection ?? $slug,
                 'faq'        => [],
                 'item_count' => 0,
                 'source'     => 'empty',
@@ -834,8 +855,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Met à jour les entrées FAQ (PUT).
-     * Sauvegarde localement ET lance le pipeline de réindexation.
+     * Met à jour les entrées FAQ depuis l'éditeur JSON de l'admin (PUT).
      */
     public function faqUpdate(Request $request, string $app): JsonResponse
     {
@@ -846,23 +866,36 @@ class AdminController extends Controller
         $items = $request->input('items');
         [$application, $slug] = $this->resolveFaqApp($app);
 
-        $faqDir = $this->getFaqDir();
-        if (!is_dir($faqDir)) mkdir($faqDir, 0775, true);
-        $faqFile = $faqDir . '/' . $slug . '.json';
-        file_put_contents($faqFile, json_encode(['items' => array_values($items)], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        if (!$application) {
+            return response()->json(['success' => false, 'error' => 'Application introuvable.'], 404);
+        }
 
-        Log::info('[FAQ Update] Fichier local mis à jour', ['file' => $faqFile, 'item_count' => count($items)]);
+        Faq::where('application_id', $application->id)->delete();
+        $imported = Faq::syncFromJson($application->id, $items, 'admin');
 
-        // Relancer le pipeline de réindexation
+        $faqFile = $this->getFaqDir() . '/' . $slug . '.json';
+        $dbItems = Faq::where('application_id', $application->id)
+            ->get()
+            ->map(fn($i) => $i->toFaqArray())
+            ->values()
+            ->all();
+
+        $this->writeFaqFile($faqFile, $dbItems);
+
+        Log::info('[FAQ Update] Fichier local mis à jour', ['file' => $faqFile, 'item_count' => $imported]);
+
         ProcessFaqPipeline::dispatch('sync');
 
-        return response()->json(['success' => true, 'item_count' => count($items), 'slug' => $slug, 'collection' => 'faq']);
+        return response()->json([
+            'success'    => true,
+            'item_count' => $imported,
+            'slug'       => $slug,
+            'collection' => $application->qdrant_collection ?? $slug,
+        ]);
     }
 
     /**
      * Met à jour les métadonnées d'une FAQ (app_name).
-     * Si le nom change, renomme le fichier JSON et met à jour la BDD.
-     * Le nom doit rester unique parmi les applications FAQ.
      */
     public function faqUpdateInfos(Request $request, string $app): JsonResponse
     {
@@ -879,29 +912,25 @@ class AdminController extends Controller
 
             $newSlug = $this->appNameToFaqSlug($newAppName);
 
-            // Vérifier que le nouveau nom n'est pas déjà pris par une AUTRE application FAQ
             if (strtolower($newAppName) !== strtolower($oldAppName)) {
-                $conflict = Application::where('is_faq', true)
-                    ->whereRaw('LOWER(name) = ?', [strtolower($newAppName)])
+                $conflict = Application::whereRaw('LOWER(name) = ?', [strtolower($newAppName)])
                     ->when($application, fn($q) => $q->where('id', '!=', $application->id))
                     ->first();
 
                 if ($conflict) {
                     return response()->json([
                         'success' => false,
-                        'error'   => "Le nom d'application FAQ '{$newAppName}' est déjà utilisé.",
+                        'error'   => "Le nom d'application '{$newAppName}' est déjà utilisé.",
                     ], 409);
                 }
             }
 
-            // Mettre à jour ou créer l'application FAQ en BDD
             if ($application) {
                 $application->update(['name' => $newAppName]);
             } else {
-                $application = Application::create(['name' => $newAppName, 'is_faq' => true]);
+                $application = Application::create(['name' => $newAppName]);
             }
 
-            // Renommer le fichier si le slug change
             $faqDir  = $this->getFaqDir();
             $oldFile = $faqDir . '/' . $oldSlug . '.json';
             $newFile = $faqDir . '/' . $newSlug . '.json';
@@ -909,20 +938,12 @@ class AdminController extends Controller
             if ($oldSlug !== $newSlug && file_exists($oldFile)) {
                 try {
                     rename($oldFile, $newFile);
-                    Log::info('[FAQ Update Infos] Fichier renommé', ['old' => $oldFile, 'new' => $newFile]);
                 } catch (\Throwable $e) {
                     Log::warning('[FAQ Update Infos] Impossible de renommer le fichier', [
                         'error' => $e->getMessage(), 'old' => $oldFile, 'new' => $newFile,
                     ]);
                 }
             }
-
-            Log::info('[FAQ Update Infos] Métadonnées mises à jour', [
-                'app_id'   => $application->id,
-                'app_name' => $newAppName,
-                'version'  => $version,
-                'slug'     => $newSlug,
-            ]);
 
             return response()->json([
                 'success'  => true,
@@ -942,12 +963,18 @@ class AdminController extends Controller
      */
     public function faqIndex(string $app): JsonResponse
     {
+        [$application, $slug] = $this->resolveFaqApp($app);
         ProcessFaqPipeline::dispatch('sync');
-        return response()->json(['success' => true, 'collection' => 'faq']);
+        return response()->json([
+            'success'    => true,
+            'collection' => $application?->qdrant_collection ?? $slug,
+        ]);
     }
 
     /**
-     * Supprime une FAQ (fichier local + pipeline sync).
+     * Supprime une FAQ (fichier local + DB + collection Qdrant si pas de manuel + pipeline sync).
+     * Si l'application n'a plus de manuel → collection Qdrant supprimée, images supprimées,
+     * application supprimée de la BD → disparaît des selects utilisateur.
      */
     public function faqDestroy(string $app): JsonResponse
     {
@@ -960,23 +987,41 @@ class AdminController extends Controller
             return response()->json(['success' => false, 'error' => 'FAQ introuvable'], 404);
         }
 
+        if ($application) {
+            Faq::where('application_id', $application->id)->delete();
+
+            // Si l'app n'a aucun manuel → supprimer collection Qdrant + images
+            $hasManuals = Manual::where('application_id', $application->id)->exists();
+            if (!$hasManuals) {
+                $collection = $application->qdrant_collection ?? $slug;
+                if ($collection) {
+                    $this->deleteQdrantCollection($collection);
+                    $this->deleteQdrantCollectionData($collection);
+                }
+
+                // Dossier images : nom = slug de l'app (ex: parc_auto)
+                $extractDir = rtrim((string) config('services.extract.extract_dir', base_path('../../extract/app')), '/');
+                $jsonDir    = rtrim((string) config('services.extract.json_dir', $extractDir . '/json'), '/');
+                $this->deleteDirectory($jsonDir . '/images/' . $slug);
+                $this->deleteExtractLogs($extractDir, $slug);
+            }
+
+            // Supprimer l'application si elle n'a plus ni manuel ni FAQ
+            $this->cleanupApplicationIfEmpty($application->id);
+        }
+
         ProcessFaqPipeline::dispatch('sync');
 
-        return response()->json(['success' => true, 'slug' => $slug, 'collection' => 'faq']);
+        return response()->json(['success' => true, 'slug' => $slug]);
     }
 
     // ──────────────────────────────────────────────────────────────────
     // CHATS ANONYMISÉS
     // ──────────────────────────────────────────────────────────────────
 
-    /**
-     * Retourne les conversations anonymisées filtrées par application_id.
-     * - Uniquement les messages où le chatbot a répondu (role=assistant)
-     * - Exclut les réponses "Je ne peux pas répondre..."
-     */
     public function chatsShow(string $app): JsonResponse
     {
-        $application = $this->resolveAnyApplication($app);
+        $application = $this->resolveApplication($app);
 
         if (!$application) {
             return response()->json(['chats' => [], 'error' => 'Application introuvable'], 404);
@@ -1023,7 +1068,10 @@ class AdminController extends Controller
                     $excluded    = false;
 
                     foreach ($excludedPhrases as $phrase) {
-                        if (str_contains($lowerAnswer, $phrase)) { $excluded = true; break; }
+                        if (str_contains($lowerAnswer, $phrase)) {
+                            $excluded = true;
+                            break;
+                        }
                     }
                     if ($excluded || mb_strlen(trim($answer)) < 20) continue;
 
@@ -1097,23 +1145,18 @@ class AdminController extends Controller
         }
     }
 
-    /**
-     * Rejette un chat — statut → 'rejected'.
-     */
     public function chatReject(string $app, int $messageId): JsonResponse
     {
         try {
             $message      = Message::findOrFail($messageId);
             $conversation = Conversation::findOrFail($message->conversation_id);
-            $application  = $this->resolveAnyApplication($app);
+            $application  = $this->resolveApplication($app);
 
             if (!$application || $conversation->application_id !== $application->id) {
                 return response()->json(['success' => false, 'error' => 'Message non trouvé pour cette application'], 404);
             }
 
             $message->update(['faq_status' => 'rejected']);
-
-            Log::info('[Chat Reject] Message rejeté', ['message_id' => $messageId, 'app_id' => $application->id]);
 
             return response()->json(['success' => true, 'message' => 'Réponse rejetée']);
         } catch (\Throwable $e) {
@@ -1124,12 +1167,7 @@ class AdminController extends Controller
 
     /**
      * Valide un chat et l'ajoute à la FAQ de l'application.
-     *
-     * Deux cas :
-     *  1. Un fichier JSON FAQ local existe déjà → append + réindexation.
-     *  2. Pas de FAQ locale → création d'un nouveau fichier JSON + réindexation.
-     *
-     * Dans les deux cas, le pipeline ProcessFaqPipeline est déclenché.
+     * Indexe dans la collection unique de l'app (manuel ou FAQ, même collection).
      */
     public function chatValidate(Request $request, string $app): JsonResponse
     {
@@ -1137,130 +1175,114 @@ class AdminController extends Controller
             'question'             => ['required', 'string', 'min:5'],
             'answer'               => ['required', 'string', 'min:10'],
             'assistant_message_id' => ['nullable', 'integer'],
+            'ticket_id'            => ['nullable', 'integer'],
         ]);
 
         $question           = trim($request->input('question'));
         $answer             = trim($request->input('answer'));
         $assistantMessageId = $request->input('assistant_message_id');
+        $ticketId           = $request->input('ticket_id');
+        $source             = $ticketId ? 'glpi' : 'chatbot';
 
-        // Résoudre l'application (peut être manuel ou faq)
-        $application = $this->resolveAnyApplication($app);
-        $appName     = $application?->name ?? $app;
+        $application = $this->resolveApplication($app);
 
-        // Récupérer/créer l'application FAQ correspondante
-        $faqApplication = $this->findOrCreateFaqApplication($appName);
-        $slug           = $this->appNameToFaqSlug($appName);
-
-        $faqDir  = $this->getFaqDir();
-        if (!is_dir($faqDir)) mkdir($faqDir, 0775, true);
-        $faqFile = $faqDir . '/' . $slug . '.json';
-
-        // Charger ou initialiser la FAQ existante
-        $items    = [];
-        $isNewFaq = true;
-        if (file_exists($faqFile)) {
-            try {
-                $existing = json_decode(file_get_contents($faqFile), true) ?: [];
-                $items    = $existing['items'] ?? $existing;
-                $items    = is_array($items) ? $items : [];
-                $isNewFaq = false;
-            } catch (\Throwable $e) {
-                $items = [];
-            }
+        if (!$application) {
+            $application = $this->findOrCreateApplication($app);
         }
 
-        // Vérifier doublon (question identique)
-        foreach ($items as $existingItem) {
-            $existingQ = mb_strtolower(trim($existingItem['question'] ?? $existingItem['q'] ?? ''));
-            if ($existingQ === mb_strtolower($question)) {
-                return response()->json([
-                    'success' => false,
-                    'error'   => 'Cette question existe déjà dans la FAQ.',
-                ], 422);
-            }
+        $appName = $application->name;
+        $slug    = $this->appNameToFaqSlug($appName);
+
+        // Vérifier doublon
+        $duplicate = Faq::where('application_id', $application->id)
+            ->whereRaw('LOWER(problem) = ?', [mb_strtolower($question)])
+            ->exists();
+
+        if ($duplicate) {
+            return response()->json(['success' => false, 'error' => 'Cette question existe déjà dans la FAQ.'], 422);
         }
 
-        // Append du nouvel item
-        $items[] = [
-            'id'       => 'validated_' . Str::uuid(),
-            'question' => $question,
-            'answer'   => $answer,
-            'source'   => 'admin_validated',
-        ];
-
-        // Sauvegarder localement
-        file_put_contents($faqFile, json_encode(['items' => array_values($items)], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-
-        Log::info('[Chat Validate] Entrée ajoutée à la FAQ', [
-            'file'       => $faqFile,
-            'slug'       => $slug,
-            'app_name'   => $appName,
-            'item_count' => count($items),
-            'is_new_faq' => $isNewFaq,
+        // Créer l'item en base
+        Faq::create([
+            'application_id' => $application->id,
+            'problem'        => $question,
+            'answer'         => $answer,
+            'source_type'    => 'faq',
+            'source'         => $source,
         ]);
 
-        // Récupérer la version du dernier manuel indexé (si applicable)
-        $manualVersion = null;
-        if ($application) {
-            $manualApp = Application::where('is_faq', false)
-                ->whereRaw('LOWER(name) = ?', [strtolower($appName)])
-                ->first();
-            if ($manualApp) {
-                $latestManual = Manual::where('application_id', $manualApp->id)
-                    ->where('status', 'indexed')
-                    ->latest('created_at')
-                    ->first();
-                $manualVersion = $latestManual?->version;
-            }
-        }
+        // Régénérer le fichier JSON depuis la base
+        $faqDir  = $this->getFaqDir();
+        $faqFile = $faqDir . '/' . $slug . '.json';
+        $isNewFaq = !file_exists($faqFile);
 
-        // Marquer le message assistant comme validé
+        $dbItems = Faq::where('application_id', $application->id)
+            ->get()
+            ->map(fn($i) => $i->toFaqArray())
+            ->values()
+            ->all();
+
+        $this->writeFaqFile($faqFile, $dbItems);
+
+        $latestManual = Manual::where('application_id', $application->id)
+            ->where('status', 'indexed')
+            ->latest('created_at')
+            ->first();
+        $manualVersion = $latestManual?->version;
+
         if ($assistantMessageId) {
             try {
                 $am = Message::find($assistantMessageId);
                 if ($am) $am->update(['faq_status' => 'validated']);
             } catch (\Throwable $e) {
-                Log::warning('[Chat Validate] Unable to update assistant message status', ['error' => $e->getMessage()]);
+                Log::warning('[Chat Validate] Impossible de mettre à jour le statut', ['error' => $e->getMessage()]);
             }
         }
 
-        // Envoyer au backend + lancer le pipeline de réindexation
-        $collection = $faqApplication->qdrant_collection ?? $slug;
+        // Indexer dans la collection unique de l'app
         $backendUrl = rtrim((string) config('services.backend.url', 'http://127.0.0.1:8000'), '/');
+        $collection = $this->resolveQdrantCollection($application);
 
         try {
             $client   = new \GuzzleHttp\Client(['timeout' => 120]);
-            $response = $client->put(
-                $backendUrl . '/api/admin/faq/' . urlencode($collection) . '?reindex=true',
-                ['json' => ['items' => $items]]
+            $response = $client->post(
+                $backendUrl . '/api/faq/index',
+                ['json' => ['collection' => $collection, 'items' => $dbItems]]
             );
             $data = json_decode((string) $response->getBody(), true);
+
+            $realCollection = $data['collection'] ?? $collection;
+            if ($application->qdrant_collection !== $realCollection) {
+                $application->update(['qdrant_collection' => $realCollection]);
+            }
+            $collection = $realCollection;
 
             ProcessFaqPipeline::dispatch('sync');
 
             return response()->json([
                 'success'    => true,
                 'data'       => $data,
-                'item_count' => count($items),
+                'item_count' => count($dbItems),
                 'slug'       => $slug,
                 'app_name'   => $appName,
-                'app_id'     => $faqApplication->id,
+                'app_id'     => $application->id,
+                'collection' => $collection,
                 'version'    => $manualVersion,
                 'is_new_faq' => $isNewFaq,
                 'updated_at' => date('d/m/Y', filemtime($faqFile)),
             ]);
         } catch (\Exception $e) {
-            Log::warning('[Chat Validate] Backend inaccessible, FAQ sauvegardée localement', ['error' => $e->getMessage()]);
-
+            Log::warning('[Chat Validate] Backend inaccessible', ['error' => $e->getMessage()]);
             ProcessFaqPipeline::dispatch('sync');
 
             return response()->json([
                 'success'         => true,
                 'backend_warning' => $e->getMessage(),
-                'item_count'      => count($items),
+                'item_count'      => count($dbItems),
                 'slug'            => $slug,
                 'app_name'        => $appName,
-                'app_id'          => $faqApplication->id,
+                'app_id'          => $application->id,
+                'collection'      => $collection,
                 'version'         => $manualVersion,
                 'is_new_faq'      => $isNewFaq,
                 'updated_at'      => date('d/m/Y', filemtime($faqFile)),
@@ -1272,73 +1294,67 @@ class AdminController extends Controller
     // HELPERS RÉSOLUTION D'APPLICATION
     // ──────────────────────────────────────────────────────────────────
 
-    /**
-     * Résout n'importe quelle application (faq ou manuelle) par ID ou nom.
-     */
-    private function resolveAnyApplication(string $app): ?Application
+    private function resolveApplication(string $app): ?Application
     {
         if (is_numeric($app)) {
             return Application::find((int) $app);
         }
         $slug = $this->appNameToFaqSlug($app);
         return Application::whereRaw('LOWER(name) = ?', [strtolower($app)])->first()
-            ?? Application::whereRaw('LOWER(REPLACE(REPLACE(name, \' \', \'_\'), \'-\', \'_\')) = ?', [strtolower($slug)])->first();
+            ?? Application::whereRaw(
+                'LOWER(REPLACE(REPLACE(name, \' \', \'_\'), \'-\', \'_\')) = ?',
+                [strtolower($slug)]
+            )->first();
     }
 
-    /**
-     * Résout une application FAQ (is_faq = true) et retourne [application, slug, appName].
-     */
     private function resolveFaqApp(string $app): array
     {
-        $application = null;
-        $appName     = $app;
-
-        if (is_numeric($app)) {
-            $application = Application::find((int) $app);
-            $appName     = $application?->name ?? $app;
-        } else {
-            $slug        = $this->appNameToFaqSlug($app);
-            $application = Application::where('is_faq', true)
-                ->whereRaw('LOWER(name) = ?', [strtolower($app)])
-                ->first()
-                ?? Application::where('is_faq', true)
-                    ->whereRaw('LOWER(REPLACE(REPLACE(name, \' \', \'_\'), \'-\', \'_\')) = ?', [strtolower($slug)])
-                    ->first();
-            if ($application) $appName = $application->name;
-        }
-
-        $slug = $this->appNameToFaqSlug($appName);
+        $application = $this->resolveApplication($app);
+        $appName     = $application?->name ?? $app;
+        $slug        = $this->appNameToFaqSlug($appName);
         return [$application, $slug, $appName];
     }
 
-    /**
-     * Trouve ou crée une application FAQ (is_faq = true) avec le nom exact fourni.
-     * Le nom doit être unique parmi les applications FAQ.
-     */
-    private function findOrCreateFaqApplication(string $name): Application
+    private function findOrCreateApplication(string $name): Application
     {
-        $existing = Application::where('is_faq', true)
-            ->whereRaw('LOWER(name) = ?', [strtolower($name)])
-            ->first();
+        $existing = Application::whereRaw('LOWER(name) = ?', [strtolower($name)])->first();
+        if ($existing) {
+            return $existing;
+        }
 
-        if ($existing) return $existing;
-
-        return Application::create(['name' => $name, 'is_faq' => true]);
+        Log::info('[findOrCreateApplication] Création nouvelle application', ['name' => $name]);
+        return Application::create(['name' => $name]);
     }
 
     /**
-     * Trouve ou crée une application manuelle (is_faq = false) avec le nom exact fourni.
-     * Le nom doit être unique parmi les applications manuelles.
+     * Supprime l'application de la BD si elle n'a plus aucun manuel ni aucune FAQ.
+     * Cela la retire automatiquement de tous les selects côté utilisateur.
      */
-    private function findOrCreateManualApplication(string $name): Application
+    private function cleanupApplicationIfEmpty(int $applicationId): void
     {
-        $existing = Application::where('is_faq', false)
-            ->whereRaw('LOWER(name) = ?', [strtolower($name)])
-            ->first();
+        $app = Application::find($applicationId);
+        if (!$app) return;
 
-        if ($existing) return $existing;
+        $hasManuals = Manual::where('application_id', $applicationId)->exists();
+        $hasFaqs    = Faq::where('application_id', $applicationId)->exists();
 
-        return Application::create(['name' => $name, 'is_faq' => false]);
+        if (!$hasManuals && !$hasFaqs) {
+            // Supprimer conversations et messages orphelins
+            $conversationIds = Conversation::where('application_id', $applicationId)
+                ->pluck('id');
+
+            if ($conversationIds->isNotEmpty()) {
+                Message::whereIn('conversation_id', $conversationIds)->delete();
+                Conversation::whereIn('id', $conversationIds)->delete();
+            }
+
+            Log::info('[AdminController] Application supprimée (plus de contenu)', [
+                'app_id'   => $applicationId,
+                'app_name' => $app->name,
+            ]);
+
+            $app->delete();
+        }
     }
 
     // ──────────────────────────────────────────────────────────────────
@@ -1397,9 +1413,54 @@ class AdminController extends Controller
             $context  = stream_context_create(['http' => ['method' => 'DELETE', 'timeout' => 10, 'ignore_errors' => true]]);
             $response = @file_get_contents($url, false, $context);
             $data     = $response ? json_decode($response, true) : null;
-            Log::info('[AdminController] Qdrant DELETE collection', ['collection' => $collectionName, 'result' => $data['result'] ?? null]);
+            Log::info('[AdminController] Qdrant DELETE collection', [
+                'collection' => $collectionName,
+                'result'     => $data['result'] ?? null,
+            ]);
         } catch (\Exception $e) {
             Log::warning("[AdminController] Qdrant '{$collectionName}': " . $e->getMessage());
+        }
+    }
+
+    /**
+     * Supprime les données Qdrant sur disque (dossier collection + entrée meta.json).
+     */
+    private function deleteQdrantCollectionData(string $collection): void
+    {
+        $qdrantDataDir       = rtrim((string) config('services.qdrant.data_dir', base_path('../../prod/qdrant_data')), '/');
+        $qdrantCollectionDir = $qdrantDataDir . '/collection/' . $collection;
+        $this->deleteDirectory($qdrantCollectionDir);
+
+        $metaPath = $qdrantDataDir . '/meta.json';
+        if (is_file($metaPath)) {
+            try {
+                $meta = json_decode(file_get_contents($metaPath), true) ?: [];
+                if (isset($meta['collections']) && is_array($meta['collections'])) {
+                    $changed = false;
+                    foreach ($meta['collections'] as $k => $c) {
+                        if (is_array($c) && ($c['name'] ?? '') === $collection) {
+                            unset($meta['collections'][$k]);
+                            $changed = true;
+                        }
+                    }
+                    if ($changed) {
+                        $meta['collections'] = array_values($meta['collections']);
+                        @file_put_contents($metaPath, json_encode($meta, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+                    }
+                }
+            } catch (\Throwable $e) {
+                Log::warning('[AdminController] Impossible de mettre à jour meta.json', ['error' => $e->getMessage()]);
+            }
+        }
+    }
+
+    private function deleteExtractLogs(string $extractDir, string $baseName): void
+    {
+        $extractLogsDir = rtrim($extractDir . '/logs/extractor', '/');
+        if (is_dir($extractLogsDir)) {
+            foreach (glob($extractLogsDir . '/' . $baseName . '*.log') as $f) {
+                $this->deleteFile($f);
+            }
         }
     }
 
@@ -1438,7 +1499,7 @@ class AdminController extends Controller
     private function buildPdfFileName(string $adminName): string
     {
         $manualsDir = $this->getManualsDir();
-        $safe = Str::of($adminName)
+        $safe       = Str::of($adminName)
             ->replaceMatches('/[\/\\\\:*?"<>|]/', '_')
             ->replaceMatches('/\s+/', '_')
             ->trim('_')
@@ -1480,7 +1541,8 @@ PYTHON;
         $tempScriptPath = $tempDir . '/merge_pdf_' . uniqid() . '.py';
         file_put_contents($tempScriptPath, $pythonScript);
 
-        $command = sprintf('python3 %s %s %s %s 2>&1',
+        $command = sprintf(
+            'python3 %s %s %s %s 2>&1',
             escapeshellarg($tempScriptPath),
             escapeshellarg($existingPath),
             escapeshellarg($newPdfPath),
@@ -1499,8 +1561,6 @@ PYTHON;
         if (!file_exists($outputPath)) {
             throw new \Exception("Le fichier de sortie n'a pas été créé");
         }
-
-        Log::info('[AdminController] Fusion PDF réussie', ['output_path' => $outputPath]);
     }
 
     private function buildMergedPdfFileName(string $existingFileName): string

@@ -70,7 +70,9 @@ class ProcessManualPipeline implements ShouldQueue
         // ══════════════════════════════════════════════════════════════
         // ÉTAPE 1 : Extraction PDF → {baseName}_2levels.json
         // ══════════════════════════════════════════════════════════════
-        $extractScript = $extractDir . '/extractor_level_2.py';
+        $useInternalTemplate = (bool) ($manual->follows_internal_template ?? true);
+        $extractScriptName   = $useInternalTemplate ? 'extractor_level_2.py' : 'extractor_docling_level_2.py';
+        $extractScript       = $extractDir . '/' . $extractScriptName;
 
         if (!is_file($extractScript)) {
             $this->markFailed($manual, "[Extraction] Script introuvable : {$extractScript}");
@@ -81,7 +83,10 @@ class ProcessManualPipeline implements ShouldQueue
         $process1->setTimeout($timeout);
         $process1->setWorkingDirectory($extractDir);
 
-        Log::info("[Pipeline] Étape 1 : extraction PDF → {$jsonRaw}");
+        Log::info("[Pipeline] Étape 1 : extraction PDF → {$jsonRaw}", [
+            'extractor' => $extractScriptName,
+            'follows_internal_template' => $useInternalTemplate,
+        ]);
 
         try {
             $process1->mustRun();
