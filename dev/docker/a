@@ -1,0 +1,20 @@
+                 List of relations
+ Schema |         Name          | Type  |  Owner   
+--------+-----------------------+-------+----------
+ public | applications          | table | pfe_user
+ public | cache                 | table | pfe_user
+ public | cache_locks           | table | pfe_user
+ public | conversations         | table | pfe_user
+ public | failed_jobs           | table | pfe_user
+ public | faq_items             | table | pfe_user
+ public | job_batches           | table | pfe_user
+ public | jobs                  | table | pfe_user
+ public | manuals               | table | pfe_user
+ public | messages              | table | pfe_user
+ public | migrations            | table | pfe_user
+ public | password_reset_tokens | table | pfe_user
+ public | sessions              | table | pfe_user
+ public | tickets               | table | pfe_user
+ public | users                 | table | pfe_user
+(15 rows)
+

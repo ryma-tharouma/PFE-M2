@@ -1,0 +1,3 @@
+pdf,method,nb_sections,pages_covered,total_pages,coverage_%,avg_content_len,total_chars,captions_linked,H1_count,H2_count,H3_count,Title_Precision,Title_Recall,Title_F1,Title_matched,Title_missing,Title_extra,Breadcrumb_Precision,Breadcrumb_Recall,Breadcrumb_F1,Breadcrumb_missing,Breadcrumb_extra,Hierarchy_Score,Hierarchy_errors,ROUGE_L_P,ROUGE_L_R,ROUGE_L_F,BERTScore_P,BERTScore_R,BERTScore_F1,eval_time_s
+manuel_parc_auto.pdf,Docling,308,108,117,92.3,354,109318,108,303,5,0,0.6087,0.5806,0.5943,126,91,81,0.087,0.0669,0.0756,251,189,1.0,0,0.9137,0.95,0.9315,0.4732,0.5477,0.5047,82.47
+manuel_parc_auto.pdf,PyMuPDF4LLM,186,87,117,74.4,564,104976,116,0,186,0,0.6033,0.3364,0.432,73,144,48,0.157,0.0706,0.0974,250,102,1.0,0,0.8921,0.9706,0.9297,0.6281,0.6515,0.637,77.91

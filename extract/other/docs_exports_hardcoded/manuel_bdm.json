@@ -1,0 +1,809 @@
+[
+  {
+    "section_id": "sec_00001",
+    "title": "Introduction",
+    "global_title": "Introduction",
+    "parent": "",
+    "breadcrumb": "Introduction",
+    "level": 1,
+    "page": 6,
+    "content": "**Ce document constitue le guide d'utilisation de l'application BDMEYE, un outil conçu spécifiquement**\n**pour la direction DCP-BDM de Sonatrach. Cette application offre une plateforme intégrée qui permet** de centraliser et de faciliter la gestion des opportunités et des projets de la direction. BDMEYE a été développée par M2I Services pour répondre aux besoins de suivi, de gestion des données et de prise de décisions stratégiques, en s'appuyant sur une organisation structurée et accessible de l'information.\nL'application BDMEYE est composée de plusieurs modules, chacun jouant un rôle clé dans la gestion globale des activités de la DCP-BDM. Ces modules sont les suivants :\n• \n**Gestion des Opportunités : Ce module permet de suivre les opportunités d'affaires** potentielles, d'enregistrer les nouvelles opportunités et d'en assurer le suivi jusqu'à la décision finale : « Opportun » ou « Non opportun ».\n• \n**Gestion des Projets : Il s'agit de gérer les projets en cours, depuis leur création jusqu'à leur** clôture ou transfert, en passant par le suivi des différentes opérations et des ressources lors de son avancement.\n• \n**Gestion des Projets Antérieurs : Ce module archive les projets terminés ou abandonnés,** avant la mise en place de l’application, permettant ainsi de consulter l'historique et d'en tirer des leçons pour les projets futurs.\n• \n**Dossier Hors Projets : Ce module contient les informations et les dossiers pertinents qui ne** sont pas directement liés à un projet spécifique (tel que les évènements), mais qui constituent une activité essentielle de la direction DCP-BDM.\n• \n**Gestion des Bases de Données Pays et Compagnies : Un module pour la gestion centralisée** des informations relatives aux pays et aux compagnies partenaires ou prestataires avec un historique de leurs versions.\n• \n**Administration des Référentiels : Ce module permet de gérer les référentiels et les données** de base utilisées dans l'application pour assurer une cohérence et une normalisation des informations.\n• \n**Gestion des Utilisateurs : Ce module permet l'administration des droits d'accès des** utilisateurs, la création de nouveaux comptes de leurs rôles ou permissions.\n• \n**Recherche : Un moteur de recherche avancée permettant de retrouver rapidement des** projets, opportunités, documents ou réunions au sein de l'application.\n• \n**Statistiques : Ce module offre des fonctionnalités d'analyse et de visualisation des données** sous forme de statistiques, afin de faciliter le suivi des performances et la prise de décision.\nChacun de ces modules a été développé pour fournir une interface intuitive et fonctionnelle, permettant aux utilisateurs de la DCP-BDM d'optimiser leur efficacité dans la gestion de leurs responsabilités quotidiennes. Ce guide vous accompagnera dans l'utilisation de ces modules et vous fournira des explications détaillées sur leurs fonctionnalités.",
+    "captions": [],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00002",
+    "title": "Organisation de la DCP-BDM",
+    "global_title": "Organisation de la DCP-BDM",
+    "parent": "",
+    "breadcrumb": "Organisation de la DCP-BDM",
+    "level": 1,
+    "page": 6,
+    "content": "La DCP-BDM est organisée comme suit :\n•  Direction Upstream ;\n•  Direction Downstream ;\n•  Direction Diversification ;\n•  Direction Management de Projets et Reporting composée de :\no Un Département Project Management Office ; o Un Département Reporting.\n•  Département Coopération Internationale ;\n•  Un Département Administration et Logistique ;\n•  Des Experts ;\n• \n**Deux Conseillers.** L’application BDMEYE est destinée à l’ensemble des parties prenantes figurants dans l’organisation avec un accès spécifique régit par une politique d’autorisation d’accès.",
+    "captions": [],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00003",
+    "title": "Accès à l'Application BDMEYE et Authentification",
+    "global_title": "Accès à l'Application BDMEYE et Authentification",
+    "parent": "",
+    "breadcrumb": "Accès à l'Application BDMEYE et Authentification",
+    "level": 1,
+    "page": 7,
+    "content": "**Pour accéder à l'application BDMEYE, veuillez suivre les étapes ci-dessous :**\n1. Accéder à l'URL : Ouvrez votre navigateur internet (Chrome, Firefox, Edge, etc.) et saisissez l'adresse suivante dans la barre d'adresse :\n**www.bdmeye.**\n2. Page de Connexion : Une fois l'URL saisie, vous serez redirigé vers la page de connexion de l'application BDMEYE.\n3. Authentification : L'authentification à BDMEYE est intégrée avec le système Active Directory\n**de Sonatrach. Cela signifie que vous pouvez vous connecter en utilisant le même nom** d'utilisateur et mot de passe que ceux que vous utilisez pour accéder à votre session informatique au sein de l'entreprise.\no\n**Nom d'utilisateur : Entrez le nom d'utilisateur que vous utilisez pour vous connecter** à votre ordinateur professionnel.\no\n**Mot de passe : Saisissez votre mot de passe Active Directory, le même que pour la** session de votre ordinateur.\n4. Connexion : Après avoir entré vos identifiants, cliquez sur le bouton S’identifier. Si vos informations d'identification sont correctes, vous serez redirigé vers l'interface de l'application BDMEYE, où vous pourrez accéder aux différents modules en fonction de vos droits d'utilisateur.\nEn cas de problème de connexion, veuillez vérifier que vos identifiants Active Directory sont corrects ou contactez le service informatique pour vous assister.",
+    "captions": [
+      {
+        "text": "Figure 1: Page d'authentification",
+        "image_path": "images/manuel_bdmeye/page_d_authentification_01.png",
+        "page": 8
+      }
+    ],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00004",
+    "title": "Rôles des Utilisateurs dans l'Application BDMEYE",
+    "global_title": "Rôles des Utilisateurs dans l'Application BDMEYE",
+    "parent": "",
+    "breadcrumb": "Rôles des Utilisateurs dans l'Application BDMEYE",
+    "level": 1,
+    "page": 8,
+    "content": "**Dans l'application BDMEYE, chaque utilisateur se voit attribuer un rôle spécifique qui détermine les** droits et accès aux différents modules et fonctionnalités de l'application. Un utilisateur peut avoir un seul rôle parmi les suivants :\n1. VP (Vice-Président) :\nLe VP a une vue globale sur l'ensemble des opportunités et projets, ainsi qu'un accès aux statistiques. Ce rôle est principalement orienté vers la prise de décisions à haut niveau et le suivi global des activités de la direction.\n2. Directeur :\nLe Directeur supervise les activités de gestion des opportunités et des projets. Il a accès aux modules de gestion et aux statistiques de sa direction.\n3. Administrateur :\nCe rôle est chargé de la gestion technique de l'application, y compris l'administration des référentiels et la gestion des utilisateurs. L'Administrateur a les droits les plus étendus en termes de configuration et de maintenance de l'application BDMEYE.\n4. Chef de Projet :\nLe Chef de Projet est responsable de la gestion d'un ou plusieurs projets spécifiques, de leur suivi opérationnel. Il peut mettre à jour les informations relatives aux projets, surveiller leur avancement.\n5. Responsable Technique :\nLe Responsable Technique dispose des mêmes autorisations que le chef de projet.\n6. Conseiller :\nLe Conseiller dispose des mêmes autorisations que le chef de projet.\n7. Chargé des Opportunités :\nLe Chargé des Opportunités est responsable de gestion et du suivi des opportunités d'affaires dans sa direction. Il enregistre les nouvelles opportunités dans l'application et assure, charge leurs documents et enregistre les décisions.\n8. Chargé des Bases de Données Pays et Compagnies :\nCe rôle est centré sur la gestion et la mise à jour des informations dans les bases de données pays et aux compagnies et veille à ce que les fiches soient mises à jour.\nChaque rôle est défini pour correspondre aux responsabilités spécifiques des utilisateurs au sein de la\n**direction DCP-BDM. L'attribution d'un rôle garantit que chaque utilisateur dispose des autorisations** nécessaires pour accomplir ses tâches tout en limitant l'accès à des fonctionnalités non pertinentes pour ses missions. Cela permet une gestion plus efficace et sécurisée des informations critiques au\n**sein de l'application BDMEYE.** L’Annexe I contient la matrice des autorisations pour chaque rôle.",
+    "captions": [],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00005",
+    "title": "Gestion des utilisateurs",
+    "global_title": "Gestion des utilisateurs",
+    "parent": "",
+    "breadcrumb": "Gestion des utilisateurs",
+    "level": 1,
+    "page": 9,
+    "content": "La gestion des utilisateurs offre une interface simple et efficace pour gérer les accès à l'application BDMEYE. Il permet de contrôler qui peut accéder à l'application, quel niveau de droits est attribué à chaque utilisateur, et de désactiver rapidement l'accès en cas de besoin, garantissant ainsi une\n**gestion sécurisée et adaptable des ressources humaines de la direction DCP-BDM.** La gestion des utilisateurs est accessible uniquement pour les utilisateurs disposant du rôle\n**« Administrateur ».**\n**Pour accéder à la gestion des utilisateurs dans l'application BDMEYE :**\n**1- Ouvrez le menu Administration sur le panneau latéral**\n**2- Sélectionnez Utilisateurs.** Vous serez redirigé vers la page dédiée où vous pourrez voir la liste des utilisateurs existants. Cette page offre une vue complète avec les informations essentielles comme le nom, le rôle , l’email et la\n**direction attribué à chaque utilisateur. Un outil de recherche est intégré pour permettre de filtrer les** utilisateurs rapidement.",
+    "captions": [
+      {
+        "text": "Figure 2: Menu Administration > Utilisateurs",
+        "image_path": "images/manuel_bdmeye/menu_administration_utilisateurs_02.png",
+        "page": 9
+      },
+      {
+        "text": "Figure 3: Gestion des utilisateurs",
+        "image_path": "images/manuel_bdmeye/gestion_des_utilisateurs_03.png",
+        "page": 10
+      }
+    ],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00006",
+    "title": "Création d'un utilisateur",
+    "global_title": "Gestion des utilisateurs",
+    "parent": "Gestion des utilisateurs",
+    "breadcrumb": "Gestion des utilisateurs > Création d'un utilisateur",
+    "level": 2,
+    "page": 10,
+    "content": "Pour créer un nouveau compte utilisateur, suivez les étapes suivantes :\n• \n**Cliquez sur le bouton Ajouter.**\n•  Renseignez le formulaire o\n**Saisissez le login Active Directory de l'utilisateur à créer. Ce login doit correspondre à** celui utilisé par l'utilisateur pour se connecter à son poste au sein de l'organisation.\no\n**Sélectionnez le rôle approprié pour cet utilisateur parmi les rôles disponibles (VP,** Directeur, Administrateur, Chef de projet, Responsable technique, etc.). Ce rôle déterminera les permissions et accès aux différents modules de BDMEYE.\n• \n**Validez la création de l'utilisateur en cliquant sur le bouton Enregistrer. Une fois créé,** l'utilisateur pourra accéder à l'application avec ses identifiants Active Directory et les droits associés à son rôle.",
+    "captions": [
+      {
+        "text": "Figure 4: Formulaire nouvel utilisateur",
+        "image_path": "images/manuel_bdmeye/formulaire_nouvel_utilisateur_04.png",
+        "page": 11
+      }
+    ],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00007",
+    "title": "Désactivation d'un utilisateur",
+    "global_title": "Gestion des utilisateurs",
+    "parent": "Gestion des utilisateurs",
+    "breadcrumb": "Gestion des utilisateurs > Désactivation d'un utilisateur",
+    "level": 2,
+    "page": 11,
+    "content": "Il est possible de désactiver un utilisateur sans pour autant supprimer son compte. Cette fonctionnalité est utile pour révoquer temporairement ou définitivement l'accès à l'application sans perdre les données ou l'historique liés à cet utilisateur.\nPour désactiver un utilisateur, accédez à la liste des utilisateurs, recherchez l'utilisateur concerné, puis\n**cliquez sur le bouton de désactivation.** Une fois désactivé, l'utilisateur ne pourra plus se connecter à BDMEYE tant que son compte ne sera pas réactivé par un administrateur.\nPour désactiver un utilisateur, accédez à la liste des utilisateurs, recherchez l'utilisateur concerné, puis\n**cliquez sur le bouton d’activation.**",
+    "captions": [
+      {
+        "text": "Figure 5: Désactiver un utilisateur",
+        "image_path": "images/manuel_bdmeye/desactiver_un_utilisateur_05.png",
+        "page": 11
+      },
+      {
+        "text": "Figure 6: Activer un utilisateur",
+        "image_path": "images/manuel_bdmeye/activer_un_utilisateur_06.png",
+        "page": 11
+      }
+    ],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00008",
+    "title": "Gestion des référentiels",
+    "global_title": "Gestion des utilisateurs",
+    "parent": "Gestion des utilisateurs",
+    "breadcrumb": "Gestion des utilisateurs > Gestion des référentiels",
+    "level": 2,
+    "page": 11,
+    "content": "**La gestion des référentiels dans l'application BDMEYE est une fonction essentielle pour assurer la** cohérence et la standardisation des données utilisées dans la gestion des projets et des opportunités.\n**Cette fonctionnalité est réservée exclusivement aux administrateurs, qui sont les seuls à pouvoir** créer, modifier ou supprimer les éléments de référence dans le système. La gestion des référentiels permet d'organiser et de structurer les informations selon des catégories précises.\nLa page Administration affiche les liens d’accès pour l’ensemble des référentiels Les référentiels à gérer incluent les éléments suivants :\n1. Gestion des Directions :\n**Liste des directions au sein de l'organisation DCP-BDM de Sonatrach. Une direction peut être** ajoutée, modifiée, désactivée ou supprimée pour refléter les évolutions organisationnelles.\n2. Gestion des Ressources :\nGestion des ressources humaines de la direction DCPBDM assignées aux différents groupes dans les projets.\n3. Gestion des Phases de Projet :\nRéférentiel des différentes étapes d'un projet, depuis son initiation jusqu'à sa clôture. Les phases permettent de structurer le cycle de vie d'un projet.\nL’ensemble des phases du référentiel sont ajoutées au projet dès sa création, le chef de projet peut par la suite modifier les phases pour garder la liste qui correspond à son projet.\n4. Gestion des Thématiques de Projets :\nLes projets sont catégorisés par thématiques (ex. : exploration, production, nouvelles technologies, gaz …etc.)\n**La liste des thématiques facilitant ainsi la gestion et le suivi thématique.**\n5. Gestion des Types de Réunions :\nRéférentiel des différents types de réunions associées aux projets, telles que les réunions internes, de lancement, de suivi, de clôture, ou techniques.\n6. Gestion des Types d'Accords des Projets Nationaux et Internationaux :\nGestion des types d'accords nécessaires pour les projets nationaux ou internationaux (accords du ministère, banques, etc.).\n7. Gestion des Types de Documents Contractuels :\nRéférentiel des différents types de documents contractuels utilisés dans les projets (MOU, NDA …etc.).\n8. Gestion des Statuts des Documents Contractuels :\nGestion des différents statuts que peuvent avoir les documents contractuels (en cours de validation, validé, rejeté, annulé, etc.).\n9. Gestion des Types de Documents :\nGestion des catégories de documents en général, cette catégorisation permet de codifier les documents selon me système de codification arrêté dans l’Annexe II.\n10. Types d'Études :\nCe référentiel permet la gestion des différents types d'études créés dans le cadre des projets, telles que les études de faisabilité, études techniques, études d'impact environnemental, …etc.\n11. Statuts des Demandes d'Autorisations :\nGestion des statuts associés aux différentes demandes d'autorisations telles que les autorisations d’accès et les visa.\n12. Statuts des Références Réglementaires :\nCe référentiel permet de gérer les statuts des références réglementaires qui encadrent les projets (ex. : en cours de révision, validée, expirée, etc.).\n13. Statuts des Événements :\nGestion des statuts des événements liés aux projets (ex. : Préparation, en cours, terminé, annulé).\n14. Monnaies :\nRéférentiel des différentes monnaies utilisées dans les projets nationaux et internationaux.\nLa gestion des référentiels est cruciale pour assurer que toutes les données saisies dans l'application BDMEYE suivent une logique commune et normalisée. Ce processus, exclusivement géré par l'administrateur, permet d'assurer la qualité des informations et d'améliorer l'efficacité dans la\n**gestion des opportunités et des projets de la direction DCP-BDM.**",
+    "captions": [
+      {
+        "text": "Figure 7: Page Administration",
+        "image_path": "images/manuel_bdmeye/page_administration_07.png",
+        "page": 12
+      }
+    ],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00009",
+    "title": "Opérations disponibles pour la gestion des référentiels",
+    "global_title": "Gestion des utilisateurs",
+    "parent": "Gestion des référentiels",
+    "breadcrumb": "Gestion des utilisateurs > Gestion des référentiels > Opérations disponibles pour la gestion des référentiels",
+    "level": 3,
+    "page": 13,
+    "content": "**L'administration des référentiels dans l'application BDMEYE permet aux administrateurs de gérer les** données structurantes qui soutiennent la gestion des opportunités, des projets et des processus connexes. Plusieurs opérations sont disponibles pour assurer une gestion efficace des référentiels, avec des options flexibles pour afficher, modifier, désactiver ou supprimer les éléments.\n1. Liste avec Recherche\n**Tous les référentiels contiennent une liste complète des éléments qui y sont stockés. Une**\n**fonctionnalité de recherche est disponible pour aider l'administrateur à retrouver rapidement un** élément spécifique dans la liste.\n• \n**Exemple : Dans le référentiel des types de documents, vous pouvez rechercher un type** spécifique (ex. : \"Demande de clarification\") pour visualiser ou modifier ses détails.\n2. Affichage et Modification\n**Chaque élément référentiel peut être affiché avec ses informations détaillées. L'administrateur a la**\n**possibilité de modifier les caractéristiques d'un élément, telles que le code ou la désignation ou** d'autres propriétés. Ces modifications se répercuteront sur toutes les entités utilisant cet élément.\n• \n**Exemple : Vous pouvez mettre à jour la désignation d'un statut de document contractuel ou**\n**ajuster les noms des phases de projet en fonction de nouvelles méthodologies.**\n3. Création d'un Nouvel élément\n**Il est possible de créer un nouvel élément dans le référentiel lorsque de nouvelles catégories, phases,** types de documents, ou autres éléments sont nécessaires pour les projets ou opportunités.\n• \n**Exemple : Un nouveau type d’accord ou statut d’événement peut être ajouté au référentiel** pour refléter les évolutions ou besoins opérationnels de la direction DCP-BDM.\nPour cela :\n• \n**Accédez au référentiel concerné et cliquez sur le bouton Ajouter.**\n•  Remplissez les champs du formulaire.\n•  Enregistrez l'élément qui sera alors disponible dans les listes déroulantes correspondantes de l'application.\n4. Désactivation\n**Si un élément du référentiel ne doit plus être utilisé à l'avenir, il peut être désactivé. Cela signifie qu'il** ne sera plus visible dans les listes déroulantes lors de la création de nouveaux éléments, tout en restant actif dans les éléments où il est déjà utilisé.\n• \n**Exemple : Un type d’étude obsolète peut être désactivé afin qu’il ne soit plus sélectionné** pour de nouvelles études, sans pour autant affecter celles déjà en cours.\n5. Suppression Un élément peut être définitivement supprimé si et seulement s'il n'est pas utilisé dans d'autres entités (des rubriques de projets, des opportunités, des projets antérieurs …etc.). Le système vérifie automatiquement si l'élément est encore référencé ailleurs avant de procéder à la suppression.\n•  Si l'élément n'est pas utilisé, la suppression est effectuée avec succès après une demande de confirmation de l’opération.\n•  Si l'élément est encore utilisé, un message d'erreur s'affiche, informant l'administrateur que la suppression est impossible.\n• \n**Exemple : Un Type de document encore utilisé dans des documents ne pourra pas être** supprimé tant qu’il n’aura pas été remplacé dans ces documents.\nPour résumé, la gestion des référentiels dans BDMEYE offre une série d'opérations puissantes pour créer, afficher, chercher, modifier, désactiver ou supprimer des éléments. Ces fonctions permettent aux administrateurs d'assurer que les données structurantes sont à jour, conformes aux besoins de l'organisation, tout en maintenant l'intégrité des informations à travers l'application.",
+    "captions": [
+      {
+        "text": "Figure 8: Recherche dans les listes des référentiels",
+        "image_path": "images/manuel_bdmeye/recherche_dans_les_listes_des_referentiels_08.png",
+        "page": 14
+      },
+      {
+        "text": "Figure 9: Ajouter un nouvel élément dans le référentiel « Statuts des évènements »",
+        "image_path": "images/manuel_bdmeye/ajouter_un_nouvel_element_dans_le_referentiel_statuts_des_ev_09.png",
+        "page": 14
+      },
+      {
+        "text": "Figure 10: Formulaire d'ajout d'un nouveau statut d'évènement",
+        "image_path": "images/manuel_bdmeye/formulaire_d_ajout_d_un_nouveau_statut_d_evenement_10.png",
+        "page": 14
+      },
+      {
+        "text": "Figure 11: Désactiver un type d'étude",
+        "image_path": "images/manuel_bdmeye/desactiver_un_type_d_etude_11.png",
+        "page": 15
+      },
+      {
+        "text": "Figure 12: Message indiquant qu'un élément ne peut être supprimé car il est déjà utilisé",
+        "image_path": "images/manuel_bdmeye/message_indiquant_qu_un_element_ne_peut_etre_supprime_car_il_12.png",
+        "page": 15
+      }
+    ],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00010",
+    "title": "Importer une ressource depuis RESHUM",
+    "global_title": "Gestion des utilisateurs",
+    "parent": "Gestion des référentiels",
+    "breadcrumb": "Gestion des utilisateurs > Gestion des référentiels > Importer une ressource depuis RESHUM",
+    "level": 3,
+    "page": 16,
+    "content": "**Dans l'application BDMEYE, il existe deux méthodes pour ajouter des éléments dans le référentiel**\n**Ressources :**\n1. Création manuelle d'une ressource L'administrateur peut créer une ressource directement depuis l'interface en remplissant manuellement un formulaire avec les informations nécessaires (Direction, matricule, nom, prénom, fonction date de recrutement …etc.) ensuite enregistrer.\n2. Importation depuis la Gestion des Ressources Humaines (RESHUM)\n**Une autre méthode consiste à importer des ressources depuis le système de gestion des ressources**\n**humaines (RESHUM), facilitant ainsi l'intégration des données existantes. Voici comment cela** fonctionne :\n• \n**L'utilisateur clique sur le bouton Ajouter, ensuite, à partir du formulaire d’ajout, il choisit**\n**d'importer une ressource en cliquant sur le bouton Importer une ressource**\n•  Le système affiche la liste des ressources avec des filtres pour chercher rapidement la ressource à importer\n•  Lorsqu'une ressource est sélectionnée pour importation, le formulaire de création de la ressource dans BDMEYE est automatiquement rempli avec les informations récupérées\n**depuis la base de données de RESHUM.**\n•  Les informations importées contiennent :\no Le matricule o Nom, prénom et nom de jeune fille o La fonction o La date de recrutement\n•  Une fois le formulaire rempli, l'utilisateur peut modifier ces informations si nécessaire, il doit aussi sélectionner la structure (la direction) de la ressource car c’est un champ obligatoire qui\n**n’est pas récupéré depuis RssHum, après cela la ressource peut être enregistrée et sera alors** disponible pour utilisation dans les différents projets.\n**Que ce soit par création manuelle ou par importation depuis RESHUM, BDMEYE offre une grande**\n**flexibilité dans la gestion des ressources. La possibilité de modifier les informations importées** permet d'ajuster les données avant leur intégration dans les projets, garantissant ainsi une gestion\n**personnalisée et optimale des ressources pour la direction DCP-BDM.**",
+    "captions": [
+      {
+        "text": "Figure 13: Bouton d'importation d'une ressource depuis ResHum",
+        "image_path": "images/manuel_bdmeye/bouton_d_importation_d_une_ressource_depuis_reshum_13.png",
+        "page": 16
+      },
+      {
+        "text": "Figure 14: Fenêtre d’importation d’une ressource depuis RESHUM",
+        "image_path": "images/manuel_bdmeye/fenetre_d_importation_d_une_ressource_depuis_reshum_14.png",
+        "page": 17
+      },
+      {
+        "text": "Figure 15: Formulaire d'ajout d'une ressource chargé automatiquement",
+        "image_path": "images/manuel_bdmeye/formulaire_d_ajout_d_une_ressource_charge_automatiquement_15.png",
+        "page": 18
+      }
+    ],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00011",
+    "title": "Gestion des opportunités",
+    "global_title": "Gestion des opportunités",
+    "parent": "",
+    "breadcrumb": "Gestion des opportunités",
+    "level": 1,
+    "page": 18,
+    "content": "Cliquer sur Opportunité depuis le menu de l’application ou bien sur l’icone opportunité depuis la page d’accueil\n**La page Liste des Opportunités s’affiche, cette page présente aux utilisateurs une vue d'ensemble des**\n**opportunités auxquelles ils ont accès, en fonction de leur rôle et des permissions associées. Elle** permet un suivi efficace et rapide des opportunités en cours tout en offrant des outils de gestion et de recherche adaptés.\n**La page affiche un tableau récapitulatif des opportunités disponibles, avec les colonnes suivantes :**\n• \n**Référence ST : La référence du soit-transmis (ST), identifiant unique de l'opportunité.**\n• \n**Objet : L'objet de l'opportunité, décrivant brièvement sa nature.**\n• \n**Date : La date à laquelle l'opportunité a été enregistrée.**\n• \n**Direction : La direction responsable de l'opportunité.**\n• \n**Partenaire : La compagnie partenaire associés à l'opportunité.**\n• \n**Statut : Le statut actuel de l'opportunité (Opportun, Non Opportun ou / si l’opportunité n’est** pas encore traitée).\n• \n**Actions : Des actions possibles pour chaque opportunité, telles que modifier ou supprimer.**\n**Filtrage et Recherche**\n**La liste propose plusieurs options de filtrage et de recherche pour affiner la liste des opportunités** affichées selon des critères spécifiques :\n• \n**Filtrer par Direction : Permet de n'afficher que les opportunités liées à la direction** sélectionnée.\n• \n**Filtrer par Partenaire : Affiche uniquement les opportunités associées au partenaire** sélectionné.\n• \n**Filtrer entre Deux Dates : Affiche les opportunités soumises dans une période donnée.**\n• \n**Rechercher par Objet ou Référence ST : Il est possible d'effectuer une recherche textuelle en** entrant une partie ou la totalité de l'objet ou de la référence du soit-transmis, afin de retrouver une opportunité précise.\n**Gestion des Opportunités** Depuis cette page, plusieurs actions sont possibles :\n1. Ajouter une Nouvelle Opportunité o\n**En cliquant sur le bouton Ajouter, l'utilisateur accède à un formulaire de création** d'une nouvelle opportunité. Il pourra y renseigner tous les détails nécessaires (référence, objet, direction, partenaire, statut, etc.) avant de l'enregistrer dans le système.\n2. Modifier une Opportunité o\n**Dans chaque ligne du tableau, une icône ou un bouton Modifier est disponible. En** cliquant dessus, l'utilisateur peut accéder au formulaire d'édition de l'opportunité et ajuster ses informations (objet, statut, direction, etc.).\n3. Supprimer une Opportunité o\n**L'utilisateur peut également cliquer sur le bouton Supprimer pour retirer une** opportunité du système. Cette action est soumise à confirmation afin d'éviter toute suppression accidentelle.",
+    "captions": [
+      {
+        "text": "Figure 16: Menu Opportunités",
+        "image_path": "images/manuel_bdmeye/menu_opportunites_16.png",
+        "page": 19
+      }
+    ],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00012",
+    "title": "Ajouter une Nouvelle Opportunité",
+    "global_title": "Gestion des opportunités",
+    "parent": "Gestion des opportunités",
+    "breadcrumb": "Gestion des opportunités > Ajouter une Nouvelle Opportunité",
+    "level": 3,
+    "page": 20,
+    "content": "**En cliquant sur le bouton Ajouter depuis la liste des opportunité, l'utilisateur accède au formulaire de** création d'une nouvelle opportunité. Il devra y renseigner tous les détails nécessaires\n• \n**Référence ST : La référence du soit-transmis (ST), identifiant unique de l'opportunité.**\n• \n**Date : La date à laquelle l'opportunité a été enregistrée.**\n• \n**Objet : L'objet de l'opportunité, décrivant brièvement sa nature.**\n• \n**Direction Leader: La direction responsable de l'opportunité.**\n• \n**Autres directions : Autres directions associées au traitement de l’opportunité**\n• \n**Partenaire : La compagnie partenaire sélectionnée depuis la Base de données des** compagnies, si cette dernière contient plusieurs versions, le système affiche une liste déroulante supplémentaire pour choisir la version\n• \n**Annotations : Texte libre permettant de saisir les annotations.**\n• \n**Description : Description détaillée de l’opportunité.**\n• \n**Date de la réponse : Date de la réponse à l’opportunité.** Les champs obligatoires sont suivis d’un astérisque rouge (*)",
+    "captions": [
+      {
+        "text": "Figure 17: Formulaire d'ajout d'une nouvelle opportunité",
+        "image_path": "images/manuel_bdmeye/formulaire_d_ajout_d_une_nouvelle_opportunite_17.png",
+        "page": 21
+      }
+    ],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00013",
+    "title": "Ajout de Documents à une Opportunité",
+    "global_title": "Gestion des opportunités",
+    "parent": "Gestion des opportunités",
+    "breadcrumb": "Gestion des opportunités > Ajout de Documents à une Opportunité",
+    "level": 3,
+    "page": 21,
+    "content": "**Dans l'application BDMEYE, il est possible d'ajouter plusieurs documents à une opportunité afin de** centraliser et structurer l'ensemble des fichiers associés à celle-ci. Cette fonctionnalité permet de joindre des documents tels que le soit-transmis, des études, des PV de réunions ou autres types de document, en les codifiant automatiquement pour une gestion simplifiée.\n**Procédure d'ajout d'un Document**\n1. Sur le côté droit de la page de l'opportunité, vous trouverez un bouton intitulé \"Ajouter un\n**document\". En cliquant dessus, vous accédez au formulaire d'ajout de documents.**\n2. Le formulaire d'ajout de document comprend plusieurs champs que vous devrez compléter pour enregistrer le fichier associé à l'opportunité :\no\n**Type de Document : Sélectionnez le type de document à partir de la liste déroulante** (ex. : Fiche soit-transmis, demande de clarification, PV de réunion …etc.). Cela permet de catégoriser les documents de manière cohérente et de les codifier o\n**Date du Document : Indiquez la date du document ou celle à laquelle il a été créé ou** signé.\no\n**Description (facultatif) : Vous pouvez introduire une description pour clarifier la** nature ou le contenu du document. Ce champ est facultatif, mais il peut aider à mieux identifier le document.\no\n**Attacher un fichier : Sélectionner et télécharger le fichier à joindre (ex. : PDF, Word,** Excel, etc.).\n3. Une fois le formulaire complété, cliquez sur \"Enregistrer\" pour ajouter le document à\n**l'opportunité. Le document sera automatiquement codifié selon le système de codification** défini dans l'Annexe II, garantissant une gestion uniforme des fichiers au sein du système.\nGrâce à cette fonctionnalité, les utilisateurs peuvent facilement gérer et centraliser tous les documents liés à une opportunité, assurant ainsi une traçabilité et une organisation optimale. Le système de codification automatique permet de retrouver les documents de manière efficace et de\n**maintenir une structure ordonnée au sein de l'application BDMEYE.**",
+    "captions": [
+      {
+        "text": "Figure 18: Ajouter un document à une opportunité",
+        "image_path": "images/manuel_bdmeye/ajouter_un_document_a_une_opportunite_18.png",
+        "page": 21
+      },
+      {
+        "text": "Figure 19: Formulaire d'enregistrement d'un nouveau ducument",
+        "image_path": "images/manuel_bdmeye/formulaire_d_enregistrement_d_un_nouveau_ducument_19.png",
+        "page": 22
+      }
+    ],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00014",
+    "title": "Décision sur l'opportunité",
+    "global_title": "Gestion des opportunités",
+    "parent": "Gestion des opportunités",
+    "breadcrumb": "Gestion des opportunités > Décision sur l'opportunité",
+    "level": 2,
+    "page": 22,
+    "content": "**La fonctionnalité \"Décision sur l'opportunité\" permet de finaliser l'évaluation d'une opportunité en** décidant si elle sera poursuivie ou non. Cette étape est cruciale pour déterminer l'avenir d'une opportunité et, le cas échéant, pour initier un projet lié.\nPour enregistrer la décision sur une opportunité procédez comme suit :\n1. Ouvrez l’opportunité en cliquant sur le bouton Editer en regard de l’opportunité dans la page « Liste des opportunités »\n2. Sur la page de l'opportunité, un bouton intitulé \"Décision sur l'opportunité\" est disponible.\nEn cliquant sur ce bouton, une fenêtre s'affiche, vous permettant de prendre une décision.\n3. Dans cette fenêtre, deux options sont proposées :\no\n**Opportun : L'opportunité est jugée favorable et doit être poursuivie sous la forme** d'un projet.\no\n**Non Opportun : Si cette option est choisie, le système enregistre simplement** l'information que l'opportunité ne sera pas poursuivie et la clôture.\n4. Si l'opportunité est considérée comme \"Opportun\", le système affiche automatiquement un\n**formulaire pour créer un projet et le lier à l'opportunité. Ce formulaire contient plusieurs** champs à renseigner pour créer le projet :\no\n**Type du Projet : L'utilisateur doit choisir entre National ou International pour** indiquer la portée du projet.\no\n**Année : Ce champ est récupéré automatiquement en fonction de l'année courante,** mais l'utilisateur a la possibilité de le modifier si nécessaire.\no\n**Date de la Décision de l'Opportunité : Par défaut, le système propose la date** système (la date actuelle), mais l'utilisateur peut la modifier pour refléter la date réelle de prise de décision.\no\n**Direction du Projet : Le système propose automatiquement la « Direction Leader »** liée à l'opportunité initiale. Cependant, l'utilisateur peut ajuster cette information si le projet doit être rattaché à une autre direction.\no\n**Intitulé du Projet : L'utilisateur doit entrer un intitulé pour le projet.** o\n**Phase Courante du Projet : L'utilisateur sélectionne la phase actuelle du projet dans**\n**la liste des phases qui ont été créées depuis le référentiel Phase de projet (ex. : étude** de faisabilité, exécution, clôture …etc.).\no\n**Thématique du Projet : Ce champ permet de choisir la thématique principale du**\n**projet à partir de la liste des thématiques préalablement créées dans le référentiel**\n**Thématiques.** o\n**Finalité : Ce champ est un texte libre où l'utilisateur peut indiquer la finalité ou les** objectifs principaux du projet.\no\n**Description : Un autre champ de texte libre permet de détailler le projet avec une** description complète des objectifs, caractéristiques, ou de toute autre information pertinente.\n5. Une fois le formulaire rempli, l'utilisateur peut valider en cliquant sur le bouton Enregistrer.\nLe projet est créé automatiquement dans le système. Il est ensuite codifié de manière automatique conformément au système de codification décrit dans l'Annexe II. Cette codification assure une gestion structurée et cohérente des projets, permettant une identification et un suivi efficaces tout au long de leur cycle de vie. Le système lie automatiquement ce nouveau projet à l'opportunité initiale, permettant de suivre l'évolution de l'opportunité vers un projet concret.",
+    "captions": [
+      {
+        "text": "Figure 20: Bouton Editer une opportunité",
+        "image_path": "images/manuel_bdmeye/bouton_editer_une_opportunite_20.png",
+        "page": 23
+      },
+      {
+        "text": "Figure 21: Bouton décision sur l'opportunité",
+        "image_path": "images/manuel_bdmeye/bouton_decision_sur_l_opportunite_21.png",
+        "page": 23
+      },
+      {
+        "text": "Figure 22: Fenêtre décision sur l'opportunité",
+        "image_path": "images/manuel_bdmeye/fenetre_decision_sur_l_opportunite_22.png",
+        "page": 23
+      },
+      {
+        "text": "Figure 23: Formulaire de création d'un projet depuis une opportunité",
+        "image_path": "images/manuel_bdmeye/formulaire_de_creation_d_un_projet_depuis_une_opportunite_23.png",
+        "page": 25
+      }
+    ],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00015",
+    "title": "Créer un nouveau projet",
+    "global_title": "Gestion des projets",
+    "parent": "Gestion des projets",
+    "breadcrumb": "Gestion des projets > Créer un nouveau projet",
+    "level": 2,
+    "page": 25,
+    "content": "**Dans l'application BDMEYE, il est possible de créer un projet depuis une opportunité, comme** expliqué dans la section précédente. Cependant, il est également possible de créer un nouveau projet sans passer par une opportunité. Pour cela, suivez les étapes ci-dessous :\n1. Depuis le menu de l’application, cliquez sur \"Projet\". Cela vous amènera à la liste des projets existants, où vous pourrez consulter tous les projets accessibles selon votre rôle.\n2. Pour créer un nouveau projet, cliquez sur le bouton \"Ajouter\" en haut à droite de la page.\nCela ouvrira un formulaire d'ajout permettant de renseigner toutes les informations nécessaires à la création du projet.\n3. Le formulaire d'ajout contient les champs suivants :\no\n**Type du projet : Choisissez si le projet est de type National ou International.** o\n**Année : Indiquez l'année de création du projet.** o\n**Phase courante : Sélectionnez la phase actuelle du projet dans la liste des phases** disponibles (ex. : étude de faisabilité, exécution, etc.).\no\n**Thématique du projet : Choisissez la thématique du projet depuis la liste des** thématiques créées dans le référentiel.\no\n**Intitulé : Donnez un nom ou un titre au projet.** o\n**Direction : Indiquez la direction ou le département responsable du projet.** o\n**Lieu : Spécifiez le lieu où se déroulera le projet.** o\n**Finalité : Un champ de texte libre pour indiquer les objectifs principaux du projet.** o\n**Descriptif : Un autre champ de texte libre pour fournir une description détaillée du** projet.\no\n**Chef du projet : Sélectionnez le chef de projet parmi les utilisateurs ayant le rôle de**\n**Chef de projet ou de Conseiller.** o\n**Responsable technique : Choisissez le responsable technique depuis la liste des**\n**utilisateurs ayant le rôle de Responsable technique.** o\n**Type de montage : Un champ de texte libre pour préciser le type de montage du** projet.\no\n**Statut du projet : Sélectionnez le statut actuel du projet dans la liste des statuts (ex. :** en cours, terminé, annulé, etc.).\n4. Après avoir complété le formulaire, vous pouvez enregistrer le projet, qui sera ensuite intégré dans la liste des projets de l'application. Comme pour les projets créés à partir d'opportunités, ce projet sera codifié automatiquement conformément au système de codification décrit dans l'Annexe II..",
+    "captions": [
+      {
+        "text": "Figure 24: Ajouter un projet sans passer par une opportunité",
+        "image_path": "images/manuel_bdmeye/ajouter_un_projet_sans_passer_par_une_opportunite_24.png",
+        "page": 26
+      }
+    ],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00016",
+    "title": "Modifier les informations d’un projet existant",
+    "global_title": "Gestion des projets",
+    "parent": "Gestion des projets",
+    "breadcrumb": "Gestion des projets > Modifier les informations d’un projet existant",
+    "level": 2,
+    "page": 26,
+    "content": "**Pour modifier un projet dans BDMEYE, suivez les étapes suivantes :**\n1. Accédez à la liste des projets depuis le menu latéral. Cette page affiche tous les projets existants.\n2. Pour trouver le projet à modifier, vous pouvez utiliser la fonction de recherche en entrant une\n**partie ou la totalité du code ou de l'intitulé du projet dans le champ de recherche.**\n3. Une fois le projet identifié, cliquez sur le bouton \"Éditer\" à droite de la ligne correspondant au projet, cela ouvrira le formulaire de modification du projet, qui contient toutes les informations déjà saisies lors de la création.\n4. Le formulaire contient les mêmes champs décrits dans la section \"Créer un nouveau projet\", notamment :\no Type du projet o Année o Phase courante o Thématique du projet o Intitulé o Direction o Lieu o Finalité o Descriptif o Chef du projet o Responsable technique o Type de montage o Statut du projet De plus, un champ supplémentaire permet de charger le schéma du projet (fichier image)\n5. Sections pour Partenaires, Pays et Prestataires : Le formulaire de modification inclut\n**également trois sections supplémentaires pour gérer les partenaires, les pays, et les**\n**prestataires du projet.** o\n**Partenaires : Cette section permet d'ajouter ou de modifier les partenaires associés**\n**au projet. En cliquant sur le bouton \"Ajouter\", un formulaire simple s'affiche**\n**permettant de sélectionner un partenaire depuis la liste des compagnies.** o\n**Pays : Cette section permet d'ajouter ou de modifier les pays impliqués dans le**\n**projet. Le bouton \"Ajouter\" affiche un formulaire pour choisir un pays depuis la liste** des pays existants.\no\n**Prestataires : De la même manière, cette section permet d'ajouter ou de modifier les**\n**prestataires du projet. Le bouton \"Ajouter\" affiche un formulaire pour sélectionner**\n**un prestataire depuis la liste des compagnies.**\n**Les listes des partenaires, pays et prestataires sont gérables, ce qui signifie que vous**\n**pouvez ajouter de nouveaux éléments ou supprimer des éléments existants si** nécessaire.\n**Remarque : Il n’est pas nécessaire de cliquer sur le bouton \"Enregistrer\" en bas du** formulaire principal du projet pour sauvegarder les changements apportés sur les\n**Partenaires, Pays et Prestataires.**",
+    "captions": [
+      {
+        "text": "Figure 25: Gestion des partenaires, pays et prestataires du projet",
+        "image_path": "images/manuel_bdmeye/gestion_des_partenaires_pays_et_prestataires_du_projet_25.png",
+        "page": 28
+      }
+    ],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00017",
+    "title": "Gestion des rubriques du projet",
+    "global_title": "Gestion des rubriques du projet",
+    "parent": "",
+    "breadcrumb": "Gestion des rubriques du projet",
+    "level": 1,
+    "page": 28,
+    "content": "Un projet comprend plusieurs rubriques qui décrivent des éléments au projet. Lorsque vous cliquez sur un projet depuis la liste des projets, la page dédiée au projet s'affiche. Cette page contient un\n**menu latéral qui regroupe toutes les rubriques associées au projet.** Les rubrique décrites ci-dessous partagent les mêmes fonctionnalités :\n**Rubriques avec Fonctionnalités**\n**Similaires**\n**Description**\n**Avant-projet** Phase initiale du projet où l'étude de faisabilité est réalisée.\n**Évènements** Liste des événements liés au projet (réunions, conférences, etc.).\n**Livrable** Suivi des livrables associés au projet.\n**Documents administratifs** Gestion des documents administratifs du projet.\n**Procédures** Ensemble des procédures à suivre dans le cadre du projet.\n**Études** Études réalisées ou à réaliser dans le cadre du projet.\n**Financement** Informations concernant le financement du projet.\n**Facturation** Gestion des factures et des paiements liés au projet.\n**Réunions** Suivi des réunions organisées dans le cadre du projet.\n**Clarifications** Points de clarification relatifs au projet.\n**Demandes d’autorisation** Gestion des demandes d’autorisation nécessaires au projet.\n**Références réglementaires** Références aux lois et réglementations applicables au projet.\n**Clôture** Suivi des étapes finales pour la clôture d’un projet.\n**Transfert** Suivi des transferts du projet.\n**Coût d’investissement** Suivi des coûts liés à l’investissement dans le projet.\nLes rubriques suivantes utilisent des fonctionnalisées uniques a eu :\n**Rubriques avec Fonctionnement**\n**Unique**\n**Description**\n**Rapport** Gestion des rapports spécifiques au projet (avancement, synthèse, etc.).\n**Situation** Suivi de la situation actuelle du projet (état d'avancement, statut).\n**Ressource** Gestion des ressources humaines, financières et matérielles allouées au projet.\n**Planning** Suivi et gestion du planning du projet (chronogramme, jalons).\n**Fiche technique** Détails techniques spécifiques au projet (spécifications, données techniques).\nCe tableau vous permet de différencier les rubriques qui partagent les mêmes fonctionnalités et celles ayant un fonctionnement unique.\nLes opérations suivantes décrivent les fonctionnalisées qui peuvent être effectuer sur les rubriques avec des fonctionnalisées similaires :\n1. Liste des éléments de la rubrique\n1. Pour gérer une rubrique de projet. Vous pouvez cliquer sur la rubrique que vous souhaitez consulter dans le menu à gauche.\n2. Une liste des éléments pertinentes pour cette rubrique s’affichera, vous permettant de visualiser tous les éléments associés.\n**Exemple : Si vous sélectionnez Livrable, vous verrez une liste des livrables associés au projet, comme** les rapports, produits, ou autres résultats.\n2. Ajouter un élément\n1. Pour ajouter un élément vous accédez à la rubrique où vous souhaitez ajouter un élément.\n2. Ensuite, vous cliquez sur le bouton Ajouter situer dans la partie supérieure de la liste.\n3. Un formulaire apparaîtra pour remplir les champs requis.\n4. Cliquez sur Enregistrer pour valider l'ajout.\n**Exemple : Dans la rubrique Réunions, vous pouvez ajouter un nouveau compte-rendu de réunion** avec la date, phase, et une description.\n**3.Modifier un élément**\n1. Dans la liste des éléments de la rubrique sélectionnée, identifiez l'élément à modifier.\n2. Cliquez sur l’icône Editer à côté de l'élément concerné.\n3. Un formulaire s’affichera pour renseigner les informations à mettre à jour.\n4. Cliquez sur Enregistrer pour valider les modifications.\n**Exemple : Dans la rubrique Réunions, vous pouvez modifier la réunion crée avec les nouvelles valeurs** que vous souhaitez.\n4. Gestion des documents d’un élément Lorsque vous cliquer sur l’icône pour modifier un élément d’une rubrique. Vous trouverez à droite une interface pour la gestion des documents de l’élément qui vous permettra d’effectuer les opérations suivantes :\n1. Ajouter un document : Vous trouverez à droite un Bouton « Ajouter un document + », un formulaire vous sera affiché pour renseigner les informations du document (type, date, description et le fichier a attacher). Une codification du document sera générée automatiquement.\n2. Modifier le document : Apres avoir cliquer sur l’icône pour la modification des documents, vous pouvais remplir le formulaire et modifier le document. La codification sera mise à jour automatiquement.\n3. Télécharger le document : vous pouvez télécharger le fichier attaché en cliquant sur l’icône de téléchargement du document.\n4. Supprimer un document : lorsque vous cliquer sur l’icône de suppression, une confirmation est requise par l’application pour la suppression de l’élément.\n**Exemple : Dans la rubrique Documents administratifs, vous pouvez télécharger des permis ou des** documents de régulation.\n5. Supprimer un élément\n1. Dans la liste d'informations, trouvez l'élément que vous souhaitez supprimer.\n2. Cliquez sur le bouton Supprimer à côté de l'élément.\n3. Une fenêtre de confirmation apparaîtra. Cliquez sur Confirmer pour supprimer définitivement l'élément.\n**Exemple : Vous pouvez supprimer un rapport d’étude périmé dans la rubrique Études.**\n6. Recherche Dans la liste des éléments présentés, vous pouvez effectuer une recherche pour trouver des éléments spécifiques. Les critères de recherche peuvent varier selon la rubrique : il peut s'agir de texte (comme des intitules ou des descriptions) ou de dates (comme des échéances ou des dates de création). Cela permet de filtrer rapidement les données pertinentes pour chaque projet.",
+    "captions": [],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00018",
+    "title": "Gestion des rubriques a fonctionnement unique",
+    "global_title": "Gestion des rubriques du projet",
+    "parent": "Gestion des rubriques du projet",
+    "breadcrumb": "Gestion des rubriques du projet > Gestion des rubriques a fonctionnement unique",
+    "level": 2,
+    "page": 31,
+    "content": "Les rubriques rapport, planning, fiche technique et ressource utilise un fonctionnement unique a eu :",
+    "captions": [],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00019",
+    "title": "Rapport de projet",
+    "global_title": "Gestion des rubriques du projet",
+    "parent": "Gestion des rubriques a fonctionnement unique",
+    "breadcrumb": "Gestion des rubriques du projet > Gestion des rubriques a fonctionnement unique > Rapport de projet",
+    "level": 3,
+    "page": 31,
+    "content": "Cette Rubrique vous permettra de gérer les rapports du projet à travers différentes opérations, comme l'ajout, la modification, la suppression, et la gestion des documents associés.\n1. Accéder à la section des rapports de projet :\nLorsque vous cliquer sur la rubrique des rapports de projet, vous trouverez une liste des rapports de projet qui vous permettra d’effectuer les opérations suivantes :\n2. Ajouter un rapport :\nApres avoir cliquer sur le bouton « Ajouter », Un formulaire s'affichera pour vous permettre de saisir les informations liées au rapport. Le rapport comprend deux types est les données d’entrée dépend du type de rapport :\no Mensuel : Vous devez entrer l’année et le mois du rapport.\no Hebdomadaire : Vous devez entrer la date du rapport. Cette date doit être un dimanche pour marquer le début de la semaine.\n3. Modifier le rapport :\nEn cliquant sur le bouton à côté de l’élément qui vous désirez modifier, vous pouvez mettre a jour les information du rapport et gérer les documents du rapport :\no\n**Mettre à jour le rapport : Vous pouvez saisir le type et les données d’entrées qui** correspondent au type de rapport.\no\n**Gestion des documents : Vous pouvez ajouter un document et lui attacher un fichier.** Vous pouvez aussi modifier supprimer le document ainsi que de télécharger le fichier du document.\n4. Supprimer un Rapport o\n**Accéder à la liste des rapports de projet :** Recherchez le rapport que vous souhaitez supprimer.\no\n**Supprimer le rapport :** Cliquez sur l'icône de suppression ou sur le bouton \"Supprimer\" à côté du rapport. Une\n**confirmation vous sera demandée avant de supprimer définitivement le rapport.**\n5. Filtre o Vous trouverez un filtre dans la liste des rapports. Vous pouvez filtrer par le type de rapport et lister les rapport mensuel, hebdomadaire ou tous les rapports.\n6. Gestion des actions et des problèmes Chaque rapport de projet comprend un compte-rendu des actions réalisées et des actions planifiées ainsi que les problèmes rencontrés dans le projet. En cliquant sur l’icône de modification dans la liste des rapports, vous trouverez en bas une interface pour la gestion des actions réalisé et planifié ainsi que les problèmes rencontrés dans le projet.\no\n**Gestion des actions réalisées : comprennent la liste des actions déjà réalisées. Vous** pouvez ajouter, modifier, supprimer ainsi que d’importer des actions depuis un autre rapport.\no\n**Gestion des actions planifiées : comprennent la liste des actions déjà planifiées. Vous** pouvez ajouter, modifier, supprimer ainsi que d’importer des actions depuis un autre rapport.\no\n**Gestion des problèmes rencontrés : comprennent la liste des problèmes rencontrés** durant le projet.",
+    "captions": [
+      {
+        "text": "Figure 26: Liste des rapports",
+        "image_path": "images/manuel_bdmeye/liste_des_rapports_26.png",
+        "page": 31
+      },
+      {
+        "text": "Figure 27:gestion des actions et des problèmes d’un rapport",
+        "image_path": "images/manuel_bdmeye/gestion_des_actions_et_des_problemes_d_un_rapport_27.png",
+        "page": 32
+      }
+    ],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00020",
+    "title": "Planification",
+    "global_title": "Gestion des rubriques du projet",
+    "parent": "Gestion des rubriques a fonctionnement unique",
+    "breadcrumb": "Gestion des rubriques du projet > Gestion des rubriques a fonctionnement unique > Planification",
+    "level": 3,
+    "page": 32,
+    "content": "**Lorsque vous cliquer sur la rubrique « Planification » dans la liste des rubriques du projet, vous** pouvez de gérer les différents plannings du projet, pour cela il faudra définir les phases du projet à développer :\n1. Gestion des Phases Lorsque vous cliquer sur le bouton « gestion des phases », vous trouverais une liste des phases qui a été créées automatiquement après la création d’un projet. A partir de la gestion des phases, vous pouvez ajouter, modifier, supprimer et changer l’ordre des phases du projet.\na. Liste des phases créée automatiquement avec le projet\n•  Lorsqu'un nouveau projet est créé, une liste de phases(activé) de base est générée automatiquement. Ces phases correspondent aux étapes clés de votre projet, prêtes à être personnalisées.\nb. Gestion manuelle des phases :\ni.\n**Ajout d'une phase : Vous pouvez cliquer sur le bouton « Ajouter », entrer la**\n**désignation de la phase et enregistrer.** ii.\n**Modifier une phase : Vous pouvez cliquer sur le bouton avec l’icône de** modification à droite, entrer la nouvelle désignation et enregistrer en cliquant sur modifier.\niii.\n**Supprimer une phase : Vous pouvez cliquer sur le bouton avec l’icône de** suppression à droite, une confirmation sera demandée pour la suppression de la phase.\niv.\n**Ordonner les phases : Il est possible de modifier l'ordre des phases en les** déplaçant avec les flèches directionnelles, permettant ainsi de réajuster leur position dans le planning.\n3. Gestion des plannings Cette partie vous permettra de gérer et les tâches d'un projet, en facilitant la planification et le suivi de l'avancement. Les opérations suivantes peuvent être effectuer à partir d la rubrique planification :\n• \n**Ajout du premier planning : Lorsque vous cliquer sur « Ajouter un planning + », un** formulaire apparaitra pour insérer une date du planning unique au projet.\n• \n**Copie automatique du dernier planning : Lorsque vous créez un nouveau planning pour un** projet, le système duplique automatiquement le dernier planning enregistré pour vous offrir une continuité dans le suivi. La copie du planning inclue toute les phase et taches du dernier planning.\n• \n**Basculer entre planning : Vous pouvez bascule entre les plannings du projet. Une date du** planning est affichée et les tâches du planning sont affiché en bas.\n• \n**Modifier un planning : A partir de la liste déroulante des plannings, lorsque vous choisissez** un planning. Vous pouvez mettre à jour l’observation du planning en entrant la nouvelle\n**observation et cliquer sur « Enregistrer ».**\n• \n**Supprimer un planning : A partir de la liste déroulante des plannings, lorsque vous choisissez**\n**un planning et après en cliquant sur le bouton « Supprimer », une confirmation est demande** pour la suppression du planning. Les tâches du planning sont supprimées automatiquement avec le planning. Le dernier planning sera affiché après la suppression.\n• \n**Gestion des Tâches :** Chaque planning comprend une liste des tâches. La liste des tâches est ordonnée selon leurs phase, date de début, date de fin et désignation de la tâche.\n• \n**Ajouter une tâche : En cliquant sur le bouton « Ajouter une tâche », un formulaire** vous sera affiché pour renseigner la désignation, phase, date de début, date de fin et le taux d’avancement de la tâche.\n• \n**Modifier une tâche : En cliquant sur le bouton avec l’icône de modification, vous**\n**pourrai insérer les nouvelles valeurs des champs et enregistrer.**\n• \n**Supprimer une tâche : Une confirmation vous sera demandé en cliquant sur le** bouton de suppression à droite de la tâche.\n• \n**Diagram de Gantt : Juste à côté du bouton pour « Ajouter une tâche », vous** trouverez un bouton pour basculer entre le tableau des tâches et un diagramme de Gantt illustrant l’état d’avancement des tâches.",
+    "captions": [
+      {
+        "text": "Figure 28:Gestion des phases d'un projet",
+        "image_path": "images/manuel_bdmeye/gestion_des_phases_d_un_projet_28.png",
+        "page": 33
+      },
+      {
+        "text": "Figure 29: Gestion des plannings",
+        "image_path": "images/manuel_bdmeye/gestion_des_plannings_29.png",
+        "page": 34
+      },
+      {
+        "text": "Figure 30:Gestion des tâches",
+        "image_path": "images/manuel_bdmeye/gestion_des_taches_30.png",
+        "page": 34
+      }
+    ],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00021",
+    "title": "Gestion des ressources et des groupes",
+    "global_title": "Gestion des rubriques du projet",
+    "parent": "Gestion des rubriques a fonctionnement unique",
+    "breadcrumb": "Gestion des rubriques du projet > Gestion des rubriques a fonctionnement unique > Gestion des ressources et des groupes",
+    "level": 3,
+    "page": 34,
+    "content": "**Lorsque vous cliquer sur la rubrique « Ressources et groupes » dans la liste des rubriques du projet,** vous pouvez gérer les différents les ressources humaines et les groupes du projet :\n1. Groupes Dans un projet, deux types de groupes sont utilisés pour organiser les équipes et faciliter la\n**gestion : le groupe STC et les groupes JWG. Le groupe STC est un comité de pilotage unique,**\n**désigné aux responsables clés. En parallèle, les groupes JWG sont des groupes de travail** spécifiques, créés pour des équipes d'employés, visant à exécuter des tâches précises liées aux différentes étapes du projet. Les opérations suivantes vous permettront de gérer les groupes du\n**JWG :**\na. Ajout d’un groupe : En cliquant sur le bouton « Ajouter un groupe + », vous pouvez entrer la désignation du groupe et enregistrer.\nb. Modifier un groupe : Dans la liste des groupes affiché et en cliquant sur un groupe, un bouton\n**« Editer le groupe » apparaitra pour mettre à jour la désignation du groupe et enregistrer.**\nd. Suppression d’un groupe : Dans la liste des groupes affiché et en cliquant sur un groupe, un\n**bouton « Supprimer le groupe » apparaitra. En cliquant sur ce bouton, une confirmation est** demande pour confirmer la suppression du groupe.\n2. Ressources Les ressources humaines d'un projet représentent l'ensemble des personnes impliquées dans sa réalisation. La ressource comprend des ressource internes qui sont des ressources de la direction BDM et des ressources externes qui viennent d’une direction externe ou d’un prestataire offrant leur service. Les opérations suivantes peuvent être effectuer pour la gestion des ressources :\na. Ajouter une ressource : Lorsque vous cliquer sur « Ajouter une ressource + », Vous êtes invité à choisir le type (Interne ou Externe), des champs correspondant au type sont affiché pour renseigner les informations de la ressource. Enregistrer pour terminer.\nb. Modifier une ressource : Lorsque vous cliquer sur le bouton pour modifier une ressource. Vous pouvez changer le type de la ressource et mettre à jour ces information. Enregistrer pour terminer.\nc. Ajouter une ressource a un groupe : En cliquant sur le bouton « + » à côté de la ressource. Vous pouvez ajouter la ressource directement au STC ou choisir un sous-groupe en cliquant sur JWG.\nEnregistrer pour terminer.\nd. Suppression une ressource : En cliquant sur l’icône de suppression à côté, une confirmation est demande pour la suppression de la ressource.\nd. Suppression de la ressource du groupe : Dans la liste des membres du groupe STC, vous pouvez\n**cliquer sur l’icône de suppression et confirmer la suppression. En cliquant sur un groupe JWG, la liste** des membres apparient, et en cliquant sur le bouton de suppression de la ressource, une confirmation est demandée pour confirmer la suppression.",
+    "captions": [
+      {
+        "text": "Figure 31:Gestion des groupes",
+        "image_path": "images/manuel_bdmeye/gestion_des_groupes_31.png",
+        "page": 35
+      },
+      {
+        "text": "Figure 32:Gestion des ressources",
+        "image_path": "images/manuel_bdmeye/gestion_des_ressources_32.png",
+        "page": 36
+      }
+    ],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00022",
+    "title": "Fiche technique d’un projet",
+    "global_title": "Gestion des rubriques du projet",
+    "parent": "Gestion des rubriques a fonctionnement unique",
+    "breadcrumb": "Gestion des rubriques du projet > Gestion des rubriques a fonctionnement unique > Fiche technique d’un projet",
+    "level": 3,
+    "page": 36,
+    "content": "La fiche technique d'un projet regroupe des volets et des rubriques (rubriques de fiche) qui structurent les informations techniques. Ce guide vous explique comment vérifier et gérer automatiquement ces volets et rubriques, ainsi que les étapes pour les ajouter, modifier, supprimer et réorganiser. Vous y trouverez également comment visualiser automatiquement les premiers et derniers plannings du projet.\n1. Vérification et Génération Automatique des Volets et Rubriques\n•  Lors de la création d'un projet, les volets et rubriques sont générés automatiquement en fonction du type de projet. Vous pouvez vérifier cette génération en accédant à la section \"Fiche Technique\" du projet, où les volets et rubriques de base seront déjà en place.\n2. Gestion des volets :\nDans la fiche du projet, En cliquant sur la rubrique de la fiche technique, vous trouverez une interface qui contient des informations sur le projet structuré dans des volets et des rubriques.\na. Ajout d’un volet : En cliquant sur « Ajouter », vous invite à entrer la désignation et une description du volet.\nb. Modifier un volet : En cliquant sur l’icône de modification, vous pouvez modifier la désignation et la description du volet.\nc. Supprimer un volet : En cliquant sur l’icône de modification, vous pouvez modifier la désignation et la description du volet.\nd. Ordonner les volets : Dans la liste des volets, faites glisser et déposez les volets dans l'ordre souhaité en utilisez les flèches de déplacement.\n3. Gestion des Rubrique :\na. Ajout d'une rubrique : Vous pouvez cliquer sur le bouton « Ajouter une rubrique », entrer la\n**désignation de la phase et enregistrer.**\nb. Modifier une rubrique : Vous pouvez cliquer sur le bouton avec l’icône de modification à droite, entrer la nouvelle désignation et enregistrer en cliquant sur modifier.\nc. Supprimer une rubrique : Vous pouvez cliquer sur le bouton avec l’icône de suppression à droite, une confirmation sera demandée pour la suppression de la phase.\nd. Ordonner les rubriques : Dans la liste des rubriques, faites glisser et déposez les rubriques dans l'ordre souhaité en utilisez les flèches de déplacement.\n4. Planning premier plan :\n**La fiche technique affiche automatiquement le premier et le dernier planning du** projet, vous permettant d’avoir un aperçu chronologique des phases les plus importantes. Cette fonctionnalité se met à jour automatiquement à chaque fois qu’un\n**nouveau planning est créé ou modifié.**",
+    "captions": [],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00023",
+    "title": "Gestion des projets antérieurs",
+    "global_title": "Gestion des projets antérieurs",
+    "parent": "",
+    "breadcrumb": "Gestion des projets antérieurs",
+    "level": 1,
+    "page": 37,
+    "content": "Les projets antérieurs représentent la liste des projets déjà réalisé. Lorsque vous accéder a la fiche\n**des projet antérieur dans l’application BDMEYE. Vous trouverez la liste des projets antérieur. La liste** affichée dépend du rôle du courant utilisateur.\no Gestion des projets antérieur:\n1. Ajout d’un projet antérieur : En cliquant sur le bouton « Ajouter », un formulaire apparait pour renseigner les informations du projet antérieur.\n2. Modification d’un projet antérieur : En cliquant sur le bouton avec l’icone de modification, vous pouvez mettre à jour les informations du projet antérieur.\n3. Suppression d’un projet antérieur : Une confirmation apparaitra lorsque vous cliquer sur l’icône de suppression à côté du projet antérieur choisi.\n4. Rechercher un projet antérieur : En entrant l’intitule du projet dans le champ de recherche, vous pouvez effectuer une recherche sur tous les projets antérieurs.\n5. Autorisation des utilisateurs : Un administrateur peut autoriser a des responsables techniques, des chefs de projet et des conseiller de consulter les projets antérieurs.\n6. Gestion de partenaire :\nDans la fiche de modification d’un projet antérieur, vous trouverez la liste des partenaires. Vous pouvez ajouter, consulter un partenaire en cliquant sur le lien côté et supprimer un partenaire\n1. Ajout des partenaires :  En cliquant sur le bouton « Ajouter », un formulaire apparait pour sélectionner un partenaire et une version si le partenaire en a.\n2. Consulter un partenaire : Vous trouverez un lien pour vous rediriger vers la compagnie ou la version du partenaire choisi.\n3. Supprimer un partenaire : Une confirmation vous apparaitra en cliquant sur le bouton de suppression a cote du partenaire choisi.\n7. Gestion des actions :\nDans la fiche de modification d’un projet antérieur, vous trouverez la liste des partenaires. Vous pouvez ajouter, consulter un partenaire en cliquant sur le lien côté et supprimer un partenaire.\n1. Ajout des actions :  En cliquant sur le bouton « Ajouter », un formulaire apparait pour resigner la description et la date de l’action.\n2. Modifier une action : En cliquant sur l’icône de modification, vous pouvez mettre à jour les informations de l’action, l’ajout, la modification, la suppression et le téléchargement des document de l’action.\n3. Supprimer une action : Une confirmation vous apparaitra en cliquant sur le bouton de suppression a cote du partenaire choisi.",
+    "captions": [
+      {
+        "text": "Figure 33: Illustration de la fiche d'un projet antérieur",
+        "image_path": "images/manuel_bdmeye/illustration_de_la_fiche_d_un_projet_anterieur_33.png",
+        "page": 38
+      }
+    ],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00024",
+    "title": "Gestion des dossiers hors projets",
+    "global_title": "Gestion des dossiers hors projets",
+    "parent": "",
+    "breadcrumb": "Gestion des dossiers hors projets",
+    "level": 1,
+    "page": 38,
+    "content": "Ce module contient les informations et les dossiers pertinents qui ne sont pas directement liés à un projet spécifique (tel que les évènements), mais qui constituent une activité essentielle de la direction DCP-BDM.\no Gestion des dossiers hors projets :\n1. Ajout un dossier hors projet : En cliquant sur le bouton « Ajouter », un formulaire apparait pour renseigner les informations du dossier.\n2. Modification d’un dossier hors projet : En cliquant sur le bouton avec l’icône de modification, vous pouvez mettre à jour les informations du hors projet.\n3. Suppression d’un dossier hors projet : Une confirmation apparaitra lorsque vous cliquer sur l’icône de suppression à côté du dossier hors projet choisi.\n4. Rechercher un dossier hors projet : En entrant l’objet du dossier dans le champ de recherche, vous pouvez effectuer une recherche sur tous les dossiers hors projets.\n5. Autorisation des utilisateurs : Un administrateur peut autoriser a des responsables techniques, des chefs de projet et des conseiller de consulter les dossiers hors projet.\n6. Gestion des dossiers :\nDans la fiche de modification d’un dossier hors projet, vous trouverez en bas une interface pour ajouter des dossiers et des documents au dossiers sélectionner ou le document racine par défaut. Vous pouvez ajouter des dossiers, ajouter des sous-dossiers a un dossier sélectionner, modifier un dossier sélectionner, gérer les documents d’un dossier sélectionner et supprimer un dossier.\n1. Ajout des dossiers :  En cliquant sur le bouton « Ajouter » un formulaire apparait, vous entrer la désignation du dossier et enregistrer.\n2. Modifier un dossier : En cliquant sur le dossier et le bouton « Modifier » qui apparait, vous pouvez mettre à jour la désignation du dossier.\n3. Ajouter des sous-dossiers : en cliquant sur le dossier et le bouton « Ajouter un sous dossier + » qui apparait après, vous pouvez ajouter un sous-dossier au dossier ou à un sous-dossier.\n4. Supprimer des dossiers : Lorsque vous cliquer sur un dossier ou un sous- dossier et le bouton supprimer après qui apparaitra, Une confirmation est demandée pour la suppression de l’élément.\n5. Gestion des documents : En cliquant sur dossier ou un sous-dossier, la liste des documents qui lui correspondent s’affiche à côté. Vous pouvez ajouter, modifier, télécharger et supprimer un document.",
+    "captions": [
+      {
+        "text": "Figure 34: Illustration de la hiérarchie des dossiers",
+        "image_path": "images/manuel_bdmeye/illustration_de_la_hierarchie_des_dossiers_34.png",
+        "page": 39
+      }
+    ],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00025",
+    "title": "Gestion de la base de données des pays",
+    "global_title": "Gestion de la base de données des pays",
+    "parent": "",
+    "breadcrumb": "Gestion de la base de données des pays",
+    "level": 1,
+    "page": 39,
+    "content": "**Dans BDMEYE, la gestion des pays permet de centraliser et d'organiser les informations stratégiques** relatives à chaque pays, tout en facilitant la mise à jour de ces données au fil du temps.\n**La gestion des pays dans BDMEYE offre une flexibilité totale pour maintenir à jour les informations** sur un pays en permettant de créer des versions successives, d'y ajouter des documents à chaque version, et de conserver une traçabilité des modifications apportées. Cela garantit également que les informations utilisées lors de traitement des différents projets et opportunités restent accessibles aux utilisateurs.",
+    "captions": [],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00026",
+    "title": "Création d'un pays et sa version Initiale",
+    "global_title": "Gestion de la base de données des pays",
+    "parent": "Gestion de la base de données des pays",
+    "breadcrumb": "Gestion de la base de données des pays > Création d'un pays et sa version Initiale",
+    "level": 2,
+    "page": 40,
+    "content": "Lors de la création d'un nouveau pays, le système génère automatiquement une première version pour ce pays. Cela permet d'établir une base initiale pour la gestion des informations relatives à ce pays.\nVoici les étapes à suivre pour ajouter un nouveau pays :\n1. Depuis le menu principal, sélectionnez l'option \"Bases de données\", puis cliquez sur \"Pays\".\nLa liste des pays s'affiche, avec la possibilité d'effectuer une recherche ou d'appliquer des filtres pour retrouver facilement un pays spécifique.\n2. Pour créer un nouveau pays, cliquez sur le bouton \"Ajouter\" situé en haut de la page. Cela ouvrira un formulaire de création pour renseigner les détails du nouveau pays.\n3. Renseignez les informations demandées dans le formulaire et cliquez sur le bouton\n**\"Enregistrer\" pour valider la création du pays. Le système enregistre alors le pays, génère la** première version automatiquement, et l'ajoute à la liste des pays existants.",
+    "captions": [],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00027",
+    "title": "Ajout de documents et fiche pays",
+    "global_title": "Gestion de la base de données des pays",
+    "parent": "Gestion de la base de données des pays",
+    "breadcrumb": "Gestion de la base de données des pays > Ajout de documents et fiche pays",
+    "level": 2,
+    "page": 40,
+    "content": "Une fois le pays créé, l'utilisateur a la possibilité d'ajouter plusieurs documents à la version initiale pour enrichir la base de données du pays :\n• \n**Fiche Pays : Bien que non obligatoire, l'utilisateur peut créer et ajouter une fiche descriptive** du pays pour compiler des informations stratégiques (données économiques, géopolitiques, etc.). Cette fiche peut être ajoutée à la première version du pays ou à une version ultérieure.\n• \n**Autres Documents : L'utilisateur peut également joindre d'autres types de documents (ex. :** Rapports d’analyses, PV de réunions, Compte rendus …etc.) au pays. Ces fichiers sont attachés et conservés avec la version du pays en cours.",
+    "captions": [],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00028",
+    "title": "Création de nouvelles versions du pays",
+    "global_title": "Gestion de la base de données des pays",
+    "parent": "Gestion de la base de données des pays",
+    "breadcrumb": "Gestion de la base de données des pays > Création de nouvelles versions du pays",
+    "level": 2,
+    "page": 40,
+    "content": "Il est possible de créer plusieurs versions pour un même pays afin de suivre l'évolution des informations au fil du temps et garder trace des versions utilisés pour les différents projets et opportunités. Chaque nouvelle version est créée manuellement par l'utilisateur et permet d'ajouter des documents actualisés ou des mises à jour importantes.\nComme pour la première version, chaque nouvelle version créée peut également recevoir des documents, tels que des mises à jour de la fiche pays, des rapports supplémentaires, ou tout autre document pertinent.",
+    "captions": [
+      {
+        "text": "Figure 35 : Illustration de la liste des pays",
+        "image_path": "images/manuel_bdmeye/illustration_de_la_liste_des_pays_35.png",
+        "page": 40
+      }
+    ],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00029",
+    "title": "Accès aux différentes versions du pays",
+    "global_title": "Gestion de la base de données des pays",
+    "parent": "Gestion de la base de données des pays",
+    "breadcrumb": "Gestion de la base de données des pays > Accès aux différentes versions du pays",
+    "level": 2,
+    "page": 41,
+    "content": "**Lorsque vous accédez à la fiche d'un pays dans l'application BDMEYE, le système affiche par défaut** les informations de la dernière version disponible pour ce pays (la version ayant la date de version la plus récente). Cette approche garantit que vous consultez toujours les données les plus récentes et les plus à jour.\nSi des versions précédentes existent, le système vous en informe en affichant une notification en haut de la page. Cette notification indique le nombre de versions précédentes disponibles pour ce pays. En cliquant sur cette notification, une fenêtre s'ouvre et présente l'ensemble des versions existantes.\nVous pouvez alors sélectionner la version souhaitée pour accéder aux informations spécifiques à cette version.\nLorsque vous accédez à une version antérieure du pays (différente de la dernière version), le système affiche un message d'alerte pour vous signaler qu'une version plus récente est disponible. Ce message sert à vous rappeler que des informations plus récentes peuvent être consultées. En cliquant sur ce message d'alerte, la même fenêtre listant toutes les versions s'affiche, vous permettant de choisir la version la plus récente ou toute autre version que vous souhaitez consulter.\nCette fonctionnalité de gestion des versions vous permet de suivre l'évolution des données au fil du temps tout en ayant facilement accès aux informations les plus actuelles.",
+    "captions": [
+      {
+        "text": "Figure 36: Notification des version d'un pays",
+        "image_path": "images/manuel_bdmeye/notification_des_version_d_un_pays_36.png",
+        "page": 41
+      },
+      {
+        "text": "Figure 37: Alerte d'existence d'une version récente d'un pays",
+        "image_path": "images/manuel_bdmeye/alerte_d_existence_d_une_version_recente_d_un_pays_37.png",
+        "page": 41
+      }
+    ],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00030",
+    "title": "Supprimer une version du pays",
+    "global_title": "Gestion de la base de données des pays",
+    "parent": "Gestion de la base de données des pays",
+    "breadcrumb": "Gestion de la base de données des pays > Supprimer une version du pays",
+    "level": 2,
+    "page": 41,
+    "content": "**Si vous souhaitez supprimer une version d'un pays dans BDMEYE, suivez les étapes ci-dessous :**\n1. Commencez par accéder à la fiche du pays concerné en naviguant depuis la base de données des pays.\n2. Le système affiche automatiquement la dernière version (ayant la date de version la plus récente), si le pays possède plusieurs versions et vous voulez supprimer une version antérieure, utilisez la fenêtre des versions pour sélectionner celle que vous souhaitez\n**supprimer. Cette fenêtre est accessible En cliquant sur la notification affichée en haut de la** page, indiquant l'existence de plusieurs versions précédente.\n3. Une fois la version souhaitée affichée, cliquez sur le bouton \"Supprimer\" pour lancer la procédure de suppression.\n4. Si la version que vous souhaitez supprimer est la dernière version disponible du pays (c'est-à- dire qu'il n'existe pas d'autres versions), alors le pays sera automatiquement supprimé de la base de données, ainsi que toutes les informations associées.\nCette fonctionnalité permet de gérer efficacement la suppression des versions de pays tout en garantissant que, lorsqu'il n'y a plus de versions disponibles, le pays lui-même est supprimé pour éviter de conserver des données obsolètes.",
+    "captions": [],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00031",
+    "title": "Gestion de la base de données des compagnies",
+    "global_title": "Gestion de la base de données des compagnies",
+    "parent": "",
+    "breadcrumb": "Gestion de la base de données des compagnies",
+    "level": 1,
+    "page": 42,
+    "content": "**La gestion des compagnies dans BDMEYE fonctionne de la même manière que la gestion des pays.** Elle permet de centraliser et d'organiser les informations stratégiques relatives à chaque compagnie, tout en facilitant la mise à jour de ces données au fil du temps.\n**La gestion des compagnies dans BDMEYE offre une flexibilité totale pour maintenir à jour les** informations sur une compagnie en permettant de créer des versions successives, d'y ajouter des documents à chaque version, et de conserver une traçabilité des modifications apportées. Cela garantit également que les informations concernant les partenaires et les prestataires utilisées lors de traitement des différents projets et opportunités restent accessibles aux utilisateurs.",
+    "captions": [],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00032",
+    "title": "Création d'une compagnie et version initiale",
+    "global_title": "Gestion de la base de données des compagnies",
+    "parent": "Gestion de la base de données des compagnies",
+    "breadcrumb": "Gestion de la base de données des compagnies > Création d'une compagnie et version initiale",
+    "level": 2,
+    "page": 42,
+    "content": "Lors de la création d'une nouvelle compagnie, le système génère automatiquement une première version pour cette compagnie. Cela permet d'établir une base initiale pour la gestion des informations relatives à cette compagnie.\nVoici les étapes à suivre pour ajouter une nouvelle compagnie :\n4. Depuis le menu principal, sélectionnez l'option \"Bases de données\", puis cliquez sur\n**\"Compagnies\". La liste des compagnies s'affiche, avec la possibilité d'effectuer une recherche** ou d'appliquer des filtres pour retrouver facilement une compagnie spécifique.\n5. Pour créer une nouvelle compagnie, cliquez sur le bouton \"Ajouter\" situé en haut de la page.\nCela ouvrira un formulaire de création pour renseigner les détails de la nouvelle compagnie.\n6. Renseignez les informations demandées dans le formulaire et cliquez sur le bouton\n**\"Enregistrer\" pour valider la création de la compagnie. Le système enregistre alors la** compagnie, génère la première version automatiquement, et l'ajoute à la liste des compagnies existantes.",
+    "captions": [],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00033",
+    "title": "Ajout de Documents et Fiche compagnie",
+    "global_title": "Gestion de la base de données des compagnies",
+    "parent": "Gestion de la base de données des compagnies",
+    "breadcrumb": "Gestion de la base de données des compagnies > Ajout de Documents et Fiche compagnie",
+    "level": 2,
+    "page": 42,
+    "content": "Une fois la compagnie créée, l'utilisateur a la possibilité d'ajouter plusieurs documents à la version initiale pour enrichir la base de données de la compagnie :\n• \n**Fiche Compagnie : Bien que non obligatoire, l'utilisateur peut créer et ajouter une fiche** descriptive de la compagnie pour compiler des informations pertinentes. Cette fiche peut être ajoutée à la première version de la compagnie ou à une version ultérieure.\n• \n**Autres Documents : L'utilisateur peut également joindre d'autres types de documents (ex. :** Rapports d’analyses, PV de réunions, Compte rendus …etc.) à la compagnie. Ces fichiers sont attachés et conservés avec la version de la compagnie en cours.",
+    "captions": [],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00034",
+    "title": "Création de nouvelles versions de la compagnie",
+    "global_title": "Gestion de la base de données des compagnies",
+    "parent": "Gestion de la base de données des compagnies",
+    "breadcrumb": "Gestion de la base de données des compagnies > Création de nouvelles versions de la compagnie",
+    "level": 2,
+    "page": 43,
+    "content": "Il est possible de créer plusieurs versions pour la même compagnie afin de suivre l'évolution des informations au fil du temps et garder trace des versions utilisés pour les différents projets et opportunités. Chaque nouvelle version est créée manuellement par l'utilisateur et permet d'ajouter des documents actualisés ou des mises à jour importantes.\nComme pour la première version, chaque nouvelle version créée peut également recevoir des documents, tels que des mises à jour de la fiche compagnie, des rapports supplémentaires, ou tout autre document pertinent.",
+    "captions": [
+      {
+        "text": "Figure 38: Illustration de la liste des compagnies",
+        "image_path": "images/manuel_bdmeye/illustration_de_la_liste_des_compagnies_38.png",
+        "page": 43
+      }
+    ],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00035",
+    "title": "Accès aux différentes versions de la compagnie",
+    "global_title": "Gestion de la base de données des compagnies",
+    "parent": "Gestion de la base de données des compagnies",
+    "breadcrumb": "Gestion de la base de données des compagnies > Accès aux différentes versions de la compagnie",
+    "level": 2,
+    "page": 43,
+    "content": "**Lorsque vous accédez à la fiche d'une compagnie dans l'application BDMEYE, le système affiche par** défaut les informations de la dernière version disponible pour cette compagnie (la version ayant la date de version la plus récente). Cette approche garantit que vous consultez toujours les données les plus récentes et les plus à jour.\nSi des versions précédentes existent, le système vous en informe en affichant une notification en haut de la page. Cette notification indique le nombre de versions précédentes disponibles pour cette compagnie. En cliquant sur cette notification, une fenêtre s'ouvre et présente l'ensemble des versions existantes. Vous pouvez alors sélectionner la version souhaitée pour accéder aux informations spécifiques à cette version.\nLorsque vous accédez à une version antérieure de la compagnie (différente de la dernière version), le système affiche un message d'alerte pour vous signaler qu'une version plus récente est disponible. Ce message sert à vous rappeler que des informations plus récentes peuvent être consultées. En cliquant sur ce message d'alerte, la même fenêtre listant toutes les versions s'affiche, vous permettant de choisir la version la plus récente ou toute autre version que vous souhaitez consulter.\nLa gestion des versions vous permet de suivre l'évolution des données au fil du temps tout en ayant facilement accès aux informations les plus actuelles.",
+    "captions": [
+      {
+        "text": "Figure 39:Notification sur les versions d'une compagnie",
+        "image_path": "images/manuel_bdmeye/notification_sur_les_versions_d_une_compagnie_39.png",
+        "page": 43
+      },
+      {
+        "text": "Figure 40:Alerte d'existence d'une version récente d'une compagnie",
+        "image_path": "images/manuel_bdmeye/alerte_d_existence_d_une_version_recente_d_une_compagnie_40.png",
+        "page": 43
+      }
+    ],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00036",
+    "title": "Supprimer une version de la compagnie",
+    "global_title": "Gestion de la base de données des compagnies",
+    "parent": "Gestion de la base de données des compagnies",
+    "breadcrumb": "Gestion de la base de données des compagnies > Supprimer une version de la compagnie",
+    "level": 2,
+    "page": 44,
+    "content": "Si vous souhaitez supprimer une version d'une compagnie, suivez les étapes ci-dessous :\n5. Commencez par accéder à la fiche de la compagnie concernée en naviguant depuis la base de données des compagnies.\n6. Le système affiche automatiquement la dernière version (ayant la date de version la plus récente), si la compagnie possède plusieurs versions et vous voulez supprimer une version antérieure, utilisez la fenêtre des versions pour sélectionner celle que vous souhaitez\n**supprimer. Cette fenêtre est accessible En cliquant sur la notification affichée en haut de la** page, indiquant l'existence de plusieurs versions précédentes.\n7. Une fois la version souhaitée affichée, cliquez sur le bouton \"Supprimer\" pour lancer la procédure de suppression.\n8. Si la version que vous souhaitez supprimer est la dernière version disponible de la compagnie (c'est-à-dire qu'il n'existe pas d'autres versions), alors la compagnie sera automatiquement supprimée de la base de données, ainsi que toutes les informations associées.\nCette fonctionnalité permet de gérer efficacement la suppression des versions de compagnie tout en garantissant que, lorsqu'il n'y a plus de versions disponibles, la compagnie elle-même est supprimée pour éviter de conserver des données obsolètes.",
+    "captions": [],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00037",
+    "title": "Moteur de recherche",
+    "global_title": "Moteur de recherche",
+    "parent": "",
+    "breadcrumb": "Moteur de recherche",
+    "level": 1,
+    "page": 44,
+    "content": "**Le module Moteur de Recherche de l'application permet de retrouver rapidement des projets, des** réunions, et des documents en fonction de plusieurs critères.\n1. Recherche de Projets\n**Pour rechercher un projet, accédez à la section Projets et sélectionnez les critères de recherche** disponibles :\n• \n**Par direction : Filtrez les projets selon la direction ou le département responsable.**\n• \n**Par partenaire : Recherchez les projets associés à un partenaire spécifique.**\n• \n**Par thématique : Filtrez selon le sujet ou le domaine du projet.**\n• \n**Par intitulé : Entrez le nom ou le titre du projet pour le retrouver directement.**\n• \n**Par année : Recherchez les projets selon l'année de leur réalisation ou démarrage.**\n• \n**Par statut : Filtrez selon le statut du projet (en cours, terminé, etc.).**\n• \n**Par critère combiné : Combinez plusieurs critères pour affiner vos résultats (ex : statut +** partenaire + année).\n2. Recherche de Réunions\n**Dans la section Réunions, vous pouvez utiliser les critères suivants pour retrouver une réunion** spécifique :\n• \n**Par projet : Recherchez les réunions associées à un projet particulier.**\n• \n**Par partenaire : Filtrez les réunions selon les partenaires présents.**\n• \n**Par type : Recherchez des réunions selon leur type (réunion d’équipe, de coordination, etc.).**\n• \n**Par description : Utilisez des mots-clés pour rechercher une réunion par sa description.**\n• \n**Par date de début : Filtrez les réunions à partir de leur date de début.**\n• \n**Par date de fin : Recherchez les réunions selon leur date de fin.**\n• \n**Par critère combiné : Combinez plusieurs critères pour affiner vos recherches (ex : projet +** type + date).\n3. Recherche de Documents\na. Recherche de Documents dans les Projets Pour retrouver des documents associés aux projets, les critères suivants sont disponibles :\n• \n**Par direction : Filtrez les documents selon la direction responsable du projet.**\n• \n**Par partenaire : Recherchez les documents en fonction des partenaires du projet.**\n• \n**Par thématique : Filtrez les documents par le domaine du projet.**\n• \n**Par sélection d’un projet : Recherchez des documents en sélectionnant un projet spécifique.**\n• \n**Par nom du fichier : Entrez le nom du fichier pour une recherche directe.**\n• \n**Par rubrique : Recherchez des documents dans une rubrique spécifique (ex : livrable, contrat,** etc.).\n• \n**Par code du document : Filtrez les documents par leur code unique.**\n• \n**Par type du document : Recherchez des documents par leur type (PDF, Word, etc.).**\n• \n**Par date de début : Filtrez les documents en fonction de leur date de création ou d’ajout.**\n• \n**Par date de fin : Recherchez les documents selon leur date de fin.**\n• \n**Par critère combiné : Combinez plusieurs critères pour une recherche plus précise.**\nb. Recherche de Documents dans les Opportunités Pour retrouver les documents relatifs aux opportunités, vous avez les critères suivants :\n• \n**Par direction : Filtrez les documents par la direction responsable de l'opportunité.**\n• \n**Par partenaire : Recherchez selon les partenaires impliqués dans l’opportunité.**\n• \n**Par opportunité : Sélectionnez une opportunité spécifique pour filtrer les documents.**\n• \n**Par nom du fichier : Recherchez un fichier en entrant son nom.**\n• \n**Par code du document : Filtrez selon le code unique attribué au document.**\n• \n**Par type du document : Recherchez selon le format du fichier (PDF, Excel, etc.).**\n• \n**Par date de début : Filtrez par la date d’ajout ou de création.**\n• \n**Par date de fin : Recherchez des documents selon leur date de fin.**\n• \n**Par critère combiné : Combinez plusieurs critères pour une recherche plus fine.**\nc. Recherche de Documents dans les Projets Antérieurs Pour rechercher des documents liés à des projets déjà réalisés, utilisez les critères suivants :\n• \n**Par direction : Filtrez selon la direction qui a géré le projet.**\n• \n**Par partenaire : Recherchez les documents en fonction des partenaires impliqués.**\n• \n**Par nom du fichier : Entrez le nom du fichier pour une recherche directe.**\n• \n**Par code du document : Filtrez par le code unique attribué au document.**\n• \n**Par type du document : Recherchez par type de fichier (Word, Excel, etc.).**\n• \n**Par date de début : Filtrez selon la date de création des documents.**\n• \n**Par date de fin : Recherchez les documents selon leur date de fin.**\n• \n**Par critère combiné : Combinez plusieurs critères pour une recherche plus précise.**\nd. Recherche de Documents dans les Dossiers Hors Projet Pour les dossiers qui ne sont pas liés à un projet spécifique, les critères de recherche sont :\n• \n**Par direction : Filtrez selon la direction responsable du dossier.**\n• \n**Par nom du fichier : Recherchez un fichier en entrant le nom du fichier attaché.**\n• \n**Par code du document : Utilisez le code unique du document pour le retrouver.**\n• \n**Par type du document : Filtrez selon le type de fichier.**\n• \n**Par date de début : Recherchez selon la date de création du document.**\n• \n**Par date de fin : Filtrez selon la date de fin du document.**\n• \n**Par critère combiné : Combinez plusieurs critères pour affiner les résultats.**\n4. Utilisation de la Recherche par Critère Combiné La recherche par critère combiné vous permet de filtrer les projets, réunions, et documents en utilisant plusieurs critères simultanément. Voici comment procéder :\n1. Sélectionnez une rubrique (Projet, Réunion ou Document).\n2. Choisissez plusieurs critères de recherche (ex : direction, partenaire, date).\n3. L'application vous affichera les résultats qui répondent à tous les critères choisis.\nCe moteur de recherche puissant vous permet de retrouver rapidement les informations essentielles et de gérer efficacement vos projets, réunions et documents.",
+    "captions": [
+      {
+        "text": "Figure 41: Recherche sur les projets",
+        "image_path": "images/manuel_bdmeye/recherche_sur_les_projets_41.jpeg",
+        "page": 45
+      },
+      {
+        "text": "Figure 42: Recherche sur les réunions",
+        "image_path": "images/manuel_bdmeye/recherche_sur_les_reunions_42.png",
+        "page": 45
+      },
+      {
+        "text": "Figure 43: Recherche sur les documents de l'application",
+        "image_path": "images/manuel_bdmeye/recherche_sur_les_documents_de_l_application_43.png",
+        "page": 47
+      }
+    ],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00038",
+    "title": "Statistiques",
+    "global_title": "Statistiques",
+    "parent": "",
+    "breadcrumb": "Statistiques",
+    "level": 1,
+    "page": 47,
+    "content": "**Le module statistique de l'application affiche des tableaux accompagnés de graphiques en barres et** camembert pour vous aider à visualiser et analyser les données relatives aux projets, opportunités, documents et ressources. Voici un aperçu des statistiques affichées et comment les interpréter.\n1. Statistiques des Projets\n• \n**Nombre de projets groupé par direction et par statut :** o\n**Un tableau présente le nombre de projets pour chaque direction et classés selon leur**\n**statut (Clôturé, Transféré et Back office).** o Un graphique en barres accompagne ces données pour une visualisation rapide.\n• \n**Nombre de projets groupé par direction et état d'avancement :**\n• \n**Cette statistique montre le nombre de projets pour chaque direction et classée selon leur**\n**état d'avancement (Comme prévu ou En retard).**\n• \n**Un projet est considéré en retard si le dernier rapport de situation n’a pas été réalisé à** temps.\n•  Un graphique en barres permet de comparer les projets en fonction de leur état.\n• \n**Nombre de projets groupé par thématique et direction :** o\n**Un tableau affiche le nombre de projets pour chaque direction et classé selon leur**\n**thématique de projet.** o Les données sont visualisées dans un graphique en barres, facilitant la comparaison entre différentes directions pour chaque thématique.\n2. Statistiques des Opportunités\n• \n**Nombre d'opportunités groupé par direction et par statut :** o\n**Ce tableau présente les opportunités classées par direction et par statut**\n**(opportunités traitées, non traitées, et aboutissant à un MoU).** o Un graphique en barres montre visuellement la répartition des opportunités par direction et statut.\n• \n**Nombre d'opportunités groupé par direction et orientation :** o\n**Ce tableau montre le nombre d'opportunités pour chaque direction et classées par**\n**leur orientation (opportunité ou non-opportun).** o Un graphique en barres accompagne le tableau pour une visualisation rapide de ces données.\n3. Statistiques des documents Contractuels\n• \n**Tableau des documents contractuels :** o\n**Un tableau affiche tous les documents contractuels liés aux projets.** o\n**Les documents qui expirent dans un mois apparaissent avec une surbrillance en** rouge.\no Un filtre vous permettra de filtrer par validité et/ou direction.\no Consultation du document contractuel en cliquant sur le bouton à côté.\n• \n**Tableau des documents contractuels groupé par direction avec un graphique camembert :** o\n**Ce tableau regroupe les documents contractuels par direction.** o Un graphique en camembert accompagne ces données pour une représentation visuelle de la proportion des documents contractuels dans chaque direction.\n4. Répartition des Ressources du Projet\n• \n**Tableau de répartition des ressources du projet :** o\n**Ce tableau affiche la répartition des ressources allouées à chaque projet.** o Un filtre vous permettra de filtrer par direction, type, ressource (si vous voulez filtrer les ressource internet), nom de la ressource (si vous voulez filtrer les ressource externe) et/ou projet.\nEn plus des tableaux et graphiques, le module statistique propose plusieurs fonctionnalités interactives pour personnaliser l'affichage et filtrer les données. Voici comment utiliser ces options :\n1. Modes d'Affichage\n**À côté du titre de chaque section, vous trouverez trois boutons qui vous permettent de basculer** entre différents modes d'affichage :\n• \n**Montrer le tableau et le graphe : Ce mode affiche à la fois le tableau de données et le** graphique en barres associé pour une analyse complète.\n• \n**Montrer le graphe uniquement : Ce mode masque le tableau et affiche uniquement le** graphique, idéal pour une visualisation rapide des tendances.\n• \n**Montrer le tableau uniquement : Ce mode masque le graphique et affiche uniquement le** tableau pour une vue détaillée des données.\n2. Interaction avec les Graphiques Les graphiques en barres ne sont pas seulement informatifs, mais aussi interactifs :\n• \n**En cliquant sur une barre du graphique, vous pouvez afficher tous les éléments liés à cette**\n**barre. Par exemple, en cliquant sur la barre qui représente les projets clôturés, vous** obtiendrez la liste détaillée de ces projets.\n•  Cela vous permet d'explorer en profondeur les statistiques et de consulter les données spécifiques associées aux catégories affichées.\n3. Filtrage par Date\n**En haut de la page des statistiques, vous trouverez deux champs de date qui permettent de filtrer les** éléments selon une période spécifique :\n• \n**Date de début : Sélectionnez la date à partir de laquelle vous souhaitez afficher les données.**\n• \n**Date de fin : Sélectionnez la date jusqu'à laquelle vous souhaitez afficher les données.** Une fois les dates sélectionnées, l'application filtrera automatiquement les statistiques pour ne montrer que les éléments correspondant à la période choisie (projets, opportunités, documents, etc.).",
+    "captions": [
+      {
+        "text": "Figure 44:Statistiques des projets par statut",
+        "image_path": "images/manuel_bdmeye/statistiques_des_projets_par_statut_44.png",
+        "page": 48
+      },
+      {
+        "text": "Figure 45:Statistique des états d'avancement des projets",
+        "image_path": "images/manuel_bdmeye/statistique_des_etats_d_avancement_des_projets_45.png",
+        "page": 48
+      },
+      {
+        "text": "Figure 46:Statistique des projets par thématique",
+        "image_path": "images/manuel_bdmeye/statistique_des_projets_par_thematique_46.png",
+        "page": 49
+      },
+      {
+        "text": "Figure 47:Statistique des opportunités traitées / non traitées",
+        "image_path": "images/manuel_bdmeye/statistique_des_opportunites_traitees_non_traitees_47.png",
+        "page": 49
+      },
+      {
+        "text": "Figure 48:Statistique des opportunités traitées",
+        "image_path": "images/manuel_bdmeye/statistique_des_opportunites_traitees_48.png",
+        "page": 50
+      },
+      {
+        "text": "Figure 49:Tableau des documents contractuels",
+        "image_path": "images/manuel_bdmeye/tableau_des_documents_contractuels_49.png",
+        "page": 51
+      },
+      {
+        "text": "Figure 50:Statistique des documents contractuels",
+        "image_path": "images/manuel_bdmeye/statistique_des_documents_contractuels_50.png",
+        "page": 51
+      }
+    ],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00039",
+    "title": "Annexe I : Matrice des autorisations :",
+    "global_title": "Annexe I : Matrice des autorisations :",
+    "parent": "",
+    "breadcrumb": "Annexe I : Matrice des autorisations :",
+    "level": 1,
+    "page": 53,
+    "content": "**Chargé des**\n**BDD pays et**\n**VP**\n**Directeur**\n**Administrateur**\n**Chef de projet**\n**Responsable**\n**technique**\n**Conseiller**\n**Chargé des**\n**opportunité**\n**compagnie**\n**Directions** * Attaché à une direction * / / / Attaché à une direction * Visualiser toutes les opportunités de sa direction Visualiser toutes les opportunités Gérer les opportunités de sa direction\n**Opportunités** * / / / / Visualiser tous les projets de sa direction Visualiser tous les projets * Visualiser et gérer ses projets seulement Visualiser et gérer ses projets seulement Visualiser et gérer ses projets seulement\n**Projets** / / Visualiser toutes les projets Accorder les autorisations nécessaires aux utilisateurs selon besoins (consultations et téléchargement de documents) Visualiser les projets antérieurs autorisés par l'administrateur Visualiser les projets antérieurs autorisés par l'administrateur Visualiser les projets antérieurs autorisés par l'administrateur Visualiser tous les projets de sa direction Visualiser tous les projets\n**Projets antérieurs** / / Visualiser tous les référentiels Visualiser tous les référentiels Gérer les utilisateurs et gérer tous les référentiels\n**Référentiels** Visualiser les bases de données Visualiser les bases de données Visualiser les bases de données Visualiser les bases de données Visualiser les bases de données Visualiser les bases de données\n**BDD pays et**\n**compagnie** Visualiser et gérer les bases de données Gérer les bases de données Chercher toutes les informations dans l'ensemble de l'application Chercher des opportunités, projets, réunions, documents dans sa direction Chercher toutes informations dans les BDD pays et compagnie Chercher toutes les informations dans l'ensemble de l'application Chercher des opportunités dans sa direction Chercher toutes les informations dans ses projets Chercher toutes les informations dans ses projets Chercher toutes les informations dans ses projets\n**Centre de**\n**recherche**",
+    "captions": [],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00040",
+    "title": "Codification des projets",
+    "global_title": "Annexe II : Codification des projets et des documents",
+    "parent": "Annexe II : Codification des projets et des documents",
+    "breadcrumb": "Annexe II : Codification des projets et des documents > Codification des projets",
+    "level": 2,
+    "page": 55,
+    "content": "Pour chaque Direction, les projets sont codifiés par année comme suit :\nBDM-Direction-PAA-NuméroSéquentiel\n• \n**BDM-Direction : Code de la Direction introduit dans le référentiel des directions (BDM-D pour Downstream)**\n• \n**P : lettre P pour identifier les projets des**\n• \n**AA : Représente l'année sur 2 caractères (25 pour 2025)**\n• \n**NuméroSéquentiel représente un numéro séquentiel sur 03 caractères, relatif à chaque année distinctes** Exemple\n•  BDM-D-P24-001",
+    "captions": [],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  },
+  {
+    "section_id": "sec_00041",
+    "title": "Codification des documents",
+    "global_title": "Annexe II : Codification des projets et des documents",
+    "parent": "Annexe II : Codification des projets et des documents",
+    "breadcrumb": "Annexe II : Codification des projets et des documents > Codification des documents",
+    "level": 2,
+    "page": 55,
+    "content": "Pour chaque Direction, les documents sont codifiés par année, par mois et par type document comme suit :\nBDM-Direction-DAAMM-TypeDocument-NuméroSéquentiel\n• \n**BDM-Direction : Code de la Direction introduit dans le référentiel des directions (BDM-U pour Upstream)**\n• \n**D : lettre D pour identifier les documents des projets**\n• \n**TypeDocument : Le code attribué au type du document exemple (MoU : Protocol d’entente, FC : Fiche compagnie, CR : Compte rendu …etc.)**\n• \n**AA : Représente l'année sur 2 caractères (24 pour 2024)**\n• \n**MM : Représente le mois sur 2 caractères (06 pour Juin)**\n• \n**NuméroSéquentiel représente un numéro séquentiel sur 04 caractères, relatif à chaque année, chaque mois et chaque type de documents distincts**\n**Exemples :**\n• \n**BDM-V-D2404-CTR-0009**\n•  BDM-V-D2404-MoU-0125\n•  BDM-U-D2311-MSG-9999",
+    "captions": [],
+    "source_pdf": "manuel_bdmeye.pdf",
+    "source_type": "manuel"
+  }
+]

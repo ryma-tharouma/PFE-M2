@@ -1,0 +1,3 @@
+pdf,method,nb_sections,pages_covered,total_pages,coverage_%,avg_content_len,total_chars,captions_linked,H1_count,H2_count,H3_count,Title_Precision,Title_Recall,Title_F1,Title_matched,Title_missing,Title_extra,Breadcrumb_Precision,Breadcrumb_Recall,Breadcrumb_F1,Breadcrumb_missing,Breadcrumb_extra,Hierarchy_Score,Hierarchy_errors,ROUGE_L_P,ROUGE_L_R,ROUGE_L_F,BERTScore_P,BERTScore_R,BERTScore_F1,eval_time_s
+manuel_bdm.pdf,Docling,110,46,54,85.2,919,101148,48,110,0,0,0.3578,0.9512,0.52,39,2,70,0.1284,0.3415,0.1867,27,95,1.0,0,0.9444,0.985,0.9643,0.5014,0.5753,0.5333,87.68
+manuel_bdm.pdf,PyMuPDF4LLM,110,45,54,83.3,792,87159,50,0,110,0,0.3761,1.0,0.5467,41,0,68,0.1284,0.3415,0.1867,27,95,1.0,0,0.9446,0.9864,0.9651,0.6451,0.6508,0.6466,80.89
