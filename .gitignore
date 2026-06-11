@@ -48,4 +48,6 @@ prod/qdrant_data/
 
 
 # Other manuals
-manuels/
+manuels/extract/.cache/
+files.txt
+github.txt
