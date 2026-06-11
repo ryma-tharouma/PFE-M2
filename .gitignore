@@ -51,3 +51,4 @@ prod/qdrant_data/
 manuels/extract/.cache/
 files.txt
 github.txt
+extract/.cache/
