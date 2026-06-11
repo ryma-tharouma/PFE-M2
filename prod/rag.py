@@ -322,7 +322,10 @@ class RAG:
         generator: Generator,
     ):
         rag_cfg = config.get("rag", {})
-        self.routing_threshold = float(rag_cfg.get("routing_threshold", 3.0))
+
+        # CORRECTION : deux seuils distincts depuis la config
+        self.routing_threshold_1 = float(rag_cfg.get("routing_threshold_1", 0.72))
+        self.routing_threshold_2 = float(rag_cfg.get("routing_threshold_2", 0.13))
 
         qc_cfg = config.get("query_context", {})
         self.qc_mode: str = qc_cfg.get("mode", "none")
@@ -421,7 +424,12 @@ class RAG:
             )
             return
 
-        routing  = _determine_routing(section_ids, scores, self.routing_threshold)
+        # CORRECTION : passage des deux seuils
+        routing  = _determine_routing(
+            section_ids, scores,
+            self.routing_threshold_1,
+            self.routing_threshold_2,
+        )
         sections = metadatas
 
         if routing == "faq":

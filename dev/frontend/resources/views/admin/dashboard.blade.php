@@ -738,7 +738,7 @@
 
                 // Manuel
                 manualModalOpen: false, editingManualId: null, manualSaving: false,
-                manualForm: { name: '', app_name: '', version: '1.0', follows_internal_template: true, fileName: '' },
+                manualForm: { name: '', app_name: '', version: '1.0', follows_internal_template: false, fileName: '' },
                 uploadError: '',
 
                 // FAQ list (depuis PHP)
@@ -1094,11 +1094,11 @@
                 openManualModal(manual = null) {
                     this.editingManualId = manual?.id ?? null;
                     this.uploadError     = '';
-                    this.manualForm      = {
+                    this.manualForm = {
                         name: manual?.name ?? '',
                         app_name: manual?.app_name ?? '',
                         version: manual?.version ?? '1.0',
-                        follows_internal_template: manual?.follows_internal_template ?? true,
+                        follows_internal_template: manual ? (manual.follows_internal_template === true || manual.follows_internal_template === 1 || manual.follows_internal_template === '1') : false,
                         fileName: ''
                     };
                     const fi = document.getElementById('manualFile');

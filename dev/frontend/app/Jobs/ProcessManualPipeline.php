@@ -39,9 +39,14 @@ class ProcessManualPipeline implements ShouldQueue
         $timeout    = (int) config('services.extract.timeout', 1800);
         $apiUrl     = rtrim((string) config('services.chatbot.api_url', 'http://127.0.0.1:8000'), '/');
 
+        // ── Résoudre les chemins réels (suivre les symlinks) ──────────
+        $realExtractDir = realpath($extractDir) ?: $extractDir;
+        $realManualsDir = realpath($manualsDir) ?: $manualsDir;
+        $realJsonDir    = realpath($jsonDir)    ?: $jsonDir;
+
         // ── Fichier PDF ───────────────────────────────────────────────
         $pdfFileName = $manual->file_path;
-        $pdfPath     = $this->absolutePath($pdfFileName, $manualsDir);
+        $pdfPath     = $this->absolutePath($pdfFileName, $realManualsDir);
 
         if (!is_file($pdfPath)) {
             $this->markFailed($manual, "[Extraction] PDF introuvable : {$pdfPath}");
@@ -54,8 +59,8 @@ class ProcessManualPipeline implements ShouldQueue
         // Étape 1 (extraction)  →  {baseName}_2levels.json
         // Étape 2 (cleaning)    →  {baseName}_2levels_cleaned.json
         // Collection Qdrant     →  {baseName}_2levels_cleaned
-        $jsonRaw        = $jsonDir . '/' . $baseName . '_2levels.json';
-        $jsonClean      = $jsonDir . '/' . $baseName . '_2levels_cleaned.json';
+        $jsonRaw        = $realJsonDir . '/' . $baseName . '_2levels.json';
+        $jsonClean      = $realJsonDir . '/' . $baseName . '_2levels_cleaned.json';
         $collectionName = $baseName . '_2levels_cleaned';
 
         Log::info("[Pipeline] Démarrage", [
@@ -69,10 +74,26 @@ class ProcessManualPipeline implements ShouldQueue
 
         // ══════════════════════════════════════════════════════════════
         // ÉTAPE 1 : Extraction PDF → {baseName}_2levels.json
+        //
+        // Si follows_internal_template = true  → extractor_level_2.py
+        // Si follows_internal_template = false → extractor_docling_level_2.py
         // ══════════════════════════════════════════════════════════════
         $useInternalTemplate = (bool) ($manual->follows_internal_template ?? true);
-        $extractScriptName   = $useInternalTemplate ? 'extractor_level_2.py' : 'extractor_docling_level_2.py';
-        $extractScript       = $extractDir . '/' . $extractScriptName;
+
+        // CORRECTION : cast explicite en bool pour éviter que la valeur DB
+        // (entier 0/1) soit mal interprétée
+        $useInternalTemplate = filter_var($useInternalTemplate, FILTER_VALIDATE_BOOLEAN);
+
+        $extractScriptName = $useInternalTemplate
+            ? 'extractor_level_2.py'
+            : 'extractor_docling_level_2.py';
+
+        $extractScript = $realExtractDir . '/' . $extractScriptName;
+
+        Log::info("[Pipeline] Étape 1 : extraction PDF → {$jsonRaw}", [
+            'extractor'                  => $extractScriptName,
+            'follows_internal_template'  => $useInternalTemplate,
+        ]);
 
         if (!is_file($extractScript)) {
             $this->markFailed($manual, "[Extraction] Script introuvable : {$extractScript}");
@@ -81,12 +102,7 @@ class ProcessManualPipeline implements ShouldQueue
 
         $process1 = new Process([$pythonBin, $extractScript, $pdfPath]);
         $process1->setTimeout($timeout);
-        $process1->setWorkingDirectory($extractDir);
-
-        Log::info("[Pipeline] Étape 1 : extraction PDF → {$jsonRaw}", [
-            'extractor' => $extractScriptName,
-            'follows_internal_template' => $useInternalTemplate,
-        ]);
+        $process1->setWorkingDirectory($realExtractDir);
 
         try {
             $process1->mustRun();
@@ -105,17 +121,16 @@ class ProcessManualPipeline implements ShouldQueue
         // ══════════════════════════════════════════════════════════════
         // ÉTAPE 2 : Nettoyage {baseName}_2levels.json → {baseName}_2levels_cleaned.json
         // ══════════════════════════════════════════════════════════════
-        $cleanScript = $extractDir . '/clean_data.py';
+        $cleanScript = $realExtractDir . '/clean_data.py';
 
         if (!is_file($cleanScript)) {
             $this->markFailed($manual, "[Nettoyage] Script introuvable : {$cleanScript}");
             return;
         }
 
-        // On passe explicitement : entrée = _2levels.json, sortie = _2levels_cleaned.json
         $process2 = new Process([$pythonBin, $cleanScript, $jsonRaw, $jsonClean]);
         $process2->setTimeout($timeout);
-        $process2->setWorkingDirectory($extractDir);
+        $process2->setWorkingDirectory($realExtractDir);
 
         Log::info("[Pipeline] Étape 2 : nettoyage {$jsonRaw} → {$jsonClean}");
 

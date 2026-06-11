@@ -148,11 +148,8 @@ class AdminController extends Controller
         $manuals = Manual::with('application')->orderByDesc('created_at')->paginate(20);
         $tickets = Ticket::with('user')->orderByDesc('created_at')->paginate(20);
 
-        // Applications pour le select "Ajouter un manuel"
         $applications = Application::orderBy('name')->get();
 
-        // Applications visibles dans le select du chat (celles qui ont une collection Qdrant)
-        // Une application n'apparaît dans le select que si elle a au moins un manuel indexé OU une FAQ
         $chatApplications = Application::where(function ($q) {
             $q->whereNotNull('qdrant_collection')
                 ->orWhereHas('manuals', fn($mq) => $mq->where('status', 'indexed'))
@@ -178,10 +175,6 @@ class AdminController extends Controller
         return rtrim((string) config('services.extract.faq_dir', $extractDir . '/faq'), '/');
     }
 
-    /**
-     * Convertit un nom d'application en slug de fichier FAQ.
-     * "Parc Auto v2" → "parc_auto_v2"
-     */
     private function appNameToFaqSlug(string $appName): string
     {
         $value = trim(mb_strtolower($appName));
@@ -200,9 +193,6 @@ class AdminController extends Controller
         return $slug !== '' ? $slug : 'app';
     }
 
-    /**
-     * Retourne le chemin absolu du fichier FAQ JSON pour une application.
-     */
     private function getFaqFilePath(string $appIdentifier): string
     {
         if (is_numeric($appIdentifier)) {
@@ -214,9 +204,6 @@ class AdminController extends Controller
         return $this->getFaqDir() . '/' . $slug . '.json';
     }
 
-    /**
-     * Écriture robuste d'un fichier JSON FAQ.
-     */
     private function writeFaqFile(string $faqFile, array $items): void
     {
         $faqDir = dirname($faqFile);
@@ -240,13 +227,6 @@ class AdminController extends Controller
         }
     }
 
-    /**
-     * Résout la collection Qdrant pour une application en interrogeant
-     * le backend Python — source de vérité sur l'état réel de Qdrant.
-     *
-     * Règle unifiée : une app = une collection.
-     * Priorité : collection manuel existante > collection FAQ existante > slug
-     */
     private function resolveQdrantCollection(Application $app): string
     {
         $slug       = $this->appNameToFaqSlug($app->name);
@@ -258,18 +238,15 @@ class AdminController extends Controller
             $data      = json_decode((string) $response->getBody(), true);
             $available = $data['collections'] ?? [];
 
-            // Priorité 1 : collection manuel {slug}_2levels_cleaned
             $manualColl = $slug . '_2levels_cleaned';
             if (in_array($manualColl, $available, true)) {
                 return $manualColl;
             }
 
-            // Priorité 2 : collection FAQ déjà existante {slug}
             if (in_array($slug, $available, true)) {
                 return $slug;
             }
 
-            // Priorité 3 : nouvelle collection = slug
             return $slug;
 
         } catch (\Throwable) {
@@ -283,9 +260,6 @@ class AdminController extends Controller
         return $slug;
     }
 
-    /**
-     * Liste tous les fichiers FAQ existants sur le disque.
-     */
     private function listFaqFiles(): array
     {
         $faqDir = $this->getFaqDir();
@@ -418,9 +392,16 @@ class AdminController extends Controller
             'existing_manual_id'        => ['nullable', 'integer', 'exists:manuals,id'],
         ]);
 
+        Log::debug('[DEBUG storeManual] follows_internal_template reçu', [
+            'raw'   => $request->input('follows_internal_template'),
+            'bool'  => $request->boolean('follows_internal_template'),
+            'filter' => filter_var($request->input('follows_internal_template'), FILTER_VALIDATE_BOOLEAN),
+        ]);
+
         $appName                 = trim($request->input('app_name'));
         $version                 = $this->normalizeManualVersion($request->input('version', '1.0'));
-        $followsInternalTemplate = $request->boolean('follows_internal_template');
+        // CORRECTION : cast explicite pour éviter tout problème de type DB vs booléen
+        $followsInternalTemplate = filter_var($request->input('follows_internal_template'), FILTER_VALIDATE_BOOLEAN);
         $resolution              = $request->input('conflict_resolution');
 
         $application = Application::whereRaw('LOWER(name) = ?', [strtolower($appName)])->first();
@@ -524,7 +505,8 @@ class AdminController extends Controller
         if (file_exists($tempNewPdfPath)) @unlink($tempNewPdfPath);
 
         $oldCleanedJsonPath      = $existingManual->cleaned_json_path;
-        $followsInternalTemplate = $request->boolean('follows_internal_template');
+        // CORRECTION : cast explicite
+        $followsInternalTemplate = filter_var($request->input('follows_internal_template'), FILTER_VALIDATE_BOOLEAN);
 
         DB::transaction(function () use ($existingManual, $mergedFileName, $newVersion, $followsInternalTemplate) {
             $this->deleteManualPdf($existingManual->file_path);
@@ -560,6 +542,8 @@ class AdminController extends Controller
         $manual = Manual::with('application')->findOrFail($id);
         return response()->json(array_merge($manual->toArray(), [
             'app_name' => $manual->application->name ?? '',
+            // CORRECTION : retourner un vrai booléen pour que x-model checkbox fonctionne en JS
+            'follows_internal_template' => (bool) $manual->follows_internal_template,
         ]));
     }
 
@@ -579,11 +563,14 @@ class AdminController extends Controller
         $appName     = trim($request->input('app_name'));
         $application = $this->findOrCreateApplication($appName);
 
+        // CORRECTION : cast explicite
+        $followsInternalTemplate = filter_var($request->input('follows_internal_template'), FILTER_VALIDATE_BOOLEAN);
+
         $updateData = [
             'name'                      => $request->input('name'),
             'application_id'            => $application->id,
             'version'                   => $request->input('version', $manual->version),
-            'follows_internal_template' => $request->boolean('follows_internal_template'),
+            'follows_internal_template' => $followsInternalTemplate,
         ];
 
         if ($request->hasFile('file')) {
@@ -613,8 +600,13 @@ class AdminController extends Controller
     }
 
     /**
-     * Supprime un manuel ET, si l'application n'a plus aucun manuel ni FAQ,
-     * supprime aussi l'application → elle disparaît des selects utilisateur.
+     * Supprime un manuel ET nettoie tous les fichiers associés :
+     * - collection Qdrant
+     * - fichiers JSON (_2levels.json, _2levels_cleaned.json)
+     * - dossier images (json/images/{baseName})
+     * - logs d'extraction
+     * - PDF
+     * - application si plus de contenu
      */
     public function destroyManual(int $id): JsonResponse
     {
@@ -623,10 +615,14 @@ class AdminController extends Controller
         $extractDir = rtrim((string) config('services.extract.extract_dir', base_path('../../extract/app')), '/');
         $jsonDir    = rtrim((string) config('services.extract.json_dir', $extractDir . '/json'), '/');
 
-        // Le nom du dossier images = nom du fichier PDF sans extension (source de vérité)
+        // CORRECTION : résoudre les vrais chemins (symlinks inclus)
+        $realExtractDir = realpath($extractDir) ?: $extractDir;
+        $realJsonDir    = realpath($jsonDir)    ?: $jsonDir;
+
+        // Le nom du dossier images = nom du fichier PDF sans extension
         $pdfBaseName = pathinfo($manual->file_path, PATHINFO_FILENAME);
 
-        // 1. Supprimer collection Qdrant + fichiers JSON + dossier images
+        // 1. Supprimer collection Qdrant + fichiers JSON
         if ($manual->cleaned_json_path) {
             $collection = $this->collectionNameFromCleanedPath($manual->cleaned_json_path);
             if ($collection) {
@@ -638,16 +634,30 @@ class AdminController extends Controller
             $this->deleteJsonFilesByPdfName($manual->file_path);
         }
 
-        // Supprimer le dossier images basé sur le nom du PDF (toujours)
+        // 2. Supprimer le dossier images (utiliser realpath pour éviter les problèmes de symlink)
         if ($pdfBaseName) {
-            $this->deleteDirectory($jsonDir . '/images/' . $pdfBaseName);
-            $this->deleteExtractLogs($extractDir, $pdfBaseName);
+            $imagesPath     = $realJsonDir . '/images/' . $pdfBaseName;
+            $imagesPathAlt  = $jsonDir . '/images/' . $pdfBaseName;
+
+            // Essayer d'abord le chemin résolu, puis le chemin original
+            if (is_dir($imagesPath)) {
+                $this->deleteDirectory($imagesPath);
+            } elseif (is_dir($imagesPathAlt)) {
+                $this->deleteDirectory($imagesPathAlt);
+            } else {
+                Log::info('[AdminController] Dossier images introuvable (déjà supprimé ou inexistant)', [
+                    'tried' => [$imagesPath, $imagesPathAlt],
+                ]);
+            }
+
+            // 3. Supprimer les logs d'extraction
+            $this->deleteExtractLogs($realExtractDir, $pdfBaseName);
         }
 
-        // 2. Supprimer le PDF
+        // 4. Supprimer le PDF
         $this->deleteManualPdf($manual->file_path);
 
-        // 3. Supprimer les messages liés
+        // 5. Supprimer les messages liés
         $deletedMessages = Message::where('manual_id', $manual->id)->delete();
         if ($deletedMessages > 0) {
             Log::info('[AdminController] Messages supprimés', [
@@ -656,7 +666,7 @@ class AdminController extends Controller
             ]);
         }
 
-        // 4. Supprimer les conversations vides
+        // 6. Supprimer les conversations vides
         Conversation::where('application_id', $manual->application_id)
             ->whereDoesntHave('messages')
             ->delete();
@@ -664,7 +674,7 @@ class AdminController extends Controller
         $applicationId = $manual->application_id;
         $manual->delete();
 
-        // 5. Supprimer l'application si elle n'a plus ni manuel ni FAQ
+        // 7. Supprimer l'application si elle n'a plus ni manuel ni FAQ
         $this->cleanupApplicationIfEmpty($applicationId);
 
         return response()->json(['success' => true]);
@@ -679,12 +689,6 @@ class AdminController extends Controller
         return redirect()->route('admin.index', ['section' => 'faq']);
     }
 
-    /**
-     * Upload d'un fichier JSON FAQ.
-     *
-     * Une app = une seule collection Qdrant.
-     * Si l'app a déjà une collection (manuel), la FAQ est indexée dedans.
-     */
     public function faqUpload(Request $request): JsonResponse
     {
         $request->validate([
@@ -713,18 +717,14 @@ class AdminController extends Controller
             $appName = $appNameInput;
         }
 
-        // Une seule application par nom
         $application    = $this->findOrCreateApplication($appName);
         $slug           = $this->appNameToFaqSlug($appName);
-
-        // Résoudre la collection : si l'app a déjà une collection (ex: manuel), on réutilise
         $collectionName = $this->resolveQdrantCollection($application);
 
         if ($application->qdrant_collection !== $collectionName) {
             $application->update(['qdrant_collection' => $collectionName]);
         }
 
-        // Lire et valider le JSON
         try {
             $raw     = file_get_contents($request->file('file')->getRealPath());
             $decoded = json_decode($raw, true, 512, JSON_THROW_ON_ERROR);
@@ -737,10 +737,8 @@ class AdminController extends Controller
             return response()->json(['success' => false, 'error' => "Le JSON doit contenir un tableau d'entrées FAQ."], 422);
         }
 
-        // Persistance en base
         $imported = Faq::syncFromJson($application->id, $items, 'admin');
 
-        // Régénération du fichier JSON depuis la base
         $faqFile = $this->getFaqDir() . '/' . $slug . '.json';
         $dbItems = Faq::where('application_id', $application->id)
             ->get()
@@ -757,7 +755,6 @@ class AdminController extends Controller
             'collection' => $collectionName,
         ]);
 
-        // Indexer directement dans la collection de l'app (existante ou nouvelle)
         $backendUrl = rtrim((string) config('services.backend.url', 'http://127.0.0.1:8000'), '/');
         try {
             $client   = new \GuzzleHttp\Client(['timeout' => 120]);
@@ -788,9 +785,6 @@ class AdminController extends Controller
         ]);
     }
 
-    /**
-     * Retourne les entrées FAQ d'une application.
-     */
     public function faqShow(string $app): JsonResponse
     {
         [$application, $slug, $appName] = $this->resolveFaqApp($app);
@@ -854,9 +848,6 @@ class AdminController extends Controller
         }
     }
 
-    /**
-     * Met à jour les entrées FAQ depuis l'éditeur JSON de l'admin (PUT).
-     */
     public function faqUpdate(Request $request, string $app): JsonResponse
     {
         $request->validate([
@@ -894,9 +885,6 @@ class AdminController extends Controller
         ]);
     }
 
-    /**
-     * Met à jour les métadonnées d'une FAQ (app_name).
-     */
     public function faqUpdateInfos(Request $request, string $app): JsonResponse
     {
         try {
@@ -958,9 +946,6 @@ class AdminController extends Controller
         }
     }
 
-    /**
-     * Déclenche manuellement l'indexation FAQ.
-     */
     public function faqIndex(string $app): JsonResponse
     {
         [$application, $slug] = $this->resolveFaqApp($app);
@@ -971,11 +956,6 @@ class AdminController extends Controller
         ]);
     }
 
-    /**
-     * Supprime une FAQ (fichier local + DB + collection Qdrant si pas de manuel + pipeline sync).
-     * Si l'application n'a plus de manuel → collection Qdrant supprimée, images supprimées,
-     * application supprimée de la BD → disparaît des selects utilisateur.
-     */
     public function faqDestroy(string $app): JsonResponse
     {
         [$application, $slug] = $this->resolveFaqApp($app);
@@ -990,7 +970,6 @@ class AdminController extends Controller
         if ($application) {
             Faq::where('application_id', $application->id)->delete();
 
-            // Si l'app n'a aucun manuel → supprimer collection Qdrant + images
             $hasManuals = Manual::where('application_id', $application->id)->exists();
             if (!$hasManuals) {
                 $collection = $application->qdrant_collection ?? $slug;
@@ -999,14 +978,23 @@ class AdminController extends Controller
                     $this->deleteQdrantCollectionData($collection);
                 }
 
-                // Dossier images : nom = slug de l'app (ex: parc_auto)
-                $extractDir = rtrim((string) config('services.extract.extract_dir', base_path('../../extract/app')), '/');
-                $jsonDir    = rtrim((string) config('services.extract.json_dir', $extractDir . '/json'), '/');
-                $this->deleteDirectory($jsonDir . '/images/' . $slug);
-                $this->deleteExtractLogs($extractDir, $slug);
+                $extractDir     = rtrim((string) config('services.extract.extract_dir', base_path('../../extract/app')), '/');
+                $jsonDir        = rtrim((string) config('services.extract.json_dir', $extractDir . '/json'), '/');
+                $realJsonDir    = realpath($jsonDir) ?: $jsonDir;
+                $realExtractDir = realpath($extractDir) ?: $extractDir;
+
+                $imagesPath    = $realJsonDir . '/images/' . $slug;
+                $imagesPathAlt = $jsonDir . '/images/' . $slug;
+
+                if (is_dir($imagesPath)) {
+                    $this->deleteDirectory($imagesPath);
+                } elseif (is_dir($imagesPathAlt)) {
+                    $this->deleteDirectory($imagesPathAlt);
+                }
+
+                $this->deleteExtractLogs($realExtractDir, $slug);
             }
 
-            // Supprimer l'application si elle n'a plus ni manuel ni FAQ
             $this->cleanupApplicationIfEmpty($application->id);
         }
 
@@ -1165,10 +1153,6 @@ class AdminController extends Controller
         }
     }
 
-    /**
-     * Valide un chat et l'ajoute à la FAQ de l'application.
-     * Indexe dans la collection unique de l'app (manuel ou FAQ, même collection).
-     */
     public function chatValidate(Request $request, string $app): JsonResponse
     {
         $request->validate([
@@ -1193,7 +1177,6 @@ class AdminController extends Controller
         $appName = $application->name;
         $slug    = $this->appNameToFaqSlug($appName);
 
-        // Vérifier doublon
         $duplicate = Faq::where('application_id', $application->id)
             ->whereRaw('LOWER(problem) = ?', [mb_strtolower($question)])
             ->exists();
@@ -1202,7 +1185,6 @@ class AdminController extends Controller
             return response()->json(['success' => false, 'error' => 'Cette question existe déjà dans la FAQ.'], 422);
         }
 
-        // Créer l'item en base
         Faq::create([
             'application_id' => $application->id,
             'problem'        => $question,
@@ -1211,7 +1193,6 @@ class AdminController extends Controller
             'source'         => $source,
         ]);
 
-        // Régénérer le fichier JSON depuis la base
         $faqDir  = $this->getFaqDir();
         $faqFile = $faqDir . '/' . $slug . '.json';
         $isNewFaq = !file_exists($faqFile);
@@ -1239,7 +1220,6 @@ class AdminController extends Controller
             }
         }
 
-        // Indexer dans la collection unique de l'app
         $backendUrl = rtrim((string) config('services.backend.url', 'http://127.0.0.1:8000'), '/');
         $collection = $this->resolveQdrantCollection($application);
 
@@ -1326,10 +1306,6 @@ class AdminController extends Controller
         return Application::create(['name' => $name]);
     }
 
-    /**
-     * Supprime l'application de la BD si elle n'a plus aucun manuel ni aucune FAQ.
-     * Cela la retire automatiquement de tous les selects côté utilisateur.
-     */
     private function cleanupApplicationIfEmpty(int $applicationId): void
     {
         $app = Application::find($applicationId);
@@ -1339,7 +1315,6 @@ class AdminController extends Controller
         $hasFaqs    = Faq::where('application_id', $applicationId)->exists();
 
         if (!$hasManuals && !$hasFaqs) {
-            // Supprimer conversations et messages orphelins
             $conversationIds = Conversation::where('application_id', $applicationId)
                 ->pluck('id');
 
@@ -1395,11 +1370,12 @@ class AdminController extends Controller
     {
         $extractDir = rtrim((string) config('services.extract.extract_dir', base_path('../../extract/app')), '/');
         $jsonDir    = rtrim((string) config('services.extract.json_dir', $extractDir . '/json'), '/');
+        $realJsonDir = realpath($jsonDir) ?: $jsonDir;
         $baseName   = pathinfo($pdfFileName, PATHINFO_FILENAME);
 
-        $this->deleteFile($jsonDir . '/' . $baseName . '_2levels.json');
-        $this->deleteFile($jsonDir . '/' . $baseName . '_2levels_cleaned.json');
-        foreach (glob($jsonDir . '/' . $baseName . '*.json') as $f) {
+        $this->deleteFile($realJsonDir . '/' . $baseName . '_2levels.json');
+        $this->deleteFile($realJsonDir . '/' . $baseName . '_2levels_cleaned.json');
+        foreach (glob($realJsonDir . '/' . $baseName . '*.json') ?: [] as $f) {
             $this->deleteFile($f);
         }
     }
@@ -1422,9 +1398,6 @@ class AdminController extends Controller
         }
     }
 
-    /**
-     * Supprime les données Qdrant sur disque (dossier collection + entrée meta.json).
-     */
     private function deleteQdrantCollectionData(string $collection): void
     {
         $qdrantDataDir       = rtrim((string) config('services.qdrant.data_dir', base_path('../../prod/qdrant_data')), '/');
@@ -1458,7 +1431,7 @@ class AdminController extends Controller
     {
         $extractLogsDir = rtrim($extractDir . '/logs/extractor', '/');
         if (is_dir($extractLogsDir)) {
-            foreach (glob($extractLogsDir . '/' . $baseName . '*.log') as $f) {
+            foreach (glob($extractLogsDir . '/' . $baseName . '*.log') ?: [] as $f) {
                 $this->deleteFile($f);
             }
         }
@@ -1472,18 +1445,44 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * Supprime un dossier récursivement.
+     * Résout d'abord le chemin réel pour éviter les problèmes de symlinks.
+     */
     private function deleteDirectory(?string $path): void
     {
-        if (!$path || !is_dir($path)) return;
+        if (!$path) return;
+
+        // Résoudre le vrai chemin (suit les symlinks)
+        $realPath = realpath($path);
+
+        // Si realpath échoue, essayer quand même avec le chemin original
+        $targetPath = $realPath ?: $path;
+
+        if (!is_dir($targetPath)) {
+            Log::info('[AdminController] Dossier déjà absent ou introuvable', ['path' => $path, 'real' => $realPath ?: 'non résolu']);
+            return;
+        }
+
         $iterator = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS),
+            new \RecursiveDirectoryIterator($targetPath, \RecursiveDirectoryIterator::SKIP_DOTS),
             \RecursiveIteratorIterator::CHILD_FIRST
         );
         foreach ($iterator as $file) {
-            $file->isDir() ? @rmdir($file->getRealPath()) : @unlink($file->getRealPath());
+            if ($file->isDir()) {
+                @rmdir($file->getRealPath());
+            } else {
+                @unlink($file->getRealPath());
+            }
         }
-        @rmdir($path);
-        Log::info('[AdminController] Dossier supprimé', ['path' => $path]);
+
+        $result = @rmdir($targetPath);
+
+        Log::info('[AdminController] Dossier supprimé', [
+            'path'    => $path,
+            'real'    => $targetPath,
+            'success' => $result,
+        ]);
     }
 
     // ──────────────────────────────────────────────────────────────────
