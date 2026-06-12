@@ -1,12 +1,13 @@
 # vector_store.py
 import uuid
+import time
 import numpy as np
 from typing import List, Tuple, Optional, Dict, Any
 
 
 class VectorDB:
     """
-    Qdrant-backed vector store (dense embeddings, flat/exact index).
+    Qdrant-backed vector store (dense embeddings, HNSW index).
     """
 
     def __init__(
@@ -15,6 +16,9 @@ class VectorDB:
         host: Optional[str] = None,
         port: Optional[int] = None,
         api_key: Optional[str] = None,
+        hnsw_m: int = 16,
+        hnsw_ef_construct: int = 100,
+        hnsw_ef: int = 128,
     ):
         from qdrant_client import QdrantClient
         if host:
@@ -26,29 +30,46 @@ class VectorDB:
         else:
             raise ValueError("Either host or path must be provided")
 
+        self.hnsw_m            = hnsw_m
+        self.hnsw_ef_construct = hnsw_ef_construct
+        self.hnsw_ef           = hnsw_ef
+
     # ------------------------------------------------------------------
     # Collection management
     # ------------------------------------------------------------------
 
     def create_collection(self, name: str, dim: int) -> None:
-        from qdrant_client.models import VectorParams, Distance
+        from qdrant_client.models import (
+            VectorParams, Distance, HnswConfigDiff, OptimizersConfigDiff
+        )
         if self.collection_exists(name):
             raise ValueError(f"Collection '{name}' already exists.")
         self.client.create_collection(
             collection_name=name,
-            vectors_config=VectorParams(size=dim, distance=Distance.DOT),
+            vectors_config=VectorParams(
+                size=dim,
+                distance=Distance.DOT,
+                hnsw_config=HnswConfigDiff(
+                    m=self.hnsw_m,
+                    ef_construct=self.hnsw_ef_construct,
+                ),
+            ),
+            optimizers_config=OptimizersConfigDiff(
+                indexing_threshold=0,
+            ),
         )
+        while True:
+            info   = self.client.get_collection(name)
+            status = str(info.status).lower()
+            if "green" in status or "ok" in status:
+                break
+            time.sleep(0.5)
 
     def collection_exists(self, name: str) -> bool:
         return self.client.collection_exists(name)
 
     def list_collections(self) -> List[str]:
-        """
-        Retourne la liste des noms de toutes les collections Qdrant.
-        Appelée par main.py → get_available_collections() → /api/collections
-        et aussi par resolve_collection() pour valider le nom envoyé par Laravel.
-        Sans cette méthode, /api/collections retourne toujours [].
-        """
+        """Retourne la liste des noms de toutes les collections Qdrant."""
         return [c.name for c in self.client.get_collections().collections]
 
     def collection_point_count(self, name: str) -> int:
@@ -84,6 +105,18 @@ class VectorDB:
     def insert_one(self, name: str, record: Dict[str, Any]) -> None:
         self.upsert(name, [record])
 
+    def delete(self, name: str, ids: List[str]) -> None:
+        from qdrant_client.models import PointIdsList
+        point_ids = [self._to_point_id(i) for i in ids]
+        self.client.delete(
+            collection_name=name,
+            points_selector=PointIdsList(points=point_ids),
+            wait=True,
+        )
+
+    def delete_one(self, name: str, original_id: str) -> None:
+        self.delete(name, [original_id])
+
     # ------------------------------------------------------------------
     # Reads
     # ------------------------------------------------------------------
@@ -94,12 +127,16 @@ class VectorDB:
         query_vector: np.ndarray,
         top_k: int = 20,
     ) -> Tuple[List[str], List[float], List[Dict[str, Any]]]:
+        from qdrant_client.models import SearchParams
         results = self.client.query_points(
             collection_name=name,
             query=self._to_list(query_vector),
             limit=top_k,
             with_payload=True,
-            search_params={"exact": True},
+            search_params=SearchParams(
+                hnsw_ef=self.hnsw_ef,
+                exact=False,
+            ),
         )
         ids      = [p.payload.get("original_id", p.id) for p in results.points]
         scores   = [p.score for p in results.points]
@@ -125,25 +162,26 @@ class VectorDB:
 
 
 def get_vector_db(cfg: Dict[str, Any]) -> VectorDB:
-    """
-    Crée une instance VectorDB depuis la configuration.
-
-    Structure attendue dans config.yaml :
-        vector_db:
-            host: "localhost"        # optionnel, si absent → mode local
-            port: 6333               # requis si host est fourni
-            api_key: "your-key"      # optionnel
-            path: "data/vector_db/"  # utilisé si host absent
-    """
     vdb_cfg = cfg.get("vector_db", {})
     host    = vdb_cfg.get("host")
+
+    hnsw_m            = vdb_cfg.get("hnsw_m", 16)
+    hnsw_ef_construct = vdb_cfg.get("hnsw_ef_construct", 100)
+    hnsw_ef           = vdb_cfg.get("hnsw_ef", 128)
 
     if host:
         return VectorDB(
             host=host,
             port=vdb_cfg.get("port", 6333),
             api_key=vdb_cfg.get("api_key"),
+            hnsw_m=hnsw_m,
+            hnsw_ef_construct=hnsw_ef_construct,
+            hnsw_ef=hnsw_ef,
         )
     else:
-        path = vdb_cfg.get("path", "data/vector_db/")
-        return VectorDB(path=path)
+        return VectorDB(
+            path=vdb_cfg.get("path", "data/vector_db/"),
+            hnsw_m=hnsw_m,
+            hnsw_ef_construct=hnsw_ef_construct,
+            hnsw_ef=hnsw_ef,
+        )

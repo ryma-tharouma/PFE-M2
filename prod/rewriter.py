@@ -1,126 +1,230 @@
-# src/components/rewriter_ollama.py
+# rewriter.py
+import logging
 import time
-from typing import List, Dict, Optional, Union
-import ollama
+from typing import Any, Dict, List, Optional, Tuple
 
-MODEL_NAME = "ministral-3:8b"
-MAX_HISTORY = 6
-# max history as args?
-def _build_prompt(query: str, history: List[Dict], verbose: bool) -> str:
-        trimmed = history[-MAX_HISTORY:] if history else []
+logger = logging.getLogger(__name__)
 
-        hist_lines = []
-        for turn in trimmed:
-            role = "Utilisateur" if turn.get("role") == "user" else "Assistant"
-            hist_lines.append(f"{role}: {turn.get('content','')}")
-        hist_text = "\n".join(hist_lines) if hist_lines else "Aucun historique."
 
-        if verbose:
-            output_format = (
-                "Ligne 1: requête reformulée\n"
-                "Ligne 2+: courte explication"
+REWRITE_SYSTEM_PROMPT = (
+    """
+Résous les pronoms et ellipses de la question actuelle en utilisant la question précédente.
+Si la question est déjà claire, retourne-la mot pour mot.
+Retourne uniquement la question, sans explication.
+
+Exemples :
+"Comment créer un utilisateur ?" / "Comment lui modifier ses infos ?" → "Comment modifier les informations d'un utilisateur ?"
+"Comment supprimer un utilisateur ?" / "Est-ce que c'est définitif ?" → "Est-ce que la suppression d'un utilisateur est définitive ?"
+"Comment assigner un rôle ?" / "et pour le retirer ?" → "Comment retirer un rôle ?"
+"Comment créer un utilisateur ?" / "Comment supprimer un utilisateur ?" → "Comment supprimer un utilisateur ?"
+"""
+)
+
+
+class Rewriter:
+    """
+    Standalone query-rewriting model.
+
+    Supports CPU inference via llama-cpp or GPU inference via HuggingFace
+    Transformers. The model is loaded lazily on the first rewrite() call.
+
+    Config section: "rewriter"
+        device         (str)   – "cpu" or "cuda"                   (default "cpu")
+        max_new_tokens (int)   – tokens to generate                 (default 128)
+        temperature    (float) – sampling temperature               (default 0.1)
+
+        # CPU (llama-cpp)
+        gguf_path      (str)   – path to GGUF file                  (required for cpu)
+        n_ctx          (int)   – context window                     (default 2048)
+        n_threads      (int)   – CPU threads                        (default 4)
+        n_batch        (int)   – batch size                         (default 512)
+
+        # GPU (HuggingFace)
+        hf_model_name  (str)   – HuggingFace model id               (required for cuda)
+        torch_dtype    (str)   – "float16" / "bfloat16" / "float32" (default "float16")
+    """
+
+    def __init__(self, config: Dict[str, Any]):
+        cfg = config.get("rewriter", {})
+
+        self.device         = cfg.get("device", "cpu")
+        self.max_new_tokens = int(cfg.get("max_new_tokens", 128))
+        self.temperature    = float(cfg.get("temperature", 0.1))
+
+        # CPU
+        self.gguf_path = cfg.get("gguf_path", "")
+        self.n_ctx     = int(cfg.get("n_ctx", 2048))
+        self.n_threads = int(cfg.get("n_threads", 4))
+        self.n_batch   = int(cfg.get("n_batch", 512))
+
+        # GPU
+        self.hf_model_name = cfg.get("hf_model_name", "")
+        self.torch_dtype   = cfg.get("torch_dtype", "float16")
+
+        self._llm:       Any = None
+        self._hf_model:  Any = None
+        self._tokenizer: Any = None
+
+    # ------------------------------------------------------------------
+    # Lazy loaders
+    # ------------------------------------------------------------------
+
+    def _load_cpu(self) -> None:
+        if self._llm is not None:
+            return
+        try:
+            from llama_cpp import Llama
+        except ImportError as exc:
+            raise RuntimeError(
+                "llama-cpp-python is required for the CPU rewriter."
+            ) from exc
+        if not self.gguf_path:
+            raise ValueError(
+                "rewriter.gguf_path must be set in config.yaml when rewriter.device=cpu."
             )
-        else:
-            output_format = "Une seule ligne contenant uniquement la requête reformulée."
-
-        return f"""
-        Tu es un réécrivain de requêtes pour un système RAG.
-
-        OBJECTIF:
-        Transformer la requête utilisateur en une question claire, complète et autonome en utilisant l’historique.
-
-        RÈGLES STRICTES:
-        - Tu DOIS résoudre toutes les références vagues: "ça", "et après", "c'est quoi", etc.
-        - Tu DOIS inclure le contexte précis (action, objet, tâche)
-        - La question doit être compréhensible SANS l’historique
-        - UNE seule phrase
-        - NE PAS répondre à la question
-        - NE PAS inventer d'information
-
-        ---
-
-        EXEMPLES:
-
-        Conversation:
-        Utilisateur: je configure le wifi
-        Assistant: allez dans paramètres réseau
-        Utilisateur: il demande un truc, c'est quoi ?
-
-        Requête reformulée:
-        Que signifie la demande affichée lors de la configuration du Wi-Fi ?
-
-        ---
-
-        Conversation:
-        Utilisateur: comment accéder à l'application ?
-        Assistant: utilisez votre identifiant et mot de passe
-        Utilisateur: et après ?
-
-        Requête reformulée:
-        Quelles sont les étapes après s’être connecté à l’application ?
-
-        ---
-
-        HISTORIQUE:
-        {hist_text}
-
-        REQUÊTE ACTUELLE:
-        {query}
-
-        FORMAT DE SORTIE:
-        {output_format}
-
-        REQUISE:
-        Requête reformulée :
-        """.strip()
-
-
-class OllamaRewriter:
-    def __init__(self, model_name: str = MODEL_NAME):
-        self.model_name = model_name
-        # Test connection
-        ollama.chat(model=model_name, messages=[{"role": "user", "content": "test"}], think=False)
-
-    def rewrite(self, query: str, history: Optional[List[Dict]] = None, verbose: bool = False) -> Union[str, Dict]:
-        history = history or []
-        prompt = _build_prompt(query, history, verbose)
-        
-        start_time = time.time()
-        response = ollama.chat(
-            model=self.model_name,
-            messages=[{"role": "user", "content": prompt}],
-            options={"temperature": 0.1, "num_predict": 256},
-            think=False
+        logger.info("Loading CPU rewriter from %s …", self.gguf_path)
+        self._llm = Llama(
+            model_path=self.gguf_path,
+            n_ctx=self.n_ctx,
+            n_threads=self.n_threads,
+            n_batch=self.n_batch,
+            verbose=False,
         )
-        elapsed = time.time() - start_time
-        
-        text = response['message']['content'].strip()
-        lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
-        
-        if not lines:
-            return "" if not verbose else {"rewritten": "", "explanation": "", "time_s": elapsed}
-        
-        if verbose:
-            return {"rewritten": lines[0], "explanation": " ".join(lines[1:]), "time_s": elapsed}
-        
-        return lines[0]
+        logger.info("CPU rewriter loaded.")
 
+    def _load_gpu(self) -> None:
+        if self._hf_model is not None:
+            return
+        try:
+            import torch
+            from transformers import AutoTokenizer, AutoModelForCausalLM
+        except ImportError as exc:
+            raise RuntimeError(
+                "torch and transformers are required for the GPU rewriter."
+            ) from exc
+        if not self.hf_model_name:
+            raise ValueError(
+                "rewriter.hf_model_name must be set in config.yaml when rewriter.device=cuda."
+            )
+        import torch
+        dtype_map = {
+            "float16":  torch.float16,
+            "bfloat16": torch.bfloat16,
+            "float32":  torch.float32,
+        }
+        dtype = dtype_map.get(self.torch_dtype, torch.float16)
 
-if __name__ == "__main__":
-    rewriter = OllamaRewriter()
-    history = [
-        {"role": "user", "content": "je veux créer un nouvel utilisateur"},
-        {"role": "assistant", "content": "Allez dans Administration > Utilisateurs, puis cliquez sur 'Ajouter'."},
+        logger.info("Loading GPU rewriter %s …", self.hf_model_name)
+        from transformers import AutoTokenizer, AutoModelForCausalLM
+        self._tokenizer = AutoTokenizer.from_pretrained(self.hf_model_name)
+        self._hf_model  = AutoModelForCausalLM.from_pretrained(
+            self.hf_model_name,
+            torch_dtype=dtype,
+            device_map="auto",
+        )
+        self._hf_model.eval()
+        logger.info("GPU rewriter loaded.")
 
-        {"role": "user", "content": "ok j'y suis"},
-        {"role": "assistant", "content": "Parfait. Remplissez les champs obligatoires comme nom et email."},
+    # ------------------------------------------------------------------
+    # Inference helpers
+    # ------------------------------------------------------------------
 
-        {"role": "user", "content": "et pour le rôle ?"},
-        {"role": "assistant", "content": "Vous pouvez choisir entre Admin, Manager ou Utilisateur standard."},
+    def _build_messages(self, prev_query: str, current_query: str) -> List[Dict]:
+        return [
+            {"role": "system", "content": REWRITE_SYSTEM_PROMPT},
+            {
+                "role": "user",
+                "content": (
+                    f"Question précédente: {prev_query}\n"
+                    f"Question actuelle: {current_query}\n"
+                    "Question reformulée:"
+                ),
+            },
+            # Disable Qwen3 thinking mode by pre-filling an empty <think> block.
+            # Has no effect on non-Qwen3 models.
+            {"role": "assistant", "content": "<think>\n\n</think>\n"},
+        ]
 
-        {"role": "user", "content": "je dois mettre quoi si c'est quelqu'un du support ?"},
-        {"role": "assistant", "content": "Dans ce cas, choisissez généralement 'Manager' ou un rôle personnalisé si disponible."},
-    ]
-    query = "et après ?"
-    print("Simple:", rewriter.rewrite(query, history, verbose=False))
-    print("Verbose:", rewriter.rewrite(query, history, verbose=True))
+    def _infer_cpu(self, prev_query: str, current_query: str) -> Tuple[str, float]:
+        self._load_cpu()
+        t0 = time.time()
+        response = self._llm.create_chat_completion(
+            messages=self._build_messages(prev_query, current_query),
+            max_tokens=self.max_new_tokens,
+            temperature=self.temperature,
+            top_p=1.0,
+            top_k=1,
+            stream=False,
+        )
+        elapsed = time.time() - t0
+        return response["choices"][0]["message"]["content"].strip(), elapsed
+
+    def _infer_gpu(self, prev_query: str, current_query: str) -> Tuple[str, float]:
+        import torch
+        self._load_gpu()
+
+        inputs = self._tokenizer.apply_chat_template(
+            self._build_messages(prev_query, current_query),
+            tokenize=True,
+            add_generation_prompt=True,
+            return_tensors="pt",
+        ).to(self._hf_model.device)
+        input_len = inputs.shape[1]
+
+        terminators = [self._tokenizer.eos_token_id]
+        im_end_id   = self._tokenizer.convert_tokens_to_ids("<|im_end|>")
+        if im_end_id and im_end_id != self._tokenizer.eos_token_id:
+            terminators.append(im_end_id)
+
+        t0 = time.time()
+        with torch.no_grad():
+            outputs = self._hf_model.generate(
+                input_ids=inputs,
+                max_new_tokens=self.max_new_tokens,
+                do_sample=self.temperature > 0,
+                temperature=self.temperature if self.temperature > 0 else 1.0,
+                pad_token_id=self._tokenizer.eos_token_id,
+                eos_token_id=terminators,
+            )
+        elapsed   = time.time() - t0
+        rewritten = self._tokenizer.decode(
+            outputs[0][input_len:], skip_special_tokens=True
+        ).strip()
+
+        logger.debug("Raw GPU rewriter output: %r", rewritten)
+        return rewritten, elapsed
+
+    # ------------------------------------------------------------------
+    # Public API
+    # ------------------------------------------------------------------
+
+    def rewrite(self, prev_query: str, current_query: str) -> Tuple[str, float]:
+        """
+        Rewrite current_query into a standalone question.
+
+        Args:
+            prev_query    : last rewritten retrieval query (chained form)
+            current_query : raw user input for this turn
+
+        Returns:
+            (rewritten_query, elapsed_seconds)
+        """
+        if self.device == "cuda":
+            rewritten, elapsed = self._infer_gpu(prev_query, current_query)
+        else:
+            rewritten, elapsed = self._infer_cpu(prev_query, current_query)
+
+        logger.debug(
+            "Query rewritten in %.3fs | %r → %r", elapsed, current_query, rewritten
+        )
+        return rewritten, elapsed
+
+    def cleanup(self) -> None:
+        if self._llm is not None:
+            try:
+                self._llm.close()
+            except Exception:
+                pass
+            self._llm = None
+        self._hf_model  = None
+        self._tokenizer = None

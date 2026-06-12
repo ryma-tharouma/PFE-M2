@@ -1,97 +1,84 @@
-vector_db:
-  # For remote Qdrant server (provide host + port)
-  host: null # e.g., "localhost" or "qdrant.example.com"
-  port: 6333 # default Qdrant port
-  api_key: null # if authentication is required
-  # For local file-based Qdrant (use path instead of host)
-  path: "qdrant_data/" # local storage path
+# =============================================================================
+# Central configuration for the RAG pipeline
+# =============================================================================
 
 # -----------------------------------------------------------------------------
-# Chunker (splits sections into token-bounded chunks)
+# Vector Database (Qdrant)
+# -----------------------------------------------------------------------------
+vector_db:
+  host: null # remote host ex "localhost" (null = use local path)
+  port: 6333
+  api_key: null
+  path: "/home/liza/PFE_M2/PFE-M2/prod/qdrant_data/"
+  hnsw_m: 16
+  hnsw_ef_construct: 100
+  hnsw_ef: 128
+
+# -----------------------------------------------------------------------------
+# Chunker
 # -----------------------------------------------------------------------------
 chunker:
-  max_tokens: 256 # maximum tokens per chunk
-  overlap: 50 # overlapping tokens between consecutive chunks
-  tokenizer_model: "BAAI/bge-m3" # HuggingFace tokenizer name
+  max_tokens: 256
+  overlap: 50
+  tokenizer_model: "BAAI/bge-m3"
 
 # -----------------------------------------------------------------------------
-# Aggregator (collapses chunk-level results to section-level)
+# Aggregator
 # -----------------------------------------------------------------------------
 aggregator:
-  top_k: 3 # max number of sections to return after aggregation
+  top_k: 3
 
 # -----------------------------------------------------------------------------
-# Embedder (sentence transformer for dense embeddings)
+# Embedder
 # -----------------------------------------------------------------------------
 embedder:
-  model_name: "BAAI/bge-m3" # HuggingFace sentence-transformer model
-  device: "cpu" # "cpu" or "cuda"
-  batch_size: 32 # encoding batch size
+  model_name: "BAAI/bge-m3"
+  device: "cpu"
+  batch_size: 32
 
 # -----------------------------------------------------------------------------
-# Retriever (vector search and optional reranking)
+# Retriever
 # -----------------------------------------------------------------------------
 retriever:
-  search_top_k: 20 # number of chunks to retrieve from vector DB
-  sections_top_k: 3 # number of final sections after aggregation
-  # Reranking is controlled in the "reranker" section below
+  search_top_k: 20
+  sections_top_k: 3
 
 # -----------------------------------------------------------------------------
-# Reranker (cross-encoder, optional)
+# Reranker (optional cross-encoder)
 # -----------------------------------------------------------------------------
 reranker:
-  enabled: false # set to true to use reranking
+  enabled: false
   model_name: "BAAI/bge-reranker-v2-m3"
-  batch_size: 32
-  top_k_rerank: 10 # number of top chunks to rerank
+  batch_size: 10
+  top_k_rerank: 10
 
 # -----------------------------------------------------------------------------
-# Generator (LLM for answer generation)
+# Generator (main answer LLM)
 # -----------------------------------------------------------------------------
 generator:
   device: "cpu" # "cpu" or "cuda"
-  prompt_file: "prompt_1.txt" # path to system prompt template (required)
-  generation_kwargs: {} # optional overrides for any generation param
+  prompt_file: "prompt_1.txt"
+  generation_kwargs: {}
 
-  # CPU-specific (llama-cpp)
-  gguf_path: "../models/Qwen3.5-4B-Q4_K_S.gguf" # required if device=cpu
-  n_ctx: 8000
+  # CPU (llama-cpp)
+  gguf_path: "../models/Qwen3.5-4B-Q4_K_S.gguf"
+  n_ctx: 8144
   n_threads: 4
-  n_batch: 1024
+  n_batch: 128
 
-  # GPU-specific (HuggingFace)
-  hf_model_name: "Qwen/Qwen3.5-4B" # required if device=cuda
-  torch_dtype: "float16" # float16, bfloat16, float32
+  # GPU (HuggingFace)
+  hf_model_name: "Qwen/Qwen3.5-4B"
+  torch_dtype: "float16"
 
-  # Shared generation defaults (can be overridden via generation_kwargs)
-  max_tokens: 1024 # CPU default; GPU uses 256 unless overridden
+  # Shared generation defaults
+  max_tokens: 1024
   temperature: 0.1
   top_p: 0.8
   top_k: 20
-  # CPU-only:
   min_p: 0.0
-  presence_penalty: 1.5
+  #presence_penalty: 1.5
   repeat_penalty: 1.1
-  # GPU-only:
-  do_sample: true # enabling sampling (if false, greedy)
-
-# -----------------------------------------------------------------------------
-# RAG pipeline (routing logic)
-# -----------------------------------------------------------------------------
-rag:
-  routing_threshold_1: 0.72 # top score must exceed second by this to use FAQ path
-  routing_threshold_2: 0.13
-# -----------------------------------------------------------------------------
-# Assistant (stateful session management)
-# -----------------------------------------------------------------------------
-assistant:
-  max_turns: 2 # number of conversation turns to keep in history
-  verbose: true # enable detailed logging and timing output
-  log_dir: "logs" # directory for rotating log files
-  # Optional (for future scaling) – not yet implemented in code:
-  # session_backend: "memory"    # "memory", "redis", or "sqlite"
-  # redis_url: "redis://localhost:6379"
-  # sqlite_path: "sessions.db"
+  do_sample: true
 
 # -----------------------------------------------------------------------------
 # Rewriter (separate small model for query rewriting)
@@ -109,7 +96,7 @@ rewriter:
   n_batch: 128
 
   # GPU (HuggingFace)
-  hf_model_name: "" # e.g. "Qwen/Qwen3.5-2B"
+  hf_model_name: "Qwen/Qwen3.5-2B"
   torch_dtype: "float16"
 
 # -----------------------------------------------------------------------------
@@ -123,3 +110,19 @@ rewriter:
 query_context:
   mode: "rewrite"
   concat_template: "requete precedente: {prev_query}. requete courante: {current_query}"
+
+# -----------------------------------------------------------------------------
+# RAG pipeline
+# -----------------------------------------------------------------------------
+rag:
+  routing_threshold_1: 0.72
+  routing_threshold_2: 0.13
+
+# -----------------------------------------------------------------------------
+# Assistant
+# -----------------------------------------------------------------------------
+assistant:
+  max_turns: 2 # conversation turns kept in history
+  answer_truncate_words: 10 # truncate assistant answers to N words in history
+  verbose: true
+  log_dir: "logs"

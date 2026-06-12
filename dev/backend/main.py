@@ -75,15 +75,6 @@ class RAGManager:
             return False
 
     def _load_json_collections(self):
-        """
-        Au démarrage :
-          1. Indexe les manuels  → *_2levels_cleaned.json dans extract/app/json/
-          2. Indexe les FAQ      → *.json dans extract/app/faq/
-             Résolution de collection par priorité :
-               a. {slug}_2levels_cleaned existe → merge dans la collection manuel
-               b. {slug} existe                 → réutilise
-               c. Sinon                         → crée {slug} directement dans qdrant_data
-        """
         # ── Manuels ───────────────────────────────────────────────────
         if EXTRACT_JSON_DIR.exists():
             json_files = sorted(
@@ -123,7 +114,7 @@ class RAGManager:
                 print(f"   📂 {len(faq_files)} FAQ trouvée(s)")
             for faq_file in faq_files:
                 try:
-                    app_slug = faq_file.stem  # ex: "parc_auto", "excel"
+                    app_slug = faq_file.stem
 
                     with open(faq_file, "r", encoding="utf-8") as f:
                         data = json.load(f)
@@ -135,15 +126,14 @@ class RAGManager:
                         print(f"   ⚠️  FAQ {app_slug}: aucun item")
                         continue
 
-                    # Résolution de la collection cible
+                    # Au démarrage on utilise _resolve_faq_collection car on n'a
+                    # pas accès à la BDD Laravel depuis Python.
                     collection_name = _resolve_faq_collection(app_slug, self.vector_db)
-                    merged = collection_name.endswith("_2levels_cleaned")
+                    merged = collection_name != app_slug
 
                     sections = _faq_items_to_sections(app_slug, items)
 
                     if merged:
-                        # Vérifier si les items FAQ sont déjà présents (par source_type)
-                        # On ne peut pas facilement compter par type, donc on upsert toujours
                         print(f"   🔗 FAQ {app_slug} → merge dans '{collection_name}'")
                         self._upsert_faq_into_collection(collection_name, sections)
                         print(f"   ✅ FAQ {app_slug} mergée dans '{collection_name}'")
@@ -180,8 +170,8 @@ class RAGManager:
 
     def _upsert_faq_into_collection(self, collection_name: str, sections: list):
         """
-        Ajoute/met à jour les items FAQ dans une collection existante (manuel)
-        sans vider son contenu.
+        Ajoute/met à jour les items FAQ dans une collection existante
+        sans vider son contenu (upsert par ID).
         """
         chunker    = Chunker(self.config)
         chunks     = chunker.process_sections(sections)
@@ -190,7 +180,6 @@ class RAGManager:
         texts      = [c["embed_text"] for c in chunks]
         embeddings = self.embedder.encode(texts)
         records    = [{"id": c["id"], "dense": vec, "payload": c.copy()} for c, vec in zip(chunks, embeddings)]
-        # La collection existe déjà, on upsert sans drop
         self.vector_db.upsert(name=collection_name, records=records)
 
     def get_available_collections(self) -> list:
@@ -203,26 +192,27 @@ class RAGManager:
 
     def resolve_collection(self, requested: str) -> str | None:
         """
-        Résout le nom de collection :
-          1. Correspondance exacte
-          2. Insensible à la casse + normalisation
-          3. Fallback : préfixe d'une collection _2levels_cleaned (manuels)
+        Résout le nom de collection pour le chat WebSocket/HTTP.
+        Le nom reçu est application->qdrant_collection côté Laravel,
+        donc il doit correspondre exactement à une collection existante.
         """
         available = self.get_available_collections()
         if not available:
             return None
 
+        # Correspondance exacte (cas normal : Laravel envoie le bon nom)
         if requested in available:
             return requested
 
+        # Normalisation casse/tirets (fallback)
         req_norm = requested.lower().replace("-", "_").replace(" ", "_")
         for col in available:
             if col.lower().replace("-", "_") == req_norm:
                 return col
 
-        # Fallback manuels : "excel" peut résoudre "excel_2levels_cleaned"
+        # Dernier recours : cherche une collection _2levels_cleaned qui contient le slug
         for col in available:
-            if col.endswith("_2levels_cleaned") and col.startswith(req_norm):
+            if col.endswith("_2levels_cleaned") and req_norm in col:
                 return col
 
         return None
@@ -234,24 +224,26 @@ class RAGManager:
 
 def _resolve_faq_collection(app_slug: str, vector_db) -> str:
     """
-    Résout la collection Qdrant cible pour une FAQ (utilisé au démarrage
-    et dans les routes FAQ).
+    Résolution au DÉMARRAGE uniquement (on n'a pas la BDD Laravel).
+
+    Cherche une collection manuel qui CONTIENT le slug (gère les préfixes
+    comme "manuel_" ajoutés par l'extracteur).
 
     Priorité :
-      1. {slug}_2levels_cleaned existe  → merge dans le manuel
-      2. {slug} existe déjà             → réutilise
-      3. Sinon                          → nouvelle collection {slug}
-         (créée directement dans qdrant_data, PAS de sous-dossier)
+      1. Toute collection *_2levels_cleaned dont le nom contient app_slug
+      2. {app_slug} existe déjà → réutilise
+      3. Sinon → nouvelle collection {app_slug}
     """
     try:
         available = vector_db.list_collections()
     except Exception:
         return app_slug
 
-    # Priorité 1 : collection manuel correspondante
-    manual_coll = f"{app_slug}_2levels_cleaned"
-    if manual_coll in available:
-        return manual_coll
+    # Priorité 1 : collection manuel qui contient le slug
+    # ex: "manuel_parc_auto_2levels_cleaned" contient "parc_auto"
+    for col in available:
+        if col.endswith("_2levels_cleaned") and app_slug in col:
+            return col
 
     # Priorité 2 : collection FAQ déjà existante
     if app_slug in available:
@@ -262,9 +254,7 @@ def _resolve_faq_collection(app_slug: str, vector_db) -> str:
 
 
 def _faq_items_to_sections(app_slug: str, items: list) -> list:
-    """
-    Convertit une liste d'items FAQ en sections pour le Chunker.
-    """
+    """Convertit une liste d'items FAQ en sections pour le Chunker."""
     sections = []
     for i, item in enumerate(items):
         if not isinstance(item, dict):
@@ -456,10 +446,6 @@ def api_collections():
 
 @app.post("/api/index")
 async def api_index(request: Request):
-    """
-    Indexation d'un manuel nettoyé.
-    Body : { "json_path": "…_2levels_cleaned.json", "collection": "…_2levels_cleaned" }
-    """
     if not rag_manager.initialized:
         return JSONResponse(status_code=503, content={"error": "RAG non prêt"})
     try:
@@ -515,11 +501,6 @@ async def api_index(request: Request):
 
 @app.post("/api/admin/faq/sync")
 async def api_admin_faq_sync():
-    """
-    Réindexe toutes les FAQ.
-    Chaque FAQ est indexée dans la collection résolue par priorité
-    (manuel existant ou nouvelle collection dédiée).
-    """
     if not rag_manager.initialized:
         return JSONResponse(status_code=503, content={"error": "RAG non prêt"})
     if faq_manager is None:
@@ -533,12 +514,16 @@ async def api_admin_faq_sync():
 @app.post("/api/faq/index")
 async def api_faq_index(request: Request):
     """
-    Indexe une FAQ depuis les items fournis directement.
-    Body : { "collection": "parc_auto", "items": [...] }
+    Indexe une FAQ dans la collection spécifiée.
 
-    La collection réelle où les items seront stockés peut différer du
-    champ "collection" reçu si une collection manuel correspondante existe
-    (ex: "parc_auto" → "parc_auto_2levels_cleaned").
+    CORRECTION PRINCIPALE :
+    Le champ "collection" reçu est désormais le nom EXACT de la collection
+    Qdrant (ex: "manuel_parc_auto_2levels_cleaned"), envoyé par Laravel
+    depuis application->qdrant_collection.
+
+    On ne recalcule PLUS de slug ni ne cherche de collection alternative :
+    on upsert directement dans la collection reçue.
+    Si elle n'existe pas encore (nouvelle app sans manuel), on la crée.
     """
     if not rag_manager.initialized:
         return JSONResponse(status_code=503, content={"error": "RAG non prêt"})
@@ -557,19 +542,76 @@ async def api_faq_index(request: Request):
     if not items:
         return JSONResponse(status_code=400, content={"error": "Champ 'items' vide"})
 
-    # Sauvegarder sur disque avec le slug reçu
-    faq_manager.save_faq_json(collection, {"items": items})
+    # Sauvegarder sur disque (slug = collection ou extraction du slug depuis le nom)
+    # On utilise le slug extrait pour le fichier JSON, mais la collection exacte pour Qdrant
+    app_slug = _collection_to_slug(collection)
+    faq_manager.save_faq_json(app_slug, {"items": items})
+
     loop   = asyncio.get_event_loop()
-    result = await loop.run_in_executor(None, faq_manager.index_faq, collection)
+    # Passer la collection exacte à index_faq_into_collection
+    result = await loop.run_in_executor(
+        None, _index_faq_into_exact_collection, collection, items, rag_manager
+    )
     return result
+
+
+def _collection_to_slug(collection_name: str) -> str:
+    """
+    Extrait un slug lisible depuis un nom de collection.
+    ex: "manuel_parc_auto_2levels_cleaned" → "parc_auto"
+        "parc_auto" → "parc_auto"
+    """
+    slug = collection_name
+    # Enlever le préfixe "manuel_" s'il existe
+    if slug.startswith("manuel_"):
+        slug = slug[len("manuel_"):]
+    # Enlever le suffixe "_2levels_cleaned" s'il existe
+    if slug.endswith("_2levels_cleaned"):
+        slug = slug[: -len("_2levels_cleaned")]
+    return slug.strip("_") or collection_name
+
+
+def _index_faq_into_exact_collection(
+    collection_name: str,
+    items: list,
+    rag: RAGManager
+) -> dict:
+    """
+    Indexe les items FAQ dans la collection EXACTE spécifiée.
+    - Si la collection existe → upsert (ne vide pas le contenu existant)
+    - Si elle n'existe pas → crée puis indexe
+    """
+    app_slug = _collection_to_slug(collection_name)
+    sections = _faq_items_to_sections(app_slug, items)
+
+    if not sections:
+        return {"success": False, "error": "Aucune section valide générée depuis les items FAQ"}
+
+    try:
+        collection_exists = rag.vector_db.collection_exists(collection_name)
+
+        if collection_exists:
+            # Upsert dans la collection existante (manuel ou FAQ existante)
+            rag._upsert_faq_into_collection(collection_name, sections)
+            print(f"[FAQ Index] Upsert dans '{collection_name}' ({len(sections)} items)")
+        else:
+            # Créer et indexer une nouvelle collection FAQ dédiée
+            rag._index_collection(collection_name, sections)
+            print(f"[FAQ Index] Nouvelle collection '{collection_name}' créée ({len(sections)} items)")
+
+        return {
+            "success":    True,
+            "collection": collection_name,
+            "items":      len(sections),
+        }
+
+    except Exception as e:
+        import traceback; traceback.print_exc()
+        return {"success": False, "error": str(e), "collection": collection_name}
 
 
 @app.post("/api/admin/faq/upload")
 async def api_admin_faq_upload(request: Request):
-    """
-    Upload + indexation d'une FAQ.
-    Body : { "app": "parc_auto", "items": [...] }
-    """
     if not rag_manager.initialized:
         return JSONResponse(status_code=503, content={"error": "RAG non prêt"})
     if faq_manager is None:
@@ -605,9 +647,6 @@ def api_admin_faq_get(app_slug: str):
 
 @app.put("/api/admin/faq/{app_slug}")
 async def api_admin_faq_put(app_slug: str, request: Request):
-    """
-    Met à jour les items FAQ d'une application et réindexe dans la collection résolue.
-    """
     if faq_manager is None:
         return JSONResponse(status_code=500, content={"error": "FAQ manager non disponible"})
     try:
@@ -631,12 +670,6 @@ async def api_admin_faq_put(app_slug: str, request: Request):
 
 @app.delete("/api/admin/faq/{app_slug}")
 async def api_admin_faq_delete(app_slug: str):
-    """
-    Supprime le fichier JSON FAQ.
-    Si la FAQ était mergée dans une collection manuel, on NE supprime PAS
-    la collection (elle contient aussi le manuel) — on retire juste les points FAQ.
-    Si c'était une collection FAQ dédiée, on la supprime entièrement.
-    """
     if faq_manager is None:
         return JSONResponse(status_code=500, content={"error": "FAQ manager non disponible"})
     try:
@@ -647,13 +680,9 @@ async def api_admin_faq_delete(app_slug: str):
         if rag_manager.initialized:
             try:
                 collection_name = _resolve_faq_collection(app_slug, rag_manager.vector_db)
-                merged = collection_name.endswith("_2levels_cleaned")
+                merged = collection_name != app_slug
 
                 if merged:
-                    # La collection appartient aussi au manuel → ne pas la supprimer
-                    # Idéalement on filtrerait les points FAQ, mais Qdrant
-                    # ne supporte pas le delete par payload nativement sans scroll.
-                    # On log un avertissement et on laisse le manuel intact.
                     print(f"[FAQ] ⚠️  FAQ '{app_slug}' mergée dans '{collection_name}' "
                           f"(manuel) — collection conservée, points FAQ orphelins.")
                 else:
@@ -670,7 +699,6 @@ async def api_admin_faq_delete(app_slug: str):
 
 @app.post("/api/admin/faq/{app_slug}/index")
 async def api_admin_faq_index(app_slug: str):
-    """Réindexe une FAQ spécifique dans la collection résolue."""
     if faq_manager is None:
         return JSONResponse(status_code=500, content={"error": "FAQ manager non disponible"})
     loop = asyncio.get_event_loop()
@@ -795,10 +823,6 @@ async def api_chat(request: Request):
 
 @app.delete("/api/collections/{collection_name}")
 async def api_delete_collection(collection_name: str):
-    """
-    Supprime une collection Qdrant de manuel (_2levels_cleaned uniquement).
-    Pour les FAQ, utiliser DELETE /api/admin/faq/{app_slug}.
-    """
     if not rag_manager.initialized:
         return JSONResponse(status_code=503, content={"error": "RAG non prêt"})
 

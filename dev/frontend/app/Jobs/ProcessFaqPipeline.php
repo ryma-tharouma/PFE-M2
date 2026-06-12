@@ -39,8 +39,6 @@ class ProcessFaqPipeline implements ShouldQueue
             mkdir($faqDir, 0775, true);
         }
 
-        // On cible toutes les applications qui ont au moins un item FAQ en base,
-        // sans distinction manuel/faq — la colonne is_faq n'existe plus.
         $applications = Application::whereHas('faqItems')->get();
 
         if ($applications->isEmpty()) {
@@ -81,20 +79,25 @@ class ProcessFaqPipeline implements ShouldQueue
             $filePath = $faqDir . '/' . $slug . '.json';
             $this->writeFaqFile($filePath, $items);
 
+            // Étape 3 : déterminer la collection cible
+            // CORRECTION : on utilise qdrant_collection persistée en base en priorité.
+            // Elle contient le nom EXACT de la collection du manuel
+            // (ex: "manuel_parc_auto_2levels_cleaned"), ce que le slug seul
+            // ne permet pas de reconstruire.
+            $targetCollection = $app->qdrant_collection ?: $slug;
+
             Log::debug('[FAQ Pipeline] Fichier régénéré', [
-                'app'        => $app->name,
-                'slug'       => $slug,
-                'file'       => $filePath,
-                'item_count' => count($items),
+                'app'              => $app->name,
+                'slug'             => $slug,
+                'file'             => $filePath,
+                'item_count'       => count($items),
+                'target_collection'=> $targetCollection,
             ]);
 
-            // Étape 3 : indexation via le backend Python
-            // On envoie le slug — le backend résout la collection réelle :
-            //   - {slug}_2levels_cleaned si le manuel existe  → merge
-            //   - {slug} sinon                                → crée/réutilise
-            $realCollection = $this->indexViaBackend($backendUrl, $slug, $items, $app);
+            // Étape 4 : indexation via le backend Python avec la collection exacte
+            $realCollection = $this->indexViaBackend($backendUrl, $targetCollection, $items, $app);
 
-            // Étape 4 : sauvegarder la collection réelle en base
+            // Étape 5 : sauvegarder la collection réelle en base
             if ($realCollection && $realCollection !== $app->qdrant_collection) {
                 $app->update(['qdrant_collection' => $realCollection]);
                 Log::info('[FAQ Pipeline] Collection mise à jour en base', [
@@ -118,13 +121,15 @@ class ProcessFaqPipeline implements ShouldQueue
 
     private function indexViaBackend(
         string      $backendUrl,
-        string      $slug,
+        string      $targetCollection,
         array       $items,
         Application $app
     ): ?string {
         $endpoint = $backendUrl . '/api/faq/index';
+        // On envoie la collection EXACTE — le backend doit upsert dedans
+        // sans recalculer de slug ni choisir une autre collection.
         $payload  = json_encode([
-            'collection' => $slug,
+            'collection' => $targetCollection,
             'items'      => $items,
         ]);
 
@@ -137,13 +142,11 @@ class ProcessFaqPipeline implements ShouldQueue
             $data = json_decode((string) $response->getBody(), true);
 
             if (!empty($data['success']) || $response->getStatusCode() < 300) {
-                $realCollection = $data['collection'] ?? $slug;
+                $realCollection = $data['collection'] ?? $targetCollection;
                 Log::info('[FAQ Pipeline] Indexation réussie', [
-                    'app'                => $app->name,
-                    'slug'               => $slug,
-                    'collection'         => $realCollection,
-                    'merged_into_manual' => $data['merged_into_manual'] ?? false,
-                    'items'              => count($items),
+                    'app'        => $app->name,
+                    'collection' => $realCollection,
+                    'items'      => count($items),
                 ]);
                 return $realCollection;
             }
@@ -161,16 +164,16 @@ class ProcessFaqPipeline implements ShouldQueue
             ]);
         }
 
-        return $this->indexViaAdminFallback($backendUrl, $slug, $items, $app);
+        return $this->indexViaAdminFallback($backendUrl, $targetCollection, $items, $app);
     }
 
     private function indexViaAdminFallback(
         string      $backendUrl,
-        string      $slug,
+        string      $targetCollection,
         array       $items,
         Application $app
     ): ?string {
-        $endpoint = $backendUrl . '/api/admin/faq/' . urlencode($slug);
+        $endpoint = $backendUrl . '/api/admin/faq/' . urlencode($targetCollection);
         $payload  = json_encode(['items' => $items]);
 
         try {
@@ -182,7 +185,7 @@ class ProcessFaqPipeline implements ShouldQueue
             $data = json_decode((string) $response->getBody(), true);
 
             if (!empty($data['success']) || $response->getStatusCode() < 300) {
-                $realCollection = $data['collection'] ?? $slug;
+                $realCollection = $data['collection'] ?? $targetCollection;
                 Log::info('[FAQ Pipeline] Indexation réussie (fallback admin)', [
                     'app'        => $app->name,
                     'collection' => $realCollection,
