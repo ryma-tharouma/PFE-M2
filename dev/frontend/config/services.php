@@ -43,8 +43,9 @@ return [
 
     // ── GLPI ticket system ─────────────────────────────────────────────
     'glpi' => [
-        'url'       => env('GLPI_URL', 'https://glpi.sonatrach.dz'),
-        'api_token' => env('GLPI_API_TOKEN', 'iUZkULz7CtJmFs1c0qcqCw1EF3utKUQ2GCaRiNYL'),
-        'app_token' => env('GLPI_APP_TOKEN', 'gZsG9kWd8ZKdaPnDhk35mgIBGlIVDrOjYIuvCp8Y'),
+        'url'            => env('GLPI_URL', 'http://localhost:8080'),
+        'api_token'      => env('GLPI_API_TOKEN', '5QXljqcvwEC4vMOsuOyWyWKgTNAypkDkVZ3ceMS7'),
+        'app_token'      => env('GLPI_APP_TOKEN', 'XY12O6dDRNAXLFyIELY7aiCibxuWIQHAOlFA8Zps'),
+        'webhook_secret' => env('GLPI_WEBHOOK_SECRET', ''),
     ],
 ];

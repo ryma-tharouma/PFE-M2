@@ -321,7 +321,7 @@
                         </table>
                     </div>
 
-                    {{-- Conversations anonymisées --}}
+                    {{-- Conversations anonymisées --
                     <div class="bg-white rounded-2xl border border-sonatrach-gris-bord overflow-hidden">
                         <div class="px-5 py-4 border-b border-sonatrach-gris-bord bg-sonatrach-gris-fond flex items-end gap-3">
                             <div class="flex-1 max-w-sm">
@@ -362,7 +362,8 @@
                                 </template>
                                 <template x-for="(chat,ci) in faqChats" :key="ci">
                                     <tr class="hover:bg-sonatrach-gris-fond/40 transition-colors align-top">
-                                        {{-- Statut --}}
+                                        {{-- Statut --
+
                                         <td class="px-4 py-3 text-center">
                                             <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold"
                                                   :class="{
@@ -379,24 +380,24 @@
                                                 <span x-text="chat.status_label||'En attente'"></span>
                                             </span>
                                         </td>
-                                        {{-- Question --}}
+                                        {{-- Question --
                                         <td class="px-4 py-3 max-w-xs">
                                             <p class="text-xs font-semibold text-sonatrach-noir line-clamp-2 cursor-pointer hover:text-sonatrach-orange"
                                                @click="openReadModal('Question', chat.question||'', chat)"
                                                x-text="chat.question||'—'"></p>
                                         </td>
-                                        {{-- Réponse --}}
+                                        {{-- Réponse --
                                         <td class="px-4 py-3 max-w-sm">
                                             <p class="text-xs text-gray-600 line-clamp-2 cursor-pointer hover:text-sonatrach-orange"
                                                @click="openReadModal('Réponse', chat.answer||'', chat)"
                                                x-text="chat.answer||'—'"></p>
                                         </td>
-                                        {{-- App --}}
+                                        {{-- App --
                                         <td class="px-4 py-3 text-xs text-gray-600" x-text="chatsAppName||'—'"></td>
-                                        {{-- Actions — bloquées si déjà traité --}}
+                                        {{-- Actions — bloquées si déjà traité --
                                         <td class="px-4 py-3 text-right">
                                             <div class="flex items-center justify-end gap-1">
-                                                {{-- Bouton Valider : masqué si validated ou rejected --}}
+                                                {{-- Bouton Valider : masqué si validated ou rejected --
                                                 <template x-if="chat.status==='pending'||!chat.status">
                                                     <button @click="openValidateModal(chat, ci)"
                                                             class="icon-btn icon-btn-validate"
@@ -404,7 +405,7 @@
                                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                                                     </button>
                                                 </template>
-                                                {{-- Bouton Rejeter : masqué si validated ou rejected --}}
+                                                {{-- Bouton Rejeter : masqué si validated ou rejected --
                                                 <template x-if="chat.status==='pending'||!chat.status">
                                                     <button @click="rejectChat(chat, ci)"
                                                             class="icon-btn icon-btn-reject"
@@ -412,7 +413,7 @@
                                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                                                     </button>
                                                 </template>
-                                                {{-- Indicateur visuel quand déjà traité --}}
+                                                {{-- Indicateur visuel quand déjà traité --
                                                 <template x-if="chat.status==='validated'">
                                                     <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-green-100 text-green-700">
                                                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
@@ -458,7 +459,7 @@
                     </div>
                 </div>
 
-            </div>{{-- fin scroll --}}
+            </div> {{-- fin scroll --}}
         </main>
 
         {{-- ═══════════════════════ MODALS ═══════════════════════ --}}
