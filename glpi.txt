@@ -1,0 +1,8 @@
+Jeton d'application (app_token) : XY12O6dDRNAXLFyIELY7aiCibxuWIQHAOlFA8Zps
+jeton d'api :5QXljqcvwEC4vMOsuOyWyWKgTNAypkDkVZ3ceMS7
+
+
+
+activer poler : crontab -e
+et ajouter ectte ligen ed pooler
+* * * * * /usr/bin/php /home/liza/PFE_M2/PFE-M2/dev/frontend/scripts/glpi_poller.php >> /tmp/glpi_poller.log 2>&1

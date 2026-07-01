@@ -514,16 +514,13 @@ async def api_admin_faq_sync():
 @app.post("/api/faq/index")
 async def api_faq_index(request: Request):
     """
-    Indexe une FAQ dans la collection spécifiée.
+    Indexe une FAQ dans la collection EXACTE spécifiée.
 
-    CORRECTION PRINCIPALE :
-    Le champ "collection" reçu est désormais le nom EXACT de la collection
-    Qdrant (ex: "manuel_parc_auto_2levels_cleaned"), envoyé par Laravel
-    depuis application->qdrant_collection.
+    Le champ "collection" reçu est application->qdrant_collection depuis Laravel
+    (ex: "manuel_parc_auto_2levels_cleaned").
 
-    On ne recalcule PLUS de slug ni ne cherche de collection alternative :
-    on upsert directement dans la collection reçue.
-    Si elle n'existe pas encore (nouvelle app sans manuel), on la crée.
+    On délègue à faq_manager.index_faq_into_collection() qui fait un upsert
+    direct dans cette collection sans recalculer de slug.
     """
     if not rag_manager.initialized:
         return JSONResponse(status_code=503, content={"error": "RAG non prêt"})
@@ -542,15 +539,14 @@ async def api_faq_index(request: Request):
     if not items:
         return JSONResponse(status_code=400, content={"error": "Champ 'items' vide"})
 
-    # Sauvegarder sur disque (slug = collection ou extraction du slug depuis le nom)
-    # On utilise le slug extrait pour le fichier JSON, mais la collection exacte pour Qdrant
-    app_slug = _collection_to_slug(collection)
+    # Sauvegarder sur disque avec le slug extrait
+    app_slug = faq_manager._collection_to_slug(collection)
     faq_manager.save_faq_json(app_slug, {"items": items})
 
     loop   = asyncio.get_event_loop()
-    # Passer la collection exacte à index_faq_into_collection
+    # Upsert dans la collection EXACTE — pas de recalcul de slug
     result = await loop.run_in_executor(
-        None, _index_faq_into_exact_collection, collection, items, rag_manager
+        None, faq_manager.index_faq_into_collection, collection, items
     )
     return result
 

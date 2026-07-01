@@ -1,0 +1,35 @@
+excel
+
+Questions HORS de la FAQ (le chatbot devrait dire qu'il ne sait pas) :
+
+Comment créer un tableau croisé dynamique dans Excel ?
+Quelle est la différence entre RECHERCHEV et RECHERCHEX ?
+Comment protéger une feuille Excel avec un mot de passe ?
+Comment supprimer les doublons dans une colonne Excel ?
+Comment utiliser la mise en forme conditionnelle ?
+Comment figer des lignes ou des colonnes dans Excel ?
+Comment créer une liste déroulante dans une cellule ?
+Quelle est la limite maximale de lignes dans Excel ?
+
+
+Questions DANS la FAQ (le chatbot devrait répondre correctement) :
+
+Pourquoi SUMIF retourne l'erreur #VALUE! quand le classeur source est fermé ?
+
+(Réponse : parce que SUMIF ne peut pas accéder aux cellules d'un classeur fermé — solution : utiliser =SOMME(SI(...)))
+Pourquoi les colonnes de ma feuille Excel affichent des chiffres (1, 2, 3...) au lieu de lettres (A, B, C...) ?
+
+(Réponse : le style de référence R1C1 est activé — désactiver dans Outils > Options > Formules)
+
+
+
+
+parc auto
+pourquoi le système bloque-t-il l'enregistrement de ma demande de déplacement pour une mission prévue demain ?
+
+Quelle est la taille maximale autorisée (en Mo) pour les photos et documents téléchargés
+
+
+
+
+pourquoi les boutons "Maintenance" et "Déclaration de sinistre" sont-ils absents de mon tableau de bord ?

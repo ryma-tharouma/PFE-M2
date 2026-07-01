@@ -39,10 +39,15 @@ def _determine_routing(
 
 def _section_text(sec: Dict) -> str:
     if sec.get("source_type") == "faq":
-        return (
-            f"Problem: {sec.get('problem', '')}\n"
-            f"Solution: {sec.get('answer', '')}"
-        ).strip()
+        parts = [f"Problem: {sec.get('problem', '')}"]
+        if sec.get("content"):
+            parts.append(f"Solution: {sec.get('content', '')}")
+        if sec.get("answer"):
+            parts.append(f"Solution: {sec.get('answer', '')}")
+        if sec.get("full_text"):
+            parts.append(f"Solution: {sec.get('full_text', '')}")
+
+        return "\n".join(parts).strip()
     return (
         f"[{sec.get('breadcrumb', '')}]\n"
         f"{sec.get('content', '')}"
@@ -224,7 +229,9 @@ class RAG:
         verbose: bool,
     ):
         top_sec = sections[0]
-        answer  = top_sec.get("answer", top_sec.get("full_text", top_sec.get("content", "")))
+        print(f"[DEBUG] top_sec keys: {list(top_sec.keys())}")
+        print(f"[DEBUG] top_sec answer: {top_sec.get('answer', 'NOT FOUND')[:100]}")
+        answer = top_sec.get("content", top_sec.get("answer", top_sec.get("full_text", "")))
         if answer:
             yield answer
         yield self._make_sentinel(

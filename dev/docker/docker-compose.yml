@@ -1,26 +1,76 @@
 version: "3.8"
 
 services:
-
+  # ── OpenLDAP ────────────────────────────────────────────────────────
   openldap:
     image: osixia/openldap:1.5.0
     container_name: openldap
     environment:
-     LDAP_ORGANISATION: "Sonatrach"
-     LDAP_DOMAIN: "sonatrach.test"
-     LDAP_ADMIN_PASSWORD: "pfe@2026"
+      LDAP_ORGANISATION: "Sonatrach"
+      LDAP_DOMAIN: "sonatrach.test"
+      LDAP_ADMIN_PASSWORD: "pfe@2026"
     ports:
       - "1389:389"
       - "1636:636"
+    networks:
+      - pfe_net
 
+  # ── PostgreSQL (Laravel) ─────────────────────────────────────────────
   postgres:
     image: postgres:15
     container_name: postgres
     environment:
       POSTGRES_DB: pfe_2026
       POSTGRES_USER: pfe_user
-      POSTGRES_PASSWORD: secret
+      POSTGRES_PASSWORD: pfe@2026
     ports:
       - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - pfe_net
 
+  # ── MariaDB (GLPI) ────────────────────────────────────────────────────
+  glpi_db:
+    image: mariadb:10.11
+    container_name: glpi_db
+    environment:
+      MARIADB_DATABASE: glpi
+      MARIADB_USER: glpi
+      MARIADB_PASSWORD: glpi_pass
+      MARIADB_ROOT_PASSWORD: root_pass
+    volumes:
+      - glpi_db_data:/var/lib/mysql
+    networks:
+      - pfe_net
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
+  # ── GLPI ──────────────────────────────────────────────────────────────
+  glpi:
+    image: diouxx/glpi:latest
+    container_name: glpi
+    ports:
+      - "8080:80"
+    environment:
+      - TIMEZONE=Africa/Algiers
+    volumes:
+      - glpi_data:/var/www/html/glpi
+    depends_on:
+      glpi_db:
+        condition: service_healthy
+    networks:
+      - pfe_net
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  glpi_db_data:
+  glpi_data:
+
+networks:
+  pfe_net:
+    driver: bridge
