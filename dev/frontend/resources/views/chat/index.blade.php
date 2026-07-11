@@ -723,7 +723,7 @@
                          title:       this.lastUnanswerableQuestion.substring(0, 100),
                          category:    'question',
                          priority:    'Moyenne',
-                         description: `Application: ${this.lastUnanswerableManual}\n\nQuestion: ${this.lastUnanswerableQuestion}\n\nLe chatbot n'a pas pu répondre à cette question.`,
+                         description: `Application: ${this.lastUnanswerableManual}\n\nQuestion: ${this.lastUnanswerableQuestion}`,
                      };
                      this.ticketModalOpen = true;
                  },

@@ -14,6 +14,18 @@ class GlpiWebhookController extends Controller
 {
     public function handle(Request $request): Response
     {
+        // ── 1. Secret ─────────────────────────────────────────────────
+        $expectedSecret = config('services.glpi.webhook_secret');
+        if ($expectedSecret) {
+            $received = $request->query('secret')
+                ?? $request->header('X-Glpi-Signature')
+                ?? '';
+            if ($received !== $expectedSecret) {
+                Log::warning('[GlpiWebhook] Secret invalide', ['ip' => $request->ip()]);
+                return response('Unauthorized', 401);
+            }
+        }
+
         $payload  = $request->json()->all();
         $event    = $payload['event']    ?? 'update';
         $glpiId   = $payload['items_id'] ?? $payload['ticket_id'] ?? null;
@@ -21,16 +33,32 @@ class GlpiWebhookController extends Controller
         $source   = $payload['source']   ?? 'unknown';
 
         Log::info('[GlpiWebhook] Payload reçu', [
-            'glpi_id'  => $glpiId,
-            'event'    => $event,
-            'source'   => $source,
-            'solution' => $solution ? mb_substr($solution, 0, 80).'...' : null,
+            'glpi_id' => $glpiId,
+            'event'   => $event,
+            'source'  => $source,
         ]);
 
         if (!$glpiId) {
             return response('Missing ticket id', 400);
         }
 
+        // ── 2. Retrouver le ticket ────────────────────────────────────
+        $ticket = Ticket::where('glpi_ticket_id', $glpiId)->first();
+
+        if (!$ticket) {
+            Log::warning('[GlpiWebhook] Ticket introuvable en base', ['glpi_id' => $glpiId]);
+            return response('OK', 200);
+        }
+
+        // ── 3. DÉJÀ TRAITÉ → on retourne immédiatement sans rien faire
+        // Condition : glpi_response existe ET qdrant_indexed = true
+        // Le poller verra 'Already processed' et marquera l'ID dans son JSON
+        if ($ticket->glpi_response && $ticket->qdrant_indexed) {
+            Log::info('[GlpiWebhook] Ticket déjà traité — skip', ['ticket_id' => $ticket->id]);
+            return response('Already processed', 200);
+        }
+
+        // ── 4. Contenu : depuis le payload sinon appel API GLPI ───────
         if (!$solution) {
             $solution = $this->fetchSolutionFromGlpi($glpiId);
         }
@@ -40,13 +68,12 @@ class GlpiWebhookController extends Controller
             return response('No solution yet', 200);
         }
 
-        $ticket = Ticket::where('glpi_ticket_id', $glpiId)->first();
+        Log::info('[GlpiWebhook] Solution récupérée', [
+            'glpi_id'  => $glpiId,
+            'solution' => mb_substr($solution, 0, 100),
+        ]);
 
-        if (!$ticket) {
-            Log::warning('[GlpiWebhook] Ticket introuvable en base', ['glpi_id' => $glpiId]);
-            return response('OK', 200);
-        }
-
+        // ── 5. Mettre à jour le ticket ────────────────────────────────
         $ticket->update([
             'glpi_response'     => $solution,
             'glpi_status'       => 'solved',
@@ -54,9 +81,8 @@ class GlpiWebhookController extends Controller
             'glpi_responded_at' => now(),
         ]);
 
+        // ── 6. Mail ───────────────────────────────────────────────────
         $mailSent = false;
-        $qdrantOk = false;
-
         if ($ticket->user_email) {
             try {
                 Mail::html(
@@ -73,17 +99,20 @@ class GlpiWebhookController extends Controller
             }
         }
 
-        if ($ticket->unanswerable_question && $ticket->application_id) {
+        // ── 7. FAQ + Qdrant ───────────────────────────────────────────
+        $qdrantOk = false;
+        if ($ticket->application_id) {
             try {
                 $qdrantOk = $this->injectIntoFaq($ticket, $solution);
-                if ($qdrantOk) {
-                    $ticket->qdrant_indexed = true;
-                    $ticket->save();
-                }
             } catch (\Exception $e) {
                 Log::error('[GlpiWebhook] Erreur FAQ', ['error' => $e->getMessage()]);
             }
         }
+
+        // ── 8. Marquer qdrant_indexed TOUJOURS après le premier traitement
+        // Même si Qdrant échoue, on marque true pour éviter le spam mail.
+        // L'indexation Qdrant peut être refaite manuellement si besoin.
+        $ticket->update(['qdrant_indexed' => true]);
 
         Log::info('[GlpiWebhook] Traitement complet', [
             'ticket_id' => $ticket->id,
@@ -94,6 +123,8 @@ class GlpiWebhookController extends Controller
 
         return response('OK', 200);
     }
+
+    // ─────────────────────────────────────────────────────────────────
 
     private function fetchSolutionFromGlpi(int $glpiId): ?string
     {
@@ -109,6 +140,7 @@ class GlpiWebhookController extends Controller
                 ->post("{$glpiUrl}/apirest.php/initSession", ['user_token' => $apiToken]);
 
             if (!$sessionRes->successful()) return null;
+
             $sessionToken = $sessionRes->json('session_token');
             $solution     = null;
 
@@ -120,10 +152,9 @@ class GlpiWebhookController extends Controller
             if ($solRes->successful() && !empty($solRes->json())) {
                 foreach (array_reverse($solRes->json()) as $sol) {
                     $content = $sol['content'] ?? '';
-                    if ($content && $content !== 'Solution approuvée') {
-                        $clean = trim(strip_tags(html_entity_decode($content, ENT_QUOTES, 'UTF-8')));
-                        if (strlen($clean) > 5) { $solution = $clean; break; }
-                    }
+                    if (in_array(trim($content), ['Solution approuvée', 'Solution approved', ''])) continue;
+                    $clean = trim(strip_tags(html_entity_decode($content, ENT_QUOTES, 'UTF-8')));
+                    if (strlen($clean) > 5) { $solution = $clean; break; }
                 }
             }
 
@@ -137,10 +168,8 @@ class GlpiWebhookController extends Controller
                     foreach (array_reverse($fuRes->json()) as $fu) {
                         if (($fu['is_private'] ?? 0) === 1) continue;
                         $content = $fu['content'] ?? '';
-                        if ($content) {
-                            $clean = trim(strip_tags(html_entity_decode($content, ENT_QUOTES, 'UTF-8')));
-                            if (strlen($clean) > 5) { $solution = $clean; break; }
-                        }
+                        $clean   = trim(strip_tags(html_entity_decode($content, ENT_QUOTES, 'UTF-8')));
+                        if (strlen($clean) > 5) { $solution = $clean; break; }
                     }
                 }
             }
@@ -163,7 +192,7 @@ class GlpiWebhookController extends Controller
         $solutionHtml = nl2br(htmlspecialchars($solution));
         $question     = $ticket->unanswerable_question
             ? '<p style="margin:0 0 8px;"><strong>Votre question :</strong></p>'
-            .'<p style="margin:0;color:#555;">'.nl2br(htmlspecialchars($ticket->unanswerable_question)).'</p>'
+            . '<p style="margin:0;color:#555;">' . nl2br(htmlspecialchars($ticket->unanswerable_question)) . '</p>'
             : '';
 
         return <<<HTML
@@ -210,9 +239,7 @@ HTML;
             ['section_id' => 'glpi_ticket_' . $ticket->glpi_ticket_id],
             [
                 'application_id' => $appId,
-                'problem' => $ticket->unanswerable_question
-                    ?? $ticket->description
-                        ?? $ticket->title,
+                'problem'        => $ticket->unanswerable_question ?? $ticket->title,
                 'answer'         => $solution,
                 'source_type'    => 'faq',
                 'source'         => 'glpi_response',
@@ -225,22 +252,23 @@ HTML;
             ->get()->map(fn($f) => $f->toFaqArray())->values()->toArray();
 
         $backendUrl = rtrim(config('services.backend.url', 'http://127.0.0.1:8000'), '/');
-        $appSlug    = $ticket->application?->qdrant_collection
+        $collection = $ticket->application?->qdrant_collection
             ?? str_replace([' ', '-'], '_', strtolower($appName));
 
         try {
             $res = Http::timeout(60)->post("{$backendUrl}/api/faq/index", [
-                'collection' => $appSlug,
+                'collection' => $collection,
                 'items'      => $items,
             ]);
 
             if ($res->successful()) {
                 Log::info('[GlpiWebhook] FAQ réindexée dans Qdrant', [
-                    'collection' => $appSlug, 'items' => count($items),
+                    'collection' => $collection,
+                    'items'      => count($items),
                 ]);
                 return true;
             }
-            Log::warning('[GlpiWebhook] Qdrant non réussi', ['status' => $res->status()]);
+            Log::warning('[GlpiWebhook] Qdrant échoué', ['status' => $res->status(), 'body' => $res->body()]);
             return false;
         } catch (\Exception $e) {
             Log::error('[GlpiWebhook] Qdrant exception', ['error' => $e->getMessage()]);
