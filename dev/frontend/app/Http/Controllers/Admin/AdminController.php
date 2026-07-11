@@ -23,9 +23,22 @@ class AdminController extends Controller
     // ──────────────────────────────────────────────────────────────────
     // DASHBOARD
     // ──────────────────────────────────────────────────────────────────
+    public function dashboard()
+    {
+        $user = auth()->user();
 
+        if ($user->admin_type === 'super') {
+            return $this->index();
+        }
+
+        return $this->adminDashboard();
+    }
     public function index()
     {
+        $user = auth()->user();
+        if ($user->admin_type !== 'super') {
+            return redirect()->route('admin.index');
+        }
         $totalRequests   = Message::where('role', 'user')->count();
         $requestsToday   = Message::where('role', 'user')->whereDate('created_at', today())->count();
         $totalTickets    = Ticket::count();
@@ -273,6 +286,19 @@ class AdminController extends Controller
         }
     }
 
+    private function resolveActiveCollection(Application $application): string
+    {
+        if (!empty($application->qdrant_collection)) {
+            return $application->qdrant_collection;
+        }
+
+        // Aucun chat n'a encore jamais pu être posé sur cette app :
+        // première résolution/création de collection.
+        $collection = $this->resolveQdrantCollection($application);
+        $application->update(['qdrant_collection' => $collection]);
+        return $collection;
+    }
+
     private function listFaqFiles(): array
     {
         $faqDir = $this->getFaqDir();
@@ -311,7 +337,7 @@ class AdminController extends Controller
                     'app_id'     => $application?->id,
                     'version'    => $manualVersion ?? null,
                     'item_count' => $itemCount,
-                    'updated_at' => date('d/m/Y', filemtime($file)),
+                    'd_at' => date('d/m/Y', filemtime($file)),
                 ];
             } catch (\Throwable $e) {
                 Log::warning('[AdminController] Erreur lecture FAQ', [
@@ -350,6 +376,7 @@ class AdminController extends Controller
         }
 
         $application = Application::whereRaw('LOWER(name) = ?', [strtolower($appName)])->first();
+        if ($application) $this->assertOwnsApplication($application);
 
         if (!$application) {
             return response()->json(['exists' => false]);
@@ -397,7 +424,8 @@ class AdminController extends Controller
 
         $request->validate([
             'name'                      => ['required', 'string', 'max:255'],
-            'app_name'                  => ['required', 'string', 'max:255'],
+            'app_id'                    => ['nullable', 'integer', 'exists:applications,id'],
+            'app_name'                  => ['nullable', 'string', 'max:255'],
             'version'                   => ['nullable', 'string', 'max:20'],
             'follows_internal_template' => ['required', 'boolean'],
             'file'                      => ['required', 'file', 'mimes:pdf', "max:{$maxKb}"],
@@ -405,14 +433,45 @@ class AdminController extends Controller
             'existing_manual_id'        => ['nullable', 'integer', 'exists:manuals,id'],
         ]);
 
-        $appName                 = trim($request->input('app_name'));
+        if ($request->filled('app_id')) {
+            $application = Application::findOrFail($request->input('app_id'));
+            $this->assertOwnsApplication($application);
+            $appName     = $application->name;
+        } else {
+            $appName     = trim($request->input('app_name'));
+            $application = Application::whereRaw('LOWER(name) = ?', [strtolower($appName)])->first();
+
+            if ($application) {
+                $this->assertOwnsApplication($application);
+            } elseif (!$this->isSuperAdmin() && !$request->boolean('auto_versioned')) {
+                // Un sous-admin ne peut créer une appli via texte libre QUE dans le
+                // cas précis de la résolution automatique de conflit de version.
+                return response()->json([
+                    'success' => false,
+                    'message' => "Vous ne pouvez ajouter un manuel qu'à une application que vous administrez.",
+                ], 403);
+            }
+        }
+
         $version                 = $this->normalizeManualVersion($request->input('version', '1.0'));
         $followsInternalTemplate = filter_var($request->input('follows_internal_template'), FILTER_VALIDATE_BOOLEAN);
         $resolution              = $request->input('conflict_resolution');
 
-        $application = Application::whereRaw('LOWER(name) = ?', [strtolower($appName)])->first();
+        // Priorité au select (app_id) : évite les doublons/fautes de frappe
+        // qu'un champ texte libre autorisait auparavant.
+        if ($request->filled('app_id')) {
+            $application = Application::findOrFail($request->input('app_id'));
+            $appName     = $application->name;
+        } else {
+            $appName     = trim($request->input('app_name'));
+            $application = Application::whereRaw('LOWER(name) = ?', [strtolower($appName)])->first();
+        }
 
         if ($application) {
+            $this->assertOwnsApplication($application);
+            if (!$this->isSuperAdmin() && !$application) {
+                return response()->json(['success' => false, 'message' => "Vous ne pouvez ajouter un manuel qu'à une application que vous administrez."], 403);
+            }
             $sameVersionManual = Manual::where('application_id', $application->id)
                 ->whereRaw("LOWER(COALESCE(version, '1.0')) = ?", [strtolower($version)])
                 ->first();
@@ -451,6 +510,13 @@ class AdminController extends Controller
 
         if (!$application) {
             $application = Application::create(['name' => $appName]);
+
+            // Auto-attache le sous-admin comme propriétaire de cette nouvelle
+            // "version" d'application générée automatiquement.
+            if (!$this->isSuperAdmin()) {
+                $application->update(['admin_id' => auth()->id()]);
+                $application->admins()->attach(auth()->id());
+            }
         }
 
         $fileName = $this->buildPdfFileName($request->input('name'));
@@ -545,6 +611,7 @@ class AdminController extends Controller
     public function showManual(int $id): JsonResponse
     {
         $manual = Manual::with('application')->findOrFail($id);
+        $this->assertOwnsApplication($manual->application);
         return response()->json(array_merge($manual->toArray(), [
             'app_name'                  => $manual->application->name ?? '',
             'follows_internal_template' => (bool) $manual->follows_internal_template,
@@ -554,6 +621,7 @@ class AdminController extends Controller
     public function updateManual(Request $request, int $id): JsonResponse
     {
         $manual = Manual::findOrFail($id);
+        $this->assertOwnsApplication($manual->application);
         $maxKb  = (int) config('services.extract.max_upload_kb', 512000);
 
         $request->validate([
@@ -565,7 +633,23 @@ class AdminController extends Controller
         ]);
 
         $appName     = trim($request->input('app_name'));
-        $application = $this->findOrCreateApplication($appName);
+        $application = Application::whereRaw('LOWER(name) = ?', [strtolower($appName)])->first();
+
+        if ($application) {
+            $this->assertOwnsApplication($application);
+        } else {
+            if (!$this->isSuperAdmin() && !$request->boolean('auto_versioned')) {
+                return response()->json([
+                    'success' => false,
+                    'message' => "Vous ne pouvez pas créer une nouvelle application par ce biais.",
+                ], 403);
+            }
+            $application = Application::create(['name' => $appName]);
+            if (!$this->isSuperAdmin()) {
+                $application->update(['admin_id' => auth()->id()]);
+                $application->admins()->attach(auth()->id());
+            }
+        }
 
         $followsInternalTemplate = filter_var($request->input('follows_internal_template'), FILTER_VALIDATE_BOOLEAN);
 
@@ -605,6 +689,7 @@ class AdminController extends Controller
     public function destroyManual(int $id): JsonResponse
     {
         $manual = Manual::with('application')->findOrFail($id);
+        $this->assertOwnsApplication($manual->application);
 
         $extractDir = rtrim((string) config('services.extract.extract_dir', base_path('../../extract/app')), '/');
         $jsonDir    = rtrim((string) config('services.extract.json_dir', $extractDir . '/json'), '/');
@@ -696,16 +781,13 @@ class AdminController extends Controller
             $appName = $appNameInput;
         }
 
+
         $application = $this->findOrCreateApplication($appName);
+        $this->assertOwnsApplication($application);
         $slug        = $this->appNameToFaqSlug($appName);
 
-        // Résoudre la collection cible (qdrant_collection en base ou via backend)
-        $collectionName = $application->qdrant_collection
-            ?: $this->resolveQdrantCollection($application);
-
-        if ($application->qdrant_collection !== $collectionName) {
-            $application->update(['qdrant_collection' => $collectionName]);
-        }
+        // Collection déjà active (si un chat a déjà pu répondre, elle existe déjà)
+        $collectionName = $this->resolveActiveCollection($application);
 
         try {
             $raw     = file_get_contents($request->file('file')->getRealPath());
@@ -770,6 +852,7 @@ class AdminController extends Controller
     public function faqShow(string $app): JsonResponse
     {
         [$application, $slug, $appName] = $this->resolveFaqApp($app);
+        $this->assertOwnsApplication($application);
 
         $faqFile = $this->getFaqDir() . '/' . $slug . '.json';
 
@@ -838,6 +921,7 @@ class AdminController extends Controller
 
         $items = $request->input('items');
         [$application, $slug] = $this->resolveFaqApp($app);
+        $this->assertOwnsApplication($application);
 
         if (!$application) {
             return response()->json(['success' => false, 'error' => 'Application introuvable.'], 404);
@@ -879,6 +963,7 @@ class AdminController extends Controller
             $version    = trim($request->input('version', ''));
 
             [$application, $oldSlug, $oldAppName] = $this->resolveFaqApp($app);
+            $this->assertOwnsApplication($application);
 
             $newSlug = $this->appNameToFaqSlug($newAppName);
 
@@ -931,6 +1016,7 @@ class AdminController extends Controller
     public function faqIndex(string $app): JsonResponse
     {
         [$application, $slug] = $this->resolveFaqApp($app);
+        $this->assertOwnsApplication($application);
         ProcessFaqPipeline::dispatch('sync');
         return response()->json([
             'success'    => true,
@@ -941,6 +1027,7 @@ class AdminController extends Controller
     public function faqDestroy(string $app): JsonResponse
     {
         [$application, $slug] = $this->resolveFaqApp($app);
+        $this->assertOwnsApplication($application);
 
         $faqFile = $this->getFaqDir() . '/' . $slug . '.json';
         $deleted = file_exists($faqFile) ? @unlink($faqFile) : false;
@@ -992,6 +1079,7 @@ class AdminController extends Controller
     public function chatsShow(string $app): JsonResponse
     {
         $application = $this->resolveApplication($app);
+        $this->assertOwnsApplication($application);
 
         if (!$application) {
             return response()->json(['chats' => [], 'error' => 'Application introuvable'], 404);
@@ -1121,6 +1209,7 @@ class AdminController extends Controller
             $message      = Message::findOrFail($messageId);
             $conversation = Conversation::findOrFail($message->conversation_id);
             $application  = $this->resolveApplication($app);
+            $this->assertOwnsApplication($application);
 
             if (!$application || $conversation->application_id !== $application->id) {
                 return response()->json(['success' => false, 'error' => 'Message non trouvé pour cette application'], 404);
@@ -1151,6 +1240,7 @@ class AdminController extends Controller
         $source             = $ticketId ? 'glpi' : 'chatbot';
 
         $application = $this->resolveApplication($app);
+        $this->assertOwnsApplication($application);
         if (!$application) {
             $application = $this->findOrCreateApplication($app);
         }
@@ -1208,18 +1298,7 @@ class AdminController extends Controller
 
         $backendUrl = rtrim((string) config('services.backend.url', 'http://127.0.0.1:8000'), '/');
 
-        // ── CORRECTION : utiliser qdrant_collection persistée en base ──
-        // C'est la collection EXACTE du manuel (ex: "manuel_parc_auto_2levels_cleaned").
-        // Si elle est nulle (pas encore de manuel), on résout via le backend
-        // et on persiste immédiatement pour éviter la recréation.
-        $collection = $application->qdrant_collection;
-
-        if (!$collection) {
-            $collection = $this->resolveQdrantCollection($application);
-            if ($collection) {
-                $application->update(['qdrant_collection' => $collection]);
-            }
-        }
+        $collection = $this->resolveActiveCollection($application);
 
         Log::info('[Chat Validate] Indexation FAQ', [
             'app_id'     => $application->id,
@@ -1311,6 +1390,25 @@ class AdminController extends Controller
         return Application::create(['name' => $name]);
     }
 
+
+    private function isSuperAdmin(): bool
+    {
+        return auth()->user()->admin_type === 'super';
+    }
+
+    private function ownedApplicationIds(): array
+    {
+        return auth()->user()->adminApplications()->pluck('applications.id')->toArray();
+    }
+
+    private function assertOwnsApplication(?Application $application): void
+    {
+        if ($this->isSuperAdmin()) return;
+
+        if (!$application || !in_array($application->id, $this->ownedApplicationIds(), true)) {
+            abort(403, "Vous n'êtes pas autorisé à gérer cette application.");
+        }
+    }
     private function cleanupApplicationIfEmpty(int $applicationId): void
     {
         $app = Application::find($applicationId);
@@ -1584,4 +1682,423 @@ PYTHON;
             ? $filePath
             : rtrim($baseDir, '/') . '/' . ltrim($filePath, '/');
     }
-}
+
+    // ─────────��─────────────────────────────────────────────────────���──
+    // ADMIN MANAGEMENT
+    // ──────────────────────────────────────────────────────────────────
+
+    public function getAdmins(): JsonResponse
+    {
+        $admins = User::where('is_admin', true)
+            ->whereIn('admin_type', ['super', 'app'])
+            ->get()
+            ->map(function ($u) {
+                return [
+                    'id' => $u->id,
+                    'name' => $u->name,
+                    'email' => $u->email,
+                    'department' => $u->department,
+                    'admin_type' => $u->admin_type,
+                    'applications_count' => $u->adminApplications()->count(),
+                ];
+            });
+        return response()->json(['admins' => $admins]);
+    }
+
+    public function addAdmin(Request $request): JsonResponse
+    {
+        $request->validate(['user_id' => ['required', 'integer', 'exists:users,id']]);
+        $user = User::findOrFail($request->input('user_id'));
+
+        if ($user->is_admin) {
+            return response()->json(['success' => false, 'message' => 'Cet utilisateur est déjà administrateur.'], 422);
+        }
+
+        $user->update(['is_admin' => true, 'admin_type' => 'app']);
+
+        return response()->json([
+            'success' => true,
+            'admin' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'department' => $user->department,
+                'admin_type' => $user->admin_type,
+                'applications_count' => 0,
+            ],
+        ]);
+    }
+
+    public function removeAdmin(int $userId): JsonResponse
+    {
+        $user = User::findOrFail($userId);
+
+        if (!$user->is_admin) {
+            return response()->json(['success' => false, 'message' => 'Cet utilisateur n\'est pas administrateur.'], 422);
+        }
+
+        $user->adminApplications()->detach();
+        $user->update(['is_admin' => false, 'admin_type' => 'user']);
+
+        return response()->json(['success' => true]);
+    }
+
+    public function getAvailableUsers(Request $request): JsonResponse
+    {
+
+        $query = User::query();
+
+        if ($request->has('admin')) {
+            $query->where('is_admin', $request->boolean('admin'));
+        }
+
+        if ($request->filled('department')) {
+            $query->where('department', $request->input('department'));
+        }
+
+        $users = $query
+            ->orderBy('name')
+            ->get(['id', 'name', 'email', 'department', 'is_admin']);
+
+        return response()->json(['users' => $users]);
+    }
+
+    public function getDepartments(): JsonResponse
+    {
+        $departments = User::whereNotNull('department')
+            ->distinct()
+            ->pluck('department')
+            ->sort()
+            ->values();
+
+        return response()->json(['departments' => $departments]);
+    }
+
+    // ──────────────────────────────────────────────────────────────────
+    // APPLICATION MANAGEMENT
+    // ──────────────────────────────────────────────────────────────────
+
+    public function getApplications(): JsonResponse
+    {
+        $query = Application::with(['admin', 'admins', 'allowedUsers']);
+
+        if (!$this->isSuperAdmin()) {
+            $query->whereIn('id', $this->ownedApplicationIds());
+        }
+
+        $apps = $query->get()->map(function ($app) {
+            return [
+                'id' => $app->id,
+                'name' => $app->name,
+                'department' => $app->department,
+                'admin' => $app->admin ? ['id' => $app->admin->id, 'name' => $app->admin->name] : null,
+                'admins_count' => $app->admins()->count(),
+                'users_count' => $app->allowedUsers()->count(),
+                'manuals_count' => Manual::where('application_id', $app->id)->count(),
+                'faq_count' => Faq::where('application_id', $app->id)->count(),
+                'color' => $app->color ?? '#F26522',
+            ];
+        });
+
+        return response()->json(['applications' => $apps]);
+    }
+
+    public function storeApplication(Request $request): JsonResponse
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255', 'unique:applications,name'],
+            'version' => ['nullable', 'string', 'max:20'],
+            'admin_id' => ['required', 'integer', 'exists:users,id'],
+            'admin_ids' => ['nullable', 'array'],
+            'department' => ['nullable', 'string', 'max:255'],
+            'user_ids' => ['nullable', 'array'],
+            'all_department_users' => ['boolean'],
+        ]);
+
+        $primaryAdmin = User::findOrFail($request->input('admin_id'));
+        if (!$primaryAdmin->is_admin) {
+            return response()->json(['success' => false, 'message' => 'L\'utilisateur doit être administrateur.'], 422);
+        }
+
+        $app = Application::create([
+            'name' => $request->input('name'),
+            'admin_id' => $primaryAdmin->id,
+            'department' => $request->input('department'),
+        ]);
+
+        // Attach all admins (or just the primary if admin_ids is not provided)
+        $adminIds = $request->input('admin_ids') ?: [$primaryAdmin->id];
+        $adminIds = array_filter(array_unique(array_map('intval', $adminIds)));
+
+        if (!empty($adminIds)) {
+            // Validate all admins exist and are actually admins
+            $validAdmins = User::whereIn('id', $adminIds)->where('is_admin', true)->pluck('id')->toArray();
+            if (count($validAdmins) === 0) {
+                $app->delete();
+                return response()->json(['success' => false, 'message' => 'Au moins un administrateur valide doit être sélectionné.'], 422);
+            }
+            $app->admins()->attach($validAdmins);
+        } else {
+            $app->admins()->attach($primaryAdmin->id);
+        }
+
+        if ($request->boolean('all_department_users') && $request->input('department')) {
+            $deptUsers = User::where('department', $request->input('department'))->pluck('id');
+            $app->allowedUsers()->attach($deptUsers);
+        } elseif ($request->input('user_ids')) {
+            $app->allowedUsers()->attach($request->input('user_ids'));
+        }
+
+        return response()->json([
+            'success' => true,
+            'app' => [
+                'id' => $app->id,
+                'name' => $app->name,
+                'department' => $app->department,
+                'admin' => ['id' => $primaryAdmin->id, 'name' => $primaryAdmin->name],
+                'admins_count' => $app->admins()->count(),
+                'users_count' => $app->allowedUsers()->count(),
+                'manuals_count' => 0,
+                'faq_count' => 0,
+                'color' => '#F26522',
+            ],
+        ]);
+    }
+
+    /**
+     * Retourne les détails d'une application pour préremplir le modal
+     * d'édition (admins actuels, users autorisés, département).
+     */
+    public function showApplication(int $appId): JsonResponse
+    {
+        $app = Application::with(['admins', 'allowedUsers'])->findOrFail($appId);
+
+        return response()->json([
+            'id'         => $app->id,
+            'name'       => $app->name,
+            'department' => $app->department,
+            'admin_ids'  => $app->admins()->pluck('users.id'),
+            'user_ids'   => $app->allowedUsers()->pluck('users.id'),
+        ]);
+    }
+
+    public function updateApplication(Request $request, int $appId): JsonResponse
+    {
+        $app = Application::findOrFail($appId);
+
+        $request->validate([
+            'name'                  => ['required', 'string', 'max:255', 'unique:applications,name,' . $appId],
+            'admin_ids'             => ['required', 'array', 'min:1'],
+            'admin_ids.*'           => ['integer', 'exists:users,id'],
+            'department'            => ['nullable', 'string', 'max:255'],
+            'user_ids'              => ['nullable', 'array'],
+            'all_department_users'  => ['boolean'],
+        ]);
+
+        $adminIds    = array_filter(array_unique(array_map('intval', $request->input('admin_ids'))));
+        $validAdmins = User::whereIn('id', $adminIds)->where('is_admin', true)->pluck('id')->toArray();
+
+        if (empty($validAdmins)) {
+            return response()->json(['success' => false, 'message' => 'Au moins un administrateur valide doit être sélectionné.'], 422);
+        }
+
+        $app->update([
+            'name'       => $request->input('name'),
+            'department' => $request->input('department'),
+            'admin_id'   => $validAdmins[0], // propriétaire principal historique
+        ]);
+
+        $app->admins()->sync($validAdmins);
+
+        if ($request->boolean('all_department_users') && $request->input('department')) {
+            $deptUsers = User::where('department', $request->input('department'))->pluck('id');
+            $app->allowedUsers()->sync($deptUsers);
+        } elseif ($request->input('user_ids')) {
+            $app->allowedUsers()->sync($request->input('user_ids'));
+        }
+
+        return response()->json(['success' => true, 'message' => 'Application mise à jour avec succès.']);
+    }
+
+    public function destroyApplication(int $appId): JsonResponse
+    {
+        $app = Application::findOrFail($appId);
+
+        // 1) Manuels : chaque destroyManual() gère déjà sa propre collection
+        //    Qdrant (_2levels_cleaned), ses fichiers JSON, ses images et son PDF.
+        Manual::where('application_id', $appId)->get()->each(function ($manual) {
+            $this->destroyManual($manual->id);
+        });
+
+        // 2) FAQ : supprimer le fichier .json sur disque + la collection Qdrant
+        //    dédiée à la FAQ, SEULEMENT si l'app n'a plus de manuel actif
+        //    (sinon la collection Qdrant du manuel a peut-être déjà été
+        //    supprimée à l'étape 1, et il ne faut pas la re-résoudre).
+        $slug    = $this->appNameToFaqSlug($app->name);
+        $faqFile = $this->getFaqDir() . '/' . $slug . '.json';
+
+        if (Faq::where('application_id', $appId)->exists() || file_exists($faqFile)) {
+            $stillHasManuals = Manual::where('application_id', $appId)->exists();
+
+            if (!$stillHasManuals) {
+                $collection = $app->qdrant_collection ?? $slug;
+                if ($collection) {
+                    $this->deleteQdrantCollection($collection);
+                    $this->deleteQdrantCollectionData($collection);
+                }
+            }
+
+            if (file_exists($faqFile)) {
+                @unlink($faqFile);
+                Log::info('[AdminController] Fichier FAQ supprimé', ['file' => $faqFile]);
+            }
+
+            Faq::where('application_id', $appId)->delete();
+        }
+
+        // 3) Conversations et messages liés à l'application
+        $conversationIds = Conversation::where('application_id', $appId)->pluck('id');
+        if ($conversationIds->isNotEmpty()) {
+            Message::whereIn('conversation_id', $conversationIds)->delete();
+            Conversation::whereIn('id', $conversationIds)->delete();
+        }
+
+        // 4) Relations et suppression de l'application elle-même
+        $app->admins()->detach();
+        $app->allowedUsers()->detach();
+        $app->delete();
+
+        // 5) Réindexation globale FAQ pour purger toute référence résiduelle
+        ProcessFaqPipeline::dispatch('sync');
+
+        return response()->json(['success' => true, 'message' => 'Application supprimée avec succès.']);
+    }
+
+    public function getApplicationUsers(int $appId): JsonResponse
+    {
+        $app = Application::findOrFail($appId);
+        $users = $app->allowedUsers()->get(['users.id', 'users.name', 'users.email', 'users.department']);
+
+        return response()->json(['users' => $users]);
+    }
+
+    public function addApplicationUser(Request $request, int $appId): JsonResponse
+    {
+        $app = Application::findOrFail($appId);
+
+        $request->validate([
+            'user_ids' => ['required', 'array'],
+            'user_ids.*' => ['integer', 'exists:users,id'],
+        ]);
+
+        $app->allowedUsers()->attach($request->input('user_ids'));
+
+        return response()->json(['success' => true]);
+    }
+
+    public function removeApplicationUser(int $appId, int $userId): JsonResponse
+    {
+        $app = Application::findOrFail($appId);
+        $app->allowedUsers()->detach($userId);
+
+        return response()->json(['success' => true]);
+    }
+
+    public function adminDashboard()
+    {
+        $user = auth()->user();
+        if ($user->admin_type === 'super') {
+            return $this->index();
+        }
+        if (!$user->is_admin || $user->admin_type !== 'app') {
+            return redirect()->route('chat.index');
+        }
+
+        $adminApplications = $user->adminApplications()->get();
+
+        if ($adminApplications->isEmpty()) {
+            return view('admin.app-dashboard', [
+                'stats' => [],
+                'adminApplications' => [],
+                'applications' => collect(),
+                'users' => [],
+                'manuals' => collect(),
+                'tickets' => collect(),
+                'faqList' => [],
+            ]);
+        }
+
+        $appIds = $adminApplications->pluck('id');
+
+        $totalRequests = Message::query()
+            ->join('conversations', 'messages.conversation_id', '=', 'conversations.id')
+            ->whereIn('conversations.application_id', $appIds)
+            ->where('messages.role', 'user')
+            ->count();
+
+        $requestsToday = Message::query()
+            ->join('conversations', 'messages.conversation_id', '=', 'conversations.id')
+            ->whereIn('conversations.application_id', $appIds)
+            ->where('messages.role', 'user')
+            ->whereDate('messages.created_at', today())
+            ->count();
+
+        $manualsQuery = Manual::with('application')->whereIn('application_id', $appIds);
+        $totalManuals = (clone $manualsQuery)->count();
+        $manualsIndexed = (clone $manualsQuery)->where('status', 'indexed')->count();
+        $manualsProcessing = (clone $manualsQuery)->where('status', 'processing')->count();
+        $manualsFailed = (clone $manualsQuery)->where('status', 'failed')->count();
+
+        $manuals = $manualsQuery->orderByDesc('created_at')->paginate(20);
+
+        $ticketsQuery = Ticket::query()
+            ->join('conversations', 'tickets.conversation_id', '=', 'conversations.id')
+            ->whereIn('conversations.application_id', $appIds);
+
+        $totalTickets = (clone $ticketsQuery)->count();
+
+        $tickets = Ticket::query()
+            ->join('conversations', 'tickets.conversation_id', '=', 'conversations.id')
+            ->whereIn('conversations.application_id', $appIds)
+            ->select('tickets.*')
+            ->with('user')
+            ->orderByDesc('tickets.created_at')
+            ->paginate(20);
+
+        $ticketsByPriority = Ticket::query()
+            ->join('conversations', 'tickets.conversation_id', '=', 'conversations.id')
+            ->whereIn('conversations.application_id', $appIds)
+            ->selectRaw('priority, count(*) as total')
+            ->groupBy('priority')
+            ->orderByDesc('total')
+            ->get();
+
+        $adminApplications = $adminApplications->load('allowedUsers');
+        $users = User::whereIn('id', $adminApplications->flatMap->allowedUsers->pluck('id'))->get();
+
+        // FAQ scopée : uniquement les entrées liées aux apps administrées
+        $faqList = collect($this->listFaqFiles())
+            ->filter(fn($f) => $f['app_id'] && $appIds->contains($f['app_id']))
+            ->values()
+            ->all();
+
+        $stats = [
+            'requests_total'      => $totalRequests,
+            'requests_today'      => $requestsToday,
+            'tickets_total'       => $totalTickets,
+            'manuals_count'       => $totalManuals,
+            'manuals_indexed'     => $manualsIndexed,
+            'manuals_processing'  => $manualsProcessing,
+            'manuals_failed'      => $manualsFailed,
+            'admin_applications'  => $adminApplications->count(),
+            'tickets_by_priority' => $ticketsByPriority,
+        ];
+
+        $applications = $adminApplications; // pour les <select> des modals manuels/FAQ
+
+        return view('admin.app-dashboard', compact(
+            'stats', 'adminApplications', 'applications', 'users', 'manuals', 'tickets', 'faqList'
+        ));
+    }}
+
+

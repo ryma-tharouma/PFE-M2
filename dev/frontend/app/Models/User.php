@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -27,6 +28,7 @@ class User extends Authenticatable
         'title',
         'department',
         'is_admin',
+        'admin_type',
         'last_login_at',
         'password',
     ];
@@ -51,6 +53,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'is_admin' => 'boolean',
+            'admin_type' => 'string',
             'last_login_at' => 'datetime',
             'password' => 'hashed',
         ];
@@ -82,6 +85,22 @@ class User extends Authenticatable
     public function conversations(): HasMany
     {
         return $this->hasMany(Conversation::class);
+    }
+
+    /**
+     * Relation: l'utilisateur est admin de plusieurs applications
+     */
+    public function adminApplications(): BelongsToMany
+    {
+        return $this->belongsToMany(Application::class, 'application_admins');
+    }
+
+    /**
+     * Relation: l'utilisateur a accès à plusieurs applications
+     */
+    public function allowedApplications(): BelongsToMany
+    {
+        return $this->belongsToMany(Application::class, 'application_users');
     }
 }
 

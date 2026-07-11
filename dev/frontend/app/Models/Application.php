@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Application extends Model
 {
@@ -15,6 +17,8 @@ class Application extends Model
         'color',
         'icon',
         'qdrant_collection',
+        'admin_id',
+        'department',
     ];
 
     public function conversations(): HasMany
@@ -31,4 +35,30 @@ class Application extends Model
     {
         return $this->hasMany(Faq::class);
     }
+
+    /**
+     * Relation: l'application a un admin (user)
+     */
+    public function admin(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'admin_id');
+    }
+
+    /**
+     * Relation: l'application a plusieurs admins
+     */
+    public function admins(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'application_admins');
+    }
+
+    /**
+     * Relation: l'application a plusieurs utilisateurs autorisés
+     */
+    public function allowedUsers(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'application_users');
+    }
 }
+
+

@@ -56,9 +56,10 @@ class LdapAuthController extends Controller
         $user = $this->syncUserToDatabase($ldapUser);
         Auth::login($user, false);
 
-        $groups     = isset($ldapUser['groups']) ? $ldapUser['groups'] : [];
-        $adminGroup = strtolower((string) config('ldap.admin_group', 'admins'));
-        $isAdmin    = in_array($adminGroup, $groups, true);
+        $groups      = isset($ldapUser['groups']) ? $ldapUser['groups'] : [];
+        $isSuperGroup = in_array(strtolower((string) config('ldap.superadmin_group', 'superadmins')), $groups, true);
+        $isAppGroup   = in_array(strtolower((string) config('ldap.admin_group', 'admins')), $groups, true);
+        $isAdmin      = $isSuperGroup || $isAppGroup;
 
         // Stocke valeurs LDAP et valeurs stabilisées depuis la base (préférer le nom enregistré en base)
         Session::put('ldap_uid',      $ldapUser['uid']);
@@ -358,7 +359,8 @@ class LdapAuthController extends Controller
         }
 
         // ── Vérification groupe admin par recherche inversée (groupOfNames) ──
-        $isAdminByGroup = $this->isUserInAdminGroup($conn, $authenticatedDn, $baseDn);
+        $isAppAdminByGroup   = $this->isUserInGroup($conn, $authenticatedDn, $baseDn, (string) config('ldap.admin_group', 'admins'));
+        $isSuperAdminByGroup = $this->isUserInGroup($conn, $authenticatedDn, $baseDn, (string) config('ldap.superadmin_group', 'superadmins'));
 
         @ldap_close($conn);
 
@@ -386,10 +388,13 @@ class LdapAuthController extends Controller
             }
         }
 
-        // ── Injecte "admins" dans groups si trouvé par recherche inversée ──
-        if ($isAdminByGroup && !in_array('admins', $userData['groups'], true)) {
+        // ── Injecte "admins"/"superadmins" dans groups si trouvés par recherche inversée ──
+        if ($isAppAdminByGroup && !in_array('admins', $userData['groups'], true)) {
             $userData['groups'][] = 'admins';
-            Log::debug('LDAP: admin détecté par recherche inversée groupOfNames', [
+        }
+        if ($isSuperAdminByGroup && !in_array('superadmins', $userData['groups'], true)) {
+            $userData['groups'][] = 'superadmins';
+            Log::debug('LDAP: superadmin détecté par recherche inversée groupOfNames', [
                 'userDn' => $authenticatedDn,
             ]);
         }
@@ -405,9 +410,8 @@ class LdapAuthController extends Controller
      * Vérifie si un DN utilisateur est membre du groupe admin.
      * Supporte le schéma groupOfNames où "member:" est sur le groupe.
      */
-    private function isUserInAdminGroup(mixed $conn, string $userDn, string $baseDn): bool
-    {
-        $adminGroup = strtolower((string) config('ldap.admin_group', 'admins'));
+    private function isUserInGroup(mixed $conn, string $userDn, string $baseDn, string $groupName): bool    {
+        $adminGroup = strtolower($groupName);
         $groupsOu   = "ou=groups,{$baseDn}";
 
         // ── Rebind avec compte service pour pouvoir faire la recherche ──
@@ -656,9 +660,11 @@ class LdapAuthController extends Controller
         // puis fallback LDIF local si le résultat ressemble encore à un code SON.
         $name = $this->resolveDisplayName($ldapUser, $uid, $employeeNo);
 
-        $groups     = isset($ldapUser['groups']) ? $ldapUser['groups'] : [];
-        $adminGroup = strtolower((string) config('ldap.admin_group', 'admins'));
-        $isAdmin    = in_array($adminGroup, $groups, true);
+        $groups       = isset($ldapUser['groups']) ? $ldapUser['groups'] : [];
+        $isSuperGroup = in_array(strtolower((string) config('ldap.superadmin_group', 'superadmins')), $groups, true);
+        $isAppGroup   = in_array(strtolower((string) config('ldap.admin_group', 'admins')), $groups, true);
+        $isAdmin      = $isSuperGroup || $isAppGroup;
+        $adminType    = $isSuperGroup ? 'super' : ($isAppGroup ? 'app' : 'user');
 
         $dept = ($ldapUser['department'] !== '')
             ? $ldapUser['department']
@@ -672,6 +678,7 @@ class LdapAuthController extends Controller
             'title'         => $ldapUser['title'],
             'department'    => $dept,
             'is_admin'      => $isAdmin,
+            'admin_type'    => $adminType,
             'password'      => '*',
             'last_login_at' => now(),
         ]);

@@ -47,7 +47,7 @@
 @php $s = $stats; @endphp
 
 @section('content')
-    <div class="flex h-screen overflow-hidden" x-data="adminApp()" x-init="init()">
+    <div class="flex h-screen overflow-hidden" x-data="adminApp" x-init="init()">
 
         {{-- ════════════════════ SIDEBAR ════════════════════ --}}
         <aside class="w-72 bg-white border-r border-sonatrach-gris-bord flex flex-col h-screen flex-shrink-0 sidebar-scroll overflow-y-auto">
@@ -62,6 +62,8 @@
                 @php
                     $navItems = [
                         ['key'=>'dashboard','label'=>'Tableau de bord','icon'=>'M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z','badge'=>null],
+                        ['key'=>'admins','label'=>'Administrateurs','icon'=>'M13 10V3L4 14h7v7l9-11h-7z','badge'=>null],
+                        ['key'=>'applications','label'=>'Applications','icon'=>'M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z','badge'=>null],
                         ['key'=>'users','label'=>'Utilisateurs','icon'=>'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z','badge'=>$s['total_users']],
                         ['key'=>'requests','label'=>'Requêtes','icon'=>'M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z','badge'=>$s['requests_today']],
                         ['key'=>'manuals','label'=>'Manuels','icon'=>'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253','badge'=>$s['manuals_count']],
@@ -200,6 +202,120 @@
                     </div>
                 </div>
 
+                {{-- ═══════════════ ADMINISTRATEURS ═══════════════ --}}
+                <div x-show="activeSection==='admins'" class="p-6 space-y-6">
+                    <div class="bg-white rounded-2xl border border-sonatrach-gris-bord overflow-hidden">
+                        <div class="px-6 py-4 border-b border-sonatrach-gris-bord flex items-center justify-between">
+                            <div>
+                                <h3 class="text-sm font-semibold text-sonatrach-noir">Administrateurs</h3>
+                                <p class="text-xs text-gray-400 mt-0.5">Gestion des admins d'applications</p>
+                            </div>
+                            <button @click="openAddAdminModal()" class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-sonatrach-orange text-white hover:bg-sonatrach-orange-dark transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                                Ajouter admin
+                            </button>
+                        </div>
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr class="bg-sonatrach-gris-fond border-b border-sonatrach-gris-bord">
+                                    <th class="text-left px-6 py-3 text-xs font-medium text-gray-500">Admin</th>
+                                    <th class="text-left px-6 py-3 text-xs font-medium text-gray-500">Email</th>
+                                    <th class="text-left px-6 py-3 text-xs font-medium text-gray-500">Département</th>
+                                    <th class="text-center px-6 py-3 text-xs font-medium text-gray-500">Applications</th>
+                                    <th class="text-right px-6 py-3 text-xs font-medium text-gray-500">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-sonatrach-gris-bord">
+                                <template x-for="admin in admins" :key="admin.id">
+                                    <tr class="hover:bg-sonatrach-gris-fond/50 transition-colors">
+                                        <td class="px-6 py-3">
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-8 h-8 rounded-full bg-sonatrach-orange flex items-center justify-center text-white text-xs font-bold" x-text="admin.name.substring(0,2).toUpperCase()"></div>
+                                                <p class="text-xs font-semibold text-sonatrach-noir" x-text="admin.name"></p>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-3 text-xs text-gray-600" x-text="admin.email"></td>
+                                        <td class="px-6 py-3 text-xs text-gray-600" x-text="admin.department ?? '—'"></td>
+                                        <td class="px-6 py-3 text-center">
+                                            <span class="inline-flex items-center justify-center min-w-[2rem] px-2 py-0.5 rounded-full text-xs font-bold bg-sonatrach-orange/10 text-sonatrach-orange" x-text="admin.applications_count"></span>
+                                        </td>
+                                        <td class="px-6 py-3 text-right">
+                                            <button @click="confirmAction('Retirer les droits admin à ' + admin.name + '?', () => removeAdmin(admin.id))" class="icon-btn icon-btn-del" title="Retirer">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </template>
+                                <tr x-show="admins.length === 0">
+                                    <td colspan="5" class="text-center py-12 text-gray-400 text-sm">Aucun administrateur.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                {{-- ═══════════════ APPLICATIONS ═══════════════ --}}
+                <div x-show="activeSection==='applications'" class="p-6 space-y-6">
+                    <div class="bg-white rounded-2xl border border-sonatrach-gris-bord overflow-hidden">
+                        <div class="px-6 py-4 border-b border-sonatrach-gris-bord flex items-center justify-between">
+                            <div>
+                                <h3 class="text-sm font-semibold text-sonatrach-noir">Applications</h3>
+                                <p class="text-xs text-gray-400 mt-0.5">Gestion des applications disponibles</p>
+                            </div>
+                            <button @click="openAddAppModal()" class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-sonatrach-orange text-white hover:bg-sonatrach-orange-dark transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                                Ajouter application
+                            </button>
+                        </div>
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr class="bg-sonatrach-gris-fond border-b border-sonatrach-gris-bord">
+                                    <th class="text-left px-6 py-3 text-xs font-medium text-gray-500">Application</th>
+                                    <th class="text-left px-6 py-3 text-xs font-medium text-gray-500">Admin</th>
+                                    <th class="text-left px-6 py-3 text-xs font-medium text-gray-500">Département</th>
+                                    <th class="text-center px-6 py-3 text-xs font-medium text-gray-500">Utilisateurs</th>
+                                    <th class="text-center px-6 py-3 text-xs font-medium text-gray-500">Manuels</th>
+                                    <th class="text-center px-6 py-3 text-xs font-medium text-gray-500">FAQ</th>
+                                    <th class="text-right px-6 py-3 text-xs font-medium text-gray-500">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-sonatrach-gris-bord">
+                                <template x-for="app in applications" :key="app.id">
+                                    <tr class="hover:bg-sonatrach-gris-fond/50 transition-colors">
+                                        <td class="px-6 py-3">
+                                            <div class="flex items-center gap-2">
+                                                <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-white text-xs font-bold" :style="{background: app.color || '#F26522'}" x-text="app.name.substring(0,2).toUpperCase()"></div>
+                                                <p class="text-xs font-semibold text-sonatrach-noir" x-text="app.name"></p>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-3 text-xs text-gray-600" x-text="app.admin ? app.admin.name : '—'"></td>
+                                        <td class="px-6 py-3 text-xs text-gray-600" x-text="app.department ?? '—'"></td>
+                                        <td class="px-6 py-3 text-center">
+                                            <span class="inline-flex items-center justify-center min-w-[2rem] px-2 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-blue-700" x-text="app.users_count"></span>
+                                        </td>
+                                        <td class="px-6 py-3 text-center">
+                                            <span class="inline-flex items-center justify-center min-w-[2rem] px-2 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-700" x-text="app.manuals_count"></span>
+                                        </td>
+                                        <td class="px-6 py-3 text-center">
+                                            <span class="inline-flex items-center justify-center min-w-[2rem] px-2 py-0.5 rounded-full text-xs font-bold bg-purple-100 text-purple-700" x-text="app.faq_count"></span>
+                                        </td>
+                                        <td class="px-6 py-3 text-right flex items-center justify-end gap-1">
+                                            <button @click="editApplication(app.id)" class="icon-btn icon-btn-edit" title="Modifier">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                                            </button>
+                                            <button @click="confirmAction('Supprimer l\'application &quot;' + app.name + '&quot; et son contenu ? Cette action est irréversible.', () => deleteApplication(app.id))" class="icon-btn icon-btn-del" title="Supprimer">                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </template>
+                                <tr x-show="applications.length === 0">
+                                    <td colspan="7" class="text-center py-12 text-gray-400 text-sm">Aucune application. Cliquez sur <strong>Ajouter application</strong>.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
                 {{-- ═══════════════ REQUÊTES ═══════════════ --}}
                 <div x-show="activeSection==='requests'" class="p-6 space-y-6">
                     <div class="grid grid-cols-3 gap-4">
@@ -321,7 +437,7 @@
                         </table>
                     </div>
 
-                    {{-- Conversations anonymisées --
+
                     <div class="bg-white rounded-2xl border border-sonatrach-gris-bord overflow-hidden">
                         <div class="px-5 py-4 border-b border-sonatrach-gris-bord bg-sonatrach-gris-fond flex items-end gap-3">
                             <div class="flex-1 max-w-sm">
@@ -362,7 +478,7 @@
                                 </template>
                                 <template x-for="(chat,ci) in faqChats" :key="ci">
                                     <tr class="hover:bg-sonatrach-gris-fond/40 transition-colors align-top">
-                                        {{-- Statut --
+
 
                                         <td class="px-4 py-3 text-center">
                                             <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold"
@@ -380,24 +496,24 @@
                                                 <span x-text="chat.status_label||'En attente'"></span>
                                             </span>
                                         </td>
-                                        {{-- Question --
+
                                         <td class="px-4 py-3 max-w-xs">
                                             <p class="text-xs font-semibold text-sonatrach-noir line-clamp-2 cursor-pointer hover:text-sonatrach-orange"
                                                @click="openReadModal('Question', chat.question||'', chat)"
                                                x-text="chat.question||'—'"></p>
                                         </td>
-                                        {{-- Réponse --
+                                        {{-- Réponse --}}
                                         <td class="px-4 py-3 max-w-sm">
                                             <p class="text-xs text-gray-600 line-clamp-2 cursor-pointer hover:text-sonatrach-orange"
                                                @click="openReadModal('Réponse', chat.answer||'', chat)"
                                                x-text="chat.answer||'—'"></p>
                                         </td>
-                                        {{-- App --
+                                        {{-- App --}}
                                         <td class="px-4 py-3 text-xs text-gray-600" x-text="chatsAppName||'—'"></td>
-                                        {{-- Actions — bloquées si déjà traité --
+                                        {{-- Actions — bloquées si déjà traité --}}
                                         <td class="px-4 py-3 text-right">
                                             <div class="flex items-center justify-end gap-1">
-                                                {{-- Bouton Valider : masqué si validated ou rejected --
+                                                {{-- Bouton Valider : masqué si validated ou rejected --}}
                                                 <template x-if="chat.status==='pending'||!chat.status">
                                                     <button @click="openValidateModal(chat, ci)"
                                                             class="icon-btn icon-btn-validate"
@@ -405,7 +521,7 @@
                                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                                                     </button>
                                                 </template>
-                                                {{-- Bouton Rejeter : masqué si validated ou rejected --
+                                                {{-- Bouton Rejeter : masqué si validated ou rejected --}}
                                                 <template x-if="chat.status==='pending'||!chat.status">
                                                     <button @click="rejectChat(chat, ci)"
                                                             class="icon-btn icon-btn-reject"
@@ -413,7 +529,7 @@
                                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                                                     </button>
                                                 </template>
-                                                {{-- Indicateur visuel quand déjà traité --
+                                                {{-- Indicateur visuel quand déjà traité --}}
                                                 <template x-if="chat.status==='validated'">
                                                     <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-green-100 text-green-700">
                                                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
@@ -434,7 +550,7 @@
                             </table>
                         </div>
                     </div>
-                </div>{{-- fin FAQ --}}
+                </div>
 
                 {{-- ═══════════════ TICKETS ═══════════════ --}}
                 <div x-show="activeSection==='tickets'" class="p-6 space-y-6">
@@ -459,7 +575,8 @@
                     </div>
                 </div>
 
-            </div> {{-- fin scroll --}}
+            </div>
+
         </main>
 
         {{-- ═══════════════════════ MODALS ═══════════════════════ --}}
@@ -491,9 +608,14 @@
                         <div><label class="block text-xs font-semibold text-gray-700 mb-1.5">Nom du manuel *</label><input type="text" x-model="manualForm.name" placeholder="Manuel utilisateur..." class="w-full px-3 py-2.5 text-sm border border-sonatrach-gris-bord rounded-xl focus:outline-none focus:ring-2 focus:ring-sonatrach-orange"></div>
                         <div class="grid grid-cols-2 gap-3">
                             <div>
-                                <label class="block text-xs font-semibold text-gray-700 mb-1.5">Nom de l'application *</label>
-                                <input type="text" x-model="manualForm.app_name" placeholder="Ex: SAP, Parc Auto v2…" class="w-full px-3 py-2.5 text-sm border border-sonatrach-gris-bord rounded-xl focus:outline-none focus:ring-2 focus:ring-sonatrach-orange">
-                                <p class="text-[10px] text-gray-400 mt-1">Nom exact et unique .</p>
+                                <label class="block text-xs font-semibold text-gray-700 mb-1.5">Application *</label>
+                                <select x-model="manualForm.app_name" class="w-full px-3 py-2.5 text-sm border border-sonatrach-gris-bord rounded-xl focus:outline-none focus:ring-2 focus:ring-sonatrach-orange bg-white">
+                                    <option value="">— Choisir une application —</option>
+                                    <template x-for="app in applications" :key="app.id">
+                                        <option :value="app.name" x-text="app.name"></option>
+                                    </template>
+                                </select>
+                                <p class="text-[10px] text-gray-400 mt-1">Liste des applications déjà créées (onglet Applications).</p>
                             </div>
                             <div><label class="block text-xs font-semibold text-gray-700 mb-1.5">Version du document</label><input type="text" x-model="manualForm.version" placeholder="1.0" class="w-full px-3 py-2.5 text-sm border border-sonatrach-gris-bord rounded-xl focus:outline-none focus:ring-2 focus:ring-sonatrach-orange"></div>
                         </div>
@@ -705,6 +827,9 @@
 @endsection
 
 @push('scripts')
+    {{-- IMPORTANT : ce script doit être chargé AVANT ce bloc dans le layout --}}
+    <script src="{{ asset('js/admin-funcs.js') }}?v={{ filemtime(public_path('js/admin-funcs.js')) }}"></script>
+
     <script>
         const PHP_FAQ_LIST = @json($faqList ?? []);
         const CSRF = document.querySelector('meta[name="csrf-token"]')?.content || '';
@@ -726,560 +851,577 @@
             return new Intl.DateTimeFormat('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' }).format(date);
         }
 
-        function adminApp() {
-            return {
-                activeSection: 'dashboard',
-                get sectionLabel() {
-                    return {dashboard:'Tableau de bord',users:'Utilisateurs',requests:'Requêtes',manuals:'Manuels',faq:'FAQ',tickets:'Tickets'}[this.activeSection] || '';
-                },
+        // ── Enregistrement explicite via alpine:init ────────────────────────
+        // Correction du bug "loadAdmins is not a function" : on n'évalue plus
+        // adminApp() en inline (x-data="adminApp()") pendant le parsing du HTML,
+        // car cela dépendait de l'ordre de chargement de admin-funcs.js.
+        // Ici, on enregistre le composant via Alpine.data() dans l'event
+        // 'alpine:init', qui garantit que TOUS les <script> synchrones placés
+        // avant le script d'Alpine (dont admin-funcs.js ci-dessus) ont déjà
+        // été exécutés. loadAdmins/loadApplications sont donc toujours
+        // disponibles au moment où Alpine construit le composant.
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('adminApp', () => {
+                const ctx = {
+                    activeSection: 'dashboard',
+                    admins: [],
+                    applications: [],
 
-                // Confirm
-                confirmOpen: false, confirmMessage: '', confirmCb: null,
-                confirmAction(msg, cb) { this.confirmMessage = msg; this.confirmCb = cb; this.confirmOpen = true; },
+                    get sectionLabel() {
+                        return {dashboard:'Tableau de bord',users:'Utilisateurs',requests:'Requêtes',manuals:'Manuels',faq:'FAQ',tickets:'Tickets'}[this.activeSection] || '';
+                    },
 
-                // Manuel
-                manualModalOpen: false, editingManualId: null, manualSaving: false,
-                manualForm: { name: '', app_name: '', version: '1.0', follows_internal_template: false, fileName: '' },
-                uploadError: '',
+                    confirmOpen: false, confirmMessage: '', confirmCb: null,
+                    confirmAction(msg, cb) { this.confirmMessage = msg; this.confirmCb = cb; this.confirmOpen = true; },
 
-                // FAQ list (depuis PHP)
-                faqList: PHP_FAQ_LIST.map(f => ({ ...f, updated_at: formatFrenchDate(f.updated_at) })),
+                    manualModalOpen: false, editingManualId: null, manualSaving: false,
+                    manualForm: { name: '', app_name: '', version: '1.0', follows_internal_template: false, fileName: '' },
+                    uploadError: '',
 
-                // FAQ upload
-                faqModalOpen: false, faqUploading: false, faqFormError: '',
-                faqForm: { app_id: '', app_name: '', file: null, fileName: '' },
+                    faqList: PHP_FAQ_LIST.map(f => ({ ...f, updated_at: formatFrenchDate(f.updated_at) })),
 
-                // FAQ JSON view
-                jsonViewOpen: false, jsonViewFaq: {}, jsonViewEntries: [],
+                    faqModalOpen: false, faqUploading: false, faqFormError: '',
+                    faqForm: { app_id: '', app_name: '', file: null, fileName: '' },
 
-                // FAQ edit (JSON)
-                faqEditOpen: false, faqEditFaq: {}, faqEditEntries: [], faqEditRaw: '', faqEditError: '', faqEditSaving: false,
+                    jsonViewOpen: false, jsonViewFaq: {}, jsonViewEntries: [],
 
-                // FAQ edit infos
-                faqEditInfosOpen: false, faqEditInfosFaq: {},
-                faqEditInfosForm: { app_name: '' }, faqEditInfosError: '', faqEditInfosSaving: false,
+                    faqEditOpen: false, faqEditFaq: {}, faqEditEntries: [], faqEditRaw: '', faqEditError: '', faqEditSaving: false,
 
-                // Chats
-                chatsAppId: '', chatsAppName: '', faqChats: [], chatsLoading: false,
+                    faqEditInfosOpen: false, faqEditInfosFaq: {},
+                    faqEditInfosForm: { app_name: '' }, faqEditInfosError: '', faqEditInfosSaving: false,
 
-                // Read modal
-                readModalOpen: false, readModalTitle: '', readModalText: '', readModalChat: null,
+                    chatsAppId: '', chatsAppName: '', faqChats: [], chatsLoading: false,
 
-                // Validate
-                validateOpen: false, validateChat: null, validateChatIdx: null,
-                validateForm: { question: '', answer: '' }, validateSaving: false, validateError: '',
+                    readModalOpen: false, readModalTitle: '', readModalText: '', readModalChat: null,
 
-                init() {
-                    const s = new URLSearchParams(window.location.search).get('section');
-                    if (s && ['dashboard','users','requests','manuals','faq','tickets'].includes(s)) this.activeSection = s;
-                },
+                    validateOpen: false, validateChat: null, validateChatIdx: null,
+                    validateForm: { question: '', answer: '' }, validateSaving: false, validateError: '',
 
-                toast(msg, ok = true) {
-                    const box = document.getElementById('toast-box');
-                    const el  = document.createElement('div');
-                    el.className = 'toast-item ' + (ok ? 'bg-green-600' : 'bg-red-600');
-                    el.textContent = msg;
-                    box.appendChild(el);
-                    setTimeout(() => el.remove(), 3500);
-                },
+                    init() {
+                        const s = new URLSearchParams(window.location.search).get('section');
+                        if (s && ['dashboard','users','requests','manuals','faq','tickets'].includes(s)) this.activeSection = s;
 
-                escapeHtml(str) {
-                    if (!str) return '';
-                    return str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
-                },
+                        // Chargement direct ici : plus besoin de x-init="$root.loadAdmins()"
+                        // sur les <tbody>, ce qui supprime le risque de race condition.
+                        this.loadAdmins();
+                        this.loadApplications();
+                    },
 
-                // ── FAQ upload ──────────────────────────────────────────
-                openFaqUploadModal() {
-                    this.faqFormError = '';
-                    this.faqForm = { app_id: '', app_name: '', file: null, fileName: '' };
-                    const fi = document.getElementById('faqJsonFile');
-                    if (fi) fi.value = '';
-                    this.faqModalOpen = true;
-                },
+                    toast(msg, ok = true) {
+                        const box = document.getElementById('toast-box');
+                        const el  = document.createElement('div');
+                        el.className = 'toast-item ' + (ok ? 'bg-green-600' : 'bg-red-600');
+                        el.textContent = msg;
+                        box.appendChild(el);
+                        setTimeout(() => el.remove(), 3500);
+                    },
 
-                async uploadFaqFile() {
-                    const hasId   = !!(this.faqForm.app_id);
-                    const hasName = !!(this.faqForm.app_name || '').trim();
+                    escapeHtml(str) {
+                        if (!str) return '';
+                        return str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+                    },
 
-                    if (!this.faqForm.file || (!hasId && !hasName)) {
-                        this.faqFormError = 'Choisissez une application existante OU saisissez un nouveau nom, puis ajoutez le fichier JSON.';
-                        return;
-                    }
-                    if (hasId && hasName) {
-                        this.faqFormError = "Choisissez une application OU saisissez un nom, pas les deux.";
-                        return;
-                    }
+                    // ── FAQ upload ──────────────────────────────────────────
+                    openFaqUploadModal() {
+                        this.faqFormError = '';
+                        this.faqForm = { app_id: '', app_name: '', file: null, fileName: '' };
+                        const fi = document.getElementById('faqJsonFile');
+                        if (fi) fi.value = '';
+                        this.faqModalOpen = true;
+                    },
 
-                    this.faqUploading = true;
-                    this.faqFormError = '';
-                    try {
-                        const fd = new FormData();
-                        if (hasId)   fd.append('app_id', this.faqForm.app_id);
-                        if (hasName) fd.append('app_name', this.faqForm.app_name.trim());
-                        fd.append('file', this.faqForm.file);
+                    async uploadFaqFile() {
+                        const hasId   = !!(this.faqForm.app_id);
+                        const hasName = !!(this.faqForm.app_name || '').trim();
 
-                        const r = await fetch('/admin/faq/upload', {
-                            method: 'POST', body: fd,
-                            headers: { 'X-CSRF-TOKEN': CSRF, 'X-Requested-With': 'XMLHttpRequest' }
-                        });
-                        const d = await r.json();
-                        if (!r.ok || !d.success) throw new Error(d.error || 'Erreur upload');
+                        if (!this.faqForm.file || (!hasId && !hasName)) {
+                            this.faqFormError = 'Choisissez une application existante OU saisissez un nouveau nom, puis ajoutez le fichier JSON.';
+                            return;
+                        }
+                        if (hasId && hasName) {
+                            this.faqFormError = "Choisissez une application OU saisissez un nom, pas les deux.";
+                            return;
+                        }
 
-                        const entry = {
-                            slug: d.slug, app_name: d.app_name, app_id: d.app_id,
-                            version: '—', item_count: d.item_count, updated_at: d.updated_at
-                        };
-                        const idx = this.faqList.findIndex(f => f.slug === d.slug);
-                        if (idx >= 0) this.faqList.splice(idx, 1, entry);
-                        else this.faqList.unshift(entry);
-                        this.faqModalOpen = false;
-                        this.toast('FAQ "' + d.slug + '.json" ajoutée — ' + d.item_count + ' entrée(s)');
-                    } catch (e) {
-                        this.faqFormError = e.message;
-                    } finally {
-                        this.faqUploading = false;
-                    }
-                },
+                        this.faqUploading = true;
+                        this.faqFormError = '';
+                        try {
+                            const fd = new FormData();
+                            if (hasId)   fd.append('app_id', this.faqForm.app_id);
+                            if (hasName) fd.append('app_name', this.faqForm.app_name.trim());
+                            fd.append('file', this.faqForm.file);
 
-                // ── Consulter JSON ──────────────────────────────────────
-                async openJsonViewModal(faq) {
-                    this.jsonViewFaq = faq;
-                    this.jsonViewEntries = [];
-                    this.jsonViewOpen = true;
-                    try {
-                        const r = await fetch('/admin/faq/' + encodeURIComponent(faq.app_id || faq.slug), {
-                            headers: { 'X-Requested-With': 'XMLHttpRequest' }
-                        });
-                        const d = await r.json();
-                        this.jsonViewEntries = d.faq || [];
-                    } catch (e) {
-                        this.toast('Erreur chargement JSON', false);
-                    }
-                },
+                            const r = await fetch('/admin/faq/upload', {
+                                method: 'POST', body: fd,
+                                headers: { 'X-CSRF-TOKEN': CSRF, 'X-Requested-With': 'XMLHttpRequest' }
+                            });
+                            const d = await r.json();
+                            if (!r.ok || !d.success) throw new Error(d.error || 'Erreur upload');
 
-                // ── Modifier FAQ (JSON) — déclenche réindexation ─────────
-                async openFaqEditModal(faq) {
-                    this.faqEditFaq = faq;
-                    this.faqEditEntries = [];
-                    this.faqEditRaw = '';
-                    this.faqEditError = '';
-                    this.faqEditSaving = false;
-                    try {
-                        const r = await fetch('/admin/faq/' + encodeURIComponent(faq.app_id || faq.slug), {
-                            headers: { 'X-Requested-With': 'XMLHttpRequest' }
-                        });
-                        const d = await r.json();
-                        this.faqEditEntries = d.faq || [];
-                        this.faqEditRaw = JSON.stringify(this.faqEditEntries, null, 2);
-                    } catch (e) {
-                        this.toast('Erreur chargement', false);
-                    }
-                    this.faqEditOpen = true;
-                },
+                            const entry = {
+                                slug: d.slug, app_name: d.app_name, app_id: d.app_id,
+                                version: '—', item_count: d.item_count, updated_at: d.updated_at
+                            };
+                            const idx = this.faqList.findIndex(f => f.slug === d.slug);
+                            if (idx >= 0) this.faqList.splice(idx, 1, entry);
+                            else this.faqList.unshift(entry);
+                            this.faqModalOpen = false;
+                            this.toast('FAQ "' + d.slug + '.json" ajoutée — ' + d.item_count + ' entrée(s)');
+                        } catch (e) {
+                            this.faqFormError = e.message;
+                        } finally {
+                            this.faqUploading = false;
+                        }
+                    },
 
-                async saveFaqEdit() {
-                    this.faqEditError = '';
-                    let parsed;
-                    try {
-                        const raw = this.faqEditRaw.trim();
-                        const obj = JSON.parse(raw);
-                        parsed = Array.isArray(obj) ? obj : (obj.items || []);
-                        if (!Array.isArray(parsed)) throw new Error('Format invalide');
-                    } catch (e) {
-                        this.faqEditError = 'JSON invalide : ' + e.message;
-                        return;
-                    }
-                    this.confirmAction(
-                        'Enregistrer les modifications de "' + this.faqEditFaq.slug + '.json" et relancer l\'indexation Qdrant ?',
-                        async () => {
-                            this.faqEditSaving = true;
-                            try {
-                                const r = await fetch('/admin/faq/' + encodeURIComponent(this.faqEditFaq.app_id || this.faqEditFaq.slug), {
-                                    method: 'PUT',
-                                    headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': CSRF, 'X-Requested-With': 'XMLHttpRequest' },
-                                    body: JSON.stringify({ items: parsed, reindex: 1 })
-                                });
-                                const d = await r.json();
-                                if (!r.ok || !d.success) throw new Error(d.error || 'Erreur');
-                                const idx = this.faqList.findIndex(f => f.slug === this.faqEditFaq.slug);
-                                if (idx >= 0) {
-                                    this.faqList[idx].item_count = d.item_count || parsed.length;
-                                    this.faqList[idx].updated_at = formatFrenchDate(new Date());
+                    async openJsonViewModal(faq) {
+                        this.jsonViewFaq = faq;
+                        this.jsonViewEntries = [];
+                        this.jsonViewOpen = true;
+                        try {
+                            const r = await fetch('/admin/faq/' + encodeURIComponent(faq.app_id || faq.slug), {
+                                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                            });
+                            const d = await r.json();
+                            this.jsonViewEntries = d.faq || [];
+                        } catch (e) {
+                            this.toast('Erreur chargement JSON', false);
+                        }
+                    },
+
+                    async openFaqEditModal(faq) {
+                        this.faqEditFaq = faq;
+                        this.faqEditEntries = [];
+                        this.faqEditRaw = '';
+                        this.faqEditError = '';
+                        this.faqEditSaving = false;
+                        try {
+                            const r = await fetch('/admin/faq/' + encodeURIComponent(faq.app_id || faq.slug), {
+                                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                            });
+                            const d = await r.json();
+                            this.faqEditEntries = d.faq || [];
+                            this.faqEditRaw = JSON.stringify(this.faqEditEntries, null, 2);
+                        } catch (e) {
+                            this.toast('Erreur chargement', false);
+                        }
+                        this.faqEditOpen = true;
+                    },
+
+                    async saveFaqEdit() {
+                        this.faqEditError = '';
+                        let parsed;
+                        try {
+                            const raw = this.faqEditRaw.trim();
+                            const obj = JSON.parse(raw);
+                            parsed = Array.isArray(obj) ? obj : (obj.items || []);
+                            if (!Array.isArray(parsed)) throw new Error('Format invalide');
+                        } catch (e) {
+                            this.faqEditError = 'JSON invalide : ' + e.message;
+                            return;
+                        }
+                        this.confirmAction(
+                            'Enregistrer les modifications de "' + this.faqEditFaq.slug + '.json" et relancer l\'indexation Qdrant ?',
+                            async () => {
+                                this.faqEditSaving = true;
+                                try {
+                                    const r = await fetch('/admin/faq/' + encodeURIComponent(this.faqEditFaq.app_id || this.faqEditFaq.slug), {
+                                        method: 'PUT',
+                                        headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': CSRF, 'X-Requested-With': 'XMLHttpRequest' },
+                                        body: JSON.stringify({ items: parsed, reindex: 1 })
+                                    });
+                                    const d = await r.json();
+                                    if (!r.ok || !d.success) throw new Error(d.error || 'Erreur');
+                                    const idx = this.faqList.findIndex(f => f.slug === this.faqEditFaq.slug);
+                                    if (idx >= 0) {
+                                        this.faqList[idx].item_count = d.item_count || parsed.length;
+                                        this.faqList[idx].updated_at = formatFrenchDate(new Date());
+                                    }
+                                    this.faqEditOpen = false;
+                                    this.toast('FAQ "' + this.faqEditFaq.slug + '.json" mise à jour (' + parsed.length + ' entrées) — réindexation lancée');
+                                } catch (e) {
+                                    this.faqEditError = e.message;
+                                } finally {
+                                    this.faqEditSaving = false;
                                 }
-                                this.faqEditOpen = false;
-                                this.toast('FAQ "' + this.faqEditFaq.slug + '.json" mise à jour (' + parsed.length + ' entrées) — réindexation lancée');
-                            } catch (e) {
-                                this.faqEditError = e.message;
-                            } finally {
-                                this.faqEditSaving = false;
-                            }
-                        }
-                    );
-                },
-
-                // ── Modifier infos FAQ (nom unique) ──────────────────────
-                openFaqEditInfosModal(faq) {
-                    this.faqEditInfosFaq = faq;
-                    this.faqEditInfosForm = { app_name: faq.app_name || '' };
-                    this.faqEditInfosError = '';
-                    this.faqEditInfosSaving = false;
-                    this.faqEditInfosOpen = true;
-                },
-
-                async saveFaqEditInfos() {
-                    if (!this.faqEditInfosForm.app_name) return;
-                    this.faqEditInfosSaving = true;
-                    this.faqEditInfosError = '';
-                    try {
-                        const r = await fetch(
-                            '/admin/faq/' + encodeURIComponent(this.faqEditInfosFaq.app_id || this.faqEditInfosFaq.slug) + '/infos',
-                            {
-                                method: 'PUT',
-                                headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': CSRF, 'X-Requested-With': 'XMLHttpRequest' },
-                                body: JSON.stringify({ app_name: this.faqEditInfosForm.app_name })
                             }
                         );
-                        const d = await r.json();
-                        if (!r.ok || !d.success) throw new Error(d.error || 'Erreur');
-                        const idx = this.faqList.findIndex(f =>
-                            this.faqEditInfosFaq.app_id ? f.app_id === this.faqEditInfosFaq.app_id : f.slug === this.faqEditInfosFaq.slug
-                        );
-                        if (idx >= 0) {
-                            this.faqList[idx].app_name = d.app_name;
-                            this.faqList[idx].slug     = d.slug;
-                            this.faqList[idx].app_id   = d.app_id;
-                        }
-                        this.faqEditInfosOpen = false;
-                        this.toast('Infos FAQ mises à jour');
-                    } catch (e) {
-                        this.faqEditInfosError = e.message;
-                    } finally {
+                    },
+
+                    openFaqEditInfosModal(faq) {
+                        this.faqEditInfosFaq = faq;
+                        this.faqEditInfosForm = { app_name: faq.app_name || '' };
+                        this.faqEditInfosError = '';
                         this.faqEditInfosSaving = false;
-                    }
-                },
+                        this.faqEditInfosOpen = true;
+                    },
 
-                // ── Supprimer FAQ ────────────────────────────────────────
-                async deleteFaqFile(faq) {
-                    try {
-                        const r = await fetch('/admin/faq/' + encodeURIComponent(faq.app_id || faq.slug), {
-                            method: 'DELETE',
-                            headers: { 'X-CSRF-TOKEN': CSRF, 'X-Requested-With': 'XMLHttpRequest' }
-                        });
-                        const d = await r.json();
-                        if (!r.ok || !d.success) throw new Error(d.error || 'Erreur');
-                        this.faqList = this.faqList.filter(f => f.slug !== faq.slug);
-                        this.toast('FAQ "' + faq.slug + '.json" supprimée');
-                    } catch (e) {
-                        this.toast(e.message, false);
-                    }
-                },
-
-                // ── Chats ────────────────────────────────────────────────
-                async loadChats() {
-                    if (!this.chatsAppId) return;
-                    this.chatsLoading = true;
-                    this.faqChats = [];
-                    try {
-                        const r = await fetch('/admin/faq/' + encodeURIComponent(this.chatsAppId) + '/chats', {
-                            headers: { 'X-Requested-With': 'XMLHttpRequest' }
-                        });
-                        const d = await r.json();
-                        if (!r.ok) throw new Error(d.error || 'Erreur');
-                        this.faqChats = d.chats || [];
-                        if (!this.faqChats.length) this.toast('Aucune conversation valide pour cette application');
-                    } catch (e) {
-                        this.toast(e.message, false);
-                    } finally {
-                        this.chatsLoading = false;
-                    }
-                },
-
-                openReadModal(title, text, chat) {
-                    this.readModalTitle = title;
-                    this.readModalText  = text;
-                    this.readModalChat  = chat;
-                    this.readModalOpen  = true;
-                },
-
-                // ── Rejeter chat — statut → rejected ─────────────────────
-                async rejectChat(chat, idx) {
-                    if (!chat || !chat.assistant_id) return;
-                    this.confirmAction('Rejeter cette réponse ? Elle sera marquée comme rejetée et ne pourra plus être validée.', async () => {
+                    async saveFaqEditInfos() {
+                        if (!this.faqEditInfosForm.app_name) return;
+                        this.faqEditInfosSaving = true;
+                        this.faqEditInfosError = '';
                         try {
                             const r = await fetch(
-                                '/admin/faq/' + encodeURIComponent(this.chatsAppId) + '/chats/' + chat.assistant_id + '/reject',
-                                { method: 'POST', headers: { 'X-CSRF-TOKEN': CSRF, 'X-Requested-With': 'XMLHttpRequest' } }
+                                '/admin/faq/' + encodeURIComponent(this.faqEditInfosFaq.app_id || this.faqEditInfosFaq.slug) + '/infos',
+                                {
+                                    method: 'PUT',
+                                    headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': CSRF, 'X-Requested-With': 'XMLHttpRequest' },
+                                    body: JSON.stringify({ app_name: this.faqEditInfosForm.app_name })
+                                }
                             );
                             const d = await r.json();
-                            if (!r.ok) throw new Error(d.error || 'Erreur');
-                            // Mise à jour réactive du statut
-                            if (idx !== null && this.faqChats[idx]) {
-                                this.faqChats[idx] = { ...this.faqChats[idx], status: 'rejected', status_label: 'Rejetée' };
+                            if (!r.ok || !d.success) throw new Error(d.error || 'Erreur');
+                            const idx = this.faqList.findIndex(f =>
+                                this.faqEditInfosFaq.app_id ? f.app_id === this.faqEditInfosFaq.app_id : f.slug === this.faqEditInfosFaq.slug
+                            );
+                            if (idx >= 0) {
+                                this.faqList[idx].app_name = d.app_name;
+                                this.faqList[idx].slug     = d.slug;
+                                this.faqList[idx].app_id   = d.app_id;
                             }
-                            this.toast('Réponse rejetée');
+                            this.faqEditInfosOpen = false;
+                            this.toast('Infos FAQ mises à jour');
+                        } catch (e) {
+                            this.faqEditInfosError = e.message;
+                        } finally {
+                            this.faqEditInfosSaving = false;
+                        }
+                    },
+
+                    async deleteFaqFile(faq) {
+                        try {
+                            const r = await fetch('/admin/faq/' + encodeURIComponent(faq.app_id || faq.slug), {
+                                method: 'DELETE',
+                                headers: { 'X-CSRF-TOKEN': CSRF, 'X-Requested-With': 'XMLHttpRequest' }
+                            });
+                            const d = await r.json();
+                            if (!r.ok || !d.success) throw new Error(d.error || 'Erreur');
+                            this.faqList = this.faqList.filter(f => f.slug !== faq.slug);
+                            this.toast('FAQ "' + faq.slug + '.json" supprimée');
                         } catch (e) {
                             this.toast(e.message, false);
                         }
-                    });
-                },
+                    },
 
-                // ── Valider chat → FAQ — append + réindexation ───────────
-                openValidateModal(chat, idx = null) {
-                    this.validateChat    = chat;
-                    this.validateChatIdx = idx;
-                    this.validateForm    = { question: chat.question || '', answer: chat.answer || '' };
-                    this.validateError   = '';
-                    this.validateOpen    = true;
-                },
-
-                async confirmValidate() {
-                    if (!this.chatsAppId || !this.validateForm.question || !this.validateForm.answer) return;
-                    this.validateSaving = true;
-                    this.validateError  = '';
-                    try {
-                        const payload = {
-                            question: this.validateForm.question,
-                            answer:   this.validateForm.answer
-                        };
-                        if (this.validateChat && this.validateChat.assistant_id) {
-                            payload.assistant_message_id = this.validateChat.assistant_id;
-                        }
-
-                        const r = await fetch(
-                            '/admin/faq/' + encodeURIComponent(this.chatsAppId) + '/chats/validate',
-                            {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': CSRF, 'X-Requested-With': 'XMLHttpRequest' },
-                                body: JSON.stringify(payload)
-                            }
-                        );
-                        const d = await r.json();
-                        if (!r.ok || !d.success) throw new Error(d.error || 'Erreur validation');
-
-                        // Mise à jour réactive du statut du chat
-                        if (this.validateChatIdx !== null && this.faqChats[this.validateChatIdx]) {
-                            this.faqChats[this.validateChatIdx] = {
-                                ...this.faqChats[this.validateChatIdx],
-                                status: 'validated',
-                                status_label: 'Validée'
-                            };
-                        }
-
-                        // Mettre à jour la liste FAQ
-                        const slug     = d.slug;
-                        const existing = this.faqList.findIndex(f => f.slug === slug);
-                        if (existing >= 0) {
-                            this.faqList[existing].item_count = d.item_count;
-                            this.faqList[existing].updated_at = formatFrenchDate(new Date());
-                        } else {
-                            this.faqList.unshift({
-                                slug, app_name: d.app_name, app_id: d.app_id || this.chatsAppId,
-                                version: d.version || '—', item_count: d.item_count,
-                                updated_at: formatFrenchDate(new Date())
+                    async loadChats() {
+                        if (!this.chatsAppId) return;
+                        this.chatsLoading = true;
+                        this.faqChats = [];
+                        try {
+                            const r = await fetch('/admin/faq/' + encodeURIComponent(this.chatsAppId) + '/chats', {
+                                headers: { 'X-Requested-With': 'XMLHttpRequest' }
                             });
+                            const d = await r.json();
+                            if (!r.ok) throw new Error(d.error || 'Erreur');
+                            this.faqChats = d.chats || [];
+                            if (!this.faqChats.length) this.toast('Aucune conversation valide pour cette application');
+                        } catch (e) {
+                            this.toast(e.message, false);
+                        } finally {
+                            this.chatsLoading = false;
+                        }
+                    },
+
+                    openReadModal(title, text, chat) {
+                        this.readModalTitle = title;
+                        this.readModalText  = text;
+                        this.readModalChat  = chat;
+                        this.readModalOpen  = true;
+                    },
+
+                    async rejectChat(chat, idx) {
+                        if (!chat || !chat.assistant_id) return;
+                        this.confirmAction('Rejeter cette réponse ? Elle sera marquée comme rejetée et ne pourra plus être validée.', async () => {
+                            try {
+                                const r = await fetch(
+                                    '/admin/faq/' + encodeURIComponent(this.chatsAppId) + '/chats/' + chat.assistant_id + '/reject',
+                                    { method: 'POST', headers: { 'X-CSRF-TOKEN': CSRF, 'X-Requested-With': 'XMLHttpRequest' } }
+                                );
+                                const d = await r.json();
+                                if (!r.ok) throw new Error(d.error || 'Erreur');
+                                if (idx !== null && this.faqChats[idx]) {
+                                    this.faqChats[idx] = { ...this.faqChats[idx], status: 'rejected', status_label: 'Rejetée' };
+                                }
+                                this.toast('Réponse rejetée');
+                            } catch (e) {
+                                this.toast(e.message, false);
+                            }
+                        });
+                    },
+
+                    openValidateModal(chat, idx = null) {
+                        this.validateChat    = chat;
+                        this.validateChatIdx = idx;
+                        this.validateForm    = { question: chat.question || '', answer: chat.answer || '' };
+                        this.validateError   = '';
+                        this.validateOpen    = true;
+                    },
+
+                    async confirmValidate() {
+                        if (!this.chatsAppId || !this.validateForm.question || !this.validateForm.answer) return;
+                        this.validateSaving = true;
+                        this.validateError  = '';
+                        try {
+                            const payload = {
+                                question: this.validateForm.question,
+                                answer:   this.validateForm.answer
+                            };
+                            if (this.validateChat && this.validateChat.assistant_id) {
+                                payload.assistant_message_id = this.validateChat.assistant_id;
+                            }
+
+                            const r = await fetch(
+                                '/admin/faq/' + encodeURIComponent(this.chatsAppId) + '/chats/validate',
+                                {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': CSRF, 'X-Requested-With': 'XMLHttpRequest' },
+                                    body: JSON.stringify(payload)
+                                }
+                            );
+                            const d = await r.json();
+                            if (!r.ok || !d.success) throw new Error(d.error || 'Erreur validation');
+
+                            if (this.validateChatIdx !== null && this.faqChats[this.validateChatIdx]) {
+                                this.faqChats[this.validateChatIdx] = {
+                                    ...this.faqChats[this.validateChatIdx],
+                                    status: 'validated',
+                                    status_label: 'Validée'
+                                };
+                            }
+
+                            const slug     = d.slug;
+                            const existing = this.faqList.findIndex(f => f.slug === slug);
+                            if (existing >= 0) {
+                                this.faqList[existing].item_count = d.item_count;
+                                this.faqList[existing].updated_at = formatFrenchDate(new Date());
+                            } else {
+                                this.faqList.unshift({
+                                    slug, app_name: d.app_name, app_id: d.app_id || this.chatsAppId,
+                                    version: d.version || '—', item_count: d.item_count,
+                                    updated_at: formatFrenchDate(new Date())
+                                });
+                            }
+
+                            this.validateOpen = false;
+                            this.toast(d.is_new_faq
+                                ? '✓ Nouvelle FAQ créée pour "' + d.app_name + '" — réindexation lancée'
+                                : '✓ Ajouté à la FAQ "' + d.app_name + '" (' + d.item_count + ' entrées) — réindexation lancée'
+                            );
+                        } catch (e) {
+                            this.validateError = e.message;
+                        } finally {
+                            this.validateSaving = false;
+                        }
+                    },
+
+                    openManualModal(manual = null) {
+                        this.editingManualId = manual?.id ?? null;
+                        this.uploadError     = '';
+                        this.manualForm = {
+                            name: manual?.name ?? '',
+                            app_name: manual?.app_name ?? '',
+                            version: manual?.version ?? '1.0',
+                            follows_internal_template: manual ? (manual.follows_internal_template === true || manual.follows_internal_template === 1 || manual.follows_internal_template === '1') : false,
+                            fileName: ''
+                        };
+                        const fi = document.getElementById('manualFile');
+                        if (fi) fi.value = '';
+                        this.manualModalOpen = true;
+                    },
+
+                    editManual(id) {
+                        fetch('/admin/manuals/' + id, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+                            .then(r => r.json())
+                            .then(d => this.openManualModal(d))
+                            .catch(() => this.toast('Erreur chargement', false));
+                    },
+
+                    saveManual() {
+                        if (!this.manualForm.name || !this.manualForm.app_name) return;
+                        const fi = document.getElementById('manualFile');
+                        const hf = fi?.files[0] || null;
+                        if (!this.editingManualId && !hf) { this.uploadError = 'Sélectionnez un PDF.'; return; }
+                        if (hf && hf.size > 500 * 1024 * 1024) { this.uploadError = 'Fichier > 500 Mo.'; return; }
+
+                        this.manualSaving = true;
+                        this.uploadError  = '';
+
+                        const appName = this.manualForm.app_name.trim();
+                        const version = this.manualForm.version || '1.0';
+
+                        fetch('/admin/manuals/check-app?app_name=' + encodeURIComponent(appName) + '&version=' + encodeURIComponent(version), {
+                            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                        })
+                            .then(r => r.json())
+                            .then(check => {
+                                if (check.exists && check.conflict === 'same_version') {
+                                    this.uploadError = `L'application "${appName}" avec la version "${version}" existe déjà. Modifiez le nom ou la version.`;
+                                    this.manualSaving = false;
+                                    return;
+                                }
+                                if (check.exists && check.conflict === 'diff_version') {
+                                    this.showConflictResolutionModal(check, hf);
+                                    return;
+                                }
+                                this.submitManual(hf);
+                            })
+                            .catch(e => {
+                                console.warn('Check error, proceeding', e);
+                                this.submitManual(hf);
+                            });
+                    },
+
+                    showConflictResolutionModal(check, hf) {
+                        const modalId  = 'conflictModal_' + Date.now();
+                        const appName  = this.escapeHtml(check.app_name);
+                        const newVersion = this.escapeHtml(this.manualForm.version);
+
+                        const modalHtml = `
+                            <div class="conflict-modal" id="${modalId}">
+                                <div class="conflict-card p-6">
+                                    <div class="flex items-start gap-4 mb-5">
+                                        <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
+                                            <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-sm font-semibold" style="color:#1a1a2e">Version différente détectée</h3>
+                                            <p class="text-xs mt-1.5 leading-relaxed" style="color:#4b5563">
+                                                L'application <strong>${appName}</strong> existe déjà avec la version <strong>${this.escapeHtml(check.existing_version)}</strong>.<br><br>
+                                                Que souhaitez-vous faire avec la version <strong>${newVersion}</strong> ?
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-2 mb-5">
+                                        <button id="complementaryChoice_${modalId}" class="w-full text-left px-4 py-3 rounded-xl border hover:border-orange-500 transition-colors" style="border-color:#e5e7eb">
+                                            <div class="flex items-center gap-3">
+                                                <span class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+                                                    <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                                                </span>
+                                                <div>
+                                                    <p class="text-sm font-semibold" style="color:#1a1a2e">📄 Complémentaire</p>
+                                                    <p class="text-xs" style="color:#6b7280">Fusionner ce PDF à la fin du manuel existant (même application, réindexation)</p>
+                                                </div>
+                                            </div>
+                                        </button>
+                                        <button id="contradictoryChoice_${modalId}" class="w-full text-left px-4 py-3 rounded-xl border hover:border-orange-500 transition-colors" style="border-color:#e5e7eb">
+                                            <div class="flex items-center gap-3">
+                                                <span class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
+                                                    <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+                                                </span>
+                                                <div>
+                                                    <p class="text-sm font-semibold" style="color:#1a1a2e">🆕 Nouvelle version indépendante</p>
+                                                    <p class="text-xs" style="color:#6b7280">Conserver l'ancien manuel, créer un nouveau avec un nom différent (à modifier dans le champ Nom d'application)</p>
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </div>
+                                    <div class="flex justify-end gap-2">
+                                        <button id="cancelConflict_${modalId}" class="px-4 py-2 rounded-xl text-sm border text-gray-600 hover:bg-gray-50" style="border-color:#d1d5db">Annuler</button>
+                                    </div>
+                                </div>
+                            </div>`;
+
+                        const container = document.createElement('div');
+                        container.innerHTML = modalHtml;
+                        document.body.appendChild(container);
+
+                        document.getElementById(`complementaryChoice_${modalId}`).onclick = () => {
+                            container.remove();
+                            this.submitManual(hf, 'complementary', check.existing_manual_id);
+                        };
+
+
+                        document.getElementById(`contradictoryChoice_${modalId}`).onclick = () => {
+                            container.remove();
+                            const cleanVersion = String(this.manualForm.version || 'v2').trim().replace(/\s+/g, '_');
+                            const autoAppName  = `${check.app_name}_v${cleanVersion}`;
+
+                            this.toast(`Nouvelle application créée automatiquement : "${autoAppName}"`);
+                            this.submitManual(hf, null, null, autoAppName, true);
+                        };
+
+                        document.getElementById(`cancelConflict_${modalId}`).onclick = () => {
+                            container.remove();
+                            this.manualSaving = false;
+                        };
+                    },
+
+                    submitManual(hf, resolution = null, existingManualId = null, overrideAppName = null, autoVersioned = false) {
+                        const fd = new FormData();
+                        if (this.editingManualId) fd.append('_method', 'PUT');
+                        fd.append('name',     this.manualForm.name);
+                        fd.append('app_name', overrideAppName || this.manualForm.app_name);
+                        fd.append('version',  this.manualForm.version || '1.0');
+                        fd.append('follows_internal_template', this.manualForm.follows_internal_template ? '1' : '0');
+                        if (hf) fd.append('file', hf);
+                        if (resolution) {
+                            fd.append('conflict_resolution', resolution);
+                            if (existingManualId) fd.append('existing_manual_id', existingManualId);
+                        }
+                        if (autoVersioned) {
+                            fd.append('auto_versioned', '1');
                         }
 
-                        this.validateOpen = false;
-                        this.toast(d.is_new_faq
-                            ? '✓ Nouvelle FAQ créée pour "' + d.app_name + '" — réindexation lancée'
-                            : '✓ Ajouté à la FAQ "' + d.app_name + '" (' + d.item_count + ' entrées) — réindexation lancée'
-                        );
-                    } catch (e) {
-                        this.validateError = e.message;
-                    } finally {
-                        this.validateSaving = false;
-                    }
-                },
-
-                // ── Manuel ───────────────────────────────────────────────
-                openManualModal(manual = null) {
-                    this.editingManualId = manual?.id ?? null;
-                    this.uploadError     = '';
-                    this.manualForm = {
-                        name: manual?.name ?? '',
-                        app_name: manual?.app_name ?? '',
-                        version: manual?.version ?? '1.0',
-                        follows_internal_template: manual ? (manual.follows_internal_template === true || manual.follows_internal_template === 1 || manual.follows_internal_template === '1') : false,
-                        fileName: ''
-                    };
-                    const fi = document.getElementById('manualFile');
-                    if (fi) fi.value = '';
-                    this.manualModalOpen = true;
-                },
-
-                editManual(id) {
-                    fetch('/admin/manuals/' + id, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
-                        .then(r => r.json())
-                        .then(d => this.openManualModal(d))
-                        .catch(() => this.toast('Erreur chargement', false));
-                },
-
-                saveManual() {
-                    if (!this.manualForm.name || !this.manualForm.app_name) return;
-                    const fi = document.getElementById('manualFile');
-                    const hf = fi?.files[0] || null;
-                    if (!this.editingManualId && !hf) { this.uploadError = 'Sélectionnez un PDF.'; return; }
-                    if (hf && hf.size > 500 * 1024 * 1024) { this.uploadError = 'Fichier > 500 Mo.'; return; }
-
-                    this.manualSaving = true;
-                    this.uploadError  = '';
-
-                    const appName = this.manualForm.app_name.trim();
-                    const version = this.manualForm.version || '1.0';
-
-                    fetch('/admin/manuals/check-app?app_name=' + encodeURIComponent(appName) + '&version=' + encodeURIComponent(version), {
-                        headers: { 'X-Requested-With': 'XMLHttpRequest' }
-                    })
-                        .then(r => r.json())
-                        .then(check => {
-                            if (check.exists && check.conflict === 'same_version') {
-                                this.uploadError = `L'application "${appName}" avec la version "${version}" existe déjà. Modifiez le nom ou la version.`;
-                                this.manualSaving = false;
-                                return;
-                            }
-                            if (check.exists && check.conflict === 'diff_version') {
-                                this.showConflictResolutionModal(check, hf);
-                                return;
-                            }
-                            this.submitManual(hf);
+                        fetch(this.editingManualId ? '/admin/manuals/' + this.editingManualId : '/admin/manuals', {
+                            method: 'POST', body: fd,
+                            headers: { 'X-CSRF-TOKEN': CSRF, 'X-Requested-With': 'XMLHttpRequest' }
                         })
-                        .catch(e => {
-                            console.warn('Check error, proceeding', e);
-                            this.submitManual(hf);
-                        });
-                },
-
-                showConflictResolutionModal(check, hf) {
-                    const modalId  = 'conflictModal_' + Date.now();
-                    const appName  = this.escapeHtml(check.app_name);
-                    const newVersion = this.escapeHtml(this.manualForm.version);
-
-                    const modalHtml = `
-                        <div class="conflict-modal" id="${modalId}">
-                            <div class="conflict-card p-6">
-                                <div class="flex items-start gap-4 mb-5">
-                                    <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
-                                        <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
-                                    </div>
-                                    <div>
-                                        <h3 class="text-sm font-semibold" style="color:#1a1a2e">Version différente détectée</h3>
-                                        <p class="text-xs mt-1.5 leading-relaxed" style="color:#4b5563">
-                                            L'application <strong>${appName}</strong> existe déjà avec la version <strong>${this.escapeHtml(check.existing_version)}</strong>.<br><br>
-                                            Que souhaitez-vous faire avec la version <strong>${newVersion}</strong> ?
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="space-y-2 mb-5">
-                                    <button id="complementaryChoice_${modalId}" class="w-full text-left px-4 py-3 rounded-xl border hover:border-orange-500 transition-colors" style="border-color:#e5e7eb">
-                                        <div class="flex items-center gap-3">
-                                            <span class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
-                                                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-                                            </span>
-                                            <div>
-                                                <p class="text-sm font-semibold" style="color:#1a1a2e">📄 Complémentaire</p>
-                                                <p class="text-xs" style="color:#6b7280">Fusionner ce PDF à la fin du manuel existant (même application, réindexation)</p>
-                                            </div>
-                                        </div>
-                                    </button>
-                                    <button id="contradictoryChoice_${modalId}" class="w-full text-left px-4 py-3 rounded-xl border hover:border-orange-500 transition-colors" style="border-color:#e5e7eb">
-                                        <div class="flex items-center gap-3">
-                                            <span class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
-                                                <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
-                                            </span>
-                                            <div>
-                                                <p class="text-sm font-semibold" style="color:#1a1a2e">🆕 Nouvelle version indépendante</p>
-                                                <p class="text-xs" style="color:#6b7280">Conserver l'ancien manuel, créer un nouveau avec un nom différent (à modifier dans le champ Nom d'application)</p>
-                                            </div>
-                                        </div>
-                                    </button>
-                                </div>
-                                <div class="flex justify-end gap-2">
-                                    <button id="cancelConflict_${modalId}" class="px-4 py-2 rounded-xl text-sm border text-gray-600 hover:bg-gray-50" style="border-color:#d1d5db">Annuler</button>
-                                </div>
-                            </div>
-                        </div>`;
-
-                    const container = document.createElement('div');
-                    container.innerHTML = modalHtml;
-                    document.body.appendChild(container);
-
-                    document.getElementById(`complementaryChoice_${modalId}`).onclick = () => {
-                        container.remove();
-                        this.submitManual(hf, 'complementary', check.existing_manual_id);
-                    };
-                    document.getElementById(`contradictoryChoice_${modalId}`).onclick = () => {
-                        container.remove();
-                        // Pour le contradictoire, l'admin DOIT avoir un nom différent
-                        // On ferme le modal de conflit et on laisse l'admin modifier le champ app_name
-                        this.manualSaving = false;
-                        this.uploadError  = `Version contradictoire : modifiez le "Nom de l'application" pour qu'il soit unique (ex: "${check.app_name} v${this.manualForm.version}"), puis resoumettez.`;
-                    };
-                    document.getElementById(`cancelConflict_${modalId}`).onclick = () => {
-                        container.remove();
-                        this.manualSaving = false;
-                    };
-                },
-
-                submitManual(hf, resolution = null, existingManualId = null) {
-                    const fd = new FormData();
-                    if (this.editingManualId) fd.append('_method', 'PUT');
-                    fd.append('name',     this.manualForm.name);
-                    fd.append('app_name', this.manualForm.app_name);
-                    fd.append('version',  this.manualForm.version || '1.0');
-                    fd.append('follows_internal_template', this.manualForm.follows_internal_template ? '1' : '0');
-                    if (hf) fd.append('file', hf);
-                    if (resolution) {
-                        fd.append('conflict_resolution', resolution);
-                        if (existingManualId) fd.append('existing_manual_id', existingManualId);
-                    }
-
-                    fetch(this.editingManualId ? '/admin/manuals/' + this.editingManualId : '/admin/manuals', {
-                        method: 'POST', body: fd,
-                        headers: { 'X-CSRF-TOKEN': CSRF, 'X-Requested-With': 'XMLHttpRequest' }
-                    })
-                        .then(async r => {
-                            const d = await r.json();
-                            if (!r.ok) {
-                                if (r.status === 409 && d.conflict === 'same_version') {
-                                    throw new Error(`L'application "${d.app_name}" avec la version "${d.version}" existe déjà.`);
+                            .then(async r => {
+                                const d = await r.json();
+                                if (!r.ok) {
+                                    if (r.status === 409 && d.conflict === 'same_version') {
+                                        throw new Error(`L'application "${d.app_name}" avec la version "${d.version}" existe déjà.`);
+                                    }
+                                    throw new Error(d.errors ? Object.values(d.errors).flat()[0] : (d.message || 'Erreur ' + r.status));
                                 }
-                                throw new Error(d.errors ? Object.values(d.errors).flat()[0] : (d.message || 'Erreur ' + r.status));
-                            }
-                            return d;
-                        })
-                        .then(d => {
-                            if (d.success) {
-                                this.manualModalOpen = false;
-                                this.toast(d.message || (resolution === 'complementary' ? 'PDF fusionné, réindexation en cours' : 'Manuel ajouté, indexation en cours'));
-                                setTimeout(() => location.reload(), 1500);
-                            } else {
-                                throw new Error(d.message || 'Erreur');
-                            }
-                        })
-                        .catch(e => {
-                            this.uploadError  = e.message;
-                            this.manualSaving = false;
-                        });
-                },
+                                return d;
+                            })
+                            .then(d => {
+                                if (d.success) {
+                                    this.manualModalOpen = false;
+                                    this.toast(d.message || (resolution === 'complementary' ? 'PDF fusionné, réindexation en cours' : 'Manuel ajouté, indexation en cours'));
+                                    setTimeout(() => location.reload(), 1500);
+                                } else {
+                                    throw new Error(d.message || 'Erreur');
+                                }
+                            })
+                            .catch(e => {
+                                this.uploadError  = e.message;
+                                this.manualSaving = false;
+                            });
+                    },
 
-                deleteManual(id, name) {
-                    fetch('/admin/manuals/' + id, {
-                        method: 'DELETE',
-                        headers: { 'X-CSRF-TOKEN': CSRF, 'X-Requested-With': 'XMLHttpRequest' }
-                    })
-                        .then(r => r.json())
-                        .then(d => {
-                            if (d.success) {
-                                const row = document.getElementById('manual-row-' + id);
-                                if (row) row.remove();
-                                this.toast('Manuel "' + name + '" supprimé');
-                            } else {
-                                this.toast('Erreur : ' + (d.message || 'inconnue'), false);
-                            }
+                    deleteManual(id, name) {
+                        fetch('/admin/manuals/' + id, {
+                            method: 'DELETE',
+                            headers: { 'X-CSRF-TOKEN': CSRF, 'X-Requested-With': 'XMLHttpRequest' }
                         })
-                        .catch(() => this.toast('Erreur réseau', false));
-                },
-            };
-        }
+                            .then(r => r.json())
+                            .then(d => {
+                                if (d.success) {
+                                    const row = document.getElementById('manual-row-' + id);
+                                    if (row) row.remove();
+                                    this.toast('Manuel "' + name + '" supprimé');
+                                } else {
+                                    this.toast('Erreur : ' + (d.message || 'inconnue'), false);
+                                }
+                            })
+                            .catch(() => this.toast('Erreur réseau', false));
+                    },
+                };
+
+                // Attache loadAdmins / openAddAdminModal / removeAdmin /
+                // loadApplications / openAddAppModal / editApplication / deleteApplication.
+                // Comme on est dans 'alpine:init', admin-funcs.js (chargé plus haut
+                // en synchrone, hors defer/async) est garanti déjà exécuté.
+                if (typeof setupAdminAndAppFunctions === 'function') {
+                    setupAdminAndAppFunctions(ctx);
+                } else {
+                    console.error('admin-funcs.js non chargé : vérifiez le <script src="{{ asset("js/admin-funcs.js") }}"> avant ce bloc.');
+                }
+
+                return ctx;
+            });
+        });
     </script>
 @endpush

@@ -49,7 +49,30 @@ Route::middleware(['auth', \App\Http\Middleware\EnsureAuthenticated::class])->gr
         ->prefix('admin')->name('admin.')
         ->group(function () {
 
-            Route::get('/', [AdminController::class, 'index'])->name('index');
+            Route::get('/', [AdminController::class, 'dashboard'])->name('index');
+            Route::get('/app-dashboard', [AdminController::class, 'adminDashboard'])->name('app-dashboard');
+            // ── Admin Management ──────────────────────────────────────
+            Route::get('/admins', [AdminController::class, 'getAdmins'])->name('getAdmins');
+            Route::post('/admins', [AdminController::class, 'addAdmin'])->name('addAdmin');
+            Route::delete('/admins/{user_id}', [AdminController::class, 'removeAdmin'])->name('removeAdmin');
+            Route::get('/available-admins', [AdminController::class, 'getAvailableAdmins'])->name('getAvailableAdmins');
+            Route::get('/applications/{id}', [AdminController::class, 'showApplication'])->name('showApplication');
+
+
+            // ── Application Management ────────────────────────────────
+            Route::get('/applications', [AdminController::class, 'getApplications'])->name('getApplications');
+            Route::post('/applications', [AdminController::class, 'storeApplication'])->name('storeApplication');
+            Route::put('/applications/{app_id}', [AdminController::class, 'updateApplication'])->name('updateApplication');
+            Route::delete('/applications/{app_id}', [AdminController::class, 'destroyApplication'])->name('destroyApplication');
+
+            // ── Application Users Management ──────────────────────────
+            Route::get('/applications/{app_id}/users', [AdminController::class, 'getApplicationUsers'])->name('getApplicationUsers');
+            Route::post('/applications/{app_id}/users', [AdminController::class, 'addApplicationUser'])->name('addApplicationUser');
+            Route::delete('/applications/{app_id}/users/{user_id}', [AdminController::class, 'removeApplicationUser'])->name('removeApplicationUser');
+
+            // ── Available Data for Forms ──────────────────────────────
+            Route::get('/available-users', [AdminController::class, 'getAvailableUsers'])->name('getAvailableUsers');
+            Route::get('/departments', [AdminController::class, 'getDepartments'])->name('getDepartments');
 
             Route::prefix('manuals')->name('manuals.')->group(function () {
                 Route::get('/check-app',   [AdminController::class, 'checkAppVersion'])->name('check-app');
@@ -74,4 +97,4 @@ Route::middleware(['auth', \App\Http\Middleware\EnsureAuthenticated::class])->gr
         });
 });
 
-Route::delete('/admin/manuals/{id}', [AdminController::class, 'destroyManual']);
+
