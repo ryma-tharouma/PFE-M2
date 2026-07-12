@@ -52,6 +52,7 @@
                 @php
                     $navItems = [
                         ['key'=>'dashboard','label'=>'Tableau de bord','icon'=>'M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z','badge'=>null],
+                        ['key'=>'requests','label'=>'Requêtes','icon'=>'M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z','badge'=>$s['requests_today'] ?? 0],
                         ['key'=>'manuals','label'=>'Manuels','icon'=>'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253','badge'=>$s['manuals_count'] ?? 0],
                         ['key'=>'faq','label'=>'FAQ','icon'=>'M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z','badge'=>null],
                         ['key'=>'tickets','label'=>'Tickets','icon'=>'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2','badge'=>$s['tickets_total'] ?? 0],
@@ -230,6 +231,19 @@
                             </table>
                         </div>
                     @endif
+                </div>
+
+
+                {{-- ═══════════════ REQUÊTES ═══════════════ --}}
+                <div x-show="activeSection==='requests'" class="p-6 space-y-6">
+                    <div class="grid grid-cols-3 gap-4">
+                        @php $rk=[['label'=>'Total requêtes','value'=>$s['requests_total'],'color'=>'#F26522'],['label'=>"Aujourd'hui",'value'=>$s['requests_today'],'color'=>'#10B981'],['label'=>'Applications','value'=>$s['requests_by_app']->count(),'color'=>'#3B82F6']]; @endphp
+                        @foreach($rk as $r)<div class="bg-white rounded-2xl border border-sonatrach-gris-bord p-5 flex items-center gap-4"><div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:{{ $r['color'] }}18"><span class="text-xl font-bold" style="color:{{ $r['color'] }}">{{ number_format($r['value']) }}</span></div><p class="text-sm font-medium text-gray-600">{{ $r['label'] }}</p></div>@endforeach
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="bg-white rounded-2xl border border-sonatrach-gris-bord p-5"><h3 class="text-sm font-semibold text-sonatrach-noir mb-5">Par application</h3><div class="space-y-4">@forelse($s['requests_by_app'] as $i=>$r)<div><div class="flex items-center justify-between mb-1.5"><div class="flex items-center gap-2"><span class="w-5 h-5 rounded-full flex items-center justify-center text-white text-[10px] font-bold" style="background:hsl({{ ($i*43)%360 }},60%,50%)">{{ $i+1 }}</span><span class="text-xs font-medium text-gray-700">{{ $r->app_name }}</span></div><span class="text-xs font-bold text-sonatrach-noir">{{ number_format($r->total) }}</span></div><div class="h-2.5 bg-sonatrach-gris-bord rounded-full overflow-hidden"><div class="h-2.5 rounded-full bar-fill" style="width:{{ $r->percentage }}%;background:hsl({{ ($i*43)%360 }},60%,50%)"></div></div></div>@empty<p class="text-sm text-gray-400 py-6 text-center">Aucune donnée.</p>@endforelse</div></div>
+                        <div class="bg-white rounded-2xl border border-sonatrach-gris-bord p-5"><h3 class="text-sm font-semibold text-sonatrach-noir mb-5">Par département</h3><div class="space-y-4">@forelse($s['requests_by_dept'] as $i=>$r)<div><div class="flex items-center justify-between mb-1.5"><span class="text-xs font-medium text-gray-700 truncate max-w-[180px]">{{ $r->department }}</span><span class="text-xs font-bold text-sonatrach-noir">{{ number_format($r->total) }}</span></div><div class="h-2.5 bg-sonatrach-gris-bord rounded-full overflow-hidden"><div class="h-2.5 rounded-full bg-purple-500 bar-fill" style="width:{{ $r->percentage }}%"></div></div></div>@empty<p class="text-sm text-gray-400 py-6 text-center">Aucune donnée.</p>@endforelse</div></div>
+                    </div>
                 </div>
 
                 {{-- ═══════════════ MANUELS ═══════════════ --}}
@@ -438,13 +452,60 @@
 
                 {{-- ═══════════════ TICKETS ═══════════════ --}}
                 <div x-show="activeSection==='tickets'" class="p-6 space-y-6">
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        @php $pm=['Critique'=>['color'=>'#EF4444','bg'=>'#FEE2E2'],'Haute'=>['color'=>'#F97316','bg'=>'#FFEDD5'],'Moyenne'=>['color'=>'#F59E0B','bg'=>'#FEF3C7'],'Basse'=>['color'=>'#3B82F6','bg'=>'#DBEAFE']];$tt=$s['tickets_total'] ?? 0; @endphp
-                        @foreach(($s['tickets_by_priority'] ?? []) as $tp)@php $pc=$pm[$tp->priority]??['color'=>'#6B7280','bg'=>'#F3F4F6'];@endphp
-                        <div class="bg-white rounded-2xl border border-sonatrach-gris-bord p-5"><div class="flex items-center justify-between mb-3"><span class="text-xs font-medium px-2 py-0.5 rounded-full" style="background:{{ $pc['bg'] }};color:{{ $pc['color'] }}">{{ $tp->priority }}</span><span class="text-2xl font-bold text-sonatrach-noir">{{ $tp->total }}</span></div><div class="h-1.5 bg-sonatrach-gris-bord rounded-full overflow-hidden"><div class="h-1.5 rounded-full" style="width:{{ $tt>0?round(($tp->total/$tt)*100):0 }}%;background:{{ $pc['color'] }}"></div></div></div>
-                        @endforeach
-                        @if(empty($s['tickets_by_priority']) || count($s['tickets_by_priority'])===0)<div class="col-span-4 bg-white rounded-2xl border border-sonatrach-gris-bord p-8 text-center text-gray-400 text-sm">Aucun ticket.</div>@endif
+
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="bg-white rounded-2xl border border-sonatrach-gris-bord p-5 flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 bg-sonatrach-orange/10"><span class="text-xl font-bold text-sonatrach-orange">{{ number_format($s['tickets_total'] ?? 0) }}</span></div>
+                            <p class="text-sm font-medium text-gray-600">Total tickets</p>
+                        </div>
+                        <div class="bg-white rounded-2xl border border-sonatrach-gris-bord p-5 flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 bg-amber-100"><span class="text-xl font-bold text-amber-600">{{ number_format($s['tickets_open'] ?? 0) }}</span></div>
+                            <p class="text-sm font-medium text-gray-600">Ouverts</p>
+                        </div>
+                        <div class="bg-white rounded-2xl border border-sonatrach-gris-bord p-5 flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 bg-green-100"><span class="text-xl font-bold text-green-600">{{ number_format($s['tickets_closed'] ?? 0) }}</span></div>
+                            <p class="text-sm font-medium text-gray-600">Résolus</p>
+                        </div>
                     </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="bg-white rounded-2xl border border-sonatrach-gris-bord p-5">
+                            <h3 class="text-sm font-semibold text-sonatrach-noir mb-5">Tickets par application</h3>
+                            <div class="space-y-4">
+                                @forelse(($s['tickets_by_app'] ?? []) as $i=>$r)
+                                    <div>
+                                        <div class="flex items-center justify-between mb-1.5">
+                                            <div class="flex items-center gap-2">
+                                                <span class="w-5 h-5 rounded-full flex items-center justify-center text-white text-[10px] font-bold" style="background:hsl({{ ($i*43)%360 }},60%,50%)">{{ $i+1 }}</span>
+                                                <span class="text-xs font-medium text-gray-700">{{ $r->app_name }}</span>
+                                            </div>
+                                            <span class="text-xs font-bold text-sonatrach-noir">{{ number_format($r->total) }}</span>
+                                        </div>
+                                        <div class="h-2.5 bg-sonatrach-gris-bord rounded-full overflow-hidden"><div class="h-2.5 rounded-full bar-fill" style="width:{{ $r->percentage }}%;background:hsl({{ ($i*43)%360 }},60%,50%)"></div></div>
+                                    </div>
+                                @empty
+                                    <p class="text-sm text-gray-400 py-6 text-center">Aucune donnée.</p>
+                                @endforelse
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-2xl border border-sonatrach-gris-bord p-5">
+                            <h3 class="text-sm font-semibold text-sonatrach-noir mb-5">Tickets par département</h3>
+                            <div class="space-y-4">
+                                @forelse(($s['tickets_by_dept'] ?? []) as $r)
+                                    <div>
+                                        <div class="flex items-center justify-between mb-1.5">
+                                            <span class="text-xs font-medium text-gray-700 truncate max-w-[180px]">{{ $r->department }}</span>
+                                            <span class="text-xs font-bold text-sonatrach-noir">{{ number_format($r->total) }}</span>
+                                        </div>
+                                        <div class="h-2.5 bg-sonatrach-gris-bord rounded-full overflow-hidden"><div class="h-2.5 rounded-full bg-purple-500 bar-fill" style="width:{{ $r->percentage }}%"></div></div>
+                                    </div>
+                                @empty
+                                    <p class="text-sm text-gray-400 py-6 text-center">Aucune donnée.</p>
+                                @endforelse
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="bg-white rounded-2xl border border-sonatrach-gris-bord overflow-hidden">
                         <table class="w-full text-sm"><thead><tr class="bg-sonatrach-gris-fond border-b border-sonatrach-gris-bord"><th class="text-left px-5 py-3 text-xs font-medium text-gray-500">#GLPI</th><th class="text-left px-5 py-3 text-xs font-medium text-gray-500">Titre</th><th class="text-left px-5 py-3 text-xs font-medium text-gray-500">Demandeur</th><th class="text-left px-5 py-3 text-xs font-medium text-gray-500">Priorité</th><th class="text-left px-5 py-3 text-xs font-medium text-gray-500">Statut</th><th class="text-left px-5 py-3 text-xs font-medium text-gray-500">Date</th></tr></thead>
                             <tbody class="divide-y divide-sonatrach-gris-bord">
@@ -869,7 +930,7 @@
                         this.submitManual(hf, 'complementary', check.existing_manual_id);
                     };
 
-// ── Génération + soumission automatiques de la nouvelle version ────
+
                     document.getElementById(`contradictoryChoice_${modalId}`).onclick = () => {
                         container.remove();
                         const cleanVersion = String(this.manualForm.version || 'v2').trim().replace(/\s+/g, '_');

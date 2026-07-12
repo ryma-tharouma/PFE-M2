@@ -554,13 +554,64 @@
 
                 {{-- ═══════════════ TICKETS ═══════════════ --}}
                 <div x-show="activeSection==='tickets'" class="p-6 space-y-6">
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        @php $pm=['Critique'=>['color'=>'#EF4444','bg'=>'#FEE2E2'],'Haute'=>['color'=>'#F97316','bg'=>'#FFEDD5'],'Moyenne'=>['color'=>'#F59E0B','bg'=>'#FEF3C7'],'Basse'=>['color'=>'#3B82F6','bg'=>'#DBEAFE']];$tt=$s['tickets_total']; @endphp
-                        @foreach($s['tickets_by_priority'] as $tp)@php $pc=$pm[$tp->priority]??['color'=>'#6B7280','bg'=>'#F3F4F6'];@endphp
-                        <div class="bg-white rounded-2xl border border-sonatrach-gris-bord p-5"><div class="flex items-center justify-between mb-3"><span class="text-xs font-medium px-2 py-0.5 rounded-full" style="background:{{ $pc['bg'] }};color:{{ $pc['color'] }}">{{ $tp->priority }}</span><span class="text-2xl font-bold text-sonatrach-noir">{{ $tp->total }}</span></div><div class="h-1.5 bg-sonatrach-gris-bord rounded-full overflow-hidden"><div class="h-1.5 rounded-full bar-fill" style="width:{{ $tt>0?round(($tp->total/$tt)*100):0 }}%;background:{{ $pc['color'] }}"></div></div></div>
-                        @endforeach
-                        @if($s['tickets_by_priority']->isEmpty())<div class="col-span-4 bg-white rounded-2xl border border-sonatrach-gris-bord p-8 text-center text-gray-400 text-sm">Aucun ticket.</div>@endif
+
+                    {{-- KPIs ouvert/fermé/total --}}
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="bg-white rounded-2xl border border-sonatrach-gris-bord p-5 flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 bg-sonatrach-orange/10"><span class="text-xl font-bold text-sonatrach-orange">{{ number_format($s['tickets_total']) }}</span></div>
+                            <p class="text-sm font-medium text-gray-600">Total tickets</p>
+                        </div>
+                        <div class="bg-white rounded-2xl border border-sonatrach-gris-bord p-5 flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 bg-amber-100"><span class="text-xl font-bold text-amber-600">{{ number_format($s['tickets_open'] ?? 0) }}</span></div>
+                            <p class="text-sm font-medium text-gray-600">Ouverts</p>
+                        </div>
+                        <div class="bg-white rounded-2xl border border-sonatrach-gris-bord p-5 flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 bg-green-100"><span class="text-xl font-bold text-green-600">{{ number_format($s['tickets_closed'] ?? 0) }}</span></div>
+                            <p class="text-sm font-medium text-gray-600">Résolus</p>
+                        </div>
                     </div>
+
+                    {{-- Répartition par priorité --}}
+
+
+                        {{-- Répartition par application et département --}}
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div class="bg-white rounded-2xl border border-sonatrach-gris-bord p-5">
+                                <h3 class="text-sm font-semibold text-sonatrach-noir mb-5">Tickets par application</h3>
+                                <div class="space-y-4">
+                                    @forelse(($s['tickets_by_app'] ?? []) as $i=>$r)
+                                        <div>
+                                            <div class="flex items-center justify-between mb-1.5">
+                                                <div class="flex items-center gap-2">
+                                                    <span class="w-5 h-5 rounded-full flex items-center justify-center text-white text-[10px] font-bold" style="background:hsl({{ ($i*43)%360 }},60%,50%)">{{ $i+1 }}</span>
+                                                    <span class="text-xs font-medium text-gray-700">{{ $r->app_name }}</span>
+                                                </div>
+                                                <span class="text-xs font-bold text-sonatrach-noir">{{ number_format($r->total) }}</span>
+                                            </div>
+                                            <div class="h-2.5 bg-sonatrach-gris-bord rounded-full overflow-hidden"><div class="h-2.5 rounded-full bar-fill" style="width:{{ $r->percentage }}%;background:hsl({{ ($i*43)%360 }},60%,50%)"></div></div>
+                                        </div>
+                                    @empty
+                                        <p class="text-sm text-gray-400 py-6 text-center">Aucune donnée.</p>
+                                    @endforelse
+                                </div>
+                            </div>
+                            <div class="bg-white rounded-2xl border border-sonatrach-gris-bord p-5">
+                                <h3 class="text-sm font-semibold text-sonatrach-noir mb-5">Tickets par département</h3>
+                                <div class="space-y-4">
+                                    @forelse(($s['tickets_by_dept'] ?? []) as $r)
+                                        <div>
+                                            <div class="flex items-center justify-between mb-1.5">
+                                                <span class="text-xs font-medium text-gray-700 truncate max-w-[180px]">{{ $r->department }}</span>
+                                                <span class="text-xs font-bold text-sonatrach-noir">{{ number_format($r->total) }}</span>
+                                            </div>
+                                            <div class="h-2.5 bg-sonatrach-gris-bord rounded-full overflow-hidden"><div class="h-2.5 rounded-full bg-purple-500 bar-fill" style="width:{{ $r->percentage }}%"></div></div>
+                                        </div>
+                                    @empty
+                                        <p class="text-sm text-gray-400 py-6 text-center">Aucune donnée.</p>
+                                    @endforelse
+                                </div>
+                            </div>
+                        </div>
                     <div class="bg-white rounded-2xl border border-sonatrach-gris-bord overflow-hidden">
                         <table class="w-full text-sm"><thead><tr class="bg-sonatrach-gris-fond border-b border-sonatrach-gris-bord"><th class="text-left px-5 py-3 text-xs font-medium text-gray-500">#GLPI</th><th class="text-left px-5 py-3 text-xs font-medium text-gray-500">Titre</th><th class="text-left px-5 py-3 text-xs font-medium text-gray-500">Demandeur</th><th class="text-left px-5 py-3 text-xs font-medium text-gray-500">Priorité</th><th class="text-left px-5 py-3 text-xs font-medium text-gray-500">Statut</th><th class="text-left px-5 py-3 text-xs font-medium text-gray-500">Date</th></tr></thead>
                             <tbody class="divide-y divide-sonatrach-gris-bord">
@@ -851,15 +902,7 @@
             return new Intl.DateTimeFormat('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' }).format(date);
         }
 
-        // ── Enregistrement explicite via alpine:init ────────────────────────
-        // Correction du bug "loadAdmins is not a function" : on n'évalue plus
-        // adminApp() en inline (x-data="adminApp()") pendant le parsing du HTML,
-        // car cela dépendait de l'ordre de chargement de admin-funcs.js.
-        // Ici, on enregistre le composant via Alpine.data() dans l'event
-        // 'alpine:init', qui garantit que TOUS les <script> synchrones placés
-        // avant le script d'Alpine (dont admin-funcs.js ci-dessus) ont déjà
-        // été exécutés. loadAdmins/loadApplications sont donc toujours
-        // disponibles au moment où Alpine construit le composant.
+
         document.addEventListener('alpine:init', () => {
             Alpine.data('adminApp', () => {
                 const ctx = {

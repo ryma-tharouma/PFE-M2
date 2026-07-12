@@ -133,6 +133,38 @@ class AdminController extends Controller
             ->orderByDesc('total')
             ->get();
 
+        // ── Ouvert / Fermé + répartition par app et département ────────
+        $closedStatuses = ['Résolu', 'Solved', 'Closed', 'solved', 'resolved'];
+
+        $ticketsClosed = Ticket::whereIn('glpi_status', $closedStatuses)->count();
+        $ticketsOpen   = Ticket::whereNotIn('glpi_status', $closedStatuses)
+                           ->orWhereNull('glpi_status')
+                           ->count();
+
+        $ticketsByApp = Ticket::query()
+            ->join('conversations', 'tickets.conversation_id', '=', 'conversations.id')
+            ->join('applications', 'conversations.application_id', '=', 'applications.id')
+            ->selectRaw('applications.name as app_name, count(*) as total')
+            ->groupBy('applications.name')
+            ->orderByDesc('total')
+            ->get()
+            ->map(function ($row) use ($totalTickets) {
+                $row->percentage = $totalTickets > 0 ? (int) round(($row->total / $totalTickets) * 100) : 0;
+                return $row;
+            });
+
+        $ticketsByDept = Ticket::query()
+            ->join('users', 'tickets.user_id', '=', 'users.id')
+            ->whereNotNull('users.department')
+            ->selectRaw('users.department, count(*) as total')
+            ->groupBy('users.department')
+            ->orderByDesc('total')
+            ->get()
+            ->map(function ($row) use ($totalTickets) {
+                $row->percentage = $totalTickets > 0 ? (int) round(($row->total / $totalTickets) * 100) : 0;
+                return $row;
+            });
+
         $stats = [
             'requests_today'      => $requestsToday,
             'requests_total'      => $totalRequests,
@@ -155,6 +187,10 @@ class AdminController extends Controller
             'hour_max'            => $hourMax,
             'tickets_by_priority' => $ticketsByPriority,
             'tickets_by_status'   => $ticketsByStatus,
+            'tickets_open'        => $ticketsOpen,
+            'tickets_closed'      => $ticketsClosed,
+            'tickets_by_app'      => $ticketsByApp,
+            'tickets_by_dept'     => $ticketsByDept,
             'users_by_dept'       => $usersByDept,
         ];
 
@@ -2042,6 +2078,53 @@ PYTHON;
             ->where('messages.role', 'user')
             ->whereDate('messages.created_at', today())
             ->count();
+        $dayAvg           = $totalRequests > 0 ? max(1, $totalRequests / 30) : 1;
+        $requestsTodayPct = min(100, (int) round(($requestsToday / $dayAvg) * 100));
+
+        $requestsByHourRaw = Message::query()
+            ->join('conversations', 'messages.conversation_id', '=', 'conversations.id')
+            ->whereIn('conversations.application_id', $appIds)
+            ->where('messages.role', 'user')
+            ->whereDate('messages.created_at', today())
+            ->selectRaw('EXTRACT(HOUR FROM messages.created_at)::int as hour, count(*) as total')
+            ->groupBy('hour')
+            ->orderBy('hour')
+            ->pluck('total', 'hour');
+
+        $requestsByHour = [];
+        for ($h = 0; $h < 24; $h++) {
+            $requestsByHour[$h] = $requestsByHourRaw[$h] ?? 0;
+        }
+        $hourMax = max(1, max($requestsByHour));
+
+        $requestsByApp = Message::query()
+            ->join('conversations', 'messages.conversation_id', '=', 'conversations.id')
+            ->join('applications', 'conversations.application_id', '=', 'applications.id')
+            ->whereIn('conversations.application_id', $appIds)
+            ->where('messages.role', 'user')
+            ->selectRaw('applications.name as app_name, count(*) as total')
+            ->groupBy('applications.name')
+            ->orderByDesc('total')
+            ->get()
+            ->map(function ($row) use ($totalRequests) {
+                $row->percentage = $totalRequests > 0 ? (int) round(($row->total / $totalRequests) * 100) : 0;
+                return $row;
+            });
+
+        $requestsByDept = Message::query()
+            ->join('conversations', 'messages.conversation_id', '=', 'conversations.id')
+            ->join('users', 'conversations.user_id', '=', 'users.id')
+            ->whereIn('conversations.application_id', $appIds)
+            ->where('messages.role', 'user')
+            ->whereNotNull('users.department')
+            ->selectRaw('users.department, count(*) as total')
+            ->groupBy('users.department')
+            ->orderByDesc('total')
+            ->get()
+            ->map(function ($row) use ($totalRequests) {
+                $row->percentage = $totalRequests > 0 ? (int) round(($row->total / $totalRequests) * 100) : 0;
+                return $row;
+            });
 
         $manualsQuery = Manual::with('application')->whereIn('application_id', $appIds);
         $totalManuals = (clone $manualsQuery)->count();
@@ -2073,6 +2156,48 @@ PYTHON;
             ->orderByDesc('total')
             ->get();
 
+        $closedStatuses = ['Résolu', 'Clos', 'Fermé', 'Solved', 'Closed', 'solved', 'resolved'];
+        $ticketsClosed = Ticket::query()
+            ->join('conversations', 'tickets.conversation_id', '=', 'conversations.id')
+            ->whereIn('conversations.application_id', $appIds)
+            ->whereIn('tickets.glpi_status', $closedStatuses)
+            ->count();
+        $ticketsOpen = $totalTickets - $ticketsClosed;
+
+        $ticketsByPriority = Ticket::query()
+            ->join('conversations', 'tickets.conversation_id', '=', 'conversations.id')
+            ->whereIn('conversations.application_id', $appIds)
+            ->selectRaw('priority, count(*) as total')
+            ->groupBy('priority')
+            ->orderByDesc('total')
+            ->get();
+
+        $ticketsByApp = Ticket::query()
+            ->join('conversations', 'tickets.conversation_id', '=', 'conversations.id')
+            ->join('applications', 'conversations.application_id', '=', 'applications.id')
+            ->whereIn('conversations.application_id', $appIds)
+            ->selectRaw('applications.name as app_name, count(*) as total')
+            ->groupBy('applications.name')
+            ->orderByDesc('total')
+            ->get()
+            ->map(function ($row) use ($totalTickets) {
+                $row->percentage = $totalTickets > 0 ? (int) round(($row->total / $totalTickets) * 100) : 0;
+                return $row;
+            });
+
+        $ticketsByDept = Ticket::query()
+            ->join('users', 'tickets.user_id', '=', 'users.id')
+            ->join('conversations', 'tickets.conversation_id', '=', 'conversations.id')
+            ->whereIn('conversations.application_id', $appIds)
+            ->whereNotNull('users.department')
+            ->selectRaw('users.department, count(*) as total')
+            ->groupBy('users.department')
+            ->orderByDesc('total')
+            ->get()
+            ->map(function ($row) use ($totalTickets) {
+                $row->percentage = $totalTickets > 0 ? (int) round(($row->total / $totalTickets) * 100) : 0;
+                return $row;
+            });
         $adminApplications = $adminApplications->load('allowedUsers');
         $users = User::whereIn('id', $adminApplications->flatMap->allowedUsers->pluck('id'))->get();
 
@@ -2092,6 +2217,15 @@ PYTHON;
             'manuals_failed'      => $manualsFailed,
             'admin_applications'  => $adminApplications->count(),
             'tickets_by_priority' => $ticketsByPriority,
+            'tickets_open'        => $ticketsOpen,
+            'tickets_closed'      => $ticketsClosed,
+            'tickets_by_app'      => $ticketsByApp,
+            'tickets_by_dept'     => $ticketsByDept,
+            'requests_today_pct' => $requestsTodayPct,
+            'requests_by_hour'   => $requestsByHour,
+            'hour_max'           => $hourMax,
+            'requests_by_app'    => $requestsByApp,
+            'requests_by_dept'   => $requestsByDept,
         ];
 
         $applications = $adminApplications; // pour les <select> des modals manuels/FAQ
