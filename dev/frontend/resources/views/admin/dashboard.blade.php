@@ -276,6 +276,7 @@
                                     <th class="text-center px-6 py-3 text-xs font-medium text-gray-500">Utilisateurs</th>
                                     <th class="text-center px-6 py-3 text-xs font-medium text-gray-500">Manuels</th>
                                     <th class="text-center px-6 py-3 text-xs font-medium text-gray-500">FAQ</th>
+                                    <th class="text-center px-6 py-3 text-xs font-medium text-gray-500">Statut</th>
                                     <th class="text-right px-6 py-3 text-xs font-medium text-gray-500">Actions</th>
                                 </tr>
                             </thead>
@@ -299,12 +300,32 @@
                                         <td class="px-6 py-3 text-center">
                                             <span class="inline-flex items-center justify-center min-w-[2rem] px-2 py-0.5 rounded-full text-xs font-bold bg-purple-100 text-purple-700" x-text="app.faq_count"></span>
                                         </td>
+                                        <td class="px-6 py-3 text-center">
+                                            <template x-if="app.archived">
+                                                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-gray-200 text-gray-600">
+                                                    <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>Archivée
+                                                </span>
+                                            </template>
+                                            <template x-if="!app.archived">
+                                                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">
+                                                    <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>Active
+                                                </span>
+                                            </template>
+                                        </td>
                                         <td class="px-6 py-3 text-right flex items-center justify-end gap-1">
-                                            <button @click="editApplication(app.id)" class="icon-btn icon-btn-edit" title="Modifier">
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-                                            </button>
-                                            <button @click="confirmAction('Supprimer l\'application &quot;' + app.name + '&quot; et son contenu ? Cette action est irréversible.', () => deleteApplication(app.id))" class="icon-btn icon-btn-del" title="Supprimer">                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                                            </button>
+                                            <template x-if="!app.archived">
+                                                <button @click="editApplication(app.id)" class="icon-btn icon-btn-edit" title="Modifier">
+                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                                                </button>
+                                            </template>
+                                            <template x-if="!app.archived">
+                                                <button @click="confirmAction('Supprimer l\'application &quot;' + app.name + '&quot; et son contenu ? Cette action est irréversible.', () => deleteApplication(app.id))" class="icon-btn icon-btn-del" title="Supprimer">
+                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                                </button>
+                                            </template>
+                                            <template x-if="app.archived">
+                                                <span class="text-xs text-gray-300">—</span>
+                                            </template>
                                         </td>
                                     </tr>
                                 </template>
@@ -379,10 +400,7 @@
 
                     {{-- Table FAQ --}}
                     <div class="bg-white rounded-2xl border border-sonatrach-gris-bord overflow-hidden">
-                        <div class="px-5 py-4 border-b border-sonatrach-gris-bord">
-                            <h3 class="text-sm font-semibold text-sonatrach-noir">Fichiers FAQ indexés</h3>
-                            <p class="text-xs text-gray-400 mt-0.5">Chaque application FAQ a un nom unique. La version est portée par le nom de l'application.</p>
-                        </div>
+
                         <table class="w-full text-sm">
                             <thead><tr class="bg-sonatrach-gris-fond border-b border-sonatrach-gris-bord">
                                 <th class="text-left px-5 py-3 text-xs font-medium text-gray-500">Fichier JSON</th>
@@ -423,9 +441,7 @@
                                             <button @click="openJsonViewModal(faq)" class="icon-btn icon-btn-view" title="Consulter le JSON">
                                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
                                             </button>
-                                            <button @click="openFaqEditInfosModal(faq)" class="icon-btn icon-btn-edit" title="Modifier les infos">
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-                                            </button>
+
                                             <button @click="confirmAction('Supprimer la FAQ &quot;'+faq.slug+'.json&quot; ? Cette action est irréversible.', ()=>deleteFaqFile(faq))" class="icon-btn icon-btn-del" title="Supprimer">
                                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                                             </button>
@@ -662,7 +678,7 @@
                                 <label class="block text-xs font-semibold text-gray-700 mb-1.5">Application *</label>
                                 <select x-model="manualForm.app_name" class="w-full px-3 py-2.5 text-sm border border-sonatrach-gris-bord rounded-xl focus:outline-none focus:ring-2 focus:ring-sonatrach-orange bg-white">
                                     <option value="">— Choisir une application —</option>
-                                    <template x-for="app in applications" :key="app.id">
+                                    <template x-for="app in applications.filter(a => !a.archived)" :key="app.id">
                                         <option :value="app.name" x-text="app.name"></option>
                                     </template>
                                 </select>
@@ -710,10 +726,6 @@
                                 <option value="">— Choisir une application existante —</option>
                                 @foreach(($chatApplications??collect()) as $app)<option value="{{ $app->id }}">{{ $app->name }}</option>@endforeach
                             </select>
-                            <div class="flex items-center gap-2 my-2"><div class="flex-1 h-px bg-gray-200"></div><span class="text-xs text-gray-400">OU</span><div class="flex-1 h-px bg-gray-200"></div></div>
-                            <label class="block text-xs font-semibold text-gray-700 mb-1.5">Nouveau nom d'application *</label>
-                            <input type="text" x-model="faqForm.app_name" @input="faqForm.app_id=''" placeholder="Ex: BDM, SAP FAQ, Parc Auto v2…" class="w-full px-3 py-2.5 text-sm border border-sonatrach-gris-bord rounded-xl focus:outline-none focus:ring-2 focus:ring-sonatrach-orange">
-                            <p class="text-[10px] text-gray-400 mt-1">Le nom doit être unique. Incluez la version dans le nom si nécessaire.</p>
                         </div>
                         <div><label class="block text-xs font-semibold text-gray-700 mb-1.5">Fichier JSON *</label>
                             <label for="faqJsonFile" class="flex flex-col items-center justify-center gap-2 p-5 border-2 border-dashed border-sonatrach-gris-bord rounded-xl cursor-pointer hover:border-sonatrach-orange transition-colors group">

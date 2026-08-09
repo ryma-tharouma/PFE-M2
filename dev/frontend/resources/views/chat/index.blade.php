@@ -77,7 +77,7 @@
                     </div>
                 </template>
 
-                <template x-for="conv in conversations" :key="conv.id">
+                <template x-for="conv in activeConversations" :key="conv.id">
                     <div class="conv-item w-full flex items-start gap-2 px-3 py-2.5 group relative"
                          :class="conv.id === currentConvId ? 'active' : ''">
                         <button @click="loadConversation(conv.id)"
@@ -113,6 +113,28 @@
                                 </div>
                             </template>
                         </div>
+                    </div>
+                </template>
+                <template x-if="archivedConversations.length > 0">
+                    <div class="mt-2 pt-2 border-t border-sonatrach-gris-bord">
+                        <p class="px-3 py-2 text-[10px] font-semibold text-gray-400 uppercase tracking-wider flex items-center gap-1.5">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 01-2-2V4a2 2 0 012-2h14a2 2 0 012 2v2a2 2 0 01-2 2M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg>
+                            Archivées
+                        </p>
+                        <template x-for="conv in archivedConversations" :key="conv.id">
+                            <div class="conv-item w-full flex items-start gap-2 px-3 py-2.5 opacity-60"
+                                 :class="conv.id === currentConvId ? 'active' : ''">
+                                <button @click="loadConversation(conv.id)" class="flex-1 flex items-start gap-2 text-left">
+                                    <div class="flex-shrink-0 w-7 h-7 rounded-md flex items-center justify-center text-white text-xs font-bold mt-0.5"
+                                         style="background:#9CA3AF"
+                                         x-text="conv.app_icon || '?'"></div>
+                                    <div class="flex-1 min-w-0">
+                                        <p class="text-xs font-medium truncate text-sonatrach-noir" x-text="conv.title || 'Conversation'"></p>
+                                        <p class="text-xs text-gray-400 truncate" x-text="(conv.app_name || '') + ' · Archivée'"></p>
+                                    </div>
+                                </button>
+                            </div>
+                        </template>
                     </div>
                 </template>
             </div>
@@ -265,7 +287,7 @@
             </div>
 
             {{-- Barre de saisie --}}
-            <div class="border-t border-sonatrach-gris-bord bg-white px-4 py-3 flex-shrink-0">
+            <div class="border-t border-sonatrach-gris-bord bg-white px-4 py-3 flex-shrink-0" x-show="!viewingArchived">
                 <div class="max-w-3xl mx-auto">
                     <template x-if="!selectedApp">
                         <p class="text-xs text-center text-gray-400 mb-2">Sélectionnez une application pour commencer</p>
@@ -301,6 +323,15 @@
                     <p class="text-xs text-center text-gray-400 mt-2">Entrée pour envoyer · Maj+Entrée pour nouvelle ligne</p>
                 </div>
             </div>
+
+            <template x-if="viewingArchived">
+                <div class="border-t border-sonatrach-gris-bord bg-sonatrach-gris-fond px-4 py-3 flex-shrink-0 text-center">
+                    <p class="text-xs text-gray-500 flex items-center justify-center gap-1.5">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 01-2-2V4a2 2 0 012-2h14a2 2 0 012 2v2a2 2 0 01-2 2M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg>
+                        Conversation archivée (application supprimée) — lecture seule
+                    </p>
+                </div>
+            </template>
         </main>
 
         {{-- ══ MODAL SUGGESTION TICKET ════════════════════════════ --}}
@@ -411,6 +442,14 @@
                 sidebarOpen:   true,
                 selectedApp:   '',
                 currentApp:    null,
+                viewingArchived: false,
+
+                get activeConversations() {
+                    return this.conversations.filter(c => !c.archived);
+                },
+                get archivedConversations() {
+                    return this.conversations.filter(c => c.archived);
+                },
                 inputMessage:  '',
                 isLoading:     false,
                 messages:      [],
@@ -490,6 +529,7 @@
                 openNewConversation() {
                     this.messages      = [];
                     this.currentConvId = null;
+                    this.viewingArchived = false;
                 },
 
                 loadConversation(id) {
@@ -497,9 +537,10 @@
 
                     this.currentConvId = id;
                     const conv = this.conversations.find(c => c.id === id);
+                    this.viewingArchived = !!(conv && conv.archived);
                     if (conv) {
-                        this.selectedApp = String(conv.app_id);
-                        this.currentApp  = this.applications.find(a => String(a.id) === String(conv.app_id)) || null;
+                        this.selectedApp = this.viewingArchived ? '' : String(conv.app_id);
+                        this.currentApp  = this.viewingArchived ? null : (this.applications.find(a => String(a.id) === String(conv.app_id)) || null);
                     }
 
                     fetch(`/chat/conversation/${id}`, { headers:{'X-Requested-With':'XMLHttpRequest'} })
@@ -518,7 +559,7 @@
 
                 async sendMessage() {
                     const text = this.inputMessage.trim();
-                    if (!text || !this.selectedApp || this.isLoading) return;
+                    if (!text || !this.selectedApp || this.isLoading || this.viewingArchived) return;
 
                     this.messages.push({
                         id: Date.now(), role: 'user', content: text,

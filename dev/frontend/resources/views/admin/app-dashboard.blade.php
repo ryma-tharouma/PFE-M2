@@ -337,9 +337,7 @@
                                             <button @click="openJsonViewModal(faq)" class="icon-btn icon-btn-view" title="Consulter le JSON">
                                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
                                             </button>
-                                            <button @click="openFaqEditInfosModal(faq)" class="icon-btn icon-btn-edit" title="Modifier les infos">
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-                                            </button>
+
                                             <button @click="confirmAction('Supprimer la FAQ &quot;'+faq.slug+'.json&quot; ? Cette action est irréversible.', ()=>deleteFaqFile(faq))" class="icon-btn icon-btn-del" title="Supprimer">
                                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                                             </button>
@@ -359,7 +357,7 @@
                                 <select x-model="chatsAppId" @change="chatsAppName=$event.target.options[$event.target.selectedIndex].text; faqChats=[]"
                                         class="w-full px-3 py-2.5 text-sm border border-sonatrach-gris-bord rounded-xl focus:outline-none focus:ring-2 focus:ring-sonatrach-orange bg-white">
                                     <option value="">— Choisir une application —</option>
-                                    @foreach($adminApplications as $app)
+                                    @foreach($activeApplications as $app)
                                         <option value="{{ $app->id }}">{{ $app->name }}</option>
                                     @endforeach
                                 </select>
@@ -554,10 +552,11 @@
                                 <label class="block text-xs font-semibold text-gray-700 mb-1.5">Application *</label>
                                 <select x-model="manualForm.app_name" class="w-full px-3 py-2.5 text-sm border border-sonatrach-gris-bord rounded-xl focus:outline-none focus:ring-2 focus:ring-sonatrach-orange bg-white">
                                     <option value="">— Choisir une application —</option>
-                                    @foreach($adminApplications as $app)
+                                    @foreach($activeApplications as $app)
                                         <option value="{{ $app->name }}">{{ $app->name }}</option>
                                     @endforeach
                                 </select>
+                                <p class="text-[10px] text-gray-400 mt-1">Seules vos applications actives sont proposées.</p>
                                 <p class="text-[10px] text-gray-400 mt-1">Seules vos applications sont proposées.</p>
                             </div>
                             <div><label class="block text-xs font-semibold text-gray-700 mb-1.5">Version du document</label><input type="text" x-model="manualForm.version" placeholder="1.0" class="w-full px-3 py-2.5 text-sm border border-sonatrach-gris-bord rounded-xl focus:outline-none focus:ring-2 focus:ring-sonatrach-orange"></div>
@@ -598,8 +597,9 @@
                             <label class="block text-xs font-semibold text-gray-700 mb-1.5">Application *</label>
                             <select x-model="faqForm.app_id" class="w-full px-3 py-2.5 text-sm border border-sonatrach-gris-bord rounded-xl focus:outline-none focus:ring-2 focus:ring-sonatrach-orange bg-white">
                                 <option value="">— Choisir une application —</option>
-                                @foreach($adminApplications as $app)<option value="{{ $app->id }}">{{ $app->name }}</option>@endforeach
+                                @foreach($activeApplications as $app)<option value="{{ $app->id }}">{{ $app->name }}</option>@endforeach
                             </select>
+                            <p class="text-[10px] text-gray-400 mt-1">Seules vos applications actives sont proposées.</p>
                             <p class="text-[10px] text-gray-400 mt-1">Seules vos applications sont proposées.</p>
                         </div>
                         <div><label class="block text-xs font-semibold text-gray-700 mb-1.5">Fichier JSON *</label>

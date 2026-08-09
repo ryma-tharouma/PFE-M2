@@ -564,6 +564,14 @@ def extract_pdf_to_json(pdf_path: str) -> str:
     return out_path
 
 
+
+
+import resource
+
+def _log_mem(logger, label):
+    mem_mb = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024
+    logger.info(f"[MEM] {label}: {mem_mb:.1f} MB")
+
 # ==================== ENTRY POINT ====================
 
 if __name__ == "__main__":

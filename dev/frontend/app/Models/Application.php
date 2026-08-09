@@ -19,6 +19,13 @@ class Application extends Model
         'qdrant_collection',
         'admin_id',
         'department',
+        'archived',
+        'archived_at',
+    ];
+
+    protected $casts = [
+        'archived'    => 'boolean',
+        'archived_at' => 'datetime',
     ];
 
     public function conversations(): HasMany

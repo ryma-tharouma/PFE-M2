@@ -209,7 +209,7 @@ class ProcessManualPipeline implements ShouldQueue
                         'method'  => 'POST',
                         'header'  => "Content-Type: application/json\r\nContent-Length: " . strlen($payload) . "\r\n",
                         'content' => $payload,
-                        'timeout' => 600,
+                        'timeout' => 1800,
                     ],
                 ]);
 

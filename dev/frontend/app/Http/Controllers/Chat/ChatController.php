@@ -20,9 +20,10 @@ class ChatController extends Controller
     // ══════════════════════════════════════════════════════════════
     public function index()
     {
-        // Uniquement les apps qui ont une collection Qdrant prête
+        // Uniquement les apps NON archivées et qui ont une collection Qdrant prête
         // (qdrant_collection est rempli par le pipeline après indexation)
         $applications = Application::whereNotNull('qdrant_collection')
+            ->where('archived', false)
             ->orderBy('name')
             ->get();
 
@@ -39,6 +40,7 @@ class ChatController extends Controller
                 'app_color'  => $c->application->color ?? '#F26522',
                 'app_icon'   => $c->application->icon  ?? '📄',
                 'title'      => $c->title ?? 'Conversation',
+                'archived'   => (bool) optional($c->application)->archived,
                 'updated_at' => $c->last_message_at?->toDateTimeString()
                     ?? $c->updated_at?->toDateTimeString(),
             ]);
@@ -207,6 +209,7 @@ class ChatController extends Controller
             'id'       => $conv->id,
             'app_id'   => $conv->application_id,
             'app_name' => $conv->application->name ?? 'App',
+            'archived' => (bool) optional($conv->application)->archived,
             'title'    => $conv->title,
             'messages' => $conv->messages->map(fn($m) => [
                 'id'                => $m->id,
@@ -240,6 +243,7 @@ class ChatController extends Controller
                 'app_color' => $c->application->color ?? '#F26522',
                 'app_icon'  => $c->application->icon  ?? '📄',
                 'title'     => $c->title ?? 'Conversation',
+                'archived'  => (bool) optional($c->application)->archived,
                 'updated_at'=> $c->last_message_at?->toDateTimeString()
                     ?? $c->updated_at?->toDateTimeString(),
             ]);
@@ -253,10 +257,19 @@ class ChatController extends Controller
     public function deleteConversation(int $id): JsonResponse
     {
         try {
-            Conversation::where('id', $id)
+            $conversation = Conversation::with('application')
+                ->where('id', $id)
                 ->where('user_id', Auth::id())
-                ->firstOrFail()
-                ->delete();
+                ->firstOrFail();
+
+            if (optional($conversation->application)->archived) {
+                return response()->json([
+                    'success' => false,
+                    'error'   => "Cette conversation est archivée et ne peut plus être supprimée (traçabilité).",
+                ], 403);
+            }
+
+            $conversation->delete();
 
             return response()->json(['success' => true]);
 

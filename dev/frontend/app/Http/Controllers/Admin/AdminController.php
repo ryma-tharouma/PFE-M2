@@ -197,16 +197,11 @@ class AdminController extends Controller
         $manuals = Manual::with('application')->orderByDesc('created_at')->paginate(20);
         $tickets = Ticket::with('user')->orderByDesc('created_at')->paginate(20);
 
-        $applications = Application::orderBy('name')->get();
+        $applications = Application::where('archived', false)->orderBy('name')->get();
 
-        $chatApplications = Application::where(function ($q) {
-            $q->whereNotNull('qdrant_collection')
-                ->orWhereHas('manuals', fn($mq) => $mq->where('status', 'indexed'))
-                ->orWhereHas('faqItems');
-        })
+        $chatApplications = Application::where('archived', false)
             ->orderBy('name')
             ->get();
-
         $faqList = $this->listFaqFiles();
 
         return view('admin.dashboard', compact(
@@ -736,11 +731,6 @@ class AdminController extends Controller
         $pdfBaseName = pathinfo($manual->file_path, PATHINFO_FILENAME);
 
         if ($manual->cleaned_json_path) {
-            $collection = $this->collectionNameFromCleanedPath($manual->cleaned_json_path);
-            if ($collection) {
-                $this->deleteQdrantCollection($collection);
-                $this->deleteQdrantCollectionData($collection);
-            }
             $this->deleteJsonFiles($manual->cleaned_json_path);
         } else {
             $this->deleteJsonFilesByPdfName($manual->file_path);
@@ -763,20 +753,14 @@ class AdminController extends Controller
 
         $this->deleteManualPdf($manual->file_path);
 
-        $deletedMessages = Message::where('manual_id', $manual->id)->delete();
-        if ($deletedMessages > 0) {
-            Log::info('[AdminController] Messages supprimés', ['manual_id' => $manual->id, 'deleted_count' => $deletedMessages]);
-        }
+        // IMPORTANT : on détache les messages du manuel AVANT de le supprimer,
+        // pour empêcher une éventuelle contrainte FK "ON DELETE CASCADE" en base
+        // de données de supprimer silencieusement les discussions liées.
+        // Les messages/conversations restent intacts, seule la référence
+        // manual_id est retirée.
+        Message::where('manual_id', $manual->id)->update(['manual_id' => null]);
 
-        Conversation::where('application_id', $manual->application_id)
-            ->whereDoesntHave('messages')
-            ->delete();
-
-        $applicationId = $manual->application_id;
         $manual->delete();
-
-        $this->cleanupApplicationIfEmpty($applicationId);
-
         return response()->json(['success' => true]);
     }
 
@@ -1072,35 +1056,12 @@ class AdminController extends Controller
             return response()->json(['success' => false, 'error' => 'FAQ introuvable'], 404);
         }
 
+        // On supprime UNIQUEMENT le document FAQ (fichier JSON + entrées DB).
+        // On NE supprime PAS la collection Qdrant ni l'application, et on ne
+        // vérifie plus s'il s'agit du dernier document pour archiver l'app :
+        // cela reste géré séparément via la suppression d'application.
         if ($application) {
             Faq::where('application_id', $application->id)->delete();
-
-            $hasManuals = Manual::where('application_id', $application->id)->exists();
-            if (!$hasManuals) {
-                $collection = $application->qdrant_collection ?? $slug;
-                if ($collection) {
-                    $this->deleteQdrantCollection($collection);
-                    $this->deleteQdrantCollectionData($collection);
-                }
-
-                $extractDir     = rtrim((string) config('services.extract.extract_dir', base_path('../../extract/app')), '/');
-                $jsonDir        = rtrim((string) config('services.extract.json_dir', $extractDir . '/json'), '/');
-                $realJsonDir    = realpath($jsonDir) ?: $jsonDir;
-                $realExtractDir = realpath($extractDir) ?: $extractDir;
-
-                $imagesPath    = $realJsonDir . '/images/' . $slug;
-                $imagesPathAlt = $jsonDir . '/images/' . $slug;
-
-                if (is_dir($imagesPath)) {
-                    $this->deleteDirectory($imagesPath);
-                } elseif (is_dir($imagesPathAlt)) {
-                    $this->deleteDirectory($imagesPathAlt);
-                }
-
-                $this->deleteExtractLogs($realExtractDir, $slug);
-            }
-
-            $this->cleanupApplicationIfEmpty($application->id);
         }
 
         ProcessFaqPipeline::dispatch('sync');
@@ -1453,20 +1414,17 @@ class AdminController extends Controller
         $hasManuals = Manual::where('application_id', $applicationId)->exists();
         $hasFaqs    = Faq::where('application_id', $applicationId)->exists();
 
-        if (!$hasManuals && !$hasFaqs) {
-            $conversationIds = Conversation::where('application_id', $applicationId)->pluck('id');
+        if (!$hasManuals && !$hasFaqs && !$app->archived) {
+            // On archive au lieu de supprimer : les conversations restent
+            // en base pour garder la traçabilité (preuve question/réponse).
+            $app->admins()->detach();
+            $app->allowedUsers()->detach();
+            $app->update(['archived' => true, 'archived_at' => now()]);
 
-            if ($conversationIds->isNotEmpty()) {
-                Message::whereIn('conversation_id', $conversationIds)->delete();
-                Conversation::whereIn('id', $conversationIds)->delete();
-            }
-
-            Log::info('[AdminController] Application supprimée (plus de contenu)', [
+            Log::info('[AdminController] Application archivée (plus de contenu)', [
                 'app_id'   => $applicationId,
                 'app_name' => $app->name,
             ]);
-
-            $app->delete();
         }
     }
 
@@ -1833,6 +1791,7 @@ PYTHON;
                 'manuals_count' => Manual::where('application_id', $app->id)->count(),
                 'faq_count' => Faq::where('application_id', $app->id)->count(),
                 'color' => $app->color ?? '#F26522',
+                'archived' => (bool) $app->archived,
             ];
         });
 
@@ -1991,18 +1950,22 @@ PYTHON;
 
             Faq::where('application_id', $appId)->delete();
         }
+        // 3) On NE supprime PLUS les conversations/messages : ils sont
+        //    conservés et l'application est archivée pour garder la preuve
+        //    des échanges (protection employeur + traçabilité chatbot).
 
-        // 3) Conversations et messages liés à l'application
-        $conversationIds = Conversation::where('application_id', $appId)->pluck('id');
-        if ($conversationIds->isNotEmpty()) {
-            Message::whereIn('conversation_id', $conversationIds)->delete();
-            Conversation::whereIn('id', $conversationIds)->delete();
-        }
-
-        // 4) Relations et suppression de l'application elle-même
+        // 4) Relations d'admin (l'app archivée ne doit plus être gérable)
         $app->admins()->detach();
         $app->allowedUsers()->detach();
-        $app->delete();
+        $app->update(['archived' => true, 'archived_at' => now()]);
+
+        // 5) Réindexation globale FAQ pour purger toute référence résiduelle
+        ProcessFaqPipeline::dispatch('sync');
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Application archivée. Les conversations existantes restent consultables en lecture seule pour les utilisateurs.',
+        ]);
 
         // 5) Réindexation globale FAQ pour purger toute référence résiduelle
         ProcessFaqPipeline::dispatch('sync');
@@ -2054,13 +2017,33 @@ PYTHON;
 
         if ($adminApplications->isEmpty()) {
             return view('admin.app-dashboard', [
-                'stats' => [],
-                'adminApplications' => [],
-                'applications' => collect(),
-                'users' => [],
-                'manuals' => collect(),
-                'tickets' => collect(),
-                'faqList' => [],
+                'stats' => [
+                    'requests_total'      => 0,
+                    'requests_today'      => 0,
+                    'requests_today_pct'  => 0,
+                    'requests_by_hour'    => array_fill(0, 24, 0),
+                    'hour_max'            => 1,
+                    'requests_by_app'     => collect(),
+                    'requests_by_dept'    => collect(),
+                    'tickets_total'       => 0,
+                    'tickets_open'        => 0,
+                    'tickets_closed'      => 0,
+                    'tickets_by_priority' => collect(),
+                    'tickets_by_app'      => collect(),
+                    'tickets_by_dept'     => collect(),
+                    'manuals_count'       => 0,
+                    'manuals_indexed'     => 0,
+                    'manuals_processing'  => 0,
+                    'manuals_failed'      => 0,
+                    'admin_applications'  => 0,
+                ],
+                'adminApplications'  => collect(),
+                'applications'       => collect(),
+                'activeApplications' => collect(),
+                'users'              => collect(),
+                'manuals'            => Manual::whereRaw('1 = 0')->paginate(20),
+                'tickets'            => Ticket::whereRaw('1 = 0')->paginate(20),
+                'faqList'            => [],
             ]);
         }
 
@@ -2200,6 +2183,8 @@ PYTHON;
             });
         $adminApplications = $adminApplications->load('allowedUsers');
         $users = User::whereIn('id', $adminApplications->flatMap->allowedUsers->pluck('id'))->get();
+        // Uniquement les apps actives (non archivées) de cet admin, pour les <select>
+        $activeApplications = $adminApplications->where('archived', false)->values();
 
         // FAQ scopée : uniquement les entrées liées aux apps administrées
         $faqList = collect($this->listFaqFiles())
@@ -2231,7 +2216,7 @@ PYTHON;
         $applications = $adminApplications; // pour les <select> des modals manuels/FAQ
 
         return view('admin.app-dashboard', compact(
-            'stats', 'adminApplications', 'applications', 'users', 'manuals', 'tickets', 'faqList'
+            'stats', 'adminApplications', 'applications', 'activeApplications', 'users', 'manuals', 'tickets', 'faqList'
         ));
     }}
 
