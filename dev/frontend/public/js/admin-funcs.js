@@ -159,10 +159,10 @@ function setupAdminAndAppFunctions(context) {
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Département</label>
-                        <select name="department" id="departmentSelect" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sonatrach-orange">
-                            <option value="">-- Choisir un département --</option>
-                        </select>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Départements (sélection multiple)</label>
+                        <div id="departmentList" class="max-h-40 overflow-y-auto border border-gray-300 rounded-lg p-3 space-y-2 bg-gray-50">
+                            <p class="text-xs text-gray-400">Chargement...</p>
+                        </div>
                     </div>
 
                     <div>
@@ -216,34 +216,48 @@ function setupAdminAndAppFunctions(context) {
                     });
                 }
 
-                const deptSelect = document.getElementById('departmentSelect');
-                (deptData.departments || []).forEach(dept => {
-                    const opt = document.createElement('option');
-                    opt.value = dept;
-                    opt.textContent = dept;
-                    deptSelect.appendChild(opt);
-                });
+                const departmentList = document.getElementById('departmentList');
+                departmentList.innerHTML = '';
+                const depts = deptData.departments || [];
+                if (depts.length === 0) {
+                    departmentList.innerHTML = '<p class="text-xs text-gray-400">Aucun département disponible.</p>';
+                } else {
+                    depts.forEach(dept => {
+                        const label = document.createElement('label');
+                        label.className = 'flex items-center gap-2';
+                        label.innerHTML = `
+                            <input type="checkbox" value="${dept}" class="rounded dept-checkbox">
+                            <span class="text-sm text-gray-700">${dept}</span>
+                        `;
+                        departmentList.appendChild(label);
+                    });
+                }
             })
             .catch(() => {
                 this.toast('Erreur chargement données', false);
                 modal.remove();
             });
 
-        // ── Chargement des users du département sélectionné ──────────────
+        // ── Chargement des users des départements sélectionnés ───────────
         // Correction : on filtre UNIQUEMENT par département (pas par is_admin),
-        // pour afficher tous les employés du département parmi les 200 importés.
-        const loadUsersForDepartment = async (dept) => {
+        // pour afficher tous les employés des départements parmi les 200 importés.
+        const loadUsersForDepartment = async (depts) => {
             const userList = document.getElementById('userList');
+            if (!depts.length) {
+                userList.innerHTML = '<p class="text-xs text-gray-400">Choisissez d\'abord un ou plusieurs départements.</p>';
+                return;
+            }
             userList.innerHTML = '<p class="text-xs text-gray-400">Chargement...</p>';
             try {
-                const r = await fetch('/admin/available-users?department=' + encodeURIComponent(dept), {
+                const params = depts.map(d => 'departments[]=' + encodeURIComponent(d)).join('&');
+                const r = await fetch('/admin/available-users?' + params, {
                     headers: { 'X-Requested-With': 'XMLHttpRequest' }
                 });
                 const d = await r.json();
                 userList.innerHTML = '';
                 const users = d.users || [];
                 if (users.length === 0) {
-                    userList.innerHTML = '<p class="text-xs text-gray-400">Aucun utilisateur dans ce département.</p>';
+                    userList.innerHTML = '<p class="text-xs text-gray-400">Aucun utilisateur dans ces départements.</p>';
                     return;
                 }
                 users.forEach(u => {
@@ -260,11 +274,13 @@ function setupAdminAndAppFunctions(context) {
             }
         };
 
-        // Un seul listener propre (l'ancien code en ajoutait un par option
-        // ET un second via setTimeout, avec un nom de fonction inexistant :
-        // loadUsersForDepartment n'était jamais défini sur `context`).
-        document.getElementById('departmentSelect').addEventListener('change', (e) => {
-            if (e.target.value) loadUsersForDepartment(e.target.value);
+        // Un listener délégué sur le conteneur : à chaque case département
+        // cochée/décochée, on recharge la liste des utilisateurs avec
+        // l'ensemble des départements actuellement sélectionnés.
+        document.getElementById('departmentList').addEventListener('change', (e) => {
+            if (!e.target.classList.contains('dept-checkbox')) return;
+            const selected = Array.from(document.querySelectorAll('#departmentList .dept-checkbox:checked')).map(cb => cb.value);
+            loadUsersForDepartment(selected);
         });
 
         window.appAddSubmit = async () => {
@@ -275,6 +291,8 @@ function setupAdminAndAppFunctions(context) {
             document.querySelectorAll('#adminList input[type="checkbox"]:checked').forEach(cb => {
                 adminIds.push(cb.value);
             });
+
+            const departments = Array.from(document.querySelectorAll('#departmentList .dept-checkbox:checked')).map(cb => cb.value);
 
             const userSelection = document.querySelector('input[name="userSelection"]:checked')?.value;
             const userIds = [];
@@ -290,7 +308,7 @@ function setupAdminAndAppFunctions(context) {
                 version: formData.get('version'),
                 admin_id: adminIds[0] || '',
                 admin_ids: adminIds,
-                department: formData.get('department'),
+                departments: departments,
                 user_ids: userIds,
                 all_department_users: userSelection === 'all'
             };
@@ -361,10 +379,10 @@ function setupAdminAndAppFunctions(context) {
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Département</label>
-                        <select name="department" id="editDepartmentSelect" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sonatrach-orange">
-                            <option value="">-- Choisir un département --</option>
-                        </select>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Départements (sélection multiple)</label>
+                        <div id="editDepartmentList" class="max-h-40 overflow-y-auto border border-gray-300 rounded-lg p-3 space-y-2 bg-gray-50">
+                            <p class="text-xs text-gray-400">Chargement...</p>
+                        </div>
                     </div>
 
                     <div>
@@ -395,6 +413,7 @@ function setupAdminAndAppFunctions(context) {
 
         const currentAdminIds = (appData.admin_ids || []).map(String);
         const currentUserIds  = (appData.user_ids || []).map(String);
+        const currentDepartments = (appData.departments || []).map(String);
 
         Promise.all([
             fetch('/admin/available-users?admin=1', { headers: { 'X-Requested-With': 'XMLHttpRequest' } }).then(r => r.json()),
@@ -410,23 +429,34 @@ function setupAdminAndAppFunctions(context) {
                 adminList.appendChild(label);
             });
 
-            const deptSelect = document.getElementById('editDepartmentSelect');
-            (deptData.departments || []).forEach(dept => {
-                const opt = document.createElement('option');
-                opt.value = dept;
-                opt.textContent = dept;
-                if (dept === appData.department) opt.selected = true;
-                deptSelect.appendChild(opt);
-            });
+            const departmentList = document.getElementById('editDepartmentList');
+            departmentList.innerHTML = '';
+            const depts = deptData.departments || [];
+            if (depts.length === 0) {
+                departmentList.innerHTML = '<p class="text-xs text-gray-400">Aucun département disponible.</p>';
+            } else {
+                depts.forEach(dept => {
+                    const checked = currentDepartments.includes(String(dept)) ? 'checked' : '';
+                    const label = document.createElement('label');
+                    label.className = 'flex items-center gap-2';
+                    label.innerHTML = `<input type="checkbox" value="${dept}" class="rounded edit-dept-checkbox" ${checked}><span class="text-sm text-gray-700">${dept}</span>`;
+                    departmentList.appendChild(label);
+                });
+            }
 
-            if (appData.department) loadEditUsersForDepartment(appData.department);
+            if (currentDepartments.length) loadEditUsersForDepartment(currentDepartments);
         }).catch(() => this.toast('Erreur chargement données', false));
 
-        const loadEditUsersForDepartment = async (dept) => {
+        const loadEditUsersForDepartment = async (depts) => {
             const userList = document.getElementById('editUserList');
+            if (!depts.length) {
+                userList.innerHTML = '<p class="text-xs text-gray-400">Choisissez un ou plusieurs départements pour voir leurs employés.</p>';
+                return;
+            }
             userList.innerHTML = '<p class="text-xs text-gray-400">Chargement...</p>';
             try {
-                const r = await fetch('/admin/available-users?department=' + encodeURIComponent(dept), { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+                const params = depts.map(d => 'departments[]=' + encodeURIComponent(d)).join('&');
+                const r = await fetch('/admin/available-users?' + params, { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
                 const d = await r.json();
                 userList.innerHTML = '';
                 (d.users || []).forEach(u => {
@@ -441,8 +471,10 @@ function setupAdminAndAppFunctions(context) {
             }
         };
 
-        document.getElementById('editDepartmentSelect').addEventListener('change', (e) => {
-            if (e.target.value) loadEditUsersForDepartment(e.target.value);
+        document.getElementById('editDepartmentList').addEventListener('change', (e) => {
+            if (!e.target.classList.contains('edit-dept-checkbox')) return;
+            const selected = Array.from(document.querySelectorAll('#editDepartmentList .edit-dept-checkbox:checked')).map(cb => cb.value);
+            loadEditUsersForDepartment(selected);
         });
 
         window.appEditSubmit = async () => {
@@ -451,6 +483,8 @@ function setupAdminAndAppFunctions(context) {
 
             const adminIds = [];
             document.querySelectorAll('#editAdminList input[type="checkbox"]:checked').forEach(cb => adminIds.push(cb.value));
+
+            const departments = Array.from(document.querySelectorAll('#editDepartmentList .edit-dept-checkbox:checked')).map(cb => cb.value);
 
             const userSelection = document.querySelector('input[name="editUserSelection"]:checked')?.value;
             const userIds = [];
@@ -474,7 +508,7 @@ function setupAdminAndAppFunctions(context) {
                     body: JSON.stringify({
                         name: formData.get('name'),
                         admin_ids: adminIds,
-                        department: formData.get('department'),
+                        departments: departments,
                         user_ids: userIds,
                         all_department_users: userSelection === 'all'
                     })

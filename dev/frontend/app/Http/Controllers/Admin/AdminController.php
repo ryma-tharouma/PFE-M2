@@ -1419,6 +1419,7 @@ class AdminController extends Controller
             // en base pour garder la traçabilité (preuve question/réponse).
             $app->admins()->detach();
             $app->allowedUsers()->detach();
+            $app->departmentLinks()->delete();
             $app->update(['archived' => true, 'archived_at' => now()]);
 
             Log::info('[AdminController] Application archivée (plus de contenu)', [
@@ -1746,7 +1747,11 @@ PYTHON;
             $query->where('is_admin', $request->boolean('admin'));
         }
 
-        if ($request->filled('department')) {
+        // Supporte soit un seul département (?department=X, rétrocompat),
+        // soit plusieurs (?departments[]=X&departments[]=Y).
+        if ($request->filled('departments')) {
+            $query->whereIn('department', (array) $request->input('departments'));
+        } elseif ($request->filled('department')) {
             $query->where('department', $request->input('department'));
         }
 
@@ -1792,6 +1797,7 @@ PYTHON;
                 'faq_count' => Faq::where('application_id', $app->id)->count(),
                 'color' => $app->color ?? '#F26522',
                 'archived' => (bool) $app->archived,
+                'departments' => $app->departmentNames(),
             ];
         });
 
@@ -1805,7 +1811,8 @@ PYTHON;
             'version' => ['nullable', 'string', 'max:20'],
             'admin_id' => ['required', 'integer', 'exists:users,id'],
             'admin_ids' => ['nullable', 'array'],
-            'department' => ['nullable', 'string', 'max:255'],
+            'departments' => ['nullable', 'array'],
+            'departments.*' => ['string', 'max:255'],
             'user_ids' => ['nullable', 'array'],
             'all_department_users' => ['boolean'],
         ]);
@@ -1818,8 +1825,9 @@ PYTHON;
         $app = Application::create([
             'name' => $request->input('name'),
             'admin_id' => $primaryAdmin->id,
-            'department' => $request->input('department'),
         ]);
+
+        $app->syncDepartments($request->input('departments', []));
 
         // Attach all admins (or just the primary if admin_ids is not provided)
         $adminIds = $request->input('admin_ids') ?: [$primaryAdmin->id];
@@ -1837,8 +1845,8 @@ PYTHON;
             $app->admins()->attach($primaryAdmin->id);
         }
 
-        if ($request->boolean('all_department_users') && $request->input('department')) {
-            $deptUsers = User::where('department', $request->input('department'))->pluck('id');
+        if ($request->boolean('all_department_users') && $request->filled('departments')) {
+            $deptUsers = User::whereIn('department', $request->input('departments'))->pluck('id');
             $app->allowedUsers()->attach($deptUsers);
         } elseif ($request->input('user_ids')) {
             $app->allowedUsers()->attach($request->input('user_ids'));
@@ -1849,7 +1857,7 @@ PYTHON;
             'app' => [
                 'id' => $app->id,
                 'name' => $app->name,
-                'department' => $app->department,
+                'departments' => $app->departmentNames(),
                 'admin' => ['id' => $primaryAdmin->id, 'name' => $primaryAdmin->name],
                 'admins_count' => $app->admins()->count(),
                 'users_count' => $app->allowedUsers()->count(),
@@ -1869,11 +1877,11 @@ PYTHON;
         $app = Application::with(['admins', 'allowedUsers'])->findOrFail($appId);
 
         return response()->json([
-            'id'         => $app->id,
-            'name'       => $app->name,
-            'department' => $app->department,
-            'admin_ids'  => $app->admins()->pluck('users.id'),
-            'user_ids'   => $app->allowedUsers()->pluck('users.id'),
+            'id'          => $app->id,
+            'name'        => $app->name,
+            'departments' => $app->departmentNames(),
+            'admin_ids'   => $app->admins()->pluck('users.id'),
+            'user_ids'    => $app->allowedUsers()->pluck('users.id'),
         ]);
     }
 
@@ -1885,7 +1893,8 @@ PYTHON;
             'name'                  => ['required', 'string', 'max:255', 'unique:applications,name,' . $appId],
             'admin_ids'             => ['required', 'array', 'min:1'],
             'admin_ids.*'           => ['integer', 'exists:users,id'],
-            'department'            => ['nullable', 'string', 'max:255'],
+            'departments'           => ['nullable', 'array'],
+            'departments.*'         => ['string', 'max:255'],
             'user_ids'              => ['nullable', 'array'],
             'all_department_users'  => ['boolean'],
         ]);
@@ -1898,15 +1907,15 @@ PYTHON;
         }
 
         $app->update([
-            'name'       => $request->input('name'),
-            'department' => $request->input('department'),
-            'admin_id'   => $validAdmins[0], // propriétaire principal historique
+            'name'     => $request->input('name'),
+            'admin_id' => $validAdmins[0], // propriétaire principal historique
         ]);
 
+        $app->syncDepartments($request->input('departments', []));
         $app->admins()->sync($validAdmins);
 
-        if ($request->boolean('all_department_users') && $request->input('department')) {
-            $deptUsers = User::where('department', $request->input('department'))->pluck('id');
+        if ($request->boolean('all_department_users') && $request->filled('departments')) {
+            $deptUsers = User::whereIn('department', $request->input('departments'))->pluck('id');
             $app->allowedUsers()->sync($deptUsers);
         } elseif ($request->input('user_ids')) {
             $app->allowedUsers()->sync($request->input('user_ids'));
@@ -1957,6 +1966,7 @@ PYTHON;
         // 4) Relations d'admin (l'app archivée ne doit plus être gérable)
         $app->admins()->detach();
         $app->allowedUsers()->detach();
+        $app->departmentLinks()->delete();
         $app->update(['archived' => true, 'archived_at' => now()]);
 
         // 5) Réindexation globale FAQ pour purger toute référence résiduelle

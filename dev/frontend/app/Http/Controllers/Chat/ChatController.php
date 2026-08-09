@@ -22,8 +22,7 @@ class ChatController extends Controller
     {
         // Uniquement les apps NON archivées et qui ont une collection Qdrant prête
         // (qdrant_collection est rempli par le pipeline après indexation)
-        $applications = Application::whereNotNull('qdrant_collection')
-            ->where('archived', false)
+        $applications = $this->visibleApplicationsQuery()
             ->orderBy('name')
             ->get();
 
@@ -47,7 +46,33 @@ class ChatController extends Controller
 
         return view('chat.index', compact('applications', 'conversations'));
     }
+    /**
+     * Query de base des applications visibles par l'utilisateur courant.
+     * Le super admin voit tout ; tout autre utilisateur (y compris les
+     * sous-admins) ne voit que les apps où il a été explicitement autorisé
+     * via allowedUsers (application_users).
+     */
+    private function visibleApplicationsQuery()
+    {
+        $user  = Auth::user();
+        $query = Application::whereNotNull('qdrant_collection')->where('archived', false);
 
+        if ($user->is_admin && $user->admin_type === 'super') {
+            return $query;
+        }
+
+        return $query->whereHas('allowedUsers', fn($q) => $q->where('users.id', $user->id));
+    }
+
+    /**
+     * Vérifie que l'utilisateur courant a le droit d'accéder à cette
+     * application, et la retourne. Abort 403 sinon.
+     */
+    private function assertUserCanAccessApp(int $appId): Application
+    {
+        $app = $this->visibleApplicationsQuery()->findOrFail($appId);
+        return $app;
+    }
     // ══════════════════════════════════════════════════════════════
     //  Nouvelle conversation vierge
     // ══════════════════════════════════════════════════════════════
@@ -56,6 +81,8 @@ class ChatController extends Controller
         $request->validate([
             'app_id' => ['required', 'integer', 'exists:applications,id'],
         ]);
+
+        $this->assertUserCanAccessApp($request->integer('app_id'));
 
         $conversation = Conversation::create([
             'user_id'         => Auth::id(),
@@ -89,8 +116,8 @@ class ChatController extends Controller
             $convId  = $request->integer('conversation_id') ?: null;
             $askedAt = now();
 
-            // ── Récupère la collection Qdrant depuis la DB ─────────────
-            $app        = Application::findOrFail($appId);
+// ── Récupère la collection Qdrant depuis la DB (avec contrôle d'accès) ──
+            $app        = $this->assertUserCanAccessApp($appId);
             $collection = $app->qdrant_collection;
 
             if (!$collection) {

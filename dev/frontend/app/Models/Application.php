@@ -44,7 +44,7 @@ class Application extends Model
     }
 
     /**
-     * Relation: l'application a un admin (user)
+     * Relation: l'application a un admin (user) — propriétaire historique
      */
     public function admin(): BelongsTo
     {
@@ -66,6 +66,34 @@ class Application extends Model
     {
         return $this->belongsToMany(User::class, 'application_users');
     }
+
+    /**
+     * Relation: l'application peut être liée à plusieurs départements
+     */
+    public function departmentLinks(): HasMany
+    {
+        return $this->hasMany(ApplicationDepartment::class);
+    }
+
+    /**
+     * Retourne la liste des noms de départements liés à cette application.
+     */
+    public function departmentNames(): array
+    {
+        return $this->departmentLinks()->pluck('department')->toArray();
+    }
+
+    /**
+     * Remplace complètement la liste des départements de cette application.
+     */
+    public function syncDepartments(array $departments): void
+    {
+        $departments = array_values(array_unique(array_filter(array_map('trim', $departments))));
+
+        $this->departmentLinks()->delete();
+
+        foreach ($departments as $dept) {
+            $this->departmentLinks()->create(['department' => $dept]);
+        }
+    }
 }
-
-
