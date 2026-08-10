@@ -46,6 +46,10 @@
         .conv-item.active { background: #ede8e3; border-left: 3px solid #F26522; }
         .conv-item .group { display: flex; align-items: center; }
         .conv-item:hover .group-hover\:opacity-100 { opacity: 1 !important; }
+
+        .msg-action-btn { display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:6px; color:#F26522; background:transparent; border:none; cursor:pointer; transition:background .15s, transform .1s; }
+        .msg-action-btn:hover { background: rgba(242,101,34,0.12); }
+        .msg-action-btn:active { transform: scale(0.92); }
     </style>
 @endpush
 
@@ -275,6 +279,29 @@
                                             </details>
                                         </div>
                                     </template>
+
+                                    <template x-if="!msg.thinking && !msg.streaming">
+                                        <div class="flex items-center gap-1 mt-1.5 px-1">
+                                            <button @click="copyMessage(msg)" class="msg-action-btn"
+                                                    :title="copiedMsgId === msg.id ? 'Copié !' : 'Copier la réponse'">
+                                                <template x-if="copiedMsgId !== msg.id">
+                                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                                                    </svg>
+                                                </template>
+                                                <template x-if="copiedMsgId === msg.id">
+                                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                                    </svg>
+                                                </template>
+                                            </button>
+                                            <button @click="downloadMessagePdf(msg)" class="msg-action-btn" title="Télécharger en PDF">
+                                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </template>
                                 </div>
                             </template>
 
@@ -433,6 +460,7 @@
 
 @push('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
         marked.setOptions({ breaks: true, gfm: true });
         function renderMarkdown(t) { return t ? marked.parse(t) : ''; }
@@ -467,9 +495,12 @@
                  */
                 applications:  @json($applications ?? []),
 
-                 ticketModalOpen: false,
-                 ticketLoading:   false,
-                 ticket: { title:'', category:'', priority:'Moyenne', description:'' },
+                copiedMsgId:        null,
+                pdfDownloadCounter: 0,
+
+                ticketModalOpen: false,
+                ticketLoading:   false,
+                ticket: { title:'', category:'', priority:'Moyenne', description:'' },
 
                  // Modal pour proposer création de ticket après non-réponse
                  suggestTicketModalOpen: false,
@@ -752,6 +783,52 @@
 
                 handleEnterKey(e) { if (!e.shiftKey) this.sendMessage(); },
 
+                copyMessage(msg) {
+                    if (!msg || !msg.content) return;
+                    navigator.clipboard.writeText(msg.content).then(() => {
+                        this.copiedMsgId = msg.id;
+                        setTimeout(() => {
+                            if (this.copiedMsgId === msg.id) this.copiedMsgId = null;
+                        }, 2000);
+                    }).catch(() => {
+                        alert('Impossible de copier la réponse.');
+                    });
+                },
+
+                downloadMessagePdf(msg) {
+                    if (!msg || !msg.content) return;
+
+                    const rawAppName  = (this.currentApp && this.currentApp.name) ? this.currentApp.name : 'App';
+                    const safeAppName = rawAppName.trim().replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_\-]/g, '');
+                    this.pdfDownloadCounter += 1;
+                    const filename = `${safeAppName || 'App'}_help_${this.pdfDownloadCounter}.pdf`;
+
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+
+                    const marginX   = 40;
+                    const marginTop = 50;
+                    const maxWidth  = 515;
+                    const lineHeight = 16;
+                    const pageHeight = doc.internal.pageSize.getHeight();
+
+                    doc.setFont('helvetica', 'normal');
+                    doc.setFontSize(11);
+
+                    const lines = doc.splitTextToSize(msg.content, maxWidth);
+                    let y = marginTop;
+
+                    lines.forEach(line => {
+                        if (y > pageHeight - 50) {
+                            doc.addPage();
+                            y = marginTop;
+                        }
+                        doc.text(line, marginX, y);
+                        y += lineHeight;
+                    });
+
+                    doc.save(filename);
+                },
                  openTicketModal() {
                      this.ticket = { title:'', category:'', priority:'Moyenne', description:'' };
                      this.ticketModalOpen = true;
