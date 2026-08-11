@@ -863,7 +863,12 @@
                     const appName = this.manualForm.app_name.trim();
                     const version = this.manualForm.version || '1.0';
 
-                    fetch('/admin/manuals/check-app?app_name=' + encodeURIComponent(appName) + '&version=' + encodeURIComponent(version), {
+                    let checkUrl = '/admin/manuals/check-app?app_name=' + encodeURIComponent(appName) + '&version=' + encodeURIComponent(version);
+                    if (this.editingManualId) {
+                        checkUrl += '&exclude_manual_id=' + encodeURIComponent(this.editingManualId);
+                    }
+
+                    fetch(checkUrl, {
                         headers: { 'X-Requested-With': 'XMLHttpRequest' }
                     })
                         .then(r => r.json())
@@ -874,6 +879,11 @@
                                 return;
                             }
                             if (check.exists && check.conflict === 'diff_version') {
+                                if (!hf) {
+                                    this.uploadError = 'Pour changer la version, vous devez fournir un nouveau fichier PDF.';
+                                    this.manualSaving = false;
+                                    return;
+                                }
                                 this.showConflictResolutionModal(check, hf);
                                 return;
                             }
@@ -937,7 +947,9 @@
                         const autoAppName  = `${check.app_name}_v${cleanVersion}`;
 
                         this.toast(`Nouvelle application créée automatiquement : "${autoAppName}"`);
-                        this.submitManual(hf, null, null, autoAppName, true);
+                        // forceCreate=true : même en édition, "contradictoire" doit
+                        // créer un manuel/app séparé, pas modifier l'existant.
+                        this.submitManual(hf, null, null, autoAppName, true, true);
                     };
 
                     document.getElementById(`cancelConflict_${modalId}`).onclick = () => {
@@ -946,9 +958,10 @@
                     };
                 },
 
-                submitManual(hf, resolution = null, existingManualId = null, overrideAppName = null, autoVersioned = false) {
+                submitManual(hf, resolution = null, existingManualId = null, overrideAppName = null, autoVersioned = false, forceCreate = false) {
                     const fd = new FormData();
-                    if (this.editingManualId) fd.append('_method', 'PUT');
+                    const isEdit = !!this.editingManualId && !forceCreate;
+                    if (isEdit) fd.append('_method', 'PUT');
                     fd.append('name',     this.manualForm.name);
                     fd.append('app_name', overrideAppName || this.manualForm.app_name);
                     fd.append('version',  this.manualForm.version || '1.0');
@@ -962,7 +975,7 @@
                         fd.append('auto_versioned', '1');
                     }
 
-                    fetch(this.editingManualId ? '/admin/manuals/' + this.editingManualId : '/admin/manuals', {
+                    fetch(isEdit ? '/admin/manuals/' + this.editingManualId : '/admin/manuals', {
                         method: 'POST', body: fd,
                         headers: { 'X-CSRF-TOKEN': CSRF, 'X-Requested-With': 'XMLHttpRequest' }
                     })

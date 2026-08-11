@@ -264,42 +264,46 @@
                                              :class="msg.streaming ? 'cursor-blink' : ''"
                                              x-html="msg.html"></div>
                                     </template>
+                                    <template x-if="(msg.sources && msg.sources.length > 0) || (!msg.thinking && !msg.streaming)">
+                                        <div class="flex items-center justify-between gap-2 mt-2 px-1">
+                                            <template x-if="msg.sources && msg.sources.length > 0">
+                                                <details class="text-xs text-gray-400">
+                                                    <summary class="cursor-pointer hover:text-sonatrach-orange">
+                                                        📚 <span x-text="msg.sources.length"></span> source(s)
+                                                    </summary>
+                                                    <ul class="mt-1 space-y-0.5 pl-3">
+                                                        <template x-for="src in msg.sources" :key="src.breadcrumb || src.source">
+                                                            <li x-text="src.breadcrumb || src.source || '?'"></li>
+                                                        </template>
+                                                    </ul>
+                                                </details>
+                                            </template>
+                                            <template x-if="!(msg.sources && msg.sources.length > 0)">
+                                                <span></span>
+                                            </template>
 
-                                    <template x-if="msg.sources && msg.sources.length > 0">
-                                        <div class="mt-2 px-1">
-                                            <details class="text-xs text-gray-400">
-                                                <summary class="cursor-pointer hover:text-sonatrach-orange">
-                                                    📚 <span x-text="msg.sources.length"></span> source(s)
-                                                </summary>
-                                                <ul class="mt-1 space-y-0.5 pl-3">
-                                                    <template x-for="src in msg.sources" :key="src.breadcrumb || src.source">
-                                                        <li x-text="src.breadcrumb || src.source || '?'"></li>
-                                                    </template>
-                                                </ul>
-                                            </details>
-                                        </div>
-                                    </template>
-
-                                    <template x-if="!msg.thinking && !msg.streaming">
-                                        <div class="flex items-center gap-1 mt-1.5 px-1">
-                                            <button @click="copyMessage(msg)" class="msg-action-btn"
-                                                    :title="copiedMsgId === msg.id ? 'Copié !' : 'Copier la réponse'">
-                                                <template x-if="copiedMsgId !== msg.id">
-                                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-                                                    </svg>
-                                                </template>
-                                                <template x-if="copiedMsgId === msg.id">
-                                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                                    </svg>
-                                                </template>
-                                            </button>
-                                            <button @click="downloadMessagePdf(msg)" class="msg-action-btn" title="Télécharger en PDF">
-                                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/>
-                                                </svg>
-                                            </button>
+                                            <template x-if="!msg.thinking && !msg.streaming">
+                                                <div class="flex items-center gap-1 flex-shrink-0">
+                                                    <button @click="copyMessage(msg)" class="msg-action-btn"
+                                                            :title="copiedMsgId === msg.id ? 'Copié !' : 'Copier la réponse'">
+                                                        <template x-if="copiedMsgId !== msg.id">
+                                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                                                            </svg>
+                                                        </template>
+                                                        <template x-if="copiedMsgId === msg.id">
+                                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                                            </svg>
+                                                        </template>
+                                                    </button>
+                                                    <button @click="downloadMessagePdf(msg)" class="msg-action-btn" title="Télécharger en PDF">
+                                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            </template>
                                         </div>
                                     </template>
                                 </div>

@@ -399,8 +399,9 @@ class AdminController extends Controller
 
     public function checkAppVersion(Request $request): JsonResponse
     {
-        $appName = trim($request->input('app_name', ''));
-        $version = $this->normalizeManualVersion($request->input('version', '1.0'));
+        $appName          = trim($request->input('app_name', ''));
+        $version          = $this->normalizeManualVersion($request->input('version', '1.0'));
+        $excludeManualId  = $request->input('exclude_manual_id');
 
         if (!$appName) {
             return response()->json(['exists' => false]);
@@ -413,8 +414,11 @@ class AdminController extends Controller
             return response()->json(['exists' => false]);
         }
 
+        // Conflit "même version" avec un AUTRE manuel : toujours bloquant,
+        // qu'on soit en ajout ou en édition.
         $existingManual = Manual::where('application_id', $application->id)
             ->whereRaw("LOWER(COALESCE(version, '1.0')) = ?", [strtolower($version)])
+            ->when($excludeManualId, fn($q) => $q->where('id', '!=', $excludeManualId))
             ->first();
 
         if ($existingManual) {
@@ -427,6 +431,28 @@ class AdminController extends Controller
             ]);
         }
 
+        // ── Cas ÉDITION : on compare à la version ACTUELLE du manuel qu'on
+        // édite lui-même (pas à un autre manuel). C'est ce qui manquait :
+        // avec un seul manuel par app, l'exclure de la recherche faisait
+        // qu'aucun conflit n'était jamais détecté en changeant sa version.
+        if ($excludeManualId) {
+            $editedManual = Manual::find($excludeManualId);
+            if ($editedManual && $editedManual->application_id === $application->id) {
+                $currentVersion = $this->normalizeManualVersion($editedManual->version);
+                if (strtolower($currentVersion) !== strtolower($version)) {
+                    return response()->json([
+                        'exists'             => true,
+                        'conflict'           => 'diff_version',
+                        'app_name'           => $application->name,
+                        'existing_version'   => $currentVersion,
+                        'existing_manual_id' => $editedManual->id,
+                    ]);
+                }
+            }
+            return response()->json(['exists' => false]);
+        }
+
+        // ── Cas AJOUT : conflit avec une AUTRE version déjà présente
         $otherManual = Manual::where('application_id', $application->id)
             ->whereRaw("LOWER(COALESCE(version, '1.0')) <> ?", [strtolower($version)])
             ->orderByDesc('created_at')
@@ -582,16 +608,42 @@ class AdminController extends Controller
             return response()->json(['success' => false, 'message' => 'Manuel existant non trouvé.'], 404);
         }
 
+        $followsInternalTemplate = filter_var($request->input('follows_internal_template'), FILTER_VALIDATE_BOOLEAN);
+
+        try {
+            $this->mergeAndUpdateManualPdf($existingManual, $request->file('file'), $newVersion, $followsInternalTemplate);
+        } catch (\RuntimeException $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'PDF fusionné avec succès, réindexation en cours',
+            'manual'  => $existingManual->fresh('application'),
+        ]);
+    }
+
+    /**
+     * Fusionne un nouveau PDF avec celui d'un manuel existant (ajout OU édition),
+     * met à jour le manuel, purge FORCÉMENT l'ancienne collection Qdrant même
+     * si le nom de collection recalculé sera identique, puis relance le pipeline.
+     */
+    private function mergeAndUpdateManualPdf(
+        Manual $existingManual,
+               $uploadedFile,
+        string $newVersion,
+        bool $followsInternalTemplate
+    ): void {
         $manualsDir   = $this->getManualsDir();
         $existingPath = $this->absolutePath($existingManual->file_path, $manualsDir);
 
         if (!file_exists($existingPath)) {
-            return response()->json(['success' => false, 'message' => 'Fichier manuel existant introuvable.'], 404);
+            throw new \RuntimeException('Fichier manuel existant introuvable.');
         }
 
         $tempDir        = sys_get_temp_dir();
         $tempFileName   = 'new_pdf_' . uniqid() . '.pdf';
-        $request->file('file')->move($tempDir, $tempFileName);
+        $uploadedFile->move($tempDir, $tempFileName);
         $tempNewPdfPath = $tempDir . '/' . $tempFileName;
 
         $mergedFileName = $this->buildMergedPdfFileName($existingManual->file_path);
@@ -602,13 +654,13 @@ class AdminController extends Controller
         } catch (\Exception $e) {
             Log::error('[AdminController] Erreur fusion PDF', ['error' => $e->getMessage()]);
             if (file_exists($tempNewPdfPath)) @unlink($tempNewPdfPath);
-            return response()->json(['success' => false, 'message' => 'Erreur pendant la fusion des PDFs.'], 500);
+            throw new \RuntimeException('Erreur pendant la fusion des PDFs.');
         }
 
         if (file_exists($tempNewPdfPath)) @unlink($tempNewPdfPath);
 
-        $oldCleanedJsonPath      = $existingManual->cleaned_json_path;
-        $followsInternalTemplate = filter_var($request->input('follows_internal_template'), FILTER_VALIDATE_BOOLEAN);
+        $oldCleanedJsonPath = $existingManual->cleaned_json_path;
+        $oldFilePath        = $existingManual->file_path;
 
         DB::transaction(function () use ($existingManual, $mergedFileName, $newVersion, $followsInternalTemplate) {
             $this->deleteManualPdf($existingManual->file_path);
@@ -622,21 +674,80 @@ class AdminController extends Controller
             ]);
         });
 
-        if ($oldCleanedJsonPath) {
-            $oldCollection = $this->collectionNameFromCleanedPath($oldCleanedJsonPath);
-            if ($oldCollection) {
-                $this->deleteQdrantCollection($oldCollection);
-            }
-            $this->deleteJsonFiles($oldCleanedJsonPath);
-        }
+        $this->purgeManualQdrantCollection($oldCleanedJsonPath, $oldFilePath, $existingManual->application);
 
         ProcessManualPipeline::dispatch($existingManual->id)->afterCommit();
+    }
 
-        return response()->json([
-            'success' => true,
-            'message' => 'PDF fusionné avec succès, réindexation en cours',
-            'manual'  => $existingManual->fresh('application'),
-        ]);
+    /**
+     * Supprime physiquement (Qdrant + JSON) l'ancienne collection d'un manuel,
+     * MÊME si le nom de collection recalculé après modif/fusion sera identique.
+     * Sans ça, le backend Python peut considérer la collection "déjà indexée"
+     * et sauter la réindexation.
+     *
+     * IMPORTANT : on purge à la fois le nom recalculé depuis le fichier PDF
+     * ET application->qdrant_collection (la collection RÉELLEMENT interrogée
+     * par le chat). Ces deux noms peuvent différer si le backend Python a
+     * résolu la collection avec un préfixe différent lors de l'indexation
+     * initiale — sans cette double purge, on peut supprimer une collection
+     * "fantôme" tout en laissant intacte celle que le chatbot interroge
+     * réellement, qui continue alors de répondre avec l'ancien contenu.
+     *
+     * On remet aussi qdrant_collection à null : tant que le pipeline n'a pas
+     * terminé la réindexation et re-résolu une collection, le chat doit
+     * considérer l'application comme "pas encore indexée" plutôt que
+     * d'interroger une collection supprimée ou obsolète.
+     */
+    private function purgeManualQdrantCollection(?string $cleanedJsonPath, ?string $fallbackPdfFileName, ?Application $application = null): void
+    {
+        $collectionsToDelete = [];
+
+        $fromCleanedPath = $cleanedJsonPath ? $this->collectionNameFromCleanedPath($cleanedJsonPath) : null;
+        if ($fromCleanedPath) {
+            $collectionsToDelete[] = $fromCleanedPath;
+        }
+
+        // Pas de JSON nettoyé (ex: précédent traitement en échec) → on retombe
+        // sur le nom théorique calculé depuis le PDF actuel.
+        if (!$fromCleanedPath && $fallbackPdfFileName) {
+            $baseName = pathinfo($fallbackPdfFileName, PATHINFO_FILENAME);
+            $collectionsToDelete[] = $baseName . '_2levels_cleaned';
+        }
+
+        if ($application && !empty($application->qdrant_collection)) {
+            $collectionsToDelete[] = $application->qdrant_collection;
+        }
+
+        $collectionsToDelete = array_unique(array_filter($collectionsToDelete));
+
+        foreach ($collectionsToDelete as $collection) {
+            // Tentative de suppression "propre" via l'API REST de Qdrant.
+            $this->deleteQdrantCollection($collection);
+
+            // CRITIQUE : le DELETE HTTP ci-dessus peut échouer silencieusement
+            // (service indisponible, timeout, comportement du DELETE live sur
+            // certaines configs Qdrant embarquées...) — deleteQdrantCollection()
+            // avale l'erreur et se contente d'un warning en log. Si on s'arrête
+            // là, la collection reste physiquement présente sur disque + dans
+            // meta.json, et le backend Python la retrouve comme "déjà indexée"
+            // lors de la réindexation, qui devient alors un no-op silencieux.
+            //
+            // On purge donc TOUJOURS aussi les données physiques (dossier de
+            // collection + entrée meta.json), exactement comme le fait déjà
+            // destroyApplication() pour la FAQ. C'est cette purge physique qui
+            // garantit que le prochain indexInQdrant() reparte de zéro.
+            $this->deleteQdrantCollectionData($collection);
+        }
+
+        if ($cleanedJsonPath) {
+            $this->deleteJsonFiles($cleanedJsonPath);
+        } elseif ($fallbackPdfFileName) {
+            $this->deleteJsonFilesByPdfName($fallbackPdfFileName);
+        }
+
+        if ($application) {
+            $application->update(['qdrant_collection' => null]);
+        }
     }
 
     public function showManual(int $id): JsonResponse
@@ -661,6 +772,8 @@ class AdminController extends Controller
             'version'                   => ['nullable', 'string', 'max:20'],
             'follows_internal_template' => ['required', 'boolean'],
             'file'                      => ['nullable', 'file', 'mimes:pdf', "max:{$maxKb}"],
+            'conflict_resolution'       => ['nullable', 'in:complementary,contradictory'],
+            'existing_manual_id'        => ['nullable', 'integer', 'exists:manuals,id'],
         ]);
 
         $appName     = trim($request->input('app_name'));
@@ -682,39 +795,180 @@ class AdminController extends Controller
             }
         }
 
+        $newName                 = trim($request->input('name'));
+        $version                 = $this->normalizeManualVersion($request->input('version', $manual->version));
         $followsInternalTemplate = filter_var($request->input('follows_internal_template'), FILTER_VALIDATE_BOOLEAN);
+        $resolution              = $request->input('conflict_resolution');
 
-        $updateData = [
-            'name'                      => $request->input('name'),
-            'application_id'            => $application->id,
-            'version'                   => $request->input('version', $manual->version),
-            'follows_internal_template' => $followsInternalTemplate,
-        ];
+        $currentVersion = $this->normalizeManualVersion($manual->version);
+        $versionChanged = strtolower($currentVersion) !== strtolower($version);
 
-        if ($request->hasFile('file')) {
-            if ($manual->cleaned_json_path) {
-                $oldCollection = $this->collectionNameFromCleanedPath($manual->cleaned_json_path);
-                if ($oldCollection) {
-                    $this->deleteQdrantCollection($oldCollection);
-                }
-                $this->deleteJsonFiles($manual->cleaned_json_path);
-            }
+        // ── Conflit "même version" avec un AUTRE manuel : toujours bloquant ──
+        $sameVersionManual = Manual::where('application_id', $application->id)
+            ->where('id', '!=', $manual->id)
+            ->whereRaw("LOWER(COALESCE(version, '1.0')) = ?", [strtolower($version)])
+            ->first();
 
-            $this->deleteManualPdf($manual->file_path);
-            $fileName = $this->buildPdfFileName($request->input('name'));
-            $this->storeManualPdf($request, $fileName);
-
-            $updateData['file_path']         = $fileName;
-            $updateData['status']            = 'processing';
-            $updateData['processing_error']  = null;
-            $updateData['cleaned_json_path'] = null;
-
-            ProcessManualPipeline::dispatch($manual->id);
+        if ($sameVersionManual) {
+            return response()->json([
+                'success'  => false,
+                'conflict' => 'same_version',
+                'app_name' => $application->name,
+                'version'  => $version,
+                'message'  => "L'application '{$application->name}' avec la version '{$version}' existe déjà.",
+            ], 409);
         }
 
-        $manual->update($updateData);
+        // ── Changement de version : nécessite un nouveau PDF, ET le choix
+        // complémentaire/contradictoire (exactement comme à l'ajout) ────────
+        if ($versionChanged) {
+            if (!$request->hasFile('file')) {
+                return response()->json([
+                    'success' => false,
+                    'message' => "Pour changer la version, vous devez fournir un nouveau fichier PDF.",
+                ], 422);
+            }
+
+            if (!$resolution) {
+                return response()->json([
+                    'success'            => false,
+                    'exists'             => true,
+                    'conflict'           => 'diff_version',
+                    'app_name'           => $application->name,
+                    'existing_version'   => $currentVersion,
+                    'existing_manual_id' => $manual->id,
+                    'message'            => 'La version a changé. Choisissez complémentaire ou contradictoire.',
+                ], 409);
+            }
+
+            // ── Complémentaire : fusion sur LE MÊME manuel, purge forcée de
+            // l'ancienne collection Qdrant, réindexation.
+            if ($resolution === 'complementary') {
+                $targetManualId = $request->input('existing_manual_id');
+                $targetManual   = $targetManualId ? Manual::find($targetManualId) : $manual;
+
+                if (!$targetManual) {
+                    return response()->json(['success' => false, 'message' => 'Manuel existant non trouvé.'], 404);
+                }
+
+                try {
+                    $this->mergeAndUpdateManualPdf($targetManual, $request->file('file'), $version, $followsInternalTemplate);
+                } catch (\RuntimeException $e) {
+                    return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+                }
+
+                if ($targetManual->name !== $newName || $targetManual->application_id !== $application->id) {
+                    $targetManual->update(['name' => $newName, 'application_id' => $application->id]);
+                }
+
+                return response()->json(['success' => true, 'message' => 'PDF fusionné avec succès, réindexation en cours']);
+            }
+
+            // ── Contradictoire : doit créer une NOUVELLE application/manuel
+            // séparément (comme à l'ajout), sans toucher au manuel existant.
+            // Le frontend doit passer par une requête de CRÉATION (POST) pour
+            // ce cas, pas par cette route d'édition.
+            if ($resolution === 'contradictory') {
+                return response()->json([
+                    'success' => false,
+                    'message' => "La résolution 'contradictoire' doit passer par la création d'un nouveau manuel (pas l'édition).",
+                ], 422);
+            }
+        }
+
+// ── Nouveau PDF fourni, MAIS même version (remplacement en place) ──
+        if ($request->hasFile('file')) {
+            // On purge TOUJOURS l'ancienne collection Qdrant (+ celle
+            // réellement active sur l'application), même si le nom recalculé
+            // sera identique — le contenu doit être entièrement réécrit,
+            // pas "sauté" parce qu'une collection du même nom existe déjà.
+            $this->purgeManualQdrantCollection($manual->cleaned_json_path, $manual->file_path, $application);
+
+            $this->deleteManualPdf($manual->file_path);
+            $fileName = $this->buildPdfFileName($newName);
+            $this->storeManualPdf($request, $fileName);
+
+            $manual->update([
+                'name'                      => $newName,
+                'application_id'            => $application->id,
+                'version'                   => $version,
+                'follows_internal_template' => $followsInternalTemplate,
+                'file_path'                 => $fileName,
+                'status'                    => 'processing',
+                'processing_error'          => null,
+                'cleaned_json_path'         => null,
+            ]);
+            ProcessManualPipeline::dispatch($manual->id);
+
+            return response()->json(['success' => true]);
+        }
+
+        // ── Aucun nouveau fichier : seules les métadonnées ont pu changer.
+        // Si le NOM affiché a changé, le fichier PDF physique doit être
+        // renommé (le nom de collection Qdrant en dépend), donc on renomme
+        // sur disque et on relance l'indexation sous le nouveau nom.
+        if ($manual->name !== $newName) {
+            try {
+                $this->renameManualFile($manual, $newName);
+            } catch (\RuntimeException $e) {
+                return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+            }
+
+            $manual->update([
+                'application_id'            => $application->id,
+                'version'                   => $version,
+                'follows_internal_template' => $followsInternalTemplate,
+            ]);
+
+            return response()->json(['success' => true, 'message' => 'Manuel renommé, réindexation en cours']);
+        }
+
+        // Rien de structurel n'a changé : mise à jour simple.
+        $manual->update([
+            'application_id'            => $application->id,
+            'version'                   => $version,
+            'follows_internal_template' => $followsInternalTemplate,
+        ]);
 
         return response()->json(['success' => true]);
+    }
+
+    /**
+     * Renomme le PDF physique d'un manuel suite à un changement de son nom
+     * affiché (sans nouveau fichier ni changement de version). Le nom de la
+     * collection Qdrant étant dérivé du nom de fichier PDF, on purge
+     * l'ancienne collection et on relance le pipeline pour réindexer sous
+     * le nouveau nom.
+     */
+    private function renameManualFile(Manual $manual, string $newName): void
+    {
+        $manualsDir = $this->getManualsDir();
+        $oldPath    = $this->absolutePath($manual->file_path, $manualsDir);
+
+        if (!is_file($oldPath)) {
+            throw new \RuntimeException('Fichier PDF du manuel introuvable.');
+        }
+
+        $newFileName = $this->buildPdfFileName($newName);
+        $newPath     = $manualsDir . '/' . $newFileName;
+
+        if (!@rename($oldPath, $newPath)) {
+            throw new \RuntimeException("Impossible de renommer le fichier PDF.");
+        }
+
+        // Purge l'ancienne collection Qdrant + anciens JSON (dérivés de
+        // l'ancien nom de fichier), avant de repartir sur le nouveau nom.
+        $this->purgeManualQdrantCollection($manual->cleaned_json_path, $manual->file_path, $manual->application);
+
+        $manual->update([
+            'name'              => $newName,
+            'file_path'         => $newFileName,
+            'status'            => 'processing',
+            'processing_error'  => null,
+            'cleaned_json_path' => null,
+        ]);
+
+        ProcessManualPipeline::dispatch($manual->id);
     }
 
     public function destroyManual(int $id): JsonResponse
@@ -961,13 +1215,42 @@ class AdminController extends Controller
 
         Log::info('[FAQ Update] Fichier local mis à jour', ['file' => $faqFile, 'item_count' => $imported]);
 
-        ProcessFaqPipeline::dispatch('sync');
+        // On récupère la collection RÉELLEMENT active pour cette application
+        // (celle interrogée par le chat), pas un slug théorique.
+        $collection = $this->resolveActiveCollection($application);
+
+        // Comme pour faqUpload/chatValidate : on pousse la réindexation
+        // directement et SYNCHRONEMENT au backend Python, plutôt que de
+        // compter uniquement sur un job générique 'sync' qui ne sait pas
+        // forcément qu'il doit retraiter CETTE collection précise.
+        $backendUrl = rtrim((string) config('services.backend.url', 'http://127.0.0.1:8000'), '/');
+        try {
+            $client   = new \GuzzleHttp\Client(['timeout' => 120]);
+            $response = $client->post(
+                $backendUrl . '/api/faq/index',
+                ['json' => ['collection' => $collection, 'items' => $dbItems]]
+            );
+            $data           = json_decode((string) $response->getBody(), true);
+            $realCollection = $data['collection'] ?? $collection;
+            if ($application->qdrant_collection !== $realCollection) {
+                $application->update(['qdrant_collection' => $realCollection]);
+            }
+            $collection = $realCollection;
+
+            Log::info('[FAQ Update] Réindexation backend OK', [
+                'app_id'     => $application->id,
+                'collection' => $collection,
+            ]);
+        } catch (\Throwable $e) {
+            Log::warning('[FAQ Update] Backend inaccessible, dispatch job sync', ['error' => $e->getMessage()]);
+            ProcessFaqPipeline::dispatch('sync');
+        }
 
         return response()->json([
             'success'    => true,
             'item_count' => $imported,
             'slug'       => $slug,
-            'collection' => $application->qdrant_collection ?? $slug,
+            'collection' => $collection,
         ]);
     }
 
