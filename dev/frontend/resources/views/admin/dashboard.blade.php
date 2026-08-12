@@ -1312,6 +1312,9 @@
                         if (this.editingManualId) {
                             checkUrl += '&exclude_manual_id=' + encodeURIComponent(this.editingManualId);
                         }
+                        if (hf) {
+                            checkUrl += '&has_file=1';
+                        }
 
                         fetch(checkUrl, {
                             headers: { 'X-Requested-With': 'XMLHttpRequest' }
@@ -1360,30 +1363,18 @@
                                             </p>
                                         </div>
                                     </div>
-                                    <div class="space-y-2 mb-5">
-                                        <button id="complementaryChoice_${modalId}" class="w-full text-left px-4 py-3 rounded-xl border hover:border-orange-500 transition-colors" style="border-color:#e5e7eb">
-                                            <div class="flex items-center gap-3">
-                                                <span class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
-                                                    <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-                                                </span>
-                                                <div>
-                                                    <p class="text-sm font-semibold" style="color:#1a1a2e">📄 Complémentaire</p>
-                                                    <p class="text-xs" style="color:#6b7280">Fusionner ce PDF à la fin du manuel existant (même application, réindexation)</p>
-                                                </div>
-                                            </div>
-                                        </button>
-                                        <button id="contradictoryChoice_${modalId}" class="w-full text-left px-4 py-3 rounded-xl border hover:border-orange-500 transition-colors" style="border-color:#e5e7eb">
-                                            <div class="flex items-center gap-3">
-                                                <span class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
-                                                    <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
-                                                </span>
-                                                <div>
-                                                    <p class="text-sm font-semibold" style="color:#1a1a2e">🆕 Nouvelle version indépendante</p>
-                                                    <p class="text-xs" style="color:#6b7280">Conserver l'ancien manuel, créer un nouveau avec un nom différent (à modifier dans le champ Nom d'application)</p>
-                                                </div>
-                                            </div>
-                                        </button>
-                                    </div>
+
+
+                                <div class="space-y-2 mb-5">
+                                    <button id="complementaryChoice_${modalId}" class="w-full text-left px-4 py-3 rounded-xl border hover:border-orange-500 transition-colors" style="border-color:#e5e7eb">
+                                        <p class="text-sm font-semibold" style="color:#1a1a2e">📄 Complémentaire</p>
+                                        <p class="text-xs" style="color:#6b7280">Fusionner ce PDF à la fin du manuel existant (réindexation)</p>
+                                    </button>
+                                    <button id="contradictoryChoice_${modalId}" class="w-full text-left px-4 py-3 rounded-xl border hover:border-orange-500 transition-colors" style="border-color:#e5e7eb">
+                                        <p class="text-sm font-semibold" style="color:#1a1a2e">🆕 Nouvelle version indépendante</p>
+                                        <p class="text-xs" style="color:#6b7280">Conserver l'ancien, créer un nouveau avec un nom différent</p>
+                                    </button>
+                                </div>
                                     <div class="flex justify-end gap-2">
                                         <button id="cancelConflict_${modalId}" class="px-4 py-2 rounded-xl text-sm border text-gray-600 hover:bg-gray-50" style="border-color:#d1d5db">Annuler</button>
                                     </div>

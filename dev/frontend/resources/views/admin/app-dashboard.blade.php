@@ -867,6 +867,9 @@
                     if (this.editingManualId) {
                         checkUrl += '&exclude_manual_id=' + encodeURIComponent(this.editingManualId);
                     }
+                    if (hf) {
+                        checkUrl += '&has_file=1';
+                    }
 
                     fetch(checkUrl, {
                         headers: { 'X-Requested-With': 'XMLHttpRequest' }

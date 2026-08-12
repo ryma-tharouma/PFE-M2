@@ -155,7 +155,7 @@ class RAGManager:
         else:
             print(f"   ℹ️  Dossier FAQ introuvable: {EXTRACT_FAQ_DIR}")
 
-    def _index_collection(self, name: str, sections: list):
+    def _index_collection(self, name: str, sections: list, force_recreate: bool = False):
         """Crée et indexe une collection Qdrant depuis zéro."""
         chunker    = Chunker(self.config)
         chunks     = chunker.process_sections(sections)
@@ -164,6 +164,8 @@ class RAGManager:
         texts      = [c["embed_text"] for c in chunks]
         embeddings = self.embedder.encode(texts)
         records    = [{"id": c["id"], "dense": vec, "payload": c.copy()} for c, vec in zip(chunks, embeddings)]
+        if force_recreate and self.vector_db.collection_exists(name):
+            self.vector_db.drop_collection(name)
         if not self.vector_db.collection_exists(name):
             self.vector_db.create_collection(name=name, dim=1024)
         self.vector_db.upsert(name=name, records=records)
@@ -349,6 +351,7 @@ async def websocket_chat(websocket: WebSocket):
     user_id              = init.get("user_id", "anonymous")
     message              = (init.get("message") or "").strip()
     requested_collection = init.get("collection", "")
+    collection_version   = str(init.get("collection_version") or "")
     max_turns            = int(init.get("max_turns", 1))
 
     if not message:
@@ -381,7 +384,8 @@ async def websocket_chat(websocket: WebSocket):
 
     def run_assistant():
         try:
-            session_id = f"{user_id}:{collection}:session"
+            version_suffix = f":{collection_version}" if collection_version else ""
+            session_id = f"{user_id}:{collection}{version_suffix}:session"
             rag_manager.assistant.config.setdefault("assistant", {})["max_turns"] = max_turns
             for item in rag_manager.assistant.chat(
                 session_id=session_id,
@@ -455,6 +459,7 @@ async def api_index(request: Request):
 
     json_path  = (data.get("json_path")  or "").strip()
     collection = (data.get("collection") or "").strip()
+    force_reindex = bool(data.get("force_reindex", False)) or bool(data.get("force", False))
 
     if not json_path or not collection:
         return JSONResponse(status_code=400, content={"error": "json_path et collection requis"})
@@ -482,11 +487,11 @@ async def api_index(request: Request):
         if not isinstance(sections, list):
             return JSONResponse(status_code=422, content={"error": "Format JSON inattendu (pas une liste)"})
 
-        if rag_manager.vector_db.collection_exists(collection):
+        if rag_manager.vector_db.collection_exists(collection) and not force_reindex:
             return {"success": True, "collection": collection, "status": "already_exists"}
 
         loop = asyncio.get_event_loop()
-        await loop.run_in_executor(None, rag_manager._index_collection, collection, sections)
+        await loop.run_in_executor(None, rag_manager._index_collection, collection, sections, force_reindex)
 
         return {"success": True, "collection": collection, "status": "indexed"}
 
@@ -838,6 +843,23 @@ async def api_delete_collection(collection_name: str):
         loop = asyncio.get_event_loop()
         await loop.run_in_executor(None, rag_manager.vector_db.delete_collection, collection_name)
         return {"success": True, "collection": collection_name, "status": "deleted"}
+    except Exception as e:
+        import traceback; traceback.print_exc()
+        return JSONResponse(status_code=500, content={"error": str(e)})
+
+
+@app.post("/api/admin/reload")
+async def api_admin_reload():
+    """Force la réinitialisation du RAG manager (recharge configuration,
+    réinitialise le vector_db et l'assistant). Utilisé après suppression
+    physique d'une collection pour s'assurer que le backend ne conserve
+    pas d'état obsolète en mémoire.
+    """
+    try:
+        loop = asyncio.get_event_loop()
+        # Re-initialize synchronously in executor to avoid blocking event loop
+        result = await loop.run_in_executor(None, rag_manager.initialize)
+        return {"success": bool(result)}
     except Exception as e:
         import traceback; traceback.print_exc()
         return JSONResponse(status_code=500, content={"error": str(e)})

@@ -127,12 +127,18 @@ class ChatController extends Controller
                 ], 422);
             }
 
-            // ── Retrouver le manual_id depuis la collection ─────────────
+            // ── Retrouver le manual_id le plus récent pour cette application ─
+            // Le "first()" pouvait renvoyer un ancien manuel indexé et garder
+            // une conversation attachée à un historique obsolète.
             $manual = Manual::where('application_id', $appId)
                 ->whereNotNull('cleaned_json_path')
                 ->where('status', 'indexed')
+                ->orderByDesc('updated_at')
+                ->orderByDesc('id')
                 ->first();
             $manualId = $manual?->id;
+
+            $collectionVersion = $app->updated_at?->timestamp ?? time();
 
             $conversation = $this->resolveConversation($userId, $appId, $convId, $manualId);
 
@@ -158,6 +164,7 @@ class ChatController extends Controller
                 'success'         => true,
                 'conversation_id' => $conversation->id,
                 'collection'      => $collection,       // ← nom exact Qdrant
+                'collection_version' => (string) $collectionVersion,
                 'user_id'         => (string) $userId,
                 'ws_url'          => config('services.chatbot.ws_url', 'ws://127.0.0.1:8000/ws/chat'),
                 'asked_at'        => $askedAt->toDateTimeString(),

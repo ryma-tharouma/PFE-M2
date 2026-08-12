@@ -431,13 +431,19 @@ class AdminController extends Controller
             ]);
         }
 
-        // ── Cas ÉDITION : on compare à la version ACTUELLE du manuel qu'on
-        // édite lui-même (pas à un autre manuel). C'est ce qui manquait :
-        // avec un seul manuel par app, l'exclure de la recherche faisait
-        // qu'aucun conflit n'était jamais détecté en changeant sa version.
+// ── Cas ÉDITION ──────────────────────────────────────────────
+        // Changer uniquement la version (métadonnée, sans nouveau fichier)
+        // est autorisé sans conflit : updateManual() se contente alors de
+        // mettre à jour le champ, sans toucher au contenu indexé.
+        //
+        // En revanche, si un NOUVEAU FICHIER accompagne ce changement de
+        // version, il faut détecter le conflit pour proposer le choix
+        // complémentaire/contradictoire — sinon updateManual() renverrait un
+        // 409 que le frontend ne saurait pas transformer en modal de choix.
         if ($excludeManualId) {
             $editedManual = Manual::find($excludeManualId);
-            if ($editedManual && $editedManual->application_id === $application->id) {
+
+            if ($request->boolean('has_file') && $editedManual && $editedManual->application_id === $application->id) {
                 $currentVersion = $this->normalizeManualVersion($editedManual->version);
                 if (strtolower($currentVersion) !== strtolower($version)) {
                     return response()->json([
@@ -449,6 +455,7 @@ class AdminController extends Controller
                     ]);
                 }
             }
+
             return response()->json(['exists' => false]);
         }
 
@@ -747,6 +754,17 @@ class AdminController extends Controller
 
         if ($application) {
             $application->update(['qdrant_collection' => null]);
+            // Demander au backend Python de se réinitialiser / recharger ses
+            // collections pour éviter qu'il continue d'interroger une
+            // collection supprimée (cas où Qdrant côté Python garde un état).
+            try {
+                $backendUrl = rtrim((string) config('services.backend.url', 'http://127.0.0.1:8000'), '/');
+                $client     = new \GuzzleHttp\Client(['timeout' => 10]);
+                $resp       = $client->post($backendUrl . '/api/admin/reload');
+                Log::info('[AdminController] Backend reload demandé', ['status' => $resp->getStatusCode()]);
+            } catch (\Throwable $e) {
+                Log::warning('[AdminController] Impossible de demander reload au backend', ['error' => $e->getMessage()]);
+            }
         }
     }
 
@@ -819,16 +837,9 @@ class AdminController extends Controller
             ], 409);
         }
 
-        // ── Changement de version : nécessite un nouveau PDF, ET le choix
+        // ── Changement de version avec nouveau PDF : nécessite le choix
         // complémentaire/contradictoire (exactement comme à l'ajout) ────────
-        if ($versionChanged) {
-            if (!$request->hasFile('file')) {
-                return response()->json([
-                    'success' => false,
-                    'message' => "Pour changer la version, vous devez fournir un nouveau fichier PDF.",
-                ], 422);
-            }
-
+        if ($versionChanged && $request->hasFile('file')) {
             if (!$resolution) {
                 return response()->json([
                     'success'            => false,
@@ -898,7 +909,7 @@ class AdminController extends Controller
                 'processing_error'          => null,
                 'cleaned_json_path'         => null,
             ]);
-            ProcessManualPipeline::dispatch($manual->id);
+            ProcessManualPipeline::dispatch($manual->id, true);
 
             return response()->json(['success' => true]);
         }
@@ -923,14 +934,23 @@ class AdminController extends Controller
             return response()->json(['success' => true, 'message' => 'Manuel renommé, réindexation en cours']);
         }
 
-        // Rien de structurel n'a changé : mise à jour simple.
+// Rien de structurel n'a changé (pas de nouveau PDF, nom identique) :
+        // seules des métadonnées ont pu changer (version, application liée,
+        // template). Aucune réindexation n'est nécessaire ici puisque le
+        // contenu du PDF n'a pas bougé — message adapté pour ne pas afficher
+        // à tort "réindexation en cours".
         $manual->update([
             'application_id'            => $application->id,
             'version'                   => $version,
             'follows_internal_template' => $followsInternalTemplate,
         ]);
 
-        return response()->json(['success' => true]);
+        return response()->json([
+            'success' => true,
+            'message' => $versionChanged
+                ? 'Version du manuel mise à jour avec succès.'
+                : 'Manuel mis à jour avec succès.',
+        ]);
     }
 
     /**

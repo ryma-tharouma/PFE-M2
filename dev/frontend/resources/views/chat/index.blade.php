@@ -661,6 +661,7 @@
                             wsUrl:      initData.ws_url,
                             userId:     initData.user_id,
                             collection: initData.collection,   // ← nom exact Qdrant depuis Laravel
+                            collectionVersion: initData.collection_version || '',
                             message:    text,
                             botMsgId,
                         });
@@ -722,14 +723,14 @@
                     }
                 },
 
-                streamDirect({ wsUrl, userId, collection, message, botMsgId }) {
+                streamDirect({ wsUrl, userId, collection, collectionVersion = '', message, botMsgId }) {
                     return new Promise((resolve, reject) => {
                         let rawText = '', sources = [], done = false;
 
                         const ws = new WebSocket(wsUrl);
 
                         ws.onopen = () => {
-                            ws.send(JSON.stringify({ user_id: userId, message, collection, max_turns: 1 }));
+                            ws.send(JSON.stringify({ user_id: userId, message, collection, collection_version: collectionVersion, max_turns: 1 }));
                         };
 
                         ws.onmessage = ({ data }) => {

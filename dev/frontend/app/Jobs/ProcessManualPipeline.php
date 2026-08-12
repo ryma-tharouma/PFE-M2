@@ -20,7 +20,10 @@ class ProcessManualPipeline implements ShouldQueue
     public int $timeout = 1800;
     public int $tries   = 1;
 
-    public function __construct(private readonly int $manualId) {}
+    public function __construct(
+        private readonly int $manualId,
+        private readonly bool $forceReindex = false
+    ) {}
 
     public function handle(): void
     {
@@ -70,6 +73,7 @@ class ProcessManualPipeline implements ShouldQueue
             'json_raw'   => $jsonRaw,
             'json_clean' => $jsonClean,
             'collection' => $collectionName,
+            'force_reindex' => $this->forceReindex,
         ]);
 
         // ══════════════════════════════════════════════════════════════
@@ -158,7 +162,7 @@ class ProcessManualPipeline implements ShouldQueue
             'api'        => $apiUrl,
         ]);
 
-        $indexed = $this->indexInQdrant($apiUrl, $jsonClean, $collectionName, $manual);
+        $indexed = $this->indexInQdrant($apiUrl, $jsonClean, $collectionName, $manual, $this->forceReindex);
 
         if (!$indexed) {
             return; // markFailed déjà appelé dans indexInQdrant
@@ -191,12 +195,14 @@ class ProcessManualPipeline implements ShouldQueue
         string $apiUrl,
         string $jsonCleanPath,
         string $collectionName,
-        Manual $manual
+        Manual $manual,
+        bool $forceReindex = false
     ): bool {
         $endpoint = $apiUrl . '/api/index';
         $payload  = json_encode([
             'json_path'  => $jsonCleanPath,
             'collection' => $collectionName,
+            'force_reindex' => $forceReindex,
         ]);
 
         $maxAttempts = 3;
